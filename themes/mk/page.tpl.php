@@ -10,21 +10,29 @@
 		        	</div>
 		        </div>
 			<?php endif; ?>
-			<div class="contacts hidden-xs col-sm-18 col-lg-12 col-lg-offset-4">
+			<div class="contacts hidden-xs col-sm-18 col-lg-19">
 				<div class="row">
-					<div class="emails col-xs-16 col-lg-16">
+					<div class="graphs col-xs-16 col-lg-14">
+						<div class="titl">гипермаркет </div>
+						<div class="titl">cтроительных материалов </div>
+						<div class="graph animated"><span>ПН-ПТ: 9.00 - 19.00 (без перерыва)</span></div>						
+						
+
+					</div>
+					<span class="line-1"></span>
+					<div class="emails col-xs-16 col-lg-11">
 						<div class="email animated"><span>9485571</span>@mail.ru</div>
 						<div class="email animated col-xs-offset-3 col-lg-offset-3"><span>4927025</span>@mail.ru</div>
 					</div>
-					<span class="line"></span>
-					<div class="phones col-xs-20 col-lg-20">
+					<span class="line-2"></span>
+					<div class="phones col-xs-20 col-lg-11">
 						<div class="phone"><span>8 (499)</span>492-70-25</div>
 						<div class="phone col-xs-offset-3 col-lg-offset-3"><span>8 (926)</span>609-41-61</div>
 						<div class="phone col-xs-offset-6 col-lg-offset-6"><span>8 (926)</span>959-99-25</div>
 					</div>
 				</div>
 			</div>
-			<div class="cart col-xs-18 col-sm-9 col-lg-8 col-lg-offset-4">
+			<div class="cart col-xs-18 col-sm-9 col-lg-8 col-lg-offset-1">
 				<?php echo views_embed_view('commerce_cart_block', 'default'); ?>
 			</div>
 		</div>

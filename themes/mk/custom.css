@@ -335,13 +335,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 /* START CONTACTS BLOCK header */
 
 .contacts{position:relative;margin-top:-1px;}
-.contacts span.line{position:absolute;left:46%;top:0;width:1px;height:82px;background:#ddd;-webkit-transform:rotate(-34deg);-moz-transform:rotate(-34deg);}
+.contacts span.line-1,.contacts span.line-2{position:absolute;top:0;width:1px;height:82px;background:#ddd;-webkit-transform:rotate(-34deg);-moz-transform:rotate(-34deg);}
+.contacts span.line-2 {left:68%;}
+.contacts span.line-1 {left:38%;}
 .contacts .emails{margin:14px 0 0 0;}
+.contacts .graphs {font-size:0.857em;padding-top: 0.5em;}
+.contacts .graphs .titl {text-transform: uppercase;padding-top: 0.1em;}
+.contacts .graph {color:#d041c6;background:url(i/icon-tik-tak.png) 0 50% no-repeat;padding-left: 1.3em;margin: 0.4em 0 0 1em;line-height:1.8em;}
 .contacts .emails .email{color:#5F5E5E;font-size:18px;font-family:Arial;}
 .contacts .emails .email span{color:#AD31AE;}
 .contacts .phones .phone{color:#5F5E5E;font-size:18px;font-family:Arial;}
 .contacts .phones .phone span{color:#AD31AE;font-size:11px;margin:0 4px 0 0;font-weight:bold;}
 
+.contacts .graph:hover, 
 .contacts .phone:hover, 
 .contacts .email:hover {
 	-webkit-animation: tada;
