@@ -1,0 +1,10 @@
+.mail_sent {margin: 0 auto;width: 600px;}
+
+.mail_sent .logo {float: left;width: 100%;background:#B32121;min-height: 50px;text-align: center;}
+.mail_sent .logo .logo_in {background: #fff url('/sites/all/themes/mk/i/logo.png') center center no-repeat;width: 165px;height: 70px;padding: 10px;margin: -25px auto 0;}
+
+.mail_sent .wrap {float: left;width: 100%;border: 8px solid #343434;background: #fefefe;padding: 20px;-webkit-border-radius: 10px;border-radius: 10px;}
+.mail_sent .logo a {float: left;width: 100%;}
+.mail_sent .logo img{float: left;width: 100%;}
+.mail_sent .table_order {float: left;width: 100%;margin: 20px 0 0 0;}
+

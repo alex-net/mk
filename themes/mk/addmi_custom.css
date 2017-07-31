@@ -1,0 +1,118 @@
+/**
+* Блок с подкатегориями
+*/
+#block-addmi-catalog-children-terms {
+
+}
+#block-addmi-catalog-children-terms * {
+    box-sizing: padding-box;
+}
+#block-addmi-catalog-children-terms .content {
+
+}
+#block-addmi-catalog-children-terms  .col {}
+#block-addmi-catalog-children-terms .block_row { -webkit-border-radius: 5px 5px 0 0;
+            border-radius: 5px 5px 0 0;
+    float: left;
+    width: 222px;
+    margin-right: 8px;
+    margin-bottom: 17px;
+    margin-left: 0;
+    box-shadow: 0 0 5px #a3a3a3;
+    position: relative;
+}
+
+#block-addmi-catalog-children-terms .block_row:nth-child(4n){
+    margin-right: 0;
+}
+#block-addmi-catalog-children-terms .block_row:nth-child(4n+1){
+    clear: both;
+}
+
+#block-addmi-catalog-children-terms .wrap-title .title {
+    background-color: #3b3a3a;
+    background-image: url(i/categories_bg.png);
+    background-repeat: no-repeat;
+    background-position: -124px -340px;
+    -webkit-border-radius: 5px 5px 0 0;
+            border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    text-shadow: 1px 1.732px 2px rgba(0, 0, 0, 0.91);
+    color: #fff;
+    display: table-cell;
+    height: 44px;
+    line-height: 16px;
+    vertical-align: middle;
+    width: 222px;
+    padding-right: 30px;
+    padding-left: 10px;
+    position: relative;
+}
+#block-addmi-catalog-children-terms .block_row:hover .title {
+    background-color: #ce37bf;
+}
+#block-addmi-catalog-children-terms .has-children {
+    width: 15px;
+    height: 14px;
+    background:  url(i/categories_arrow.png) 0 0 no-repeat;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -6px;
+}
+#block-addmi-catalog-children-terms .wrap-children {
+    position: absolute;
+    display: none;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 44px;
+    background-color: #ce37bf;
+    background-image: url(i/categories_bg.png);
+    background-repeat: no-repeat;
+    background-position: -124px -382px;
+}
+#block-addmi-catalog-children-terms .block_row:hover .wrap-children {
+    display: block;
+}
+#block-addmi-catalog-children-terms .children {
+    background-color: #ce37bf;
+    background-image: url(i/categories_bg.png);
+    background-repeat: no-repeat;
+    background-position: -124px -382px;
+}
+#block-addmi-catalog-children-terms .children:before {
+    content: "";
+    height: 1px;
+    display: block;
+    margin: 0 5px;
+    background-color: #fff;
+}
+#block-addmi-catalog-children-terms .wrap-children ul {
+    padding: 5px 0;
+}
+#block-addmi-catalog-children-terms .wrap-children li {
+    margin: 0;
+}
+#block-addmi-catalog-children-terms .wrap-children li a {
+    color: #fff;
+    font-size: 16px;
+    padding: 4px 11px;
+    display: block;
+    text-decoration: none;
+}
+#block-addmi-catalog-children-terms .wrap-children li a:hover {
+    background-color: #474646;
+}
+#block-addmi-catalog-children-terms .field-name-field-pic-category {
+    padding: 4px 3px;
+    background-color: #eeeeec;
+}
+#block-addmi-catalog-children-terms .field-name-field-pic-category .field-item {
+    border: 1px solid #ecebeb;
+}
+
+@media (max-width:490px){
+    #block-addmi-catalog-children-terms .col {width: 100%;text-align: center;float: none;}
+    #block-addmi-catalog-children-terms .col .block_row {display: inline-block;text-align: left;float: none;}
+}

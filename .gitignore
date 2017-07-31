@@ -1,0 +1,5 @@
+/translations
+/libraries
+/themes/*
+!/themes/mk
+/modules

@@ -1,0 +1,23 @@
+name = МегаКровля
+package = Core
+version = 2.0
+core = 7.x
+
+stylesheets[all][] = css/flexslider.css
+stylesheets[all][] = css/bootstrap-theme.css
+stylesheets[all][] = css/bootstrap.css
+stylesheets[mail][] = mail.css
+stylesheets[all][] = custom.css
+stylesheets[all][] = addmi_custom.css
+
+
+scripts[] = js/jquery.viewportchecker.js
+scripts[] = js/jquery.flexslider-min.js
+scripts[] = js/jquery.maskedinput.min.js
+scripts[] = js/jquery.matchHeight-min.js
+scripts[] = custom.js
+
+regions[main_menu] = Главное меню
+regions[sidebar] = Сайдбар
+regions[content] = Content
+regions[duplicate_main_menu] = Копия главного меню
