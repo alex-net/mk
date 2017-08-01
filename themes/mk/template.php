@@ -41,6 +41,8 @@
 			unset($css[drupal_get_path('module','node').'/node.css']);
 			unset($css[drupal_get_path('module','field').'/theme/field.css']);
 			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);
+			$css['sites/all/themes/mk/custom.css']['preprocess']=false;
+			//dsm($css);
 	}
 
 	function mk_html_head_alter(&$head_elements) {
@@ -77,3 +79,8 @@
 } 
 
 */
+
+// ============================================================
+//function mk_breadcrumb($b){
+//	return 'sad › ';
+//}

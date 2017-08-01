@@ -656,11 +656,11 @@ body.page-search #block-system-main form.search-form label {/* display: none; */
 /* --------- */
 
 .about_node .quastions{border-bottom:0 none;}
-.about_node .quastions h3{font-size:30px;font-weight:normal;text-transform:uppercase;}
-.about_node .quastions h3 .color{color:#CE37BF;}
+.about_node .quastions h3{font-size:24px;font-weight:normal;/*text-transform:uppercase;*/}
+.about_node .quastions h3 .color{/*color:#CE37BF;*/font-weight: bold;}
 .about_node .quastions h3 i{font-size:20px;color:#605F5F;font-style:italic;text-transform:none;}
 .about_node .quastions .logo_info{margin-top:50px;}
-.about_node .quastions .logo_info .info p{line-height:14px;}
+.about_node .quastions .logo_info .info p{line-height:1.2em;}
 .about_node .quastions .logo_info .info .top .emails p{font-size:18px;color:#000;}
 .about_node .quastions .logo_info .info .top .phones p{font-size:20px;color:#000;}
 .about_node .quastions .logo_info .info .top .phones p.red{color:#B32121;}
@@ -668,6 +668,16 @@ body.page-search #block-system-main form.search-form label {/* display: none; */
 .about_node .quastions .logo_info .info .bot .address p{color:#000;font-size:14px;line-height:7px;}
 .about_node .quastions .logo_info .info .bot .time_work p{color:#000;font-size:14px;line-height:7px;}
 
+.about_node .quastions img {width:auto;margin: 0 auto;}
+.about_node .quastions .info .row.top {padding-top: 2em;}
+.about_node .quastions .info .row.top:nth-child(2){padding-top: 6em;}
+.about_node .quastions .info .phones {padding-left:5em;padding-top:0.5em;background:url(i/icon_about_truba.png) 1.5em 0 no-repeat;}
+.about_node .quastions .info .emails {padding-left:5em;background:url(i/icon_about_mail.png) 1.5em 0 no-repeat;}
+.about_node .quastions .info a {color:black;}
+.about_node .quastions .logo {font-size:1.57em;text-align: center;}
+.about_node .quastions .logo .url {color:#b32121;line-height: 1em;}
+.about_node .quastions .logo .graph  {padding-top: 1em;line-height: 1em;color:#ab31ac;font-size:0.82em;}
+.about_node .quastions .logo .graph .tik-tak {background:url(i/icon-tik-tak.png) 0 100% no-repeat;width:1em;display: inline-block;height: 1em;}
 /* END ABOUT PAGE */
 
 
@@ -842,7 +852,7 @@ body.page-search #block-system-main form.search-form label {/* display: none; */
 
 
 
-h1{color:#600061;font-size:20px;font-weight:normal;text-transform:uppercase;margin:0;padding:12px 0 10px;}
+h1{color:#600061;font-size:20px;font-weight:normal;/*text-transform:uppercase;*/margin:0;padding:12px 0 10px;}
 /* .page_title:hover{padding-left:0;padding-right:0;position:relative;background:#C1BFBF;}
 .page_title:hover h1{background:#C1BFBF;color:#fff;cursor:pointer;padding-left:10px;padding-right:10px;}
 .page_title.fixed .for_fix{position:fixed;top:0;z-index:200;} 
@@ -865,6 +875,8 @@ h1{color:#600061;font-size:20px;font-weight:normal;text-transform:uppercase;marg
 #main_menu select option:first-child{display:none;}
 .breadcrumb{text-overflow:ellipsis;white-space:nowrap;overflow:hidden;margin:10px 0 0 0;}
 .breadcrumb a{font-size:13px;color:#020202;}
+.breadcrumb .first a {color:#898989;}
+.breadcrumb span.delimiter:nth-child(3) {color:#898989;}
 .breadcrumb.clickable{text-overflow:inherit;white-space:inherit;overflow:inherit;width:100%;}
 .breadcrumb.clickable .delimiter{display:none;}
 .breadcrumb.clickable .inline{display:block;width:100%;}
