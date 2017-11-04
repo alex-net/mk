@@ -6,16 +6,25 @@ core = 7.x
 stylesheets[all][] = css/flexslider.css
 stylesheets[all][] = css/bootstrap-theme.css
 stylesheets[all][] = css/bootstrap.css
-stylesheets[mail][] = mail.css
+;stylesheets[mail][] = mail.css
+stylesheets[all][] = js/slick/slick.css
+stylesheets[all][] = js/slick/slick-theme.css
+stylesheets[all][] = js/pt/css/jquery.powertip.min.css
+stylesheets[all][] = js/pt/css/jquery.powertip-light.css
 stylesheets[all][] = custom.css
 stylesheets[all][] = addmi_custom.css
 
 
+
+
+scripts[]=js/mk-rating.js
 scripts[] = js/jquery.viewportchecker.js
 scripts[] = js/jquery.flexslider-min.js
 scripts[] = js/jquery.maskedinput.min.js
 scripts[] = js/jquery.matchHeight-min.js
+scripts[] = js/pt/jquery.powertip.min.js
 scripts[] = custom.js
+scripts[] = js/slick/slick.min.js
 
 regions[main_menu] = Главное меню
 regions[sidebar] = Сайдбар
