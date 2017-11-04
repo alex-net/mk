@@ -1,0 +1,355 @@
+<?php 
+module_load_include('inc','mkmod','mkmod.forms');
+module_load_include('inc','mkmod','mkmod.blocks');
+module_load_include('inc','mkmod','mkmod.tokens');
+module_load_include('inc','mkmod','mkmod.callbacks');
+module_load_include('inc','mkmod','mkmod.formatters');
+function mkmod_library(){
+	$p=drupal_get_path('module','mkmod');
+	return array(
+		'fb'=>array(
+			'title'=>'fancybox',
+			'website'=>'http://fancyapps.com/fancybox/',
+			'version'=>'2.1.7',
+			'js'=>array(
+				array('data'=>$p.'/fb/jquery.fancybox.pack.js','type'=>'file'),
+			),
+			'css'=>array(
+				array('data'=>$p.'/fb/jquery.fancybox.css','type'=>'file'),
+			),
+		),
+		'myajaxcommands'=>array(
+			'title'=>'Мои команды',
+			'webite'=>'',
+			'version'=>'',
+			'js'=>array(
+				array('data'=>$p.'/myajaxcommands.js','type'=>'file'),
+			),
+			'dependencies'=>array(
+				array('system','drupal.ajax'),
+				array('mkmod','fb'),
+
+			),
+		),
+	);
+}
+//=======================================================
+function mkmod_preprocess_page(&$p){
+	drupal_add_library('mkmod','myajaxcommands');
+	node_tokens_replacer($p);
+}
+// =================================================
+function mkmod_permission(){
+	return array(
+		'admine pages'=>array(
+			'title'=>'Админко',
+		),
+		'skladlist editor'=>array(
+			'title'=>'Управнение складами',
+		),
+	);
+}
+// =======================================================
+
+// =======================================================
+function mkmod_menu(){
+	return array(
+		'get-node-in-popup/%node'=>array(
+			'type'=>MENU_CALLBACK,
+			'page callback'=>'_get_node_in_popup_cb',
+			'page arguments'=>array(1),
+			'access callback'=>'node_access',
+			'access arguments'=>array('view',1),
+			'delivery callback'=>'ajax_deliver',
+		),
+		'get-form-in-popup'=>array(
+			'type'=>MENU_CALLBACK,
+			'page callback'=>'_get_form_in_popup_cb',
+			'page arguments'=>array(1),
+			'access arguments'=>array('access content'),
+			'delivery callback'=>'ajax_deliver',
+		),
+		'get-comments-list'=>array(
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>array('access comments'),
+			'page callback'=>'_get_comments_list_cb',
+			'delivery callback'=>'ajax_deliver',
+		),
+		'admin/config/administration/mkmod'=>array(
+			'title'=>'Админко',
+			'access arguments'=>array('admine pages'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('mkmodadmin_form'),
+			'file'=>'mkmod.admin.inc',
+		),
+		'admin/config/administration/mkmod/common'=>array(
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+			'title'=>'Быстрый заказ + отзывы',
+		),
+		'admin/config/administration/mkmod/otziv'=>array(
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'Рулим отзывами',
+			'access arguments'=>array('admine pages'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('mkmod_otzivs_form'),
+			'file'=>'mkmod.admin.inc',
+		),
+			
+		/// admine pages
+		'admin/config/administration/sklads'=>array(
+			'title'=>'Уравление складами',
+			'access arguments'=>array('skladlist editor'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('skladconfig_form'),
+			'file'=>'mkmod.admin.inc',
+		),
+		'bestsellers'=>array(
+			'title'=>'Топ продаж',
+			'access arguments'=>array('access content'),
+			'page callback'=>'_bestsellers_cb',
+		),
+	);
+}
+
+/// ====================================================
+function _getcomentcontent($mkcc){
+	global $pager_page_array;
+	$n=node_load($mkcc['nid']);
+	$pp=$mkcc['pp'];
+	$cps=empty($mkcc['cps'])?array(0):$mkcc['cps'];// текущие страницы
+	$cp=end($cps);
+
+	$res=db_select('comment','c');
+	$res->fields('c',array('cid'));
+	$res->condition('c.nid',$n->nid);
+	if (!user_access('administer comments'))
+		$res->condition('c.status',1);
+	$cids=$res->execute()->fetchCol();
+	
+	if (count($cids)>$pp && count($cps)*$pp<count($cids)){
+		pager_default_initialize(count($cids),$pp);
+		$pager_page_array[0]=$cp;
+		$tags=array($cp==1?'noshow':'1','','','',);
+		$tags[]=$cp+2==ceil(count($cids)/$pp)?'noshow':ceil(count($cids)/$pp);
+
+		$pager=theme('pager',array('tags'=>$tags,'quantity'=>3));
+		$pager=preg_replace('#<li.*?><a.*?>noshow</a></li>#i','',$pager);
+		$out['pager']=array(
+			'#type'=>'container',
+			'#attributes'=>array('class'=>array('comment-list-pager','container-inline')),
+			'nextbut'=>array(
+				'#markup'=>'<div class="next-comment-butt">Показать ещё</div>',
+			),
+			'pager'=>array('#markup'=>$pager),
+			'#weight'=>20,
+		);
+	}
+	$cidsmas=array();
+	foreach($cps as $x)
+		$cidsmas=array_merge($cidsmas,array_slice($cids, $x*$pp,$pp));
+	$out['comment-list']=comment_view_multiple(comment_load_multiple($cidsmas),$n);
+	foreach(element_children($out['comment-list']) as $x)
+  		unset($out['comment-list'][$x]['#prefix']);
+  	
+
+	return $out;
+
+}
+// =========================================================
+// достать рнужное количество хитов прожаж
+function _gethitprodag($count){
+	$cid=__FUNCTION__.$count;
+	$data=cache_get($cid);
+	if (!empty($data->data) && $data->expire>=REQUEST_TIME)
+		return $data->data;
+	
+	$res=db_select('node','n');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	// исключаем метки 
+	$res->leftjoin('field_data_field_marks_products','mark','mark.entity_id=n.nid and mark.bundle=n.type');
+	$res->isNull('mark.field_marks_products_tid');
+	// надо исключить акции 
+	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
+	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
+	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
+	$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2');
+	// надо взять всетовары которые купили .. .
+	$res->leftjoin('field_data_commerce_product','cp','cp.commerce_product_product_id=p.product_id');
+	$res->leftjoin('commerce_line_item','li','li.line_item_id=cp.entity_id');
+	// примотать таблицу ордеров ..
+	$res->leftjoin('commerce_order','o','o.order_id=li.order_id');
+	$st=module_invoke('commerce_order','statuses');
+	
+	foreach($st as $x=>$y)
+		if ($y['cart'])
+			unset($st[$x]);
+	unset($st['canceled']);
+	
+	if ($st)
+		$res->condition('o.status',array_keys($st));// куленый и оплаченный 
+
+	$res->fields('n',array('nid'));
+	
+	$res->orderBy('o.created','desc');
+	$res->range(0,$count);
+	$res->groupBy('n.nid');
+	$res=$res->execute()->fetchCol();
+	cache_set($cid,$res,'cache',REQUEST_TIME+3600*24);
+	return $res; 
+}
+// =====================================================
+function node_tokens_replacer(&$el){
+	foreach(array('#markup','#prefix','#suffix') as $k)
+		if (is_array($el) && !empty($el[$k]))
+			$el[$k]=token_replace($el[$k]);
+	if (is_string($el))
+		$el=token_replace($el);
+	if (is_array($el))
+		foreach(element_children($el) as $k)
+			node_tokens_replacer($el[$k]);
+}
+// =======================================================
+function mkmod_preprocess_node(&$n){
+
+	if (!empty($n['elements']['#setpagetotrue']))
+		$n['page']=true;
+	if (preg_match('#^node/(\d+)$#',current_path(),$nod) && $nod[1]==$n['nid'])
+		drupal_add_js(array('current-noda'=>$n['nid']),'setting');
+	// замена токенов 
+	if (!empty($n['content']))
+		node_tokens_replacer($n['content']);
+}
+// ============================================
+function mkmod_form_alter(&$form,&$form_state){
+	if (empty($form_state['fselector']))
+		$form_state['fselector']='form-hash-'.sha1(rand().REQUEST_TIME.rand());
+	$form['#attributes']['class'][]=$form_state['fselector'];
+
+}
+// =====================================================================================
+function mkmod_node_view($node, $view_mode, $langcode) {
+	if ($view_mode=='full' && $node->type=='product_display'){
+		// ранее просморенные товары
+		$nids=explode(',',empty($_COOKIE['prods-view'])?'':$_COOKIE['prods-view']);
+		foreach($nids as $x=>$y)
+			if ($node->nid==$y || empty($y)) // надо удалить ранее просмотренный товар 
+				unset($nids[$x]);
+	
+		if ($nids){
+			$nn=node_view_multiple(node_load_multiple(array_reverse($nids)));
+			foreach(element_children($nn['nodes']) as $k){
+				$nn['nodes'][$k]['#prefix']='<div class="wrap">';
+				$nn['nodes'][$k]['#suffix']='</div>';
+			}
+			//dsm($nn);
+			$nn['#prefix']='<div class="field-items">';
+			$nn['#suffix']='</div>';
+			
+			$node->content['prod-viewed']=array(
+				'#type'=>'container',
+				'#attributes'=>array('class'=>array('prod-viewed','field-type-node-reference')),
+				'titl'=>array(
+					'#prefix'=>'<div class="field-label">',
+					'#suffix'=>'</div>',
+					'#markup'=>'Ранее просмотренные товары',
+				),
+				'list'=>$nn,
+
+
+			);
+		}
+		
+
+		$nids[]=$node->nid;
+		foreach($nids as $x=>$y)
+			if(!$y)
+				unset($nids[$x]);
+
+		setcookie('prods-view',implode(',', $nids),REQUEST_TIME+3600*24*30);
+	}
+}
+// ====================================================
+function mkmod_theme(){
+	return array(
+		'skladmapballoon'=>array(
+			'variables'=>array(
+				'title'=>'Заголовок склада',
+				'subname'=>'',// текст под заголовкам
+				'timepn'=>'',// время работы понедельник пятница
+				'vihi'=>'',// выходные 
+				'descr'=>'', // доп инфа 
+			),
+			'template'=>'skladmapballoon',
+		),
+		'topprodaglist'=>array(
+			'render element'=>'list',
+			'template'=>'topprodaglist',
+			'preprocess functions'=>array('topprodaglist_prefunc'),
+			'file'=>'mkmod.themes.inc',
+		),
+	);
+}
+// =====================================================
+// чистим таблицу кеша форм
+function mkmod_flush_caches(){
+	return array('cache_form');
+}
+// ========================================================
+// передаём в обёртку коментов число коментов на страницу
+function mkmod_preprocess_comment_wrapper(&$vars){
+	$fd=variable_get('mkmodadmin_form',array());
+	if(!empty($fd['otsivs-count']))
+		$vars['cc']=$fd['otsivs-count'];
+}
+// ===================================================
+function mkmod_form_comment_node_product_display_form_alter(&$form,&$form_state){
+	$form['actions']['submit']['#ajax']=array(
+		'callback'=>'mkmodonsivajax_jscb',
+	);
+	unset($form_state['input']);
+	//dsm($form_state['comment']);
+	$fd=variable_get('mkmodadmin_form',array());
+	$form_state['cc']=$fd['otsivs-count'];
+}
+
+// ==========================================================
+function mkmodonsivajax_jscb($form,$form_state){
+	$cmd=array();
+	//$cmd[]=ajax_command_alert('das');
+	// заменяем форму
+	$form['mess']=array(
+		'#theme'=>'status_messages',
+		'#weigt'=>-3,
+	);
+	
+	
+	// обновить форму . 
+	
+	if (form_get_errors())  // если ошибоки еcnm надо обновить форму
+		$cmd[]=ajax_command_replace('.form-selector-'.$form_state['fkey'],render($form));
+	else{
+		// чистить кеш меню
+		cache_clear_all('admin_menu:','cache_menu',true);
+		$cmd[]=ajax_command_replace('.form-selector-'.$form_state['fkey'],render($form['mess']));
+		$cmd[]=array('command'=>'fancy-update');
+	}
+	
+	// обновить списки коментов 
+	/*$cc=array(
+		'comment-wrap'=>array(
+			'#type'=>'container',
+			'#attributes'=>array(
+				'class'=>array('comments-wrap'),
+			),
+		),
+	);
+	$cc['comment-wrap']=array_merge($cc['comment-wrap'],_getcomentcontent(array(
+		'nid'=>$form_state['comment']->nid,
+		'pp'=>$form_state['cc'],
+	)));
+	$cmd[]=ajax_command_replace('.comments-wrap',render($cc));*/
+	// 
+	return array('#type'=>'ajax','#commands'=>$cmd);
+}
+?>

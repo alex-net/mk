@@ -1,0 +1,29 @@
+<?php 
+
+/// ==========================================
+function _updatefields($ids,$tbl,$fields){
+	// получить данные
+	$res=db_select($tbl,'t',array('target'=>'prod'));
+	$res->condition('t.entity_id',$ids);
+	$fields[]='entity_id';
+	$res->fields('t',$fields);
+	$data=$res->execute()->fetchAllAssoc('entity_id',PDO::FETCH_ASSOC);
+	foreach($data as $x=>$y){
+		$res=db_update($tbl);
+		$res->condition('entity_id',$x);
+		$res->fields($y);
+		$res->execute();
+	}
+}
+// ===================================================
+function _getprodids($vitrid){
+	$ids=array();
+	// достать вязанные товары 
+	$res=db_select('node','n',array('target'=>'prod'));
+	$res->condition('n.nid',$vitrid);
+	$res->leftjoin('field_data_field_product_variations','fp','fp.entity_id=n.nid and fp.bundle=n.type');
+	$res->addField('fp','field_product_variations_product_id','prid');
+	return $res->execute()->fetchCol();
+}
+
+?>

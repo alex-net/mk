@@ -2,4 +2,5 @@
 /libraries
 /themes/*
 !/themes/mk
-/modules
+/modules/*
+!/modules/addons

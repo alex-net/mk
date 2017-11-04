@@ -1,0 +1,30 @@
+<?php 
+function nodeweight_schema(){
+	return array(
+		'nodeweight'=>array(
+			'description'=>'Таблица весов нод',
+			'fields'=>array(
+				'nid'=>array(
+					'type'=>'int',
+					'unsigned'=>true,
+					'not null'=>true,
+				),
+				'tid'=>array(
+					'type'=>'int',
+					'unsigned'=>true,
+					'not null'=>true,
+				),
+				'weight'=>array(
+					'type'=>'int',
+					'default'=>0,
+					'not null'=>true,
+				),
+			),
+			'primary key'=>array('nid','tid'),
+			'indexes'=>array(
+				'weight'=>array('weight')
+			),
+		),
+	);
+}
+?>

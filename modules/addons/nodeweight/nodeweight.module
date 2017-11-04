@@ -1,0 +1,95 @@
+<?php 
+function nodeweight_permission(){
+	return array(
+		'node per taxonomy item set weight'=>array(
+			'title'=>'Устаносить вес нод в таксономии',
+		),
+	);
+}
+// =============================================
+function nodeweight_menu(){
+	return array(
+		'taxonomy/term/%taxonomy_term/node-weight'=>array(
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'Вес нод',
+			'access arguments'=>array('node per taxonomy item set weight'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('nodesetweight_form',2),
+			'file'=>'nodeweight.forms.inc',
+			'theme callback'=>'nodesetweightthemename_cb',
+		),
+	);
+}
+// ==================================================
+function nodeweight_custom_theme(){
+	global $theme;
+	if (preg_match('#^taxonomy/term/\d+/node-weight$#i',current_path()))
+		return variable_get('admin_theme',$theme);
+}
+
+// =================================================
+function nodeweight_theme(){
+	return array(
+		'formtable'=>array(
+			'render element'=>'rows',
+		),
+	);
+}
+// ====================================
+function theme_formtable($vars){
+	$rows=array();
+	foreach(element_children($vars['rows']) as $v){
+		$row=array('class'=>array('draggable'));
+		foreach(array_keys($vars['rows']['#header']) as $x){
+			if (!empty($vars['rows'][$v][$x]['#is-weight']))
+				$vars['rows'][$v][$x]['#attributes']['class'][]='is-weight';
+			$row['data'][]=array('data'=>render($vars['rows'][$v][$x]));
+		}
+		$rows[]=$row;
+	}
+	drupal_add_tabledrag('nw-sorter','order','sibling','is-weight');
+	return theme('table',array(
+		'header'=>$vars['rows']['#header'],
+		'empty'=>'Нет элементов',
+		'rows'=>$rows,
+		'attributes'=>array(
+			'id'=>'nw-sorter',
+		),
+	));
+}
+// ===========================================
+function nodeweight_query_alter(&$q){
+
+	if (preg_match('#taxonomy/term/(\d+)#',current_path(),$tid) && $q->hasTag('node_access')){
+		// пристыковать таблицу веса
+		$tid=end($tid);
+		
+
+		
+		$ff=$q->getFields();
+		
+		$tt=array();
+		foreach($q->getTables() as $t)
+			// базовая таблица ... taxonomy_index  .. с сортировкой 
+			if ($t['table']=='taxonomy_index' && !isset($t['join type']) && $ob=&$q->getOrderBy()){
+				// привинчиваем табдицу с весами 
+				$q->leftjoin('nodeweight','nw','nw.tid='.$t['alias'].'.tid and nw.nid='.$t['alias'].'.nid');
+				// добавляем алиас таблицы к фильтрации 
+				$cond=&$q->conditions();
+				$cond[0]['field']='t.tid';
+				// указываем по чём сортировать надо 
+				$ob=array('nw.weight'=>'asc');
+		}
+		
+
+		if (!empty($ff['nid']) && !$q->getOrderBy()){
+			//$q->leftjoin('nodeweight','nw','nw.nid='.$ff['nid']['table'].'.'.$ff['nid']['field'].' and nw.tid='.$tid);
+			//$q->orderBy('nw.weight','asc');
+		}
+		
+		//dsm($q->fields);
+
+	}
+		
+}
+?>
