@@ -141,7 +141,7 @@
 					autoplay:true
 				});
 				$('#block-mkmod-akcii-slider-block .flex-direction-nav span').on('click',function(){
-					console.log(this);
+					//console.log(this);
 					if ($(this).hasClass('flex-prev'))
 						s.slick('slickPrev');
 					if ($(this).hasClass('flex-next'))

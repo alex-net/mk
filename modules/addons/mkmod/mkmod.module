@@ -161,8 +161,9 @@ function _getcomentcontent($mkcc){
 function _getactionprodag(){
 	// пробуем читать из кеша 
 	$data=cache_get(__FUNCTION__);
-	if (!empty($data->data) && $data->expire>REQUEST_TIME)
-		return $data->data;
+	//if (!empty($data->data) && $data->expire>REQUEST_TIME)
+	//	return $data->data;
+
 	
 	$res=db_select('node','n');
 	$res->condition('n.status',1);
@@ -171,7 +172,7 @@ function _getactionprodag(){
 	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
 	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
 	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	$res->where(' now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2');
+	$res->where(' now() between adate.field_discount_from_date_value and (adate.field_discount_from_date_value2 +  interval 1 day)');
 	// выкатываем интервал акции (с по)
 	$res->addfield('adate','field_discount_from_date_value','afrom');
 	$res->addfield('adate','field_discount_from_date_value2','ato');
@@ -205,6 +206,7 @@ function _getactionprodag(){
 	$res->addField('td','name','measure');
 	$res->range(0,100);
 	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
+	dsm($res,'$res');
 	cache_set(__FUNCTION__,$res,'cache',REQUEST_TIME+3600*24);
 	return $res;
 }
