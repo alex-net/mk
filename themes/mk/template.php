@@ -49,7 +49,7 @@
 		);
 	}
 	function mk_css_alter(&$css) {
-			/*unset($css[drupal_get_path('module','system').'/system.theme.css']);
+			unset($css[drupal_get_path('module','system').'/system.theme.css']);
 			unset($css[drupal_get_path('module','system').'/system.base.css']);
 			unset($css[drupal_get_path('module','system').'/system.menus.css']);
 			unset($css[drupal_get_path('module','system').'/system.messages.css']);
@@ -57,7 +57,7 @@
 			unset($css[drupal_get_path('module','search').'/search.css']);
 			unset($css[drupal_get_path('module','node').'/node.css']);
 			unset($css[drupal_get_path('module','field').'/theme/field.css']);
-			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);*/
+			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);
 			$css['sites/all/themes/mk/custom.css']['preprocess']=false;
 			//dsm($css);
 	}

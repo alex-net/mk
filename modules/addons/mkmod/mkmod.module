@@ -161,8 +161,8 @@ function _getcomentcontent($mkcc){
 function _getactionprodag(){
 	// пробуем читать из кеша 
 	$data=cache_get(__FUNCTION__);
-	//if (!empty($data->data) && $data->expire>REQUEST_TIME)
-	//	return $data->data;
+	if (!empty($data->data) && $data->expire>REQUEST_TIME)
+		return $data->data;
 
 	
 	$res=db_select('node','n');
@@ -206,7 +206,7 @@ function _getactionprodag(){
 	$res->addField('td','name','measure');
 	$res->range(0,100);
 	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
-	dsm($res,'$res');
+	//dsm($res,'$res');
 	cache_set(__FUNCTION__,$res,'cache',REQUEST_TIME+3600*24);
 	return $res;
 }
