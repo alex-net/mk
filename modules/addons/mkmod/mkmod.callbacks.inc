@@ -112,4 +112,22 @@ function _bestsellers_cb(){
 	}
 	return $out;
 }
+//=======================================================
+function _akciilist_page_cb(){
+	$out=array();
+	$els=_getactionprodag();
+	if ($els){
+		$out['ins']=array(
+			'#markup'=>'Предлагаем Вашему вниманию наши акционные товары ',
+		);
+		$ns=node_view_multiple(node_load_multiple(array_keys($els)));
+		$ns=$ns['nodes'];
+		$ns['#type']='container';
+		$ns['#attributes']=array('class'=>array('cls'));
+		$out['prodsist']=$ns;
+				
+	}
+
+	return $out;
+}
 ?>

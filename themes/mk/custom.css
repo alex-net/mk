@@ -2123,3 +2123,5 @@ img.img-responsive {width: 100%;}
 
 .for_catalog_menu .menu li {list-style: none outside none;}
 tbody {border:none;}
+
+.page-discounts #block-system-main > .content {padding: 0 10px;}

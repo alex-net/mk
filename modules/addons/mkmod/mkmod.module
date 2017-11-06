@@ -109,6 +109,12 @@ function mkmod_menu(){
 			'access arguments'=>array('access content'),
 			'page callback'=>'_bestsellers_cb',
 		),
+		'discounts'=>array(
+			'title'=>'Акции',
+			'access arguments'=>array('access content'),
+			'page callback'=>'_akciilist_page_cb',
+			'file'=>'mkmod.callbacks.inc',
+		),
 	);
 }
 
