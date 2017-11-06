@@ -1,4 +1,54 @@
 <?php 
+// ====================================================
+function mkmod_theme(){
+	return array(
+		'skladmapballoon'=>array(
+			'variables'=>array(
+				'title'=>'Заголовок склада',
+				'subname'=>'',// текст под заголовкам
+				'timepn'=>'',// время работы понедельник пятница
+				'vihi'=>'',// выходные 
+				'descr'=>'', // доп инфа 
+			),
+			'template'=>'skladmapballoon',
+		),
+		'topprodaglist'=>array(
+			'render element'=>'list',
+			'template'=>'topprodaglist',
+			'preprocess functions'=>array('topprodaglist_prefunc'),
+			'file'=>'mkmod.themes.inc',
+		),
+		// большой слайдер с акциями ...(единичка)
+		'sliderbigel'=>array(
+			'variables'=>array(
+				'data'=>array(),
+			),
+			'template'=>'sliderbigel',
+		),
+		// мелкий слайдер на главной ( по 3 штуки ) сидит под большим и управляет большим . 		
+		'slidersmalel'=>array(
+			'variables'=>array(
+				'data'=>array(),
+			),
+			'template'=>'slidersmalel',
+		),
+		// слайдер акций .  в сайтбаре
+		'slidersidebarel'=>array(
+			'variables'=>array(
+				'data'=>array(),
+			),
+			'template'=>'slidersidebarel',
+		),
+		'catlistfromtel'=>array(
+			'variables'=>array(
+				'el'=>array(),
+			),
+			'template'=>'catlistfromtel',
+		),
+
+	);
+}
+// ======================================================
 function topprodaglist_prefunc(&$vars){
 	//dsm($vars['list']);
 	$res=db_select('node','n');

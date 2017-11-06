@@ -49,7 +49,7 @@
 		);
 	}
 	function mk_css_alter(&$css) {
-			unset($css[drupal_get_path('module','system').'/system.theme.css']);
+			/*unset($css[drupal_get_path('module','system').'/system.theme.css']);
 			unset($css[drupal_get_path('module','system').'/system.base.css']);
 			unset($css[drupal_get_path('module','system').'/system.menus.css']);
 			unset($css[drupal_get_path('module','system').'/system.messages.css']);
@@ -57,9 +57,13 @@
 			unset($css[drupal_get_path('module','search').'/search.css']);
 			unset($css[drupal_get_path('module','node').'/node.css']);
 			unset($css[drupal_get_path('module','field').'/theme/field.css']);
-			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);
+			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);*/
 			$css['sites/all/themes/mk/custom.css']['preprocess']=false;
 			//dsm($css);
+	}
+	// ----------------
+	function mk_js_alter(&$js){
+		$js['misc/jquery.js']['data']='http://code.jquery.com/jquery-1.8.3.min.js';
 	}
 
 	function mk_html_head_alter(&$head_elements) {
@@ -231,7 +235,9 @@ function mk_breadcrumb($b){
 			$b[]=$y;
 	
 	//http://mk.alex-net.pp.ua/articles
-	return implode(' - ',$b);
+	if ($b)
+		return '<div class="breadcrumb col-lg-36">'.implode(' - ',$b).'</div>';
+	return '';
 	//return 'sad › ';
 }
 // ==========================================================

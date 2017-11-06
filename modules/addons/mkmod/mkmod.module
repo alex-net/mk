@@ -4,6 +4,7 @@ module_load_include('inc','mkmod','mkmod.blocks');
 module_load_include('inc','mkmod','mkmod.tokens');
 module_load_include('inc','mkmod','mkmod.callbacks');
 module_load_include('inc','mkmod','mkmod.formatters');
+module_load_include('inc','mkmod','mkmod.themes');
 function mkmod_library(){
 	$p=drupal_get_path('module','mkmod');
 	return array(
@@ -156,7 +157,59 @@ function _getcomentcontent($mkcc){
 
 }
 // =========================================================
-// достать рнужное количество хитов прожаж
+// собрать акции 
+function _getactionprodag(){
+	// пробуем читать из кеша 
+	$data=cache_get(__FUNCTION__);
+	if (!empty($data->data) && $data->expire>REQUEST_TIME)
+		return $data->data;
+	
+	$res=db_select('node','n');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	// винтим товар //  и проверяем чтобы он был акционным
+	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
+	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
+	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
+	$res->where(' now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2');
+	// выкатываем интервал акции (с по)
+	$res->addfield('adate','field_discount_from_date_value','afrom');
+	$res->addfield('adate','field_discount_from_date_value2','ato');
+	// проверяем чтобы была старая цена
+	$res->leftjoin('field_data_field_old_price','oldp','oldp.entity_id=p.product_id and oldp.bundle=\'product\'');
+	$res->condition('oldp.field_old_price_amount',0,'>');
+	// собираем поля 
+	$res->fields('n',array('nid','title'));
+
+	$ff=array(
+		array('field_title_top','value','titletop'),
+		array('field_title_bot','value','titlebottom'),
+		array('field_pic_product','fid',''),
+	);
+	foreach($ff as $i=>$v){
+		$res->leftjoin('field_data_'.$v[0],"t$i","t$i.entity_id=n.nid and t$i.bundle=n.type and t$i.entity_type='node'");
+		if ($v[2])
+			$res->addField("t$i",$v[0].'_'.$v[1],$v[2]);
+	}
+	// добавляем ссыль на картинку товара 
+	$res->leftjoin('file_managed','fm','fm.fid=t2.field_pic_product_fid');
+	$res->fields('fm',array('uri'));
+	// дергаем старую цену 
+	$res->addField('oldp','field_old_price_amount','oldp');
+	// дёргаем новую цену 
+	$res->leftjoin('field_data_commerce_price','cp','cp.entity_id=p.product_id and cp.bundle=\'product\'');
+	$res->addField('cp','commerce_price_amount','cp');
+	// дёрнуть размерность 
+	$res->leftjoin('field_data_field_unit_measure','m','m.entity_id=p.product_id and m.bundle=\'product\'');
+	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
+	$res->addField('td','name','measure');
+	$res->range(0,100);
+	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
+	cache_set(__FUNCTION__,$res,'cache',REQUEST_TIME+3600*24);
+	return $res;
+}
+// =========================================================
+// достать нужное количество хитов прожаж
 function _gethitprodag($count){
 	$cid=__FUNCTION__.$count;
 	$data=cache_get($cid);
@@ -173,7 +226,8 @@ function _gethitprodag($count){
 	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
 	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
 	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2');
+	///$res->leftjoin('field_data_field_old_price','oldp','oldp.entity_id=p.product_id and oldp.bundle=\'product\'');
+	$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2 ');
 	// надо взять всетовары которые купили .. .
 	$res->leftjoin('field_data_commerce_product','cp','cp.commerce_product_product_id=p.product_id');
 	$res->leftjoin('commerce_line_item','li','li.line_item_id=cp.entity_id');
@@ -269,27 +323,7 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 		setcookie('prods-view',implode(',', $nids),REQUEST_TIME+3600*24*30);
 	}
 }
-// ====================================================
-function mkmod_theme(){
-	return array(
-		'skladmapballoon'=>array(
-			'variables'=>array(
-				'title'=>'Заголовок склада',
-				'subname'=>'',// текст под заголовкам
-				'timepn'=>'',// время работы понедельник пятница
-				'vihi'=>'',// выходные 
-				'descr'=>'', // доп инфа 
-			),
-			'template'=>'skladmapballoon',
-		),
-		'topprodaglist'=>array(
-			'render element'=>'list',
-			'template'=>'topprodaglist',
-			'preprocess functions'=>array('topprodaglist_prefunc'),
-			'file'=>'mkmod.themes.inc',
-		),
-	);
-}
+
 // =====================================================
 // чистим таблицу кеша форм
 function mkmod_flush_caches(){

@@ -79,7 +79,25 @@
 			</aside>
 			<div id="main_content" class="col-lg-28">
 				<?php print $messages; ?>
-				<?php if (drupal_is_front_page()) { ?>
+				<div class="row">
+					<?php print $breadcrumb; ?>
+					<?php print render($title_prefix); ?>
+					<?php if ($title): ?>
+							<div class="col-lg-36" id="page_title_wrap">
+								<h1 class="title" id="page-title">
+									<?php print $title; ?> <?php echo render($sku);?>
+								</h1>
+							</div>
+						<?php endif; ?>
+					<?php print render($title_suffix); ?>
+					<?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+					<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
+					<?php print render($page['content']); ?>
+				</div>
+
+
+
+				<?php if (drupal_is_front_page() && 0) { ?>
 					<div class="row slider_main_bg">
 						<div class="col-lg-36">
 							<div id="slider_main">
@@ -108,25 +126,11 @@
 							print render($block_content); 
 						?>
 					</div>
-				<?php } else { ?>
-					<div class="row">
-						<div class="breadcrumb col-lg-36"><?php print $breadcrumb; ?></div>
-						<?php print render($title_prefix); ?>
-						<?php if ($title): ?>
-								<div class="col-lg-36" id="page_title_wrap">
-									<h1 class="title" id="page-title">
-										<?php print $title; ?> <?php echo render($sku);?>
-									</h1>
-								</div>
-							<?php endif; ?>
-						<?php print render($title_suffix); ?>
-						<!-- <div><?php print $messages; ?></div> -->
-						<?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-						<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-						<?php print render($page['content']); ?>
-						
-					</div>
-				<?php }; ?>
+				<?php } ?>
+					
+
+
+
 			</div>
 		</div>
 		<div class="wrapupdown">

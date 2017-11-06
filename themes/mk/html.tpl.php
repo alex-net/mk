@@ -22,7 +22,7 @@
   <?php print $page_bottom; ?>
   <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
-    /*(function (d, w, c) {
+    (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
                 w.yaCounter14889307 = new Ya.Metrika({
@@ -46,9 +46,9 @@
         if (w.opera == "[object Opera]") {
             d.addEventListener("DOMContentLoaded", f, false);
         } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");*/
+    })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/14889307?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/14889307?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> 
 <!-- /Yandex.Metrika counter -->
 </body>
 </html>

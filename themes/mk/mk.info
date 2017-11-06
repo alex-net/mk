@@ -19,12 +19,13 @@ stylesheets[all][] = addmi_custom.css
 
 scripts[]=js/mk-rating.js
 scripts[] = js/jquery.viewportchecker.js
-scripts[] = js/jquery.flexslider-min.js
+;scripts[] = js/jquery.flexslider-min.js
 scripts[] = js/jquery.maskedinput.min.js
 scripts[] = js/jquery.matchHeight-min.js
-scripts[] = js/pt/jquery.powertip.min.js
-scripts[] = custom.js
+;scripts[] = js/pt/jquery.powertip.min.js
 scripts[] = js/slick/slick.min.js
+scripts[] = custom.js
+
 
 regions[main_menu] = Главное меню
 regions[sidebar] = Сайдбар
