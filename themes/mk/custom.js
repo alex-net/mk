@@ -120,7 +120,8 @@
 				$('.slider-discont-main .slider-main-big').slick({
 					arrows:false,
 					fade:true,
-					asNavFor:'.slider-discont-main .slider-main-small'
+					asNavFor:'.slider-discont-main .slider-main-small',
+					autoplay:true
 				});
 				ss.slick({
 					slidesToShow:3,
