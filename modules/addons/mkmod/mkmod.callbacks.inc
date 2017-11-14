@@ -116,10 +116,12 @@ function _bestsellers_cb(){
 function _akciilist_page_cb(){
 	$out=array();
 	$els=_getactionprodag();
+	$fd=variable_get('discounts config',array());
+
+	$out['ins']=array(
+		'#markup'=>$els?$fd['mess-on-page-exist']:$fd['mess-on-page-void'],
+	);
 	if ($els){
-		$out['ins']=array(
-			'#markup'=>'Предлагаем Вашему вниманию наши акционные товары ',
-		);
 		$ns=node_view_multiple(node_load_multiple(array_keys($els)));
 		$ns=$ns['nodes'];
 		$ns['#type']='container';

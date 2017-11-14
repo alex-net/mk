@@ -63,6 +63,10 @@ function mkmod_block_view($delta=''){
 		break;
 		case 'akcii-slider-block':
 			$els=_getactionprodag();
+			if (empty($els))
+				break;
+			$fd=variable_get('discounts config',array());
+			dsm($fd);
 			$out=array();
 			if (count($els)>1)
 				$out['nav']=array(
@@ -73,11 +77,12 @@ function mkmod_block_view($delta=''){
 					'prev'=>array('#markup'=>'<span class="flex-prev"></span>'),
 					'next'=>array('#markup'=>'<span class="flex-next"></span>'),
 				);
-			$out['head']=array(
-				'#markup'=>'Успейте купить по выгодным ценам!',
-				'#prefix'=>'<div class="b-header">',
-				'#suffix'=>'</div>',
-			);
+			if (!empty($fd['block-top-mess']))
+				$out['head']=array(
+					'#markup'=>$fd['block-top-mess'],
+					'#prefix'=>'<div class="b-header">',
+					'#suffix'=>'</div>',
+				);
 			$out['prod-list']=array(
 				'#type'=>'container',
 				'#attributes'=>array(

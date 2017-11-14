@@ -115,6 +115,20 @@ function mkmod_menu(){
 			'page callback'=>'_akciilist_page_cb',
 			'file'=>'mkmod.callbacks.inc',
 		),
+		'discounts/view'=>array(
+			'title'=>'Просмотр',
+			'weight'=>5,
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+		),
+		'discounts/config'=>array(
+			'title'=>'Настройки',
+			'weight'=>10,
+			'type'=>MENU_LOCAL_TASK,
+			'access arguments'=>array('admine pages'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('discounts_config_form'),
+			'file'=>'mkmod.admin.inc',
+		),
 	);
 }
 

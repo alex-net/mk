@@ -201,4 +201,41 @@ function mkmod_otzivs_form_submit($form,$form_state){
 	drupal_set_message('Выполнено');
 	//dsm($ot);
 }
+// =============================================================================
+// Настройка текстов акций 
+function discounts_config_form(){
+	$fd=variable_get('discounts config',array());
+	$form=array(
+		'actions'=>array(
+			'#type'=>'actions',
+			'submit'=>array(
+				'#type'=>'submit',
+				'#value'=>'Сохранить',
+			),
+		),
+		'block-top-mess'=>array(
+			'#type'=>'textfield',
+			'#default_value'=>empty($fd['block-top-mess'])?'':$fd['block-top-mess'],
+			'#title'=>'Надпись в блоке акций',
+		),
+		'mess-on-page-exist'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Надпись на странице акций (акции есть)',
+			'#default_value'=>empty($fd['mess-on-page-exist'])?'':$fd['mess-on-page-exist'],
+		),
+		'mess-on-page-void'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Надпись на странице акций (акций нет)',
+			'#default_value'=>empty($fd['mess-on-page-void'])?'':$fd['mess-on-page-void'],
+		),
+	);
+	return $form;
+}
+// ===============================================
+function discounts_config_form_submit($form,$form_state){
+	form_state_values_clean($form_state);
+	variable_set('discounts config',$form_state['values']);
+	drupal_set_message('Настройки сохранены');
+
+}
 ?>
