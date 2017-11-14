@@ -118,9 +118,10 @@ function _akciilist_page_cb(){
 	$els=_getactionprodag();
 	$fd=variable_get('discounts config',array());
 
-	$out['ins']=array(
-		'#markup'=>$els?$fd['mess-on-page-exist']:$fd['mess-on-page-void'],
-	);
+	if ($els &&  !empty($fd['mess-on-page-exist']) || !$els && !empty($fd['mess-on-page-void']))
+		$out['ins']=array(
+			'#markup'=>$els?$fd['mess-on-page-exist']:$fd['mess-on-page-void'],
+		);
 	if ($els){
 		$ns=node_view_multiple(node_load_multiple(array_keys($els)));
 		$ns=$ns['nodes'];
