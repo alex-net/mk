@@ -69,11 +69,28 @@
 				$(this).slick('unslick');	
 			});
 		}
+
+
 			
 	});
 
 	Drupal.behaviors.customAddmi = {
 		attach: function (context, settings) {
+
+
+			if (window.innerWidth<1024)
+			/// делаем подваьную менюшку адаптивной 
+				$('footer .block-menu').once(function(){
+					$(this).find('.content').on('click',function(){
+						var has=$(this).hasClass('vis');
+						$('footer .bottom .block-menu .content').removeClass('vis');
+						if (!has)
+							$(this).addClass('vis');
+
+					});
+				});
+			
+
 			$('body').on('submit','#views-form-all-variations-product-block',function(){
 				sum=0;
 				$(this).find('.form-text').each(function(){

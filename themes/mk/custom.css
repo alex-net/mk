@@ -1477,6 +1477,28 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
 }
 
 .cls {clear:both;}
+
+@media screen and (max-width: 1279px){
+   footer .bottom > div p {text-align: center;}
+}
+ @media screen and (max-width: 1023px){
+  footer .bottom .block-menu .content  {margin:0 auto;text-align: center;position: relative;transition: all 0.3s linear;}
+  footer .bottom .block-menu .content::before {content:"Меню";}
+  footer .bottom .block-menu.main-meu-footer .content::before {content:"Главное меню";}
+  footer .bottom .block-menu .content ul{display:none;position:absolute;bottom: 2.8em;;right: 0; width:20em;background:#464646;padding: 0;margin:0;}
+  footer .bottom .block-menu.main-meu-footer .content ul {bottom: 1.4em;}
+  footer .bottom .block-menu .content ul li {padding: 0.5em;list-style: none outside none;margin:0 0.3em;border-top: 1px solid #666666;}
+  footer .bottom .block-menu .content ul li a {display: block;}
+  footer .bottom .block-menu .content ul li:first-child {border:none;}
+  footer .bottom .block-menu .content ul li a {color:white;text-align: center;}
+  footer .bottom .block-menu .content.vis ul {display:block;}
+  footer .bottom .block-menu .content.vis {box-shadow:0 0 17px -6px  white inset;}
+}
+@media screen and (max-width: 320px){
+    footer .bottom .block-menu .content ul {width: 100%;}
+}
+
+
 @media (min-width:1024px){
 	.header{/* CART BLOCK */}
 	.header .logo_contacts_cart{padding:10px 0;}
@@ -1565,19 +1587,23 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
 	.breadcrumb .delimiter{display:inline-block!important;}
 	.breadcrumb .inline{display:inline-block!important;width:auto!important;}
 	.breadcrumb .inline a:after{content:""!important;}
-	footer{background:#2C2C2C;color:#FFF;}
-	footer #superfish-2{width:100%;display:table !important;margin:0;table-layout:fixed;padding:15px 0;border-bottom:1px solid #333;}
-	footer #superfish-2 li{display:table-cell;width:auto;text-align:center;float:none;}
-	footer #superfish-2 li a{color:#A7A7A7;font-size:16px;}
-	footer #superfish-2 li.active-trail a{text-decoration: underline;}
+  footer{background:#2C2C2C;color:#FFF;}
+  footer .bottom .content ul.menu {text-align: center;}
+  footer .bottom .content ul.menu li {display: inline-block;}
+  footer .bottom .content ul.menu li a {color:white;text-decoration:none;}
+  footer .bottom .block-menu .content ul {padding: 15px 0; border-bottom:1px solid #333;}
+  
+  footer .bottom .main-meu-footer .content ul{width:100%;display:table !important;margin:0;table-layout:fixed;padding:0  0 15px;border-bottom:1px solid #333;}
+  footer .bottom .main-meu-footer .content ul li{display:table-cell;width:auto;text-align:center;float:none;}
+  footer .bottom .main-meu-footer .content ul li a{color:#A7A7A7;font-size:16px;}
+  footer .bottom .main-meu-footer .content ul li.active-trail a{text-decoration: underline;}
 
-	footer .bottom{padding:15px 0;border-top:1px solid #242424;}
-	footer .bottom p{margin:0;}
-	footer .bottom .ooo{text-align:left;}
-	footer .bottom .copyright{text-align:right;}
-  @media screen and (max-width: 1279px){
-    footer .bottom > div p {text-align: center;}
-  }
+  footer .bottom{padding:15px 0;border-top:1px solid #242424;}
+  footer .bottom p{margin:0;}
+  footer .bottom .ooo{text-align:left;}
+  footer .bottom .copyright{text-align:right;}
+
+ 
 	#block-views-catalogterm-block{float:left;width:100%;}
 	ul{margin:0;padding:0;}
 	ul li{list-style:none;margin:0;}

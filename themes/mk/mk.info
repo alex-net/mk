@@ -31,3 +31,4 @@ regions[main_menu] = Главное меню
 regions[sidebar] = Сайдбар
 regions[content] = Content
 regions[duplicate_main_menu] = Копия главного меню
+regions[footer]=Подвал
