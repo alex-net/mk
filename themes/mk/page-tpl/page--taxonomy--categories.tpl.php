@@ -115,19 +115,6 @@
 </div>
 <footer class="full_width">
 	<div class="container-fluid text-center">
-		<div class="row top menu">
-			<?php print render($page['duplicate_main_menu']); ?>
-		</div>
-		<div class="row bottom">
-			<div class="ooo col-lg-12">
-				<p>ООО ГК «МегаКровля»</p>
-			</div>
-			<div class="figures col-lg-12">
-				<p>ИНН: 7717797576          ОГРН: 5147746240384</p>
-			</div>
-			<div class="copyright col-lg-12">
-				<p>&copy; <?php	$year = 2007; if (date('Y') > $year) {echo $year, " - ", date('Y');}else {echo $year, " г.";}?> МегаКровля. Все права защищены.</p>
-			</div>
-		</div>
+		<div class="row bottom"><?php echo render($page['footer']);?></div>
 	</div>
 </footer>
