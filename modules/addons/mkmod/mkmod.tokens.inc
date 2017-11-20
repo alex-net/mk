@@ -35,6 +35,10 @@ function mkmod_token_info(){
 					'name'=>'Карта складов',
 					'description'=>'Карта складов',
 				),
+				'curdate'=>array(
+					'name'=>'текущая дата с форматированием',
+					'description'=>'формат даты как у функции date()',
+				),
 			),
 			'block'=>array(
 				'view-content'=>array(
@@ -181,6 +185,9 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 						'sklads'=>$skladlist,
 					),'setting');
 				}
+				// отображение текущей даты ...
+				if (preg_match('#^curdate\:(.*)#i',$t,$dat)) 
+					$rep[$o]=format_date(REQUEST_TIME,'custom',end($dat));
 			break;
 	}
 
