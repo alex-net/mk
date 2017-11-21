@@ -1,0 +1,81 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+function discount_time_node_view($node, $view_mode, $langcode) {
+	if ($node->type!='product_display')
+		return;
+
+	drupal_add_css(drupal_get_path('module', 'discount_time') . '/css/jquery.countdown.css', 'file');
+	
+	$date_discount = 0;
+	$old_price = 0;
+	$products=field_get_items('node',$node,'field_product_variations');
+	foreach($products as $x=>$y)
+		$products[$x]=$y['product_id'];
+	$products=commerce_product_load_multiple($products);
+	
+	// $node->field_product_variations
+	foreach ($products as $p) {
+		$dates=field_get_items('commerce_product',$p,'field_discount_from_date');
+		$oldprice=field_get_items('commerce_product',$p,'field_old_price');
+		if ($dates)
+			$dates=array(
+				'from'=>strtotime($dates[0]['value']),
+				'to'=>strtotime($dates[0]['value2'].' +1 day'),
+			);	
+		if ($dates && $oldprice && $dates['from']<REQUEST_TIME && $dates['to']>REQUEST_TIME && $date_discount<$dates['to'])
+			$date_discount=$dates['to'];
+	}
+	if (!$date_discount)
+		return;
+	$date_discount*=1000;
+	$p=drupal_get_path('module','discount_time');
+	if(!in_array($view_mode,array('full')))
+		$date_discount=0;
+	$node->content['counter']=array(
+		'#attached'=>array(
+			'js'=>array(
+				array('data'=>$p.'/js/jquery.countdown.js','type'=>'file'),
+				array('data'=>$p.'/discount_time.js','type'=>'file'),
+			),
+		),
+		'discont-logo'=>array(
+			// логитип картинки ..
+			'#markup'=>'<div class="discont-logo"></div>',
+		),
+		'discont-counter'=>array(
+			'#markup'=>sprintf('<div class="discont-couner row" data-counter="%d"></div>',$date_discount),
+		),
+	);
+	return;
+
+}
+
+
+// ========================================
+function time_menu_cron(){
+	$res=db_select('commerce_product','c');
+	// есть старая цена 
+	$res->leftjoin('field_data_field_old_price','o','o.entity_id=c.product_id and o.bundle=c.type');
+	$res->isNotNull('o.field_old_price_amount');
+	$res->condition('o.field_old_price_amount','','!=');
+	// не в акции 
+	$res->leftjoin('field_data_field_discount_from_date','d','d.entity_id=c.product_id and d.bundle=c.type');
+	$res->where('not now() between d.field_discount_from_date_value and d.field_discount_from_date_value2');
+	$res->fields('c',array('product_id'));
+	$res=$res->execute()->fetchCol();
+	if ($res){
+		$pp=commerce_product_load_multiple($res);
+		foreach($pp as $p){
+			$op=field_get_items('commerce_product',$p,'field_old_price');
+
+			$p->commerce_price[LANGUAGE_NONE]=$op;
+			$p->field_old_price=array();
+
+			field_attach_presave('commerce_product',$p);
+			field_attach_update('commerce_product',$p);
+		}
+	}
+}
