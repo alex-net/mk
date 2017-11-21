@@ -66,7 +66,7 @@ function mkmod_block_view($delta=''){
 			if (empty($els))
 				break;
 			$fd=variable_get('discounts config',array());
-			dsm($fd);
+			///dsm($fd);
 			$out=array();
 			if (count($els)>1)
 				$out['nav']=array(
