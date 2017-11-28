@@ -34,6 +34,7 @@ function mkmod_library(){
 		),
 	);
 }
+
 //=======================================================
 function mkmod_preprocess_page(&$p){
 	drupal_add_library('mkmod','myajaxcommands');
@@ -407,5 +408,36 @@ function mkmodonsivajax_jscb($form,$form_state){
 	$cmd[]=ajax_command_replace('.comments-wrap',render($cc));*/
 	// 
 	return array('#type'=>'ajax','#commands'=>$cmd);
+}
+// ===================================================
+function mkmod_preprocess_link(&$vars){
+	// нужно подгрузить аякс команды .. 
+	if (!empty($vars['options']['attributes']['data-show-node-in-popup'])){
+		drupal_add_library('mkmod','myajaxcommands');
+		$vars['options']['attributes']['class'][]='node-popup';
+	}
+		
+}
+// ========================================================
+function mkmod_form_menu_edit_item_alter(&$form,$form_state){
+	array_unshift($form['#submit'],'mkmodmenuitemsavedata_sb');
+
+	$form['get-node-in-popup']=array(
+		'#type'=>'textfield',
+		'#title'=>'Всплыть нодой',
+		'#description'=>'Указать номер ноды',
+		'#default_value'=>empty($form['options']['#value']['attributes']['data-show-node-in-popup'])?'':$form['options']['#value']['attributes']['data-show-node-in-popup'],
+	);
+}
+// ============================================================
+function mkmodmenuitemsavedata_sb($form,&$form_state){
+	form_state_values_clean($form_state);
+	$vals=&$form_state['values'];
+
+	unset($vals['options']['attributes']['data-show-node-in-popup']);
+	if (!empty($vals['get-node-in-popup']))
+		$vals['options']['attributes']['data-show-node-in-popup']=$vals['get-node-in-popup'];
+	unset($vals['get-node-in-popup']);
+
 }
 ?>

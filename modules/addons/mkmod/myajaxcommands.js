@@ -25,7 +25,7 @@
 			}
 			// ресет формы 
 			Drupal.ajax.prototype.commands['reset-form']=function(a,r,s){
-				console.log($(':input',r.selector).not('[type=hidden]'));
+			//	console.log($(':input',r.selector).not('[type=hidden]'));
 				$(':input',r.selector).not('[type=hidden],[type=submit]').each(function(){
 					$(this).val('');
 				});
@@ -36,7 +36,9 @@
 			}
 			// ----------------------------
 			$('[data-show-node-in-popup]').once(function(){
-				$(this).on('click',function(){
+				$(this).on('click',function(e){
+					if ($(this).is('a'))
+						e.preventDefault();
 					c=$(this).data('show-node-in-popup');
 					var ajax= new Drupal.ajax(false,false,{
 						url:'/get-node-in-popup/'+c
