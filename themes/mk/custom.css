@@ -1,4 +1,6 @@
-﻿body{background:#EEEEEC;font-family:'PT Sans',sans-serif;color:#000;font-size:14px;}
+﻿/*@import url('https://fonts.googleapis.com/css?family=Ruslan+Display');*/
+@import url('https://fonts.googleapis.com/css?family=Philosopher:400,700&subset=cyrillic');
+body{background:#EEEEEC;font-family:'PT Sans',sans-serif;color:#000;font-size:14px;}
 p{line-height:21px;}
 .pad-9{padding-left:9px;padding-right:9px;}
 .pad-7{padding-left:7px;padding-right:7px;}
@@ -974,10 +976,21 @@ h1 {position:relative;}
 }
 .fancybox-inner {width: 100%!important;}
 .fancybox-wrap{width: 80%!important;}
-.fancybox-wrap.form-in-popup{width: auto!important;}
+.fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform{width: auto!important;}
  .fancybox-wrap.commerce-add-to-cart-confirmation {width: 60%!important;}
+ 
+.webform-client-form textarea, .webform-client-form input {width: 100%;margin:0 auto;border:1px solid #ccc;padding: 0.5em;}
+.webform-client-form .form-actions input {background:linear-gradient(#d22f2f,#961414);color:white;font-weight: 800;font-size: 1.7em;padding: 0.3em;border:none;transition: all 0.5s linear;}
+.webform-client-form .form-actions input:hover {box-shadow: 0 0 20px 6px red inset;}
+.webform-client-form h2 { font-size: 2.14em;text-align: center;font-weight: 800;}
+/*.webform-client-form-1552 h2::before {content:'';width: 100px;height: 100px;display: block;margin:0 auto;background:url(i/pogruzchik.png) 50% 50% no-repeat;background-size:cover;}*/
+/*form .captcha  > div {display: inline-block;vertical-align: top;}*/
+form .captcha::after {content:'';display: block;clear: both;}
+form .captcha .css-captcha-code {width: 30%;border: 1px solid #ccc;padding: 0.5em;line-height: 2em;float: left;background:#b132b0;color:white;font-weight: 700;font-family: 'Philosopher';text-transform: uppercase;}
+form .captcha .css-captcha-code > div {margin:0 auto;font-size: 1.5em;}
+form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 @media screen and (max-width:1024px){
-  .fancybox-wrap,.fancybox-wrap.form-in-popup {width:100%!important;left: 0!important;}
+  .fancybox-wrap,.fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform {width:100%!important;left: 0!important;}
   .fancybox-wrap.form-in-popup {text-align: center;}
   .fancybox-wrap.form-in-popup .fancybox-inner {width: auto!important;display: inline-block;text-align: left;}
   /*.fancybox-wrap.form-QuickZakaz {width: auto!important;left:auto!important;}*/
