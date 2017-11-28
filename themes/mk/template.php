@@ -242,7 +242,7 @@ function mk_breadcrumb($b){
 }
 // ==========================================================
 // 
-function mk_form_alter(&$form,$form_state,$form_id){
+function mk_form_alter(&$form,&$form_state,$form_id){
 	if (preg_match('#mkmodformaddtocart_(?:\d+_)+form#i',$form_id) && preg_match('#^node/(\d+)$#i',current_path(),$nid) && !empty($form_state['fromnid']) && $form_state['fromnid']==end($nid)){
 		//dsm($nid);
 		$form['#attributes']['class'][]='buy-form';
@@ -268,7 +268,51 @@ function mk_form_alter(&$form,$form_state,$form_id){
 			);
 		//dsm(,'fs');
 	}
-	//dsm($form_id,'$form_id');
+
+	// отловить формы которые загружаются через аякс из нод 
+	if (strpos(current_path(), 'get-node-in-popup')===0){
+		
+		if (empty($form_state['fkey']))
+			$form_state['fkey']=user_password(15);
+		$form['#attributes']['class'][]='form-mk-ajax-'.$form_state['fkey'];
+		$form['actions']['submit']['#ajax']=array(
+			'callback'=>'mkformajax_jscb',
+		);
+		$form['#attached']['library'][]=array('mkmod','fb');
+	}
+	// ловим капчу .. 
+	if (isset($form['captcha']))
+		$form['captcha']['#after_build'][]='mkcaptchastyler_cb';
+	
+}
+
+// ====================================================
+function mkcaptchastyler_cb($el){
+	$el['captcha_widgets']['captcha_response']['#title_display']='invisible';
+	$el['captcha_widgets']['captcha_response']['#description']='';
+	$el['captcha_widgets']['captcha_response']['#attributes']['placeholder']="Введите код *";
+	return $el;
+}
+// ==========================================================
+function mkformajax_jscb($form,$form_state){
+	$cmd=array();
+	$form['submitted']['mess']=array(
+		'#theme'=>'status_messages',
+		'#weight'=>-15,
+	);
+	if (form_get_errors()){
+		uasort($form['submitted'],'drupal_sort_weight');
+		
+		$cmd[]=ajax_command_replace('.form-mk-ajax-'.$form_state['fkey'],render($form));
+		$cmd[]=array('command'=>'fancy-update');
+	}
+	else{
+		$form=array('mss'=>$form['submitted']['mess']);
+		$cmd[]=array('command'=>'show_in_popup','content'=>render($form));
+		//$cmd[]=array('command'=>'reset-form','selector'=>'.form-mk-ajax-'.$form_state['fkey']);
+	}
+
+	return array('#type'=>'ajax','#commands'=>$cmd);
 }
 // ===========================================================
 function mk_form_views_form_all_variations_product_block_alter(&$form,$form_state){
