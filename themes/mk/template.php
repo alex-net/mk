@@ -308,7 +308,7 @@ function mkformajax_jscb($form,$form_state){
 	}
 	else{
 		$form=array('mss'=>$form['submitted']['mess']);
-		$cmd[]=array('command'=>'show_in_popup','content'=>render($form));
+		$cmd[]=array('command'=>'show_in_popup','content'=>render($form),'wrapCSS'=>'node-webform');
 		//$cmd[]=array('command'=>'reset-form','selector'=>'.form-mk-ajax-'.$form_state['fkey']);
 	}
 
