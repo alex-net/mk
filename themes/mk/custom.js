@@ -105,12 +105,17 @@
 			$('body').once(function(){
 				slidco=slidcodetect();
 			});
-			if (typeof jQuery.fn.mask!='undefined')
+			if (typeof jQuery.fn.mask!='undefined'){
 				$('[data-masked]:input').once(function(){
 					mask=$(this).data('masked');
 					if (mask)
 						$(this).mask(mask);
 				});
+				$('.is-phone:input').once(function(){
+						$(this).mask('+7(999)999-99-99');
+				});
+
+			}
 			// табы товара 
 			$('.tabinit > div').once(function(){
 				$(this).tabs();
