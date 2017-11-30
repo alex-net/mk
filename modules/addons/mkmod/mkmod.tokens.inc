@@ -46,6 +46,12 @@ function mkmod_token_info(){
 					'description'=>'Вернуть контент блока'
 				),
 			),
+			'submission'=>array(
+				'valueshtml'=>array(
+					'name'=>'Html исполнение',
+					'description'=>'',
+				),
+			),
 		),
 	);
 }
@@ -55,6 +61,40 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 	global $user;
 	foreach($tokens as $t=>$o)
 		switch($type){
+			case 'submission':
+				if(preg_match('#^valshtml:?(.*)#', $t,$json)){
+
+					$json=end($json);
+					
+					if ($json)
+						$json=drupal_json_decode($json);
+					$json=$json?$json:array();
+					
+
+					$comps=$data['node']->webform['components'];
+					$vals=$data['webform-submission']->data;
+					$rows=array();
+					$tdatrs=array();
+					if (!empty($json['td1style']))
+						$tdatrs['style']=$json['td1style'];
+					foreach($comps as $c)
+						if (isset($vals[$c['cid']])){
+
+							$rows[]=array(
+								array('data'=>$c['name'])+$tdatrs,
+								empty($vals[$c['cid']][0])?'-':$vals[$c['cid']][0]);
+						}
+					//dsm(array('data'=>$data,'opt'=>$opt),'token');
+					$tblparam=array(
+						'rows'=>$rows,
+						'sticky'=>false,
+						'header'=>array(array('data'=>'Поле')+$tdatrs,'Значение'),
+					);
+					if (!empty($json['tblstyle']))
+						$tblparam['attributes']['style']=$json['tblstyle'];
+					$rep[$o]=theme('table',$tblparam);
+				}
+			break;
 			case 'node':
 				if (preg_match('#view-content:(\d+):(\w+)#',$t,$tn)){
 					$n=node_load($tn[1]);
