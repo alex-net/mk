@@ -4,7 +4,7 @@
 		if (!empty($variables['node'])) {
 			$variables['theme_hook_suggestions'][] = 'page__node__' . $variables['node']->type;
 		}
-
+		drupal_add_library('mkmod','myajaxcommands');
 		if(arg(0) == 'taxonomy' && arg(1) == 'term') {
 			$tid = (int)arg(2);
 			$term = taxonomy_term_load($tid);
