@@ -10,8 +10,24 @@
 				if ('_none'==$(this).val())
 					return;
 				it=$('<span class="one-star"><span class="star-ico"></span>'+$(this).html()+'</span>');
-				it.data({it:$(this).val()});
+				it.data({it:$(this).val(),el:it});
 				el.append(it);
+			});
+			select.on('change',function(){
+				var val=$(this).val();
+				var ind=-1;
+				$(this).find('option').each(function(i){
+					if ($(this).attr('value')==val)
+						ind=i;
+					
+				});
+				$(this).data('changed-val',ind);
+				if (ind!=-1){
+					el.find('.one-star').removeClass('hovered');
+					for(i=0;i<=ind;i++)
+						el.find('.one-star').eq(i).addClass('hovered');
+				}
+				
 			});
 			el.find('.one-star').hover(function(e){
 				el.find('.one-star').removeClass('hovered');
@@ -20,11 +36,14 @@
 			},function(e){
 				val=select.val();
 				el.find('.one-star').removeClass('hovered');
-
-				for(var i=0;i<=select[0].selectedIndex-1;i++)
+				console.log(select[0].selectedIndex,select.data('changed-val'));
+				for(var i=0;i<=select.data('changed-val');i++)
 					el.find('.one-star').eq(i).addClass('hovered');
 			}).on('click',function(){
-				select.val($(this).data('it'));
+				
+				select.val($(this).data('it')).trigger('change');
+				
+				
 			});
 			select.after(el);
 		});
