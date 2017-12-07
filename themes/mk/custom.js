@@ -120,7 +120,7 @@
 			$('.tabinit > div').once(function(){
 				$(this).tabs();
 			});
-			$('.field-name-field-rating select').once(function(){
+			$('.field-name-field-rating select, .otsivi-o-compani-reting').once(function(){
 				$(this).mkrating();
 			});
 			$('.comment-wrapper .new-onsiv').once(function(){
