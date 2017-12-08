@@ -996,7 +996,7 @@ h1 {position:relative;}
  
 .site-otziv-webform .webform-component--minusy--nedostatki .form-checkboxes {column-count: 2;-moz-column-count: 2;}
 .site-otziv-webform .webform-component--minusy--nedostatki .form-checkboxes > div:first-child {margin-top:0;}
-.site-otziv-webform fieldset .webform-component-checkboxes {height: 10em;}
+.site-otziv-webform fieldset .webform-component-checkboxes {height: 12em;}
 
 @media screen and (max-width: 1023px){
   .site-otziv-webform .webform-component--minusy, .site-otziv-webform .webform-component--polya-dlya-zapolneniya, .site-otziv-webform .form-actions, .site-otziv-webform .webform-component--plyusy, .site-otziv-webform .webform-component--reyting,  .site-otziv-webform .captcha {width: 100%;margin-left:0;}
