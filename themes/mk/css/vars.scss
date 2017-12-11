@@ -1,0 +1,10 @@
+
+$colorfotergray:#9f9f9f;
+$colorrosoviy:#d254c9;
+
+.region-wrap {
+	margin:0 auto;
+	@media screen and (min-width:1024px){
+		max-width:1200px;
+	}
+}

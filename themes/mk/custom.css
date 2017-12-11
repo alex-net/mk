@@ -994,7 +994,7 @@ h1 {position:relative;}
 .site-otziv-webform .webform-component--soglasie-na-obrabotku {border-top:2px solid #f5ebfa;border-bottom: 2px solid #f5ebfa;}
 .site-otziv-webform .webform-component--soglasie-na-obrabotku label {font-weight: bold;}
  
-.site-otziv-webform .webform-component--minusy--nedostatki .form-checkboxes {column-count: 2;-moz-column-count: 2;}
+
 .site-otziv-webform .webform-component--minusy--nedostatki .form-checkboxes > div:first-child {margin-top:0;}
 .site-otziv-webform fieldset .webform-component-checkboxes {height: 12em;}
 
@@ -1003,9 +1003,7 @@ h1 {position:relative;}
   .site-otziv-webform fieldset .webform-component-checkboxes {height: auto;}
   .site-otziv-webform .captcha {margin-bottom: 1em;}
 }
-@media screen and (max-width: 767px){
-  .site-otziv-webform .webform-component--minusy--nedostatki .form-checkboxes {column-count: auto;}
-}
+
 
 
 /*.webform-client-form-1552 h2::before {content:'';width: 100px;height: 100px;display: block;margin:0 auto;background:url(i/pogruzchik.png) 50% 50% no-repeat;background-size:cover;}*/
@@ -1630,9 +1628,14 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
 	.breadcrumb .delimiter{display:inline-block!important;}
 	.breadcrumb .inline{display:inline-block!important;width:auto!important;}
 	.breadcrumb .inline a:after{content:""!important;}
-  footer{background:#2C2C2C;color:#FFF;}
-  footer .bottom .content ul.menu {text-align: center;}
-  footer .bottom .content ul.menu li {display: inline-block;}
+ /* footer{background:#2C2C2C;color:#FFF;}
+  footer .bottom .menus-area {float:left;}
+  footer .bottom .menus-area .content > ul {text-align: left;}
+  footer .bottom .menus-area .content  ul ul {margin:0;padding: 0;}
+  footer .bottom .menus-area .content  ul ul li {list-style: none outside none;margin:0;padding:0;}
+  footer .bottom .menus-area .content  ul li a {color:#9f9f9f;}
+
+  footer .bottom .content >  ul.menu > li {display: inline-block;}
   footer .bottom .content ul.menu li a {color:white;text-decoration:none;}
   footer .bottom .block-menu .content ul {padding: 15px 0; border-bottom:1px solid #333;}
   
@@ -1643,9 +1646,9 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
 
   footer .bottom{padding:15px 0;border-top:1px solid #242424;}
   footer .bottom p{margin:0;}
-  footer .bottom .ooo{text-align:left;}
+  footer .bottom .ooo{text-align:left;clear: both;}
   footer .bottom .copyright{text-align:right;}
-
+*/
  
 	#block-views-catalogterm-block{float:left;width:100%;}
 	ul{margin:0;padding:0;}

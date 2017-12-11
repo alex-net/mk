@@ -78,12 +78,12 @@
 		attach: function (context, settings) {
 
 
-			if (window.innerWidth<1024)
+			if (window.innerWidth<768)
 			/// делаем подваьную менюшку адаптивной 
 				$('footer .block-menu').once(function(){
-					$(this).find('.content').on('click',function(){
+					$(this).find('.content > ul.menu > li').on('click',function(){
 						var has=$(this).hasClass('vis');
-						$('footer .bottom .block-menu .content').removeClass('vis');
+						$('footer  .block-menu .content > ul > li').removeClass('vis');
 						if (!has)
 							$(this).addClass('vis');
 
@@ -175,6 +175,11 @@
 			});
 		}
 	};
+	// форма поиска ... в подвале надо тыкнуть на кнопку поискать 
+	$('footer').on('click','.ya-site-form__input-text',function(e){
+		console.log(e);
+	});
+
 })(jQuery);
 
 

@@ -59,6 +59,7 @@
 			unset($css[drupal_get_path('module','field').'/theme/field.css']);
 			unset($css[drupal_get_path('sites','').'sites/all/modules/views/css/views.css']);*/
 			$css['sites/all/themes/mk/custom.css']['preprocess']=false;
+			$css['sites/all/themes/mk/css/style.css']['preprocess']=false;
 			//dsm($css);
 	}
 	// ----------------
@@ -340,9 +341,20 @@ function mk_form_views_form_all_variations_product_block_alter(&$form,$form_stat
 }
 /// ============================================
 function mk_menu_link($m){
-	//kprint_r($m);
+	// надо выкинуть ссылку 
+	$linkkill=$m['element']['#original_link']['menu_name']=='menu-menu-futer' && $m['element']['#original_link']['p2']==0;
+	
+		//kprint_r($m);
+		//unset($m['element']['#href']);
+		
+	//}
 	$m['element']['#attributes']['class'][]='mi-'.$m['element']['#original_link']['mlid'];
-	return theme_menu_link($m);
+	$link=theme_menu_link($m);
+	if ($linkkill){
+		$link=preg_replace('#<a[^>]*>#i','<span class="menu-head">',$link,1);
+		$link=preg_replace('#</a>#i','</span>',$link,1);
+	}
+	return $link;
 }
 // ======================================
 function mk_theme(){

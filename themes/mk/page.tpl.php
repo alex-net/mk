@@ -142,7 +142,14 @@
 	</div>
 </div>
 <footer class="full_width">
-	<div class="container-fluid text-center">
-		<div class="row bottom"><?php echo render($page['footer']);?></div>
+	<div class="footer-blocks-wrap">
+		<?php echo render($page['footer']);?>
+	</div>
+	<div class="corp-data-copyr">
+		<div class="corp-data-copyr-wrap">
+			<div class="ooo">ООО ГК «МегаКровля»</div>
+			<div class="figures">ИНН: 7717797576          ОГРН: 5147746240384</div>
+			<div class="copyright">© 2007 - 2017 МегаКровля. <span>Все права защищены.</span></div>
+		</div>
 	</div>
 </footer>
