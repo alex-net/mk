@@ -1,5 +1,11 @@
 <?php 
-
+	function mk_page_alter(&$p){
+		$p['searchform']=array();
+		if (user_access('search content'))
+			$p['searchform']=drupal_get_form('search_form');
+			//dsm($vars,'vars');
+	}
+	// ===========================================
 	function mk_preprocess_page(&$variables) {
 		if (!empty($variables['node'])) {
 			$variables['theme_hook_suggestions'][] = 'page__node__' . $variables['node']->type;
@@ -32,7 +38,11 @@
 
 		$menu_tree = menu_tree_all_data('main-menu');
 		$variables['main_menu'] = menu_tree_output($menu_tree);
-		$variables['searchform']=theme('searchform');
+		//$variables['searchform']=theme('searchform');
+		$variables['md']=theme_get_setting('magaz-data');
+		foreach($variables['md'] as $x=>$y)
+			if (is_string($y))
+				$variables['md'][$x]=token_replace($y);
 	}
 
 	function mk_taxonomy_term_view($term, $view_mode, $langcode) {
@@ -146,6 +156,24 @@
 } 
 
 */
+// ============================================================
+function mk_form_search_form_alter(&$form){
+	$form['basic']['keys']['#title_display']='invisible';
+	$form['basic']['keys']['#attributes']['placeholder']='поиск по сайту';
+	$form['basic']['submit']['#value']='Найти';
+	$form['#attributes']['class'][]='container-inline';
+	///$form['basic']
+	//dsm($form,'form');
+}
+// =====================================================
+function mk_form_search_block_form_alter(&$form){
+	$form['search_block_form']['#attributes']['placeholder']='поиск по сайту';
+
+	// jqautocompleter
+	//$form['search_block_form']['#autocomplete_path']='getsearchvitrs';
+	// getsearchvitrs
+	//dsm($form);
+}
 // ===========================================================
 function mk_form_comment_node_product_display_form_alter(&$form,&$form_state){
 	global $user;
@@ -237,7 +265,7 @@ function mk_breadcrumb($b){
 	
 	//http://mk.alex-net.pp.ua/articles
 	if ($b)
-		return '<div class="breadcrumb col-lg-36">'.implode(' - ',$b).'</div>';
+		return '<div class="breadcrumb">'.implode(' - ',$b).'</div>';
 	return '';
 	//return 'sad › ';
 }
@@ -357,14 +385,7 @@ function mk_menu_link($m){
 	return $link;
 }
 // ======================================
-function mk_theme(){
-	return array(
-		'searchform'=>array(
-			'template'=>'searchform',
-			'render element'=>'form',
-		),
-	);
-}
+
 // ====================================================
 function mk_preprocess_views_view(&$vars){
 	if ($vars['name']=='confirm_message_product_display')

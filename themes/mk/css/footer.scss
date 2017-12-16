@@ -1,0 +1,80 @@
+@import 'vars';
+// подвал 
+footer {
+	background:#2C2C2C;color:#FFF;padding:15px 0 0;border-top:1px solid #242424;
+	.footer-blocks-wrap {@extend .region-wrap;padding:0 0.7em 2.5em;
+		
+		&::after {content:'';clear:both;display:block;}
+	}
+	p {margin:0;}
+	.menus-area {
+		width:70%;
+		@media screen and (max-width:767px){width:100%;}
+		.content{
+			& > ul {text-align: left;
+				& > li {
+					margin:0 ;
+					display: inline-block;width:30%;vertical-align:top;
+					@media screen and (max-width:767px){
+						width:100%;display:block;text-align:center;position:relative;
+						& > span::after {content:'';width:1em;height:1em;display:inline-block;background:url('../i/icon_main_menu.png') 50% 50%;background-size:contain;margin-left:0.5em;vertical-align:middle;padding:0.1em;}
+						ul {width:100%;background:rgb(51, 51, 51);overflow:hidden;display:none;}
+						&.vis ul {border:1px solid $colorrosoviy;display:block;}
+						&.vis > span::after {background-color:$colorrosoviy;}
+					}
+				}
+			}
+			ul {
+				padding:  0;
+				ul {margin:0;padding: 0;
+					
+					li {list-style: none outside none;margin:0;padding:0;}
+					}
+				li {
+					a {color:$colorfotergray;text-decoration:none;}
+					span.menu-head {font-weight:800;}
+				}
+			}
+				
+		}
+	}
+	.main-meu-footer .content ul {
+		width:100%;display:table !important;margin:0;table-layout:fixed;padding:0  0 15px;border-bottom:1px solid #333;
+		li {display:table-cell;width:auto;text-align:center;float:none;
+			a {color:#A7A7A7;font-size:16px;}
+			&.active-trail a{text-decoration: underline;}
+		}
+	}
+	
+	.corp-data-copyr {
+		background:#333333;
+		.corp-data-copyr-wrap{
+			@extend .region-wrap;
+			width:100%;
+			display:table;
+			& > div {display:table-cell;line-height:2em;padding:0 10px;}
+			.figures {text-align:center;}
+			.copyright {text-align:right;
+				@media screen and (max-width:349px){
+					span {display:block;}
+				}
+			}
+			@media screen and (max-width: 767px){
+				& > div {display:block;text-align:center!important;}
+			} 
+		}
+		 
+	}
+	.block-search,.footer-textovka {float:right;width:30%;clear:both;}
+	.footer-textovka {
+		@media screen and (max-width:767px){
+			float:none;width:auto;display:block;padding:0 0.5em;
+		}
+		span.key {background:#404040;border-radius:0.5em;padding:0 0.5em;} 
+		.content {color:$colorfotergray;
+			
+		}
+	}
+
+	
+}

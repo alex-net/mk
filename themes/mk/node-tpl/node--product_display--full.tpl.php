@@ -1,6 +1,6 @@
 <div class="product full <?php echo $classes;?>">
 	<?php //kprint_r(array_keys($content));?>
-	<div class="col-lg-36 clearfix">
+	<div class=" clearfix">
 		<div class="sku-small"><?php echo render($content['product:sku']);?></div>
 		<?php echo render($content['rating']);?>
 
@@ -29,7 +29,7 @@
 
 	</div>
 	
-	<div class="infa-tabs col-lg-36 tabinit">
+	<div class="infa-tabs tabinit">
 		<div class="tabs-wrap">
 			<ul>
 				<li><a href="#tovar-full-infa">Информация</a></li>
@@ -53,9 +53,9 @@
 			<?php endif;?>
 		</div>
 	</div>
-	<div class="mit-buy clearfix product-lists col-lg-36"><?php echo render($content['field_mit_tovar_buy']);?></div>
-	<div class="analogs clearfix product-lists col-lg-36"><?php echo render($content['field_tovar_analogs']);?></div>
-	<div class="old-viewed product-lists clearfix col-lg-36"><?php echo render($content['prod-viewed']);?></div>
+	<div class="mit-buy clearfix product-lists "><?php echo render($content['field_mit_tovar_buy']);?></div>
+	<div class="analogs clearfix product-lists "><?php echo render($content['field_tovar_analogs']);?></div>
+	<div class="old-viewed product-lists clearfix "><?php echo render($content['prod-viewed']);?></div>
 
 
 </div>

@@ -473,34 +473,38 @@ jQuery(document).ready(function() {
 
 	/******************************************************************/
 
+	if ($('.search-form-menu form').size())
+		$('span.search-butt').on('click',function(){
+			//$(this).hide();
+			$(this).fadeOut(500);
+			$(this).siblings('.search-form-menu').addClass('vis');
 
-	$('span.search-butt').on('click',function(){
-		//$(this).hide();
-		$(this).fadeOut(500);
-		$(this).siblings('.search-form').addClass('vis');
+		});
+	else
+		$('span.search-butt').remove();
 
-	});
+
 
 
 	/* START SEARCH CLICK IN MAIN MENU */
 	//#main_menu span.search-butt
-	$("li.mi-3095 a").click(function(e) {
+	$("li.mi-711 a").click(function(e) {
 		e.preventDefault();
 		$("body").toggleClass("search_is_visible");
 		if ($("body").hasClass('search_is_visible')) {
-			$("#block-search-form").animate({bottom: -41,opacity:1}, 200);
-			$("#block-search-form input[type='text']").focus();
+			$(".site-search").animate({bottom: -41,opacity:1}, 200);
+			$(".site-search input[type='text']").focus();
 		} else {
-			$("#block-search-form").animate({bottom: 0,opacity:0}, 200);
+			$(".site-search").animate({bottom: 0,opacity:0}, 200);
 		};
 	});
 
-	$("#block-search-form").append('<a class="close_it" href="#"><span>Х</span>закрыть</a>')
+	$(".site-search").append('<a class="close_it" href="#"><span>Х</span>закрыть</a>')
 
 	$(".close_it").click(function(e) {
 		e.preventDefault();
 		$("body").toggleClass("search_is_visible");
-		$("#block-search-form").animate({bottom: 0,opacity:0}, 200);
+		$(".site-search").animate({bottom: 0,opacity:0}, 200);
 	});
 
 	/* END SEARCH CLICK IN MAIN MENU */

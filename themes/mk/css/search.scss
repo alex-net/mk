@@ -1,0 +1,121 @@
+@import 'vars';
+
+/// элемент подсказки автокомплит 
+.autocompleter-tail {background:white;z-index:5;padding:0.3em;border:1px solid $colorrosoviy;display:none;width:auto;min-width:100%;height:auto;
+	&.autocompleter-show {display:block;}
+		ul {padding:0;position:static!important;color:black;background:white!important;display:block!important;margin:0!important;
+			li {white-space:nowrap;}
+		}
+}
+// форма поиска в шапке  вариант ПК
+.site-search {
+	@media screen and (max-width: 1023px){
+		display:none;
+	}
+	padding: 8px; float: left; position: absolute; right: 0; bottom: 0;opacity: 0; background: url("../i/bg_search_desktop.png") 1px -1px no-repeat; width: 879px; height: 41px; z-index: 200;
+	a.close_it {float: right; position: absolute; top: 1px; right: 0; color: #000; font-size: 12px; text-align: center; line-height: 10px; padding: 9px 4px 10px 5px; text-shadow: 1px 1px 1px #FFDAFF;
+		span  {font-size: 15px;width: 100%;float: left;}
+	}
+	& > h2 {float: left;margin: 0;padding: 0 20px;color: #050505;font-size: 18px;font-weight: normal;text-shadow: 1px 1px 1px #fff;}
+	form {
+		.form-item-keys {
+			position:relative;margin:0;
+			&::before {content: ""; position: absolute; background: url('../i/icon_search_in_input.png') 0 0 no-repeat; left: 6px; top: 4px; width: 18px; height: 17px;}
+			input.form-text {background-color: #FFF; display:block; border: 1px solid #7E1D7A !important; width: 412px;-webkit-border-radius: 4px; border-radius: 4px; padding: 3px 7px 3px 30px; -webkit-box-shadow: inset 0 0 3px 1px #BDBDBD; box-shadow: inset 0 0 3px 1px #BDBDBD;
+				& + .autocompleter {@extend .autocompleter-tail;} 
+			}
+		}
+		.form-submit {vertical-align:top; text-shadow: 1px 1px 0px #000; background: #595858; border: #333; -webkit-border-radius: 3px; border-radius: 3px; color: #FFF !important; font-size: 14px !important; outline: 0 none; padding: 3px 9px; margin: 0; text-transform: uppercase;}
+		
+	}
+}
+
+// форма оиска  в шапке = мобильный вариант 
+.search-form-menu {
+	width: 0;overflow: hidden;display: none;height: 1.7em;padding:0.3em 0;position:relative;
+	@media screen and (max-width:1023px){
+		display: block;
+	}
+	form {margin:0;height:100%;}
+	float: left;transition: all 2s linear 0s;position: relative;
+	&.vis {width: 14.5em;overflow: inherit;}
+	.form-item-keys {padding-right: 2em;}
+	.form-item {margin:0;}
+	div {height:100%;display:inline-block;}
+	.form-text {height: 100%;border:none;border-radius: 3px;width:100%;padding:0 0.2em;display:block;
+		& + .autocompleter {@extend .autocompleter-tail;
+			ul li {white-space:normal;border:none!important;}
+		} 
+	}
+	.form-submit {position: absolute;top:0.5em;right: 0.7em;width: 1em;height: 1em;color:transparent;overflow: hidden;background:url("../i/icon_search.png") 50% 50% no-repeat;background-size: contain;border:none;}
+	
+}
+
+/*body.page-node-74 #block-search-form {bottom: inherit;top: 0;}*/
+
+
+/* START SEARCH PAGE */
+// форма на странице поиска .. 
+body.page-search #block-system-main {
+	padding: 0 10px;
+	.search-results {float: left;width: 100%;border-bottom: 1px solid #DDD8D8;padding: 0 0 0 20px;}
+	form.search-form{
+		float: left; margin: 0; position: relative; width: 100%;
+		div {display:inline-block;width:100%;}
+		.form-text {
+			width: 100%; padding: 5px 8px; border: 1px solid $colorrosoviy; background: none; font-size: 16px;display:block;
+			&:focus {outline: none;-webkit-box-shadow: 0 0 0 0;box-shadow: 0 0 0 0;border-bottom: 1px solid #B626BC;}
+			& + .autocompleter {background:white;z-index:5;padding:0.3em;border:1px solid $colorrosoviy;display:none;
+				&.autocompleter-show {display:block;}
+				ul {padding:0;}
+			}
+		}
+		.form-submit {position:absolute;top:0;right:0; border: 0 none; background: url('../i/icon_search_in_input.png') center center no-repeat; padding: 0 0 0 0; text-indent: -999999px; width: 30px; height: 30px; margin: 1.1em 0 0;}
+	}
+}
+// форма поиска в подвале 
+footer .block-search {float:right;clear:both;
+
+	form {position:relative;
+		input.form-text {padding:0.5em 2em 0.5em 0.5em;background:transparent!important;border:1px solid #505050;display:block;width:100%;
+			& + .autocompleter {
+				@extend .autocompleter-tail;
+			}
+		}
+		.form-item {width:100%;margin:0;}
+		.form-submit {position: absolute;background: url(../i/icon_search_in_input.png) 0 0 no-repeat;right: 6px;top: 0.8em;width: 18px;height: 17px;border:none;color:transparent;}
+	}
+}
+
+/// пагинатор 
+body.page-search #block-system-main .item-list{
+	float: left;width: 100%;
+	.pager {
+		margin:0;padding:0;
+		li {
+			display:inline-block;color:#000;margin:0 4px;
+			a {
+				color:#000;font-size:16px;
+			}
+			&.pager-current{color:#CE37BF;font-size:18px;}
+			&.pager-ellipsis{display:none;}
+		}
+	}
+}
+
+
+
+
+/* END SEARCH PAGE */
+
+/*
+
+#block-search-form > .content {float: left;margin: 0;padding: 0;}
+#block-search-form .container-inline > div {float: left;    width: 480px;}
+#block-search-form .container-inline  {float: left;position: relative;}
+
+
+#search-form .search-advanced {float: left;width: 100%;}
+#block-search-form td.ya-site-form__search-input {padding: 0;}
+#block-search-form #ya-site-form0 .ya-site-suggest-popup {margin: 25px 0 0 0 !important;}
+*/
