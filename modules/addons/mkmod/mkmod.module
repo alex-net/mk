@@ -32,6 +32,18 @@ function mkmod_library(){
 
 			),
 		),
+		'jqautocompleter'=>array(
+			'title'=>'jquery-autocompleter',
+			'website'=>'https://github.com/ArtemFitiskin/jquery-autocompleter',
+			'version'=>'',
+			'js'=>array(
+				array('data'=>$p.'/jqac/jquery.autocompleter.js','type'=>'file'),
+				array('data'=>$p.'/jqac/jqac-init.js','type'=>'file'),
+			),
+			'css'=>array(
+				array('data'=>$p.'/jqac/jquery.autocompleter.css','type'=>'file'),
+			),
+		),
 	);
 }
 
