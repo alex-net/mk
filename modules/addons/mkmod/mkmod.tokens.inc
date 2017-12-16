@@ -39,10 +39,6 @@ function mkmod_token_info(){
 					'name'=>'текущая дата с форматированием',
 					'description'=>'формат даты как у функции date()',
 				),
-				'searchform-ya'=>array(
-					'name'=>'Форма поиска Yandex',
-					'description'=>'Форма поиска Yandex',
-				),
 			),
 			'block'=>array(
 				'view-content'=>array(
@@ -234,8 +230,7 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 					$rep[$o]=format_date(REQUEST_TIME,'custom',end($dat));
 
 
-				if ('searchform-ya'==$t)
-					$rep[$o]=theme('searchform');
+				
 			break;
 
 
