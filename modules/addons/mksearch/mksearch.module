@@ -1,0 +1,200 @@
+<?php 
+module_load_include('inc','mksearch','mksearch.themes');
+/// ==================================
+function mksearch_menu(){
+	return array(
+		'getsearchvitrs'=>array(
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>array('search content'),
+			'page callback'=>'vitrfinder_cb',
+		),
+		'get-next-page-search'=>array(
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>array('search content'),
+			'page callback'=>'GetNextpageSearch_jscb',
+			'delivery callback'=>'ajax_deliver',
+		),
+	);
+}
+// ==================================
+// получить данные по поиску 
+function _getproductslist($ss,$cp=0,$pp=8){
+	$res=db_select('node','n');
+	drupal_add_js(array('search-string'=>$ss),'setting');
+	//$res=$res->extend('PagerDefault');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
+	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
+	$res->orderBy('i.score','desc');
+	$or=db_or();
+	foreach(search_index_split($ss) as $w)
+		$or->condition('i.word',$w);
+	// прикрутить товар искать в заголовке .. 
+	$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
+	$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
+	foreach(array_map('trim',explode(' ',$ss)) as $w)
+		$or->condition('cp.title','%'.db_like($w).'%','like');
+	
+	$res->condition($or);
+	//$res->limit(20);
+	$res->groupBy('n.nid');
+	$res->range($cp*$pp,$pp);
+
+	$res->fields('n',array('nid'));
+	//$res->addExpression('count(*)');
+	$res=$res->execute()->fetchCol();
+	return $res; 
+}
+// ====================================
+function GetNextpageSearch_jscb(){
+	$cmd=array();
+	$post=$_POST;
+	//dsm($post,'spost');
+	//dfb($post,'$post');
+	//dsm($post);
+	$out=array();
+	$pp=_getproductslist($post['ss'],$post['cp'],$post['pp']);
+	if ($pp)
+		$out=node_view_multiple(node_load_multiple($pp));
+	$cmd[]=array(
+		'command'=>'update-prod-list',
+		'content'=>render($out),
+		'loaded'=>count($pp),
+		'pp'=>$post['pp'],
+		'cp'=>$post['cp']+1,
+	);
+	//dsm(arg(5,$url['path']),'url');
+	return array('#type'=>'ajax','#commands'=>$cmd);
+}
+// ===================================
+function vitrfinder_cb(){
+	$params=drupal_get_query_parameters();
+	if (empty($params['query'])){
+		drupal_json_output(array());
+		return ;
+	}
+	$res=db_select('node','n');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->condition('n.title','%'.db_like($params['query']).'%','like');
+	$res->fields('n',array('title'));
+	$res->range(0,5);
+	$res=$res->execute()->fetchCol();
+	$out=array();
+	foreach($res as $v)
+		$out[]=array('value'=>$v,'label'=>preg_replace('#('.addslashes($params['query']).')#iu', '<strong>$1</strong>', $v));
+	drupal_json_output($out);
+	//$res=array_combine($res, $res);
+	
+
+}
+/// ===================================
+function mksearch_search_info(){
+	return array(
+		'title'=>'Товары',
+		'path'=>'products',
+	);
+}
+// ===========================================
+function mksearch_search_status(){
+	// посчитаем товары (витрины) 
+	$res=db_select('node','n');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->addExpression('count(*)');
+	$rem=clone $res;
+	
+	$total=$res->execute()->fetchField();
+	$rem->leftjoin('search_dataset','s','s.type=\'node\' and s.sid=n.nid');
+	$or=db_or();
+	$or->condition('s.reindex',0,'!=');
+	$or->isNull('s.sid');
+	$rem->condition($or);
+	$rem=$rem->execute()->fetchField();
+	
+	return array(
+		'remaining'=>$rem,
+		'total'=>$total,
+	);
+}
+// ===========================================
+// сброс индекса 
+function mksearch_search_reset(){
+	node_search_reset();
+}
+/// =================================
+function mksearch_update_index(){
+	$limit = (int) variable_get('search_cron_limit', 100);
+
+	$res=db_select('node','n');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->leftjoin('search_dataset','s','s.type=\'node\' and s.sid=n.nid');
+	$or=db_or();
+	$or->condition('s.reindex',0,'!=');
+	$or->isNull('s.sid');
+	$res->condition($or);
+	$res->range(0,$limit);
+	$res->fields('n',array('nid'));
+	$res=$res->execute()->fetchAll();
+	foreach ($res as $node) 
+		_node_index_node($node);
+}
+// =======================================================
+// поиск ... 
+function mksearch_search_execute($keys=null,$conditions=null){
+	$res=db_select('node','n');
+	drupal_add_js(array('search-string'=>$keys),'setting');
+	//$res=$res->extend('PagerDefault');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
+	$res->orderBy('n.title=\''.addslashes($keys).'\'','desc');
+	$res->orderBy('i.score','desc');
+	$or=db_or();
+	foreach(search_index_split($keys) as $w)
+		$or->condition('i.word',$w);
+	// прикрутить товар искать в заголовке .. 
+	$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
+	$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
+	foreach(array_map('trim',explode(' ',$keys)) as $w)
+		$or->condition('cp.title','%'.db_like($w).'%','like');
+	
+	$res->condition($or);
+	//$res->limit(20);
+	$res->groupBy('n.nid');
+	$res->fields('n',array('nid'));
+	//$res->addExpression('count(*)');
+
+	$res=$res->execute()->fetchCol();
+
+	/*foreach($res as $x=>$y)
+		$res[$x]['link']='node/'.$y['nid'];*/
+	return array('count'=>count($res));
+}
+// ======================================================
+function mksearch_preprocess_search_results(&$vars){
+
+	if ($vars['module']=='mksearch' && $vars['results']['count']>0 ){
+		
+		//$n=node_view_multiple(node_load_multiple(array_keys($vars['results'])));
+		$vars['search_results']=theme('searchresultinfo',array('rc'=>$vars['results']['count'])).'<div class="product-placer"><div class="product-list  page-taxonomy-term"></div><div class="product-more" data-perpage="8"></div></div>';//render($n);
+		drupal_add_js(drupal_get_path('module','mksearch').'/searh-uploader.js');
+	}
+}
+// ===================================================
+function mksearch_form_alter(&$form,$form_state,$form_id){
+	if ($form_id=='search_form'){
+		$form['basic']['keys']['#attributes']['data-countel']=15;
+		$form['basic']['keys']['#attributes']['class'][]='autocompleter-todo';
+		$form['basic']['keys']['#attached']['library'][]=array('mkmod','jqautocompleter');
+	}
+	if($form_id=='search_block_form'){
+		$form['search_block_form']['#attributes']['data-countel']=20;
+		$form['search_block_form']['#attributes']['class'][]='autocompleter-todo';
+		$form['search_block_form']['#attached']['library'][]=array('mkmod','jqautocompleter');
+	}
+	//	dsm($form);
+	//dsm($form_id);
+}

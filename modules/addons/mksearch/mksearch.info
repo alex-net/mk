@@ -1,0 +1,5 @@
+name = МК Поиск
+core = 7.x
+
+dependencies[]=search
+dependencies[]=mkmod
