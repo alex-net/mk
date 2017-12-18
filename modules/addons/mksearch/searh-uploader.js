@@ -19,7 +19,7 @@
 						el.data('ended',true);
 						var pp=typeof eldata['perpage'] == 'undefined'?8:eldata['perpage'];
 						var cp=typeof eldata['currentpage'] == 'undefined'?0:eldata['currentpage'];
-						console.log('as');
+						//console.log('as');
 						var ajax=new Drupal.ajax(false,false,{
 							url:'/get-next-page-search',
 							submit:{
@@ -36,7 +36,7 @@
 
 
 			});
-			console.log('dsa');
+		//	console.log('dsa');
 		}
 	}
 
@@ -47,6 +47,6 @@
 
 		if (r.loaded==r.pp)// загружен полный объём
 			$('.product-placer .product-more').data({'ended':false,'currentpage':r.cp});
-		console.log(r);
+		//console.log(r);
 	}
 })(jQuery);
