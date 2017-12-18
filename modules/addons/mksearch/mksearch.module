@@ -39,7 +39,7 @@ function _getproductslist($ss,$cp=0,$pp=8){
 	$res->condition($or);
 	//$res->limit(20);
 	// доставть артикул если надо ... 
-	dfb(intval($ss),'$ss');
+	//dfb(intval($ss),'$ss');
 	$res->orderBy('cp.product_id='.intval($ss),'desc');
 	// поиск по заголовку витрины должен быть первым 
 	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
