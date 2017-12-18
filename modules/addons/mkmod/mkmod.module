@@ -141,6 +141,17 @@ function mkmod_menu(){
 			'page arguments'=>array('discounts_config_form'),
 			'file'=>'mkmod.admin.inc',
 		),
+		'admin/product-finder'=>array(
+			'title'=>'Поиск товаров',
+			'access arguments'=>array('admine pages'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('product_finder_form'),
+			'options'=>array(
+				'attributes'=>array(
+					'class'=>array('rosoviy-text'),
+				),
+			),
+		),
 	);
 }
 

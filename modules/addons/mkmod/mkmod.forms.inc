@@ -111,7 +111,7 @@ function mkmod_forms($form_id,$args){
 function formaddtocart_form($form,&$form_state,$dd,$nid){
 	//dsm($dd);
 	unset($form_state['input']);
-	if (empty($form_satte['fromnid']))
+	if (empty($form_state['fromnid']))
 		$form_state['fromnid']=$nid;
 	if (empty($form_state['dd']))
 		$form_state['dd']=$dd;
@@ -170,7 +170,7 @@ function formaddtocart_form($form,&$form_state,$dd,$nid){
 	return $form;
 }
 //=======================================================
-function formaddtocart_form_validate(&$form,&$form_satte){
+function formaddtocart_form_validate(&$form,&$form_state){
 	///dsm($form,'$formv');
 	$val=$form['qty-wrap']['qty']['#value'];
 	if (!is_numeric($val) || intval($val)<1)
@@ -260,5 +260,49 @@ function formaddtocart_form_submit($form,&$form_state){
 	}	
 
 	//dsm($form_state['values'],'values');
+}
+// ==========================================
+function product_finder_form(){
+	$form=array(
+		'#attributes'=>array(
+			'class'=>array('container-inline'),
+		),
+		'prod'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Артикул',
+			'#size'=>10,
+			'#required'=>true,
+		),
+		'submit'=>array(
+			'#type'=>'submit',
+			'#value'=>'Перейти на страницу витрины',
+		),
+	);
+	return $form;
+}
+// ====================================
+function product_finder_form_validate($form,&$form_state){
+	$id=$form['prod']['#value'];
+	if (!is_numeric($id))
+		form_error($form['prod'],'Должно быть числовое значение ');
+	if (is_numeric($id) ){
+		$res=db_select('commerce_product','cp');
+		$res->condition('cp.sku',addslashes($id));
+		$res->leftjoin('field_data_field_product_variations','p','p.field_product_variations_product_id=cp.product_id');
+		$res->addField('p','entity_id');
+
+		$res=$res->execute()->fetchField();
+		if (empty($res))
+			form_error($form['prod'],'Товар не найден');
+		else
+			form_set_value($form['prod'],$res,$form_state);
+	}
+}
+// =======================================
+function product_finder_form_submit($form,&$form_state){
+	form_state_values_clean($form_state);
+
+	$form_state['redirect']='node/'.$form_state['values']['prod'];
+	//dsm($vals,'$vals');
 }
 ?>
