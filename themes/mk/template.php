@@ -40,9 +40,10 @@
 		$variables['main_menu'] = menu_tree_output($menu_tree);
 		//$variables['searchform']=theme('searchform');
 		$variables['md']=theme_get_setting('magaz-data');
-		foreach($variables['md'] as $x=>$y)
-			if (is_string($y))
-				$variables['md'][$x]=token_replace($y);
+		if ($variables['md'])
+			foreach($variables['md'] as $x=>$y)
+				if (is_string($y))
+					$variables['md'][$x]=token_replace($y);
 	}
 
 	function mk_taxonomy_term_view($term, $view_mode, $langcode) {
