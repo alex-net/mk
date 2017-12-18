@@ -1,6 +1,12 @@
 .cls {
   clear: both; }
 
+.rosoviy-text {
+  color: #d254c9; }
+
+.rosoviy-bg, #admin-menu ul li a.rosoviy-text {
+  background: #d254c9; }
+
 .region-wrap, footer .footer-blocks-wrap, footer .corp-data-copyr .corp-data-copyr-wrap {
   margin: 0 auto; }
   @media screen and (min-width:1024px) {
@@ -128,6 +134,12 @@ footer {
 
 .cls {
   clear: both; }
+
+.rosoviy-text {
+  color: #d254c9; }
+
+.rosoviy-bg, #admin-menu ul li a.rosoviy-text {
+  background: #d254c9; }
 
 .region-wrap, footer .footer-blocks-wrap, footer .corp-data-copyr .corp-data-copyr-wrap {
   margin: 0 auto; }

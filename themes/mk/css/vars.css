@@ -1,8 +1,0 @@
-.cls {
-  clear: both; }
-
-.region-wrap {
-  margin: 0 auto; }
-  @media screen and (min-width:1024px) {
-    .region-wrap {
-      max-width: 1200px; } }
