@@ -25,21 +25,31 @@ function _getproductslist($ss,$cp=0,$pp=8){
 	$res->condition('n.status',1);
 	$res->condition('n.type','product_display');
 	$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
-	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
-	$res->orderBy('i.score','desc');
 	$or=db_or();
 	foreach(search_index_split($ss) as $w)
 		$or->condition('i.word',$w);
 	// прикрутить товар искать в заголовке .. 
 	$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
 	$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
-	foreach(array_map('trim',explode(' ',$ss)) as $w)
+	foreach(array_map('trim',explode(' ',$ss)) as $w){
 		$or->condition('cp.title','%'.db_like($w).'%','like');
+		$or->condition('cp.sku','%'.db_like($w).'%','like');
+	}
 	
 	$res->condition($or);
 	//$res->limit(20);
+	// доставть артикул если надо ... 
+	dfb(intval($ss),'$ss');
+	$res->orderBy('cp.product_id='.intval($ss),'desc');
+	// поиск по заголовку витрины должен быть первым 
+	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
+	// обычный приск по части фразы 
+	$res->orderBy('i.score','desc');
+
 	$res->groupBy('n.nid');
-	$res->range($cp*$pp,$pp);
+	if ($cp>=0)
+		$res->range($cp*$pp,$pp);
+
 
 	$res->fields('n',array('nid'));
 	//$res->addExpression('count(*)');
@@ -144,30 +154,7 @@ function mksearch_update_index(){
 // =======================================================
 // поиск ... 
 function mksearch_search_execute($keys=null,$conditions=null){
-	$res=db_select('node','n');
-	drupal_add_js(array('search-string'=>$keys),'setting');
-	//$res=$res->extend('PagerDefault');
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
-	$res->orderBy('n.title=\''.addslashes($keys).'\'','desc');
-	$res->orderBy('i.score','desc');
-	$or=db_or();
-	foreach(search_index_split($keys) as $w)
-		$or->condition('i.word',$w);
-	// прикрутить товар искать в заголовке .. 
-	$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
-	$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
-	foreach(array_map('trim',explode(' ',$keys)) as $w)
-		$or->condition('cp.title','%'.db_like($w).'%','like');
-	
-	$res->condition($or);
-	//$res->limit(20);
-	$res->groupBy('n.nid');
-	$res->fields('n',array('nid'));
-	//$res->addExpression('count(*)');
-
-	$res=$res->execute()->fetchCol();
+	$res=_getproductslist($keys,-1);
 
 	/*foreach($res as $x=>$y)
 		$res[$x]['link']='node/'.$y['nid'];*/
