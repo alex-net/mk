@@ -3,7 +3,20 @@
 		$p['searchform']=array();
 		if (user_access('search content'))
 			$p['searchform']=drupal_get_form('search_form');
-			//dsm($vars,'vars');
+		if (preg_match('#^taxonomy/term/(\d+)$#i',current_path(),$term)){
+			$term=taxonomy_term_load(end($term));
+			// получить текст который был под товарами 
+			$text=field_get_items('taxonomy_term',$term,'field_text_under_products');
+			
+			if (!empty($text[0]['safe_value']))
+				$p['content']['system_main']['afterprod']=array(
+					'#prefix'=>'<div class="after-prod">',
+					'#suffix'=>'</div',
+					'#markup'=>$text[0]['safe_value'],
+					'#weight'=>10,
+				);
+		}
+		//dsm($p,'vars');
 	}
 	// ===========================================
 	function mk_preprocess_page(&$variables) {
