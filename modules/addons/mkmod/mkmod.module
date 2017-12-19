@@ -46,7 +46,15 @@ function mkmod_library(){
 		),
 	);
 }
-
+// ===============================================
+function mkmod_init(){
+	global $pp_size;
+	$pp_size=10;
+	if (!empty($_COOKIE['pp-size']) && intval($_COOKIE['pp-size']))
+		$pp_size=$_COOKIE['pp-size'];
+	//dsm($_COOKIE);
+	//pp-size
+}
 //=======================================================
 function mkmod_preprocess_page(&$p){
 	node_tokens_replacer($p);

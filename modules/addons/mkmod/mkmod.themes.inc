@@ -45,8 +45,45 @@ function mkmod_theme(){
 			),
 			'template'=>'catlistfromtel',
 		),
-
+		'ppswitcher'=>array(
+			'variables'=>array(
+				'list'=>array(),
+			),
+		),
 	);
+}
+// =====================================================
+function theme_ppswitcher($vars){
+	$links=array();
+	global $pp_size;
+	//kprint_r($_COOKIE);
+	$pp=10;
+	if (!empty($pp_size))
+		$pp=intval($pp_size);
+	foreach($vars['list'] as $x){
+		$classes=array();
+		if ($pp==$x)
+			$classes[]='current';
+		$links[]=array(
+			'href'=>current_path(),
+			'title'=>$x,
+			'attributes'=>array(
+				'title'=>$x.' записей на стрницу',
+				'class'=>$classes,
+			),
+			'fragment'=>$x,
+			//'query'=>array('perp_page'=>),
+		);
+	}
+	drupal_add_js(drupal_get_path('module','mkmod').'/ppswitcher.js');
+	drupal_add_library('system','jquery.cookie');
+	return theme('links',array(
+		'links'=>$links,
+		'attributes'=>array(
+			'class'=>array('per-page-sizer'),
+		),
+	));
+	kprint_r($vars['list']);
 }
 // ======================================================
 function topprodaglist_prefunc(&$vars){
