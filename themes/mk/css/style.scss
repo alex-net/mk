@@ -8,3 +8,21 @@
 }
 
 #admin-menu ul li a.rosoviy-text {@extend .rosoviy-bg;} 
+
+// вывод отзывов ..  о компании  (из данных формы )
+.otsiv-item {border-top:1px dashed $colorrosoviy;padding:0.5em 0;
+	&.unpublic {background-color:rgba(255,0,0,0.1);}
+	&.public {background-color:rgba(0,255,0,0.1);}
+
+	&:first-child {border:none;}
+	.date{@extend .rosoviy-text;font-weight:bold;}
+	.form-item {margin:0;line-height:1em;}
+} 
+
+
+// Переключатель числа записей на страницу 
+.per-page-sizer {padding:0;text-align:center;
+	li {display:inline-block;margin:0.5em;
+		a.current {@extend .rosoviy-text;font-weight:bold;}
+	}
+}
