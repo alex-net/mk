@@ -1,0 +1,15 @@
+<?php 
+function mkotsivi_install(){
+	// 
+	db_add_field('webform_submissions','record_apply',array(
+		'type'=>'int',
+		'size'=>'tiny',
+		'default'=>0,
+		'description'=>'Запись подтверждена',
+	));
+}
+// =========================
+function mkotsivi_uninstall(){
+	db_drop_field('webform_submissions','record_apply');
+}
+?>

@@ -1,0 +1,183 @@
+<?php 
+function mkotsivi_permission(){
+	return array(
+		'public webform record'=>array(
+			'title'=>'Публикация записей webform',
+		),
+	);
+}
+// ===========================================
+function mkotsivi_menu(){
+	return array(
+		'otzyvy-o-nas'=>array(
+			'title'=>'Отзывы о нас',
+			'access arguments'=>array('access content'),
+			'page callback'=>'mkotzivionas_cb',
+		),
+		'otzyvy-publicate'=>array(
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>array('public webform record'),
+			'page callback'=>'otzyvy_publicate_cb',
+			'delivery callback'=>'ajax_deliver',
+		),
+	);
+}
+//==============================================
+function otzyvy_publicate_cb(){
+	$params=drupal_get_query_parameters();
+	$cmd=array();
+	// узнаём есть ли такая запись 
+	$res=db_select('webform_submissions','t');
+	$res->condition('t.nid',$params['nid']);
+	$res->condition('t.sid',$params['sid']);
+	$res->fields('t',array('nid','sid','record_apply'));
+	$d=$res->execute()->fetch(PDO::FETCH_ASSOC);
+
+	if (!empty($d['nid'])){ // запист существует .. можно работать 
+		$d['record_apply']=intval(empty($d['record_apply']));
+		$res=db_update('webform_submissions');
+		$res->condition('nid',$d['nid']);
+		$res->condition('sid',$d['sid']);
+		$res->fields(array('record_apply'=>$d['record_apply']));
+		$res->execute();
+		$cmd[]=array(
+			'command'=>'uptotsivstatus',
+			'status'=>$d['record_apply'],
+			'text'=>$d['record_apply']?'Снять с публикации':'Опубликовать',
+		);
+	}
+	return array('#type'=>'ajax','#commands'=>$cmd);
+}
+// ==============================================
+function mkotsivi_theme(){
+	return array(
+		'otsiv_print'=>array(
+			'render element'=>'el',
+			//'variables'=>array('el'=>array()),
+			'template'=>'otsiv-print',
+			'preprocess functions'=>array('otsiv_print_prefunc'),
+		),
+	);
+}
+// ============================================
+function otsiv_print_prefunc(&$vars){
+	$vars['addonclass']='';
+	if (!empty($vars['el']['#attributes']['class']))
+		$vars['addonclass']=implode(' ',$vars['el']['#attributes']['class']);
+	$vars['classes_array']=$vars['attributes_array']=$vars['title_attributes_array']=$vars['content_attributes_array']=array();
+}
+// =============================================
+function mkotzivionas_cb(){
+	global $user;
+	global $pp_size;
+	// record_apply
+	$res=db_select('webform_submissions','t');
+	$res=$res->extend('Pagerdefault');
+	$res->condition('t.nid',1562);
+	$res->limit($pp_size);
+	$res->orderby('t.submitted','desc');
+	$res->fields('t');
+	if (!user_access('public webform record'))
+		$res->condition('t.record_apply',1);
+	$p=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
+	//dsm($p,'$p');
+	// достать компаненты ..  
+	$res=db_select('webform_component','t');
+	$res->condition('t.nid',1562);
+	$res->fields('t',array('cid','name','extra'));
+	$comps=$res->execute()->fetchAllAssoc('cid',PDO::FETCH_ASSOC);
+	foreach($comps as $x=>$y){
+		$y['extra']=unserialize($y['extra']);
+		if (!empty($y['extra']['items'])){
+			$items=array();
+			foreach(preg_split('#\n#im', $y['extra']['items']) as $v){
+				$v=array_map('trim',explode('|',$v));
+				$items[$v[0]]=$v[1];
+			}
+			$y['extra']['items']=$items;
+		}
+		$comps[$x]=$y;
+	}
+
+	$out=array(
+		'pp'=>array(
+			'#theme'=>'ppswitcher',
+			'#list'=>array(10,20,50,100,150,300),
+		),
+	);
+	foreach($p as $v){
+		$res=db_select('webform_submitted_data','t');
+		$res->condition('t.nid',$v['nid']);
+		$res->condition('t.sid',$v['sid']);
+		$res->condition('t.cid',array(17,3,4,5),'not in');
+		$res->fields('t',array('cid'));
+		$res->groupBy('t.cid');
+		$res->addExpression('group_concat(t.data)');
+		$res=$res->execute()->fetchAllKeyed();
+
+		$fields=array();
+		foreach($res as $x=>$y){
+			//9,10 13,14
+			if (in_array($x,array(10,14)))
+				continue;
+			if (in_array($x,array(9,13)) || !empty($res[$x+1])){
+				$mas=array();
+				if ($y)
+					foreach(array_map('trim',explode(',',$y)) as $r)
+						$mas[]=drupal_strtolower($comps[$x]['extra']['items'][$r]);
+				if (!empty($res[$x+1]))
+					$mas[]=$res[$x+1];
+				$y=implode(', ',$mas);
+				unset($res[$x+1]);
+			}
+			$fields['time']=array(
+				'#markup'=>date('Y.m.d',$v['submitted']),
+			);
+			switch($x) {
+				case 15:
+					$percet=intval($y);
+					// $comps[$x]['name']
+					$fields[$x]=array(
+						'#title'=>$comps[$x]['name'],
+						'#type'=>'item',
+						'#markup'=>sprintf('<span class="rating-out rating-widget-view" title="%s %s%%"> <span class="rating-in" data-rating="0.00" style="width:%s%%"></span></span>',$comps[$x]['name'],$percet,$percet) ,
+					);
+				break;
+				default:
+					$fields[$x]=array(
+						'#type'=>'item',
+						'#title'=>$comps[$x]['name'].':',
+						'#markup'=>empty($y)?'-':trim($y),
+					);
+			}
+		}
+		$fields['#theme']='otsiv_print';
+		if (user_access('public webform record')){
+			$fields['#attributes']['class'][]=empty($v['record_apply'])?'unpublic':'public';
+			$fields['ublink']=array(
+				'#theme'=>'link',
+				'#attached'=>array(
+					'js'=>array(
+						array('data'=>drupal_get_path('module','mkotsivi').'/mkotsivi.js','type'=>'file'),
+					),
+				),
+				'#text'=>empty($v['record_apply'])?'Опубликовать':'Снять с публикации',
+				'#path'=>'otzyvy-publicate',
+				'#options'=>array(
+					'attributes'=>array(
+						'class'=>array('use-ajax','record-'.$v['nid'].'-'.$v['sid']),
+					),
+					'query'=>array('sid'=>$v['sid'],'nid'=>$v['nid']),
+					'html'=>false,
+				),
+			);
+		}
+
+		$out[]=$fields;
+	}
+	$out['pager']=array(
+		'#theme'=>'pager',
+	);
+	return $out;
+}
+?>
