@@ -112,6 +112,7 @@ function mkotzivionas_cb(){
 	//dsm($p,'$p');
 	// достать компаненты ..  
 	$res=db_select('webform_component','t');
+	$fd['webform']=empty($fd['webform'])?0:intval($fd['webform']);
 	$res->condition('t.nid',intval($fd['webform']));
 	$res->fields('t',array('cid','name','extra'));
 	$comps=$res->execute()->fetchAllAssoc('cid',PDO::FETCH_ASSOC);
