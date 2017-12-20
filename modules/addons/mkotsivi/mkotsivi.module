@@ -4,6 +4,9 @@ function mkotsivi_permission(){
 		'public webform record'=>array(
 			'title'=>'Публикация записей webform',
 		),
+		'webform otsivi configure'=>array(
+			'title'=>'Настройка отзывов',
+		),
 	);
 }
 // ===========================================
@@ -14,6 +17,21 @@ function mkotsivi_menu(){
 			'access arguments'=>array('access content'),
 			'page callback'=>'mkotzivionas_cb',
 		),
+		'otzyvy-o-nas/list'=>array(
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+			'title'=>'Список',
+			'weight'=>6,
+		),
+		'otzyvy-o-nas/conf'=>array(
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'настройки',
+			'access arguments'=>array('webform otsivi configure'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('otzyvy_publicate_config_form'),
+			'file'=>'mkotsivi.admin.inc',
+			'weight'=>10,
+		),
+
 		'otzyvy-publicate'=>array(
 			'type'=>MENU_CALLBACK,
 			'access arguments'=>array('public webform record'),
@@ -70,6 +88,7 @@ function otsiv_print_prefunc(&$vars){
 function mkotzivionas_cb(){
 	global $user;
 	global $pp_size;
+	$fd=variable_get('otzyvy-publicate-config',array());
 	// record_apply
 	$res=db_select('webform_submissions','t');
 	$res=$res->extend('Pagerdefault');
@@ -80,10 +99,20 @@ function mkotzivionas_cb(){
 	if (!user_access('public webform record'))
 		$res->condition('t.record_apply',1);
 	$p=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
+	$p=array();
+	if (empty($p) && !empty($fd['empty-text'])){
+		return array(
+			'empty'=>array(
+				'#type'=>'markup',
+				'#markup'=>sprintf($fd['empty-text'],$fd['webform']),
+			),
+		);
+	}
+	
 	//dsm($p,'$p');
 	// достать компаненты ..  
 	$res=db_select('webform_component','t');
-	$res->condition('t.nid',1562);
+	$res->condition('t.nid',intval($fd['webform']));
 	$res->fields('t',array('cid','name','extra'));
 	$comps=$res->execute()->fetchAllAssoc('cid',PDO::FETCH_ASSOC);
 	foreach($comps as $x=>$y){
