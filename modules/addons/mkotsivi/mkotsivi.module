@@ -154,9 +154,11 @@ function mkotzivionas_cb(){
 				if ($y)
 					foreach(array_map('trim',explode(',',$y)) as $r)
 						$mas[]=drupal_strtolower($comps[$x]['extra']['items'][$r]);
-				if (!empty($res[$x+1]))
-					$mas[]=$res[$x+1];
 				$y=implode(', ',$mas);
+					
+				if (!empty($res[$x+1]))
+					$y.=($y?'. ':'').$res[$x+1];
+				
 				unset($res[$x+1]);
 			}
 			$fields['time']=array(
