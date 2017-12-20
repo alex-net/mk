@@ -99,7 +99,6 @@ function mkotzivionas_cb(){
 	if (!user_access('public webform record'))
 		$res->condition('t.record_apply',1);
 	$p=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
-	$p=array();
 	if (empty($p) && !empty($fd['empty-text'])){
 		return array(
 			'empty'=>array(
