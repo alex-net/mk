@@ -1353,6 +1353,7 @@ footer #block-superfish-2 select option:first-child{display:none;}
 .bestsellers-hits-block .content .more-link a:hover{border-bottom:1px solid #D8AFD8;}
 
 
+div.tabs::after {display: block;content:'';clear:both;}
 ul.tabs{font-family:Tahoma,Arial,sans-serif;float:left;width:100%;font-size:12px;line-height:17px;margin:0 0 20px 0;padding:0 0 0 10px;border-bottom:1px solid #C5C5C5;}
 ul.tabs li{float:left;list-style:none;margin:0;padding:0;border:0;position:relative;top:1px;}
 ul.tabs li a:link,
