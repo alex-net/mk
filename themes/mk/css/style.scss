@@ -1,5 +1,6 @@
 @import 'footer';
 @import 'search';
+@import 'buttons';
 
 .not-front #main_content > .row {margin:0;}
 .page-articles, .page-news {
@@ -26,3 +27,30 @@
 		a.current {@extend .rosoviy-text;font-weight:bold;}
 	}
 }
+
+
+//  страница успешного заказа . ( довели заказ до финала оформения 
+body.page-checkout-complete{
+	h1, .breadcrumb {display: none;}
+	// сообщение .. 
+	#block-system-main .checkout-completion-message {text-align: center;padding: 100px 0;border:2px dashed $colorrosoviy;padding:0.5em;margin-top:0.5em;
+		h2 {color: #E43E3E;margin: 0 0 40px;position: relative;vertical-align: middle;
+			&::before {content:'';display:inline-block;width:2em;height:2em;background:url(../i/complete.png) 0 0 no-repeat;background-size: cover;vertical-align: middle;margin-right: 0.5em;}
+		}
+		span.text {font-size:1.5em;
+			.number {color:$colorrosoviy;font-weight:bold;}
+		}
+	}	
+}
+
+
+// блок внимиание ..  
+.warn-block {border:1px solid #b32121; padding: 0.2em 0.5em  ;color:#b32121;font-size: 1.2em;margin:1em 0;color:black;
+	&::before {content:''; float:left;height:1.2em;width:1.2em;background:url(../i/kr-snakjpg.jpg) 0 0 no-repeat;background-size:contain;  margin-right:0.5em;} 
+}
+.view-confirm-message-product-display .warn-block {font-size:0.9em;text-align: left;padding-left: 0.5em;margin:0;background: none;
+	&::before {display:none;}
+}
+
+///  отпускаем высоту у свернутого fieldseta 
+html.js fieldset.collapsed {height:auto;}

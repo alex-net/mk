@@ -12,3 +12,11 @@ $colorrosoviy:#d254c9;
 		max-width:1200px;
 	}
 }
+
+
+@mixin br($rad){
+	border-radius:$rad;
+	-moz-border-radius:$rad;
+	-webkit-border-radius:$rad;
+	-ms-border-radius:$rad;
+}

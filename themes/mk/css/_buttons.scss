@@ -1,0 +1,38 @@
+@import 'vars';
+$button-size:12em;
+// кнопки .. 
+// кнопка типа применеть 
+.accept-button, .cancel-button {@include br(4px);padding: 4px 14px;font-size:1em;text-align:center;}
+.accept-button {
+	background:#21b321;color:white;border:1px solid #21b321;width:$button-size;height:auto;
+	&:hover {background:#1b9a1b;border-color:#1b9a1b;text-decoration:none;}
+}
+.cancel-button {
+	background:#f8f4f0;color:#018fe2;border:1px solid #018fe2;width:$button-size;height:auto;float:left;
+	&:hover {background:#ececec;border-color:#018fe2;text-decoration:none;}
+}
+
+body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input  {
+	@extend .accept-button;
+}
+
+
+
+div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display {
+	.text {
+		.checkout-action {color:#21b321;}
+		.continue-action {color:#018fe2;}
+	}
+	.buttons {
+		margin:20px 0;
+		&::after {display:block;clear:both;content:'';}
+		.commerce-add-to-cart-confirmation-close  { @extend .cancel-button;position:static;width:$button-size;}
+		.to_cart {float:right; @extend .accept-button;width:$button-size;}
+	}
+}
+
+body.page-checkout .checkout-buttons .checkout-cancel{
+	@extend .cancel-button;
+}
+
+.checkout-buttons {text-align:right;width:580px;margin:0 auto;}
