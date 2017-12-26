@@ -56,7 +56,7 @@
 		if ($variables['md'])
 			foreach($variables['md'] as $x=>$y)
 				if (is_string($y))
-					$variables['md'][$x]=token_replace($y);
+					$variables['md'][$x]=module_invoke('mkmod','tokensshashreplacer',$y);
 	}
 
 	function mk_taxonomy_term_view($term, $view_mode, $langcode) {
@@ -327,6 +327,21 @@ function mk_form_alter(&$form,&$form_state,$form_id){
 	if (isset($form['captcha']))
 		$form['captcha']['#after_build'][]='mkcaptchastyler_cb';
 	
+	// добавление очитски корзинки а страницу корзинки 
+	if($form_id=='views_form_commerce_cart_form_default')
+		$form['actions']['cartclear']=array(
+			'#type'=>'link',
+			'#title'=>'Очистить корзинку',
+			'#href'=>'cart-clear',
+			'#weight'=>-1,
+			'#options'=>array(
+				'attributes'=>array(
+					'class'=>array('cancel-button','clear-cart'),
+				),
+			),
+		);
+		//dsm($form);
+	
 }
 
 // ====================================================
@@ -404,10 +419,20 @@ function mk_menu_link($m){
 function mk_preprocess_views_view(&$vars){
 	if ($vars['name']=='confirm_message_product_display')
 		foreach(array('header','footer','rows') as $k)
-			$vars[$k]=token_replace($vars[$k]);
+			$vars[$k]=module_invoke('mkmod','tokensshashreplacer',$vars[$k]);
 }
 //=========================================================
 function mk_preprocess_username(&$vars){
 	$vars['extra']='';
 	//dsm($vars);
+}
+
+// =======================================
+function mk_form_commerce_checkout_form_checkout_alter(&$form,$form_state){
+	foreach (element_children($form['buttons']) as $x)
+		unset($form['buttons'][$x]['#prefix'],$form['buttons'][$x]['#suffix']);
+	$form['buttons']['continue']['#weight']=15;
+	
+
+	
 }
