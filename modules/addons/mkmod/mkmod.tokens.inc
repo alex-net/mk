@@ -224,12 +224,12 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 				}
 				if ($t=='nacenka'){
 					$nacenka=theme_get_setting('nacenka');
+					$rep[$o]='';
 					if (!empty($nacenka['text']) && !empty($nacenka['size']) && is_numeric($nacenka['size'])){
 						$cart=commerce_cart_order_load($user->uid);
 						//$total=field_get_items('commerce_cart_order',$cart,'commerce_order_total');
 						//dsm($cart,'cart');
 						$tot=floatval($cart->commerce_order_total[LANGUAGE_NONE][0]['amount']/100);
-						$rep[$o]='';
 						
 						//dsm($tot,'$tot');
 						if (floatval($nacenka['size'])>$tot)
