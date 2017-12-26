@@ -18,6 +18,12 @@ function mkmod_token_info(){
 					'description'=>'Вернуть контент ноды',
 				),
 			),
+			'commerce-order'=>array(
+				'form-field'=>array(
+					'name'=>'Поле из формы',
+					'description'=>'',
+				),
+			),
 			'mk'=>array(
 				'show-comments'=>array(
 					'name'=>'Коменты ноды',
@@ -104,7 +110,7 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 						if ($tn[2]=='full'){
 							$n['#setpagetotrue']=true;
 						}
-						node_tokens_replacer($n);
+						nodetokens_replacer($n);
 						$rep[$o]=render($n);
 					}
 				}
@@ -129,6 +135,29 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 					$rep[$o]=render($b);
 				}
 			break;
+			case 'commerce-order':
+			
+				if (preg_match('#^form-field:(.*)#',$t,$tn)){
+					$ord=commerce_order_load($data['commerce-order']->order_id);
+					$prof=field_get_items('commerce_order',$ord,'field_form_ordering');
+					$rep[$o]='';
+					if (
+						!empty($prof[0]['profile_id']) && 
+						($prof=entity_load('commerce_customer_profile', array($prof[0]['profile_id']))) &&
+						($prof=field_get_items('commerce_customer_profile',reset($prof),end($tn))) &&
+						!empty($prof[0]['value'])
+					){
+						
+						$rep[$o]=$prof[0]['value'];
+						
+					}
+
+					//
+					
+					
+				
+				}
+			break;	
 			case 'mk':
 				if (preg_match('#show-comments\:(\d+)\:(\d+)#',$t,$tn)){
 					global $pager_page_array;
@@ -194,13 +223,18 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 					
 				}
 				if ($t=='nacenka'){
-					$cart=commerce_cart_order_load($user->uid);
-					//$total=field_get_items('commerce_cart_order',$cart,'commerce_order_total');
-					//dsm($cart,'cart');
-					$tot=floatval($cart->commerce_order_total[LANGUAGE_NONE][0]['amount']/100);
-
-					//dsm($tot,'$tot');
-					$rep[$o]=$tot>10000?'':'<div class="nacenka-action-popup warn-block">На розничные заказы до 10 000 рублей применяется дополнительная наценка 20% к цене, указанной на сайте!!!</div>';
+					$nacenka=theme_get_setting('nacenka');
+					if (!empty($nacenka['text']) && !empty($nacenka['size']) && is_numeric($nacenka['size'])){
+						$cart=commerce_cart_order_load($user->uid);
+						//$total=field_get_items('commerce_cart_order',$cart,'commerce_order_total');
+						//dsm($cart,'cart');
+						$tot=floatval($cart->commerce_order_total[LANGUAGE_NONE][0]['amount']/100);
+						$rep[$o]='';
+						
+						//dsm($tot,'$tot');
+						if (floatval($nacenka['size'])>$tot)
+							$rep[$o]='<div class="nacenka-action-popup warn-block">'.$nacenka['text'].'</div>';
+					}
 				}
 				if ('map-sclad'==$t){
 					$fd=variable_get('sklad-config',array());// список складов 

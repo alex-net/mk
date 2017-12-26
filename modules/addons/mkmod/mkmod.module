@@ -57,7 +57,7 @@ function mkmod_init(){
 }
 //=======================================================
 function mkmod_preprocess_page(&$p){
-	node_tokens_replacer($p);
+	nodetokens_replacer($p);
 }
 // =================================================
 function mkmod_permission(){
@@ -306,15 +306,25 @@ function _gethitprodag($count){
 	return $res; 
 }
 // =====================================================
-function node_tokens_replacer(&$el){
+function mkmod_tokensshashreplacer($el){
+	do{
+		$a=md5($el);
+		//dsm(array($el),$a);
+		$el=token_replace($el);
+	}while($a!=md5($el));
+	//dsm(array($a,md5($el),$el));
+	return $el;
+}
+// ===========================================
+function nodetokens_replacer(&$el){
 	foreach(array('#markup','#prefix','#suffix') as $k)
 		if (is_array($el) && !empty($el[$k]))
-			$el[$k]=token_replace($el[$k]);
+			$el[$k]=mkmod_tokensshashreplacer($el[$k]);
 	if (is_string($el))
-		$el=token_replace($el);
+		$el=mkmod_tokensshashreplacer($el);
 	if (is_array($el))
 		foreach(element_children($el) as $k)
-			node_tokens_replacer($el[$k]);
+			nodetokens_replacer($el[$k]);
 }
 // =======================================================
 function mkmod_preprocess_node(&$n){
@@ -325,7 +335,7 @@ function mkmod_preprocess_node(&$n){
 		drupal_add_js(array('current-noda'=>$n['nid']),'setting');
 	// замена токенов 
 	if (!empty($n['content']))
-		node_tokens_replacer($n['content']);
+		nodetokens_replacer($n['content']);
 }
 // ============================================
 function mkmod_form_alter(&$form,&$form_state){
