@@ -54,3 +54,17 @@ body.page-checkout-complete{
 
 ///  отпускаем высоту у свернутого fieldseta 
 html.js fieldset.collapsed {height:auto;}
+
+
+//блок Важная информация . на доставке 
+.warn-block-2 {
+	border:0.23em solid #d52c2c; padding: 0.2em 0.5em 0.5em 0;color:#b32121;font-size: 1.5em;margin:1em 0;min-height: 8em;position:relative;
+	&::before {width:8em;height:8em;background: url(../i/kr-snakjpg2.jpg) 50% 50% no-repeat;background-size:contain;display:block;content:'';position:absolute;top:0;left:0;}
+	.titl {font-size: 1.14em;margin-left:7em;}
+	ul {margin:0 0 0 7em;padding:0 0 0 2.5em!important;
+		li {font-size: 0.8em;
+			span {color:black;}
+		} 
+	}
+	
+}

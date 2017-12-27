@@ -1022,10 +1022,7 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 .stitl.send-tachki {background:url(i/send-tachki.png) 0 50% no-repeat;padding: 0.2em 1em 0.2em 1.8em ;}
 
 
-.warn-block-2 {border:5px solid #d52c2c;background: url(i/kr-snakjpg2.jpg) 0.3em 50% no-repeat; padding: 0.2em 0.5em 0.2em 14.5em;color:#b32121;font-size: 1.57em;margin:1em 0;min-height: 240px;}
-.warn-block-2 .titl {font-size: 1.14em;}
-.warn-block-2 ul li {font-size: 0.682em;}
-.warn-block-2 ul li span {color:black;}
+
 .info-for {padding-left:4em;}
 .info-for.urik {background:url(i/man.png) 0.4em 0.2em no-repeat;}
 .info-for.fisik {background:url(i/users.png) 0em 0em no-repeat;}

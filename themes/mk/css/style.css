@@ -575,3 +575,32 @@ body.page-checkout-complete #block-system-main .checkout-completion-message {
 
 html.js fieldset.collapsed {
   height: auto; }
+
+.warn-block-2 {
+  border: 0.23em solid #d52c2c;
+  padding: 0.2em 0.5em 0.5em 0;
+  color: #b32121;
+  font-size: 1.5em;
+  margin: 1em 0;
+  min-height: 8em;
+  position: relative; }
+  .warn-block-2::before {
+    width: 8em;
+    height: 8em;
+    background: url(../i/kr-snakjpg2.jpg) 50% 50% no-repeat;
+    background-size: contain;
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .warn-block-2 .titl {
+    font-size: 1.14em;
+    margin-left: 7em; }
+  .warn-block-2 ul {
+    margin: 0 0 0 7em;
+    padding: 0 0 0 2.5em!important; }
+    .warn-block-2 ul li {
+      font-size: 0.8em; }
+      .warn-block-2 ul li span {
+        color: black; }
