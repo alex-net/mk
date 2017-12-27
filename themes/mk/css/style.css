@@ -560,7 +560,7 @@ body.page-checkout-complete #block-system-main .checkout-completion-message {
     float: left;
     height: 1.2em;
     width: 1.2em;
-    background: url(../i/kr-snakjpg.jpg) 0 0 no-repeat;
+    background: url(../i/kr-snakjpg3.jpg) 0 0 no-repeat;
     background-size: contain;
     margin-right: 0.5em; }
 
@@ -585,20 +585,20 @@ html.js fieldset.collapsed {
   min-height: 8em;
   position: relative; }
   .warn-block-2::before {
-    width: 8em;
+    width: 4em;
     height: 8em;
-    background: url(../i/kr-snakjpg2.jpg) 50% 50% no-repeat;
+    background: url(../i/kr-snakjpg3.jpg) 50% 50% no-repeat;
     background-size: contain;
     display: block;
     content: '';
     position: absolute;
     top: 0;
-    left: 0; }
+    left: 1px; }
   .warn-block-2 .titl {
     font-size: 1.14em;
-    margin-left: 7em; }
+    margin-left: 3em; }
   .warn-block-2 ul {
-    margin: 0 0 0 7em;
+    margin: 0 0 0 3em;
     padding: 0 0 0 2.5em!important; }
     .warn-block-2 ul li {
       font-size: 0.8em; }
