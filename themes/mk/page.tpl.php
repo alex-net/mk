@@ -26,17 +26,30 @@
 					<div class="emails">
 						<div class="graph animated"><span>ПН-ПТ: 9.00 - 19.00</span></div>
 						<div class="mail-wrap">
-							<div class="email animated marg-do"><a href="mailto:9485571@mail.ru"><span>9485571</span>@mail.ru</a></div>
-							<div class="email animated "><a href="mailto:4927025@mail.ru"><span>4927025</span>@mail.ru</a></div>
+							<div class="min-width-480">
+								<div class="email animated marg-do"><span>9485571</span>@mail.ru</div>
+								<div class="email animated "><span>4927025</span>@mail.ru</div>
+							</div>
+							<div class="max-width-479">
+								<div class="email animated marg-do"><a href="mailto:9485571@mail.ru"><span>9485571</span>@mail.ru</a></div>
+								<div class="email animated "><a href="mailto:4927025@mail.ru"><span>4927025</span>@mail.ru</a></div>
+							</div>
 						</div>
 						<div class="socnets-320">
 							<?php echo token_replace('[mk:socnets:vk=>https://vk.com/megakrovlia|insta=>https://www.instagram.com/megakrovlya/|fb=>https://www.facebook.com/groups/masterkrowli/]');?>
 						</div>
 					</div>
 					<div class="phones">
-						<div class="phone marg-do"><a href="tel:+74994927025"><span>8 (499)</span>492-70-25</a></div>
-						<div class="phone "><a href="tel:+74956644421"><span>8 (495)</span>664-44-21</a></div>
-						<div class="phone marg-posle"><a href="tel:89266094161"><span>8 (926)</span>609-41-61</a></div>
+						<div class="min-width-480">
+							<div class="phone marg-do"><span>8 (499)</span>492-70-25</div>
+							<div class="phone "><span>8 (495)</span>664-44-21</div>
+							<div class="phone marg-posle"><span>8 (926)</span>609-41-61</div>
+						</div>
+						<div class="max-width-479">
+							<div class="phone marg-do"><a href="tel:+74994927025"><span>8 (499)</span>492-70-25</a></div>
+							<div class="phone "><a href="tel:+74956644421"><span>8 (495)</span>664-44-21</a></div>
+							<div class="phone marg-posle"><a href="tel:+79266094161"><span>8 (926)</span>609-41-61</a></div>
+						</div>
 					</div>
 			</div>
 			<div class="cart ">

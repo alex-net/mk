@@ -374,6 +374,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 .contacts .graphs {font-size:0.857em;padding-top: 0.5em;}
 .contacts .graphs .titl {text-transform: uppercase;padding-top: 0.1em;font-weight: bold;}
 .contacts .graph {color:#d041c6;background:url(i/icon-tik-tak.png) 0 50% no-repeat;padding-left: 1.3em;margin: 0.4em 0 0 1em;line-height:1.8em;font-weight: bold;}
+@media screen and (max-width: 479px){
+  .min-width-480 {display: none;}
+} 
+@media screen and (min-width: 480px){
+  .max-width-479 {display: none;}
+} 
 .contacts .emails .email{color:#5F5E5E;font-family:Arial;}
 .contacts .emails .email a {color:#5F5E5E;}
 .contacts .emails .email span{color:#AD31AE;}
