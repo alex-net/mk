@@ -375,8 +375,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 .contacts .graphs .titl {text-transform: uppercase;padding-top: 0.1em;font-weight: bold;}
 .contacts .graph {color:#d041c6;background:url(i/icon-tik-tak.png) 0 50% no-repeat;padding-left: 1.3em;margin: 0.4em 0 0 1em;line-height:1.8em;font-weight: bold;}
 .contacts .emails .email{color:#5F5E5E;font-family:Arial;}
+.contacts .emails .email a {color:#5F5E5E;}
 .contacts .emails .email span{color:#AD31AE;}
 .contacts .phones .phone{color:#5F5E5E;font-family:Arial;}
+.contacts .phones .phone a {color:#5F5E5E;}
 .contacts .phones .phone span{color:#AD31AE;font-size:11px;margin:0 4px 0 0;font-weight:bold;}
 
 .contacts .graph:hover, 
@@ -1673,14 +1675,16 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
 }
 
 
-#views-form-commerce-cart-form-default .views-field-edit-quantity input,
-.commerce-line-item-views-form .form-item input {
+#views-form-commerce-cart-form-default .views-field-edit-quantity input
+ {
   text-align: center;
   background: #fff;
   -webkit-box-shadow: none;
   box-shadow: none;
   border: 1px solid #ccc;
 }
+
+
 
 
 .cart-empty-page,
@@ -2067,7 +2071,7 @@ h6 {
 }
 @media screen and (max-width: 767px){
   .logo_contacts_cart .contacts .emails .mail-wrap {padding-left: 0;}
-  .contacts  .emails .graph{margin-left: -2em;font-size: 1em;}
+  .contacts  .emails .graph{margin-left: -2em;font-size: 1em;line-height: 1.5em;}
   .link_catalog_main_menu .catalog {font-size: 1em;line-height: 2em;text-align: center;width: 11em;}
   .logo_contacts_cart .contacts  > .graphs {display: none;}
   header.header .logo_contacts_cart .logo img {width: 13em;height: auto;}

@@ -328,7 +328,7 @@ function mk_form_alter(&$form,&$form_state,$form_id){
 		$form['captcha']['#after_build'][]='mkcaptchastyler_cb';
 	
 	// добавление очитски корзинки а страницу корзинки 
-	if($form_id=='views_form_commerce_cart_form_default')
+	if($form_id=='views_form_commerce_cart_form_default'){
 		$form['actions']['cartclear']=array(
 			'#type'=>'link',
 			'#title'=>'Очистить корзинку',
@@ -340,6 +340,43 @@ function mk_form_alter(&$form,&$form_state,$form_id){
 				),
 			),
 		);
+
+		$prods=array();
+		// надо собрать line_itemы .. 
+		foreach($form_state['line_items'] as $li){
+			$p=field_get_items('commerce_line_item',$li,'commerce_product');
+			$prods[]=$p[0]['product_id'];
+		}
+		if ($prods){
+			$res=db_select('commerce_product','cp');
+			$res->condition('cp.product_id',$prods);
+			$res->condition('cp.status',1);
+			$res->addField('cp','product_id');
+			$res->leftjoin('field_data_field_unit_measure','ed','ed.entity_id=cp.product_id and ed.bundle=cp.type and ed.entity_type=\'commerce_product\'');
+			$res->leftjoin('field_data_field_mini_unit_prod','e','e.entity_id=ed.field_unit_measure_tid');
+			$res->addField('e','field_mini_unit_prod_value','ed');
+			$res=$res->execute()->fetchAllKeyed();
+		}
+		foreach($form_state['line_items'] as $li){
+			$p=field_get_items('commerce_line_item',$li,'commerce_product');
+			if (!empty($res[$p[0]['product_id']])){
+				foreach(element_children($form['edit_quantity']) as $k)
+					if ($form['edit_quantity'][$k]['#line_item_id']==$li->line_item_id)
+						$form['edit_quantity'][$k]['#field_suffix']=$res[$p[0]['product_id']];
+			}
+			
+		}
+	}
+	if ($form_id=='views_form_cart_onenglar_default')
+		foreach(element_children($form['edit_quantity']) as $k){
+			$form['edit_quantity'][$k]=array(
+				'#prefix'=>$form['edit_quantity'][$k]['#default_value'],
+				'#type'=>'value',
+				'#value'=>$form['edit_quantity'][$k]['#default_value']
+			);
+		}
+	
+	
 		//dsm($form);
 	
 }

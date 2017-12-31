@@ -34,7 +34,7 @@ body.page-checkout-complete{
 	h1, .breadcrumb {display: none;}
 	// сообщение .. 
 	#block-system-main .checkout-completion-message {text-align: center;padding: 100px 0;border:2px dashed $colorrosoviy;padding:0.5em;margin-top:0.5em;
-		h2 {color: #E43E3E;margin: 0 0 40px;position: relative;vertical-align: middle;
+		h2 {color: #19D873;margin: 0 0 40px;position: relative;vertical-align: middle;
 			&::before {content:'';display:inline-block;width:2em;height:2em;background:url(../i/complete.png) 0 0 no-repeat;background-size: cover;vertical-align: middle;margin-right: 0.5em;}
 		}
 		span.text {font-size:1.5em;
