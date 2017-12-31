@@ -431,8 +431,9 @@ function mk_preprocess_username(&$vars){
 function mk_form_commerce_checkout_form_checkout_alter(&$form,$form_state){
 	foreach (element_children($form['buttons']) as $x)
 		unset($form['buttons'][$x]['#prefix'],$form['buttons'][$x]['#suffix']);
-	$form['buttons']['continue']['#weight']=15;
-	
-
-	
+	$form['buttons']['continue']['#weight']=15;	
+}
+// =====================================
+function mk_commerce_currency_info_alter(&$cur){
+	$cur['RUB']['symbol']='руб';
 }
