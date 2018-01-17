@@ -90,6 +90,17 @@ function skladconfig_form($form,$form_state){
 				'#default_value'=>empty($y['addres'])?'':$y['addres'],
 				'#description'=>'можно указывать координаты точки, например, [55.664545 37.673740]',
 			),
+			'addres-text'=>array(
+				'#type'=>'textfield',
+				'#title'=>'Адрес в текстовой форме',
+				'#description'=>'Если заполнен то исполдзуется для отображения, а противном случае используется первое поле адреса.',
+				'#default_value'=>empty($y['addres-text'])?'':$y['addres-text'],
+			),
+			'tel'=>array(
+				'#type'=>'textfield',
+				'#title'=>'телефон',
+				'#default_value'=>empty($y['tel'])?'':$y['tel'],
+			),
 			'regim'=>array(
 				'#type'=>'textarea',
 				'#title'=>'Режим работы',

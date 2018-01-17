@@ -5,6 +5,10 @@
 		<?php endif;?>
 	</div>
 	<div class="ball-body">
+		<?php echo $addres;?>
+		<?php if ($tel):?>
+			<div class="tel"><?php echo $tel;?></div>
+		<?php endif; ?>
 		<div class="regim-label">Режим работы</div>
 		<div class="pn-pt">
 			<span>ПН-ПТ</span><?php echo $timepn;?>

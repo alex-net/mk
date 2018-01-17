@@ -9,6 +9,8 @@ function mkmod_theme(){
 				'timepn'=>'',// время работы понедельник пятница
 				'vihi'=>'',// выходные 
 				'descr'=>'', // доп инфа 
+				'addres'=>'',//адрес
+				'tel'=>'',// телефон 
 			),
 			'template'=>'skladmapballoon',
 		),
