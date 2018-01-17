@@ -49,6 +49,7 @@ footer {
 	.corp-data-copyr {
 		background:#333333;
 		.corp-data-copyr-wrap{
+			&:first-child {border-bottom:1px solid $colorrosoviy;} 
 			@extend .region-wrap;
 			width:100%;
 			display:table;

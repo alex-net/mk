@@ -100,6 +100,8 @@ footer {
     footer .corp-data-copyr .corp-data-copyr-wrap {
       width: 100%;
       display: table; }
+      footer .corp-data-copyr .corp-data-copyr-wrap:first-child {
+        border-bottom: 1px solid #d254c9; }
       footer .corp-data-copyr .corp-data-copyr-wrap > div {
         display: table-cell;
         line-height: 2em;

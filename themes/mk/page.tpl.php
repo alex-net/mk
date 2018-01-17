@@ -121,6 +121,12 @@
 	</div>
 	<div class="corp-data-copyr">
 		<div class="corp-data-copyr-wrap">
+			<div class="ooo">8 (499) 492-70-25, 8 (495) 664-44-21, 8 (926)609-41-61</div>
+
+			<div class="copyright">125362, г. Москва, Строительный проезд, д. 7А, корп. 35</div>
+		</div>
+
+		<div class="corp-data-copyr-wrap">
 			<div class="ooo"><?php echo $md['footer-left']; ?></div>
 			<div class="figures"><?php echo $md['footer-center']; ?></div>
 			<div class="copyright"><?php echo $md['footer-right']; ?></div>
