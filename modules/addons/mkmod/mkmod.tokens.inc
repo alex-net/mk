@@ -17,6 +17,10 @@ function mkmod_token_info(){
 					'name'=>'Контент ноды',
 					'description'=>'Вернуть контент ноды',
 				),
+				'view-in-popup'=>array(
+					'name'=>'Всплыть',
+					'description'=>'Всплыть контентом ноды (full)',
+				),
 			),
 			'commerce-order'=>array(
 				'form-field'=>array(
@@ -113,6 +117,17 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 						nodetokens_replacer($n);
 						$rep[$o]=render($n);
 					}
+				}
+				// настраиваем всплывашку.. для ноды .  // классы через запятую, заголоовк контанта 
+				if (preg_match('#view-in-popup:(\d+):(\S*):(.*)?#us',$t,$tn)){
+					drupal_add_library('mkmod','myajaxcommands');
+					$attrs=array(
+						'class'=>array('node-popup','popup-for-'.$tn[1]),
+						'data-show-node-in-popup'=>$tn[1],
+					);
+					if (!empty($tn[2]))
+						$attrs['class']=array_merge($attrs['class'],explode(',',$tn[2]));
+					$rep[$o]=sprintf('<span %s>%s</span>',drupal_attributes($attrs),$tn[3]);
 				}
 			break;
 			case 'block':
