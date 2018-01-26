@@ -347,6 +347,8 @@ body.page-search #block-system-main {
 footer .block-search {
   float: right;
   clear: both; }
+  footer .block-search div.contextual-links-wrapper {
+    right: -25px; }
   footer .block-search form {
     position: relative; }
     footer .block-search form input.form-text {

@@ -79,7 +79,7 @@ body.page-search #block-system-main {
 }
 // форма поиска в подвале 
 footer .block-search {float:right;clear:both;
-
+	div.contextual-links-wrapper {right:-25px;}
 	form {position:relative;
 		input.form-text {padding:0.5em 2em 0.5em 0.5em;background:transparent!important;border:1px solid #505050;display:block;width:100%;
 			& + .autocompleter {
