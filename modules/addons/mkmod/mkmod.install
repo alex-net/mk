@@ -1,0 +1,31 @@
+<?php 
+function mkmod_field_schema($field){
+	$col=array();
+	switch($field['type']){
+		case 'grad_background':
+			$col['gradcolors']=array(
+				'description'=>'стили элемента',
+				'type'=>'text',
+				'not null'=>true,
+			);
+			$col['gradtype']=array(
+				'type'=>'char',
+				'default'=>'l',
+			);
+			$col['angle']=array(
+				'type'=>'numeric',
+				'default'=>0,
+				'precision'=>6,
+				'scale'=>3,
+			);
+			$col['addonstyles']=array(
+				'description'=>'оп стили для элемента',
+				'type'=>'text',
+			);
+			break;	
+	}
+	return array(
+		'columns'=>$col,
+	);
+}
+?>

@@ -4,6 +4,8 @@ module_load_include('inc','mkmod','mkmod.blocks');
 module_load_include('inc','mkmod','mkmod.tokens');
 module_load_include('inc','mkmod','mkmod.callbacks');
 module_load_include('inc','mkmod','mkmod.formatters');
+module_load_include('inc','mkmod','mkmod.widgets');
+module_load_include('inc','mkmod','mkmod.fields');
 module_load_include('inc','mkmod','mkmod.themes');
 function mkmod_library(){
 	$p=drupal_get_path('module','mkmod');

@@ -7,6 +7,11 @@ function mkmod_field_formatter_info(){
 			'description'=>'Описаное товаров с возможностью покупки',
 			'field types'=>array('commerce_product_reference'),
 		),
+		'grad_background'=>array(
+			'label'=>'гардиентная заливка',
+			'description'=>'гарадиентная заливка',
+			'field types'=>array('grad_background'),
+		),
 	);
 }
 // ===============================================
@@ -42,7 +47,6 @@ function mkmod_field_formatter_view($enttype,$ent,$field,$instance,$language,$it
 					$res->leftjoin('taxonomy_term_data','td','field_unit_measure.field_unit_measure_tid=td.tid');
 					$res->leftjoin('field_data_field_mini_unit_prod','u','u.entity_id=td.tid');
 					$res->addField('u','field_mini_unit_prod_value','unit');
-					//$res->addField('td','name','unit');
 				}
 
 			}
@@ -110,6 +114,38 @@ function mkmod_field_formatter_view($enttype,$ent,$field,$instance,$language,$it
 				'price-list'=>$rows,
 				'form'=>drupal_get_form('mkmodformaddtocart_'.implode('_',$pids).'_form',$res,$ent->nid),
 			);
+		break;
+
+		case 'grad_background':
+		
+			foreach($items as $delta=>$item){
+				$gt=array('l'=>'linear','r'=>'radial',);
+				$grads=array();
+				$colors=implode(',',array_map('trim',explode(';',$item['gradcolors'])));
+				$deg=$item['gradtype']=='r'?'':$item['angle'].'deg,';
+				foreach(array('','ms-','o-','webkit-','moz-') as $b)
+					$grads[]='background-image:'.$b.$gt[$item['gradtype']].'-gradient('.$deg.$colors.');';
+				if (!empty($item['addonstyles'])){
+					$style=array();
+					foreach(explode('\n',$item['addonstyles']) as $s)
+						$style[]='.node-'.$ent->nid.'.node-teaser .field-name-'.trim($s);
+					drupal_add_css(implode('',$style),array('type'=>'inline'));
+					
+				}
+
+				
+				$attrs=array(
+					'class'=>array('grad-bg'),
+					'style'=>$grads,
+				);
+				$el[$delta]=array(
+					'#markup'=>sprintf('<span %s ></span>',drupal_attributes($attrs)),
+				);
+			}
+			
+
+			
+			
 		break;
 	}
 	return $el;
