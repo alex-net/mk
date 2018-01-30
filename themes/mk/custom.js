@@ -1,4 +1,11 @@
 (function ($) {
+
+	Drupal.behaviors.slickslider={
+		attach:function(c,s){
+			if ($('.slider-ad-wrapper').length)
+				$('.slider-ad-wrapper').slick({});
+		}
+	}
 	// инициализация каруселей .. 
 	cc=[
 		{count:4,from:1280,to:100000},

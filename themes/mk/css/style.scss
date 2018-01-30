@@ -68,3 +68,83 @@ html.js fieldset.collapsed {height:auto;}
 	}
 	
 }
+
+// слайдер объявлений .. на главной 
+.slider-discont-main,.ad-main {
+	.content {background:#FFF;padding:8px;border:1px solid #ccc;float:left;width:100%;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:10px 0;}
+
+}
+
+.ad-main {
+	.slick-prev {left:25px;
+		&::before {content:'<';font-family:arial;}
+
+	}
+	.slick-next {right:25px;
+		&::before {content:'>';font-family:arial;}
+	}
+	.slick-arrow {z-index:5;border-radius:50%;overflow:hidden;background:#514F50;width:2em;height:2em;font-size:1em;display:none!important;
+		&::before {font-size:2em;display:block;}
+	}
+	&:hover .slick-arrow {display:block!important;}
+}
+.node-ad-for-main.node-teaser {position: relative;
+	.grad-bg {height: 312px;display: block;}
+	.field-name-body  {position:absolute;left:0;top:50%;} 
+}
+
+// слайдер акций 
+.slider-discont-main .content {
+	.slider-main-big {margin:0 -24px;}
+	.akcion-big-el {padding:0 24px;
+		h2 {color:#B32121;font-size:30px;line-height:17px;
+			span {float: left;width: 100%;
+				& + span{font-size:18px;margin: 7px 0 0 0;}
+			}
+		}
+		p {color:#555;}
+		.price_discount_wrap{float:left;width:100%;}
+		.price_buy_button {
+			.discount_price{float:left;background:#AD31AE;color:#fff;font-size:20px;padding:2px 14px 3px 25px;border-radius:4px;margin:0 10px 0  -24px;position:relative;
+				&::before {background:#444;width:6px;height:20px;float:left;left:0;top:-4px;z-index:-1;content:"";position:absolute;-webkit-border-radius:6px 0 0 0;border-radius:6px 0 0 0;}
+			}
+			.discount_price span {text-transform: lowercase;}
+			a.buy_prod_button{float:left;background:#b32121 url(/sites/all/themes/mk/i/icon_cart_product.png) 10px 5px no-repeat;margin:12px 0 0 -24px;border:0 none;-webkit-border-radius:4px;border-radius:4px;color:#FFF;font-size:12px;text-transform:uppercase;padding:8px 10px 8px 39px;outline:none;position:relative;
+				&::before {background:#444;width:6px;height:20px;float:left;left:0;top:-4px;z-index:-1;content:"";position:absolute;-webkit-border-radius:6px 0 0 0;border-radius:6px 0 0 0;}
+			}
+
+		}
+		.old_price{float: left; width: 60%; text-align: center; color: #010101; font-size: 14px; margin: -28px 40% 0 94px;
+			span {position:relative;text-transform: lowercase;
+				.crossed:after{content:"";position:absolute;top:50%;left:0;width:100%;height:1px;background:red;}
+			}
+		}
+
+	}
+	.akcion-small-el{cursor:pointer;
+		.pic{padding-left:0;padding-right:0;
+			img {border:1px solid #FFFFFF;padding:0;}
+		}
+		.info {
+			.price{color:#B32121;font-size:12px;}
+			.old_price{font-size:10px;color:#020202;text-decoration:line-through;}
+		}
+
+	}
+	.slider-main-small {background: #F5F5F5;padding: 5px 35px;
+		.slick-prev{left:12px;opacity:1!important;top:50%;z-index: 20;}
+		.slick-next{right:12px;opacity:1!important;top:50%;z-index: 20;}
+	}
+	.slick-arrow::before  {color:black;}
+
+
+
+}
+ 
+
+/*
+.limits{display:none;}
+#block-views-main-slider-main-slider-focus{float:left;width:100%;}
+#block-views-dfc135f0d7bdb4e809e16fa5b77d4dbf{float:left;width:100%;}
+.slider-discont-main .slider-main-small {}
+*/

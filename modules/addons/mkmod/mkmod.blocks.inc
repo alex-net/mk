@@ -13,6 +13,9 @@ function mkmod_block_info(){
 		'catlist'=>array(
 			'info'=>'Категории товаров',
 		),
+		'ad-block'=>array(
+			'info'=>'Объявления',		
+		),
 	);
 }
 // ====================================
@@ -25,6 +28,21 @@ function mkmod_block_view($delta=''){
 				$b['content']=theme('topprodaglist',array(
 					'list'=>$nids,
 				));
+		break;
+		case 'ad-block':
+			$res=db_select('node','n');
+			$res->condition('n.type','ad_for_main');
+			$res->fields('n',array('nid'));
+			$res->orderby('n.created','asc');
+			$res=$res->execute()->fetchCol();
+			if ($res){
+				$res=node_view_multiple(node_load_multiple($res));
+				$res['nodes']['#prefix']='<div class="slider-ad-wrapper">';
+				$res['nodes']['#suffix']='</div>';
+				//dsm($res);
+				$b['content']=render($res);
+			}
+			//$b['content']='adad';
 		break;
 		// блок слайдеров 
 		case 'akcii-slider-big':

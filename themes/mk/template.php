@@ -119,30 +119,39 @@
 		}
 		if ($n['type']=='product_display' && $n['view_mode']=='full'){
 			drupal_add_library('system','ui.tabs');
-		if ($n['type']=='product_display')
-			drupal_add_library('system','ui.tabs');
+			if ($n['type']=='product_display')
+				drupal_add_library('system','ui.tabs');
 
-			// малюем рейтинг 
-			// получаем данные .. 
-			$res=db_select('comment','c');
-			$res->condition('c.status',1);
-			$res->condition('c.nid',$n['nid']);
-			$res->leftjoin('field_data_field_rating','r','r.entity_id=c.cid');
-			$res->addExpression('avg(r.field_rating_value)');
-			$res=$res->execute()->fetchField();
-			$r=number_format($res,2,'.','');
-			$attr=array(
-				'class'=>array("rating-in"),
-				'data-rating'=>$r,
-				'style'=>"width:$r%",
-			);
-			$n['content']['rating']=array(
-				'#prefix'=>'<div>',
-				'#suffix'=>'</div>',
-				'#markup'=>sprintf('<span class="rating-out rating-widget-view" title="%s%%"><span %s ></span></span>',$r,drupal_attributes($attr)),
-			);
-			//dsm($n,'$n');
+				// малюем рейтинг 
+				// получаем данные .. 
+				$res=db_select('comment','c');
+				$res->condition('c.status',1);
+				$res->condition('c.nid',$n['nid']);
+				$res->leftjoin('field_data_field_rating','r','r.entity_id=c.cid');
+				$res->addExpression('avg(r.field_rating_value)');
+				$res=$res->execute()->fetchField();
+				$r=number_format($res,2,'.','');
+				$attr=array(
+					'class'=>array("rating-in"),
+					'data-rating'=>$r,
+					'style'=>"width:$r%",
+				);
+				$n['content']['rating']=array(
+					'#prefix'=>'<div>',
+					'#suffix'=>'</div>',
+					'#markup'=>sprintf('<span class="rating-out rating-widget-view" title="%s%%"><span %s ></span></span>',$r,drupal_attributes($attr)),
+				);
+				//dsm($n,'$n');
+			}
+		if ($n['type']=='ad_for_main' && $n['view_mode']=='teaser'){
+			$im=field_get_items('node',$n['node'],'field_background');
+			$bg=field_get_items('node',$n['node'],'field_gradbg');
+			
+			if ($im && $bg)
+				$n['content']['field_gradbg']['#access']=false;
+			//kprint_r($n);
 		}
+
 		
 	}
 /*function mk_child_terms($vid = 1) {
