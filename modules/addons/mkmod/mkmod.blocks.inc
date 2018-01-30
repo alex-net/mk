@@ -18,9 +18,36 @@ function mkmod_block_info(){
 		),
 	);
 }
+function mkmod_block_configure ($delta=''){
+	$form=array();
+	$fd=variable_get('mkmod blocks '.$delta,array());
+	switch($delta){
+		case 'akcii-slider-big':
+			$form['mkblock-data']=array(
+				'#type'=>'fieldset',
+				'#tree'=>true,
+				'#title'=>'настройки слайдера',
+				'timeslide'=>array(
+					'#type'=>'textfield',
+					'#title'=>'Интервал листания',
+					'#size'=>10,
+					'#field_suffix'=>'с.',
+					'#default_value'=>empty($fd['timeslide'])?'':$fd['timeslide'],
+				),
+			);
+		break;
+	}
+	return  $form;
+}
+// =====================================
+function mkmod_block_save($delta='',$data=array()){
+	if (!empty($data['mkblock-data']))
+		variable_set('mkmod blocks '.$delta,$data['mkblock-data']);
+}
 // ====================================
 function mkmod_block_view($delta=''){
 	$b=array();
+	$fd=variable_get('mkmod blocks '.$delta,array());
 	switch($delta){
 		case 'hit-prodag':
 			$nids=_gethitprodag(4);
@@ -57,6 +84,7 @@ function mkmod_block_view($delta=''){
 					$els[$x]['cp']=commerce_currency_format($y['cp'],null);
 					$els[$x]['measure']=drupal_strtolower($y['measure']);
 				}
+
 				//dsm($els);
 				$b['content']=array(
 					'slid-first'=>array(
@@ -71,9 +99,9 @@ function mkmod_block_view($delta=''){
 						'#prefix'=>'<div class="slider-main-small clearfix">',
 						'#suffix'=>'</div>',
 					),
-					'#attaced'=>array(
-						'libraries'=>array(
-
+					'#attached'=>array(
+						'js'=>array(
+							array('data'=>array('accii-slider-speed'=>empty($fd['timeslide'])|| !is_numeric($fd['timeslide']) ?3:intval($fd['timeslide'])),'type'=>'setting'),
 						),
 					),
 				);

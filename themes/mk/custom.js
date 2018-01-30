@@ -150,7 +150,8 @@
 					arrows:false,
 					fade:true,
 					asNavFor:'.slider-discont-main .slider-main-small',
-					autoplay:true
+					autoplay:true,
+					autoplaySpeed:(typeof Drupal.settings['accii-slider-speed']=='undefined')?3000:Drupal.settings['accii-slider-speed']*1000,
 				});
 				ss.slick({
 					slidesToShow:3,
