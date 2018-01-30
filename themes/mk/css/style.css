@@ -662,15 +662,17 @@ html.js fieldset.collapsed {
   .slider-discont-main .content .akcion-big-el h2 {
     color: #B32121;
     font-size: 30px;
-    line-height: 17px; }
+    line-height: 17px;
+    margin-bottom: 0; }
     .slider-discont-main .content .akcion-big-el h2 span {
-      float: left;
-      width: 100%; }
+      display: block; }
       .slider-discont-main .content .akcion-big-el h2 span + span {
         font-size: 18px;
         margin: 7px 0 0 0; }
-  .slider-discont-main .content .akcion-big-el p {
-    color: #555; }
+  .slider-discont-main .content .akcion-big-el div.body {
+    color: #555;
+    height: 3em;
+    overflow: hidden; }
   .slider-discont-main .content .akcion-big-el .price_discount_wrap {
     float: left;
     width: 100%; }

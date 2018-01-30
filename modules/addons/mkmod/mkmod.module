@@ -214,7 +214,7 @@ function _getcomentcontent($mkcc){
 function _getactionprodag(){
 	// пробуем читать из кеша 
 	$data=cache_get(__FUNCTION__);
-	if (!empty($data->data) && $data->expire>REQUEST_TIME)
+	if (!empty($data->data) && $data->expire>REQUEST_TIME && 0)
 		return $data->data;
 
 	
@@ -257,6 +257,9 @@ function _getactionprodag(){
 	$res->leftjoin('field_data_field_unit_measure','m','m.entity_id=p.product_id and m.bundle=\'product\'');
 	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
 	$res->addField('td','name','measure');
+	/// достать содержимое ... 
+	$res->leftjoin('field_data_field_text','ft','ft.entity_id=n.nid and ft.bundle=n.type');
+	$res->addField('ft','field_text_value','body');
 	$res->range(0,100);
 	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
 	//dsm($res,'$res');

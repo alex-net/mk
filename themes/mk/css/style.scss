@@ -97,12 +97,12 @@ html.js fieldset.collapsed {height:auto;}
 .slider-discont-main .content {
 	.slider-main-big {margin:0 -24px;}
 	.akcion-big-el {padding:0 24px;
-		h2 {color:#B32121;font-size:30px;line-height:17px;
-			span {float: left;width: 100%;
+		h2 {color:#B32121;font-size:30px;line-height:17px;margin-bottom:0;
+			span {display:block;
 				& + span{font-size:18px;margin: 7px 0 0 0;}
 			}
 		}
-		p {color:#555;}
+		div.body {color:#555; height:3em; overflow:hidden;}
 		.price_discount_wrap{float:left;width:100%;}
 		.price_buy_button {
 			.discount_price{float:left;background:#AD31AE;color:#fff;font-size:20px;padding:2px 14px 3px 25px;border-radius:4px;margin:0 10px 0  -24px;position:relative;
