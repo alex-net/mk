@@ -1,4 +1,58 @@
 <?php 
+
+function mkmod_block_list_alter(&$blocks){
+
+	foreach($blocks as $x=>$y)
+		if ($y->status){
+			$vis=false;
+			$fd=variable_get('mk-vis-conf-for-'.$y->module.'-'.$y->delta,array());
+			if (empty($fd))
+				continue;
+			// если были заданы местоположения 
+			
+			foreach($fd['mkplaces'] as $v)
+				switch($v){
+					// товары 
+					case 'products':
+						$args=arg();
+						
+						if (count($args)==2 && $args[0]=='node' && is_numeric($args['1'])){ // это нода узнаём тип
+							// ЗАПРОС В БАЗУ .. 
+							$res=db_select('node','n');
+							$res->condition('n.nid',$args[1]);
+							$res->condition('n.type','product_display');
+							$res->addExpression('count(*)');
+							$res=$res->execute()->fetchField();
+							$vis=$vis || !empty($res);
+							
+						}
+					break;
+					// каталог
+					case 'cats':
+						if (preg_match('#^taxonomy/term/(\d+)$#i',current_path(),$t)) { // это нода узнаём тип
+							// ЗАПРОС В БАЗУ .. 
+							$res=db_select('taxonomy_term_data','t');
+							$res->condition('t.tid',end($t));
+							$res->leftjoin('taxonomy_vocabulary','tv','tv.vid=t.vid');
+							$res->condition('tv.machine_name','categories');
+							$res->addExpression('count(*)');
+							$res=$res->execute()->fetchField();
+							$vis=$vis || !empty($res);
+						}
+					break;
+					// главная 
+					case 'front':
+						$vis=$vis || drupal_is_front_page();
+					break;
+				}
+						
+			// если стало не видно = жахнуть блок 
+			if (!$vis)
+				unset($blocks[$x]);
+		}
+}
+// ==========================================
+
 function mkmod_block_info(){
 	return array(
 		'hit-prodag'=>array(

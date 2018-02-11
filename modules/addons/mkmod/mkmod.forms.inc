@@ -305,4 +305,80 @@ function product_finder_form_submit($form,&$form_state){
 	$form_state['redirect']='node/'.$form_state['values']['prod'];
 	//dsm($vals,'$vals');
 }
+
+
+
+// =====================================================================
+// форма заполнения реквизитов 
+function mkrekvisits_form($form,$form_state){
+	$form=array(
+		'actions'=>array(
+			'#type'=>'actions',
+			'submit'=>array(
+				'#value'=>'Сохранить данные',
+				'#type'=>'submit',
+			),
+		),
+	);
+
+	$armas=mkmod_getrekvlist();
+	$fd=variable_get('site-trkvs',array());
+	$form['settings']=array(
+		'#type'=>'fieldset',
+		'#title'=>'Настройки',
+		'#tree'=>true,
+		'#collapsed'=>true,
+		'#collapsible'=>true,
+		'phones'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Число телефонов',
+			'#default_value'=>empty($fd['settings']['phones'])?0:$fd['settings']['phones'],
+		),
+		'mails'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Число почт',
+			'#default_value'=>empty($fd['settings']['mails'])?0:$fd['settings']['mails'],
+		),
+		'addresses'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Число адресов',
+			'#default_value'=>empty($fd['settings']['addresses'])?0:$fd['settings']['addresses'],
+		),
+	);
+	$form['rekv']=array(
+		'#type'=>'fieldset',
+		'#title'=>'Список реквизитов и важных данных',
+		'rekv'=>array(
+			'#tree'=>true,
+			'#theme'=>'formtable',
+			'#header'=>array('Название','токен','Значение'),
+		),
+	);
+	$fields=mkmod_getrekvlist();
+	foreach(array(
+		'phones'=>array('k'=>'phone','t'=>'Телефон'),
+		'mails'=>array('k'=>'mail','t'=>'Почта'),
+		'addresses'=>array('k'=>'address','t'=>'Адрес',),
+	) as $x=>$y)
+		if (!empty($fd['settings'][$x]))
+			for($i=1;$i<=$fd['settings'][$x];$i++)
+				$fields[$y['k'].'-'.$i]=$y['t'];
+	foreach($fields as $k=>$t)
+		$form['rekv']['rekv'][$k]=array(
+			array('#markup'=>$t),
+			array('#markup'=>"[ mk:rekv:$k ]"),
+			array(
+				'#type'=>'textfield',
+				'#default_value'=>empty($fd['rekv'][$k])?'':$fd['rekv'][$k],
+			),
+		);
+	return $form;
+}
+//=================================================
+function mkrekvisits_form_submit($form,$form_state){
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	$vals['rekv']=array_map('reset', $vals['rekv']);
+	variable_set('site-trkvs',$vals);
+}
 ?>

@@ -21,18 +21,18 @@
 			<div class="contacts">
 					<div class="graphs ">
 						<div class="titl">гипермаркет<br/>cтроительных материалов </div>
-						<div class="graph animated"><span>ПН-ПТ: 9.00 - 19.00</span></div>						
+						<div class="graph animated"><span><?php echo $tj=token_replace('[mk:rekv:timejob1]');?></span></div>						
 					</div>
 					<div class="emails">
-						<div class="graph animated"><span>ПН-ПТ: 9.00 - 19.00</span></div>
+						<div class="graph animated"><span><?php echo $tj;?></span></div>
 						<div class="mail-wrap">
 							<div class="min-width-480">
-								<div class="email animated marg-do"><span>9485571</span>@mail.ru</div>
-								<div class="email animated "><span>4927025</span>@mail.ru</div>
+								<div class="email animated marg-do"><?php echo $m1c=token_replace('[mk:rekv:mail-1:colored]');?></div>
+								<div class="email animated "><?php echo $m2c=token_replace('[mk:rekv:mail-2:colored]');?></div>
 							</div>
 							<div class="max-width-479">
-								<div class="email animated marg-do"><a href="mailto:9485571@mail.ru"><span>9485571</span>@mail.ru</a></div>
-								<div class="email animated "><a href="mailto:4927025@mail.ru"><span>4927025</span>@mail.ru</a></div>
+								<div class="email animated marg-do"><a href="mailto:<?php echo token_replace('[mk:rekv:mail-1]');?>"><?php echo $m1c;?></a></div>
+								<div class="email animated "><a href="mailto:<?php echo token_replace('[mk:rekv:mail-2]');?>"><?php echo $m2c;?></a></div>
 							</div>
 						</div>
 						<div class="socnets-320">
@@ -41,14 +41,14 @@
 					</div>
 					<div class="phones">
 						<div class="min-width-480">
-							<div class="phone marg-do"><span>8 (499)</span>492-70-25</div>
-							<div class="phone "><span>8 (495)</span>664-44-21</div>
-							<div class="phone marg-posle"><span>8 (926)</span>609-41-61</div>
+							<div class="phone marg-do"><?php echo $p1tc=token_replace('[mk:rekv:phone-1:colored:text]');?></div>
+							<div class="phone "><?php echo $p2tc=token_replace('[mk:rekv:phone-2:colored:text]');?></div>
+							<div class="phone marg-posle"><?php echo $p3tc=token_replace('[mk:rekv:phone-3:colored:text]');?></div>
 						</div>
 						<div class="max-width-479">
-							<div class="phone marg-do"><a href="tel:+74994927025"><span>8 (499)</span>492-70-25</a></div>
-							<div class="phone "><a href="tel:+74956644421"><span>8 (495)</span>664-44-21</a></div>
-							<div class="phone marg-posle"><a href="tel:+79266094161"><span>8 (926)</span>609-41-61</a></div>
+							<div class="phone marg-do"><a href="tel:<?php echo token_replace('[mk:rekv:phone-1]');?>"><?php echo $p1tc;?></a></div>
+							<div class="phone "><a href="tel:<?php echo token_replace('[mk:rekv:phone-2]');?>"><?php echo $p2tc;?></a></div>
+							<div class="phone marg-posle"><a href="tel:<?php echo token_replace('[mk:rekv:phone-3]');?>"><?php echo $p3tc;?></a></div>
 						</div>
 					</div>
 			</div>
@@ -90,9 +90,10 @@
 				<?php //kprint_r(get_defined_vars());?>
 				<div class="row">
 					<?php print $breadcrumb; ?>
+					<?php echo render($page['before-content']);?>
 					<?php print render($title_prefix); ?>
 					<?php if ($title): ?>
-							<div id="page_title_wrap">
+							<div id="page_title_wrap" class="cls">
 								<h1 class="title" id="page-title">
 									<?php print $title; ?> <?php echo render($sku);?>
 								</h1>
@@ -121,15 +122,15 @@
 	</div>
 	<div class="corp-data-copyr">
 		<div class="corp-data-copyr-wrap">
-			<div class="ooo">8 (499) 492-70-25, 8 (495) 664-44-21, 8 (926)609-41-61</div>
+			<div class="ooo"><?php echo $md['footer1-left']; ?></div>
 
-			<div class="copyright">125362, г. Москва, Строительный проезд, д. 7А, корп. 35</div>
+			<div class="copyright"><?php echo $md['footer1-right']; ?></div>
 		</div>
 
 		<div class="corp-data-copyr-wrap">
-			<div class="ooo"><?php echo $md['footer-left']; ?></div>
-			<div class="figures"><?php echo $md['footer-center']; ?></div>
-			<div class="copyright"><?php echo $md['footer-right']; ?></div>
+			<div class="ooo"><?php echo $md['footer2-left']; ?></div>
+			<div class="figures"><?php echo $md['footer2-center']; ?></div>
+			<div class="copyright"><?php echo $md['footer2-right']; ?></div>
 		</div>
 	</div>
 </footer>

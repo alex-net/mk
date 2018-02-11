@@ -38,16 +38,20 @@ function nodeweight_theme(){
 // ====================================
 function theme_formtable($vars){
 	$rows=array();
+	$sorted=false;
 	foreach(element_children($vars['rows']) as $v){
 		$row=array('class'=>array('draggable'));
 		foreach(array_keys($vars['rows']['#header']) as $x){
-			if (!empty($vars['rows'][$v][$x]['#is-weight']))
+			if (!empty($vars['rows'][$v][$x]['#is-weight'])){
 				$vars['rows'][$v][$x]['#attributes']['class'][]='is-weight';
+				$sorted=true;
+			}
 			$row['data'][]=array('data'=>render($vars['rows'][$v][$x]));
 		}
 		$rows[]=$row;
 	}
-	drupal_add_tabledrag('nw-sorter','order','sibling','is-weight');
+	if ($sorted)
+		drupal_add_tabledrag('nw-sorter','order','sibling','is-weight');
 	return theme('table',array(
 		'header'=>$vars['rows']['#header'],
 		'empty'=>'Нет элементов',

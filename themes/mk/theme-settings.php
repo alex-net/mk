@@ -5,20 +5,32 @@ function mk_form_system_theme_settings_alter(&$form){
 		'#type'=>'fieldset',
 		'#title'=>'Данные магазина',
 		'#tree'=>true,
-		'footer-left'=>array(
+		'footer1-left'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Подвал лево',
+			'#description'=>'первая строка',
+			'#default_value'=>empty($fd['footer1-left'])?'':$fd['footer1-left'],
+		),
+		'footer1-right'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Подвал право',
+			'#description'=>'первая строка',
+			'#default_value'=>empty($fd['footer1-right'])?'':$fd['footer1-right'],
+		),
+		'footer2-left'=>array(
 			'#type'=>'textfield',
 			'#title'=>'Подвал слева',
-			'#default_value'=>empty($fd['footer-left'])?'':$fd['footer-left'],
+			'#default_value'=>empty($fd['footer2-left'])?'':$fd['footer2-left'],
 		),
-		'footer-center'=>array(
+		'footer2-center'=>array(
 			'#type'=>'textfield',
 			'#title'=>'Подвал центр',
-			'#default_value'=>empty($fd['footer-center'])?'':$fd['footer-center'],
+			'#default_value'=>empty($fd['footer2-center'])?'':$fd['footer2-center'],
 		),
-		'footer-right'=>array(
+		'footer2-right'=>array(
 			'#type'=>'textfield',
 			'#title'=>'Подвал справа',
-			'#default_value'=>empty($fd['footer-right'])?'':$fd['footer-right'],
+			'#default_value'=>empty($fd['footer2-right'])?'':$fd['footer2-right'],
 		),
 	);
 	$fd=theme_get_setting('nacenka');

@@ -73,7 +73,22 @@ function mkmod_permission(){
 	);
 }
 // =======================================================
-
+function mkmod_getrekvlist(){
+	return array(
+		'short-name'=>'Краткое наименование организации',
+		'ur-addres'=>'Юридический адрес',
+		'fakt-addres'=>'Фактический адрес',
+		'inn'=>'ИНН',
+		'kpp'=>'КПП',
+		'ogrn'=>'ОГРН',
+		'full-bank-name'=>'Полное наименование банка',
+		'rs'=>'Номер расчетный счет',
+		'kor-s'=>'Номер корреспондентского счета',
+		'bik'=>'БИК',
+		'timejob1'=>'Время работы 1',
+		'timejob2'=>'Время работы 2'
+	);
+}
 // =======================================================
 function mkmod_menu(){
 	return array(
@@ -161,6 +176,17 @@ function mkmod_menu(){
 					'class'=>array('rosoviy-text'),
 				),
 			),
+		),
+		'admin/config/system/site-information/infosite'=>array(
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+			'title'=>'Инфа о сайте ;)',
+		),
+		'admin/config/system/site-information/rekvisits'=>array(
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'Реквизиты',
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('mkrekvisits_form'),
+			'access arguments'=>array('admine pages'),
 		),
 	);
 }
@@ -515,6 +541,39 @@ function mkmodmenuitemsavedata_sb($form,&$form_state){
 	if (!empty($vals['get-node-in-popup']))
 		$vals['options']['attributes']['data-show-node-in-popup']=$vals['get-node-in-popup'];
 	unset($vals['get-node-in-popup']);
+
+}
+
+// ====================================================
+function mkmod_form_block_admin_configure_alter(&$form,$form_state){
+	/// block_add_block_form
+	// запрос конфигурации 
+	$fd=variable_get('mk-vis-conf-for-'.$form['module']['#value'].'-'.$form['delta']['#value'],array());
+	
+	$form['#submit'][]='mklistblocksalter_sb';
+	$form['visibility']['mk']=array(
+		'#type'=>'fieldset',
+		'#title'=>'MK',
+		'#tree'=>true,
+		'#group'=>'visibility',
+		'mkplaces'=>array(
+			'#default_value'=>!empty($fd['mkplaces'])?$fd['mkplaces']:array(),
+			'#type'=>'checkboxes',
+			'#title'=>'отображать на:',
+			'#options'=>array(
+				'products'=>'Страницы витрин',
+				'cats'=>'Страницы каталога',
+				'front'=>'Главная',
+			),
+		),
+	);
+}
+// =====================================
+function mklistblocksalter_sb($form,$form_state){
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	variable_set('mk-vis-conf-for-'.$vals['module'].'-'.$vals['delta'],$vals['mk']);
+	//dsm($form_state['values'],'save');
 
 }
 ?>

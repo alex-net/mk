@@ -49,6 +49,10 @@ function mkmod_token_info(){
 					'name'=>'текущая дата с форматированием',
 					'description'=>'формат даты как у функции date()',
 				),
+				'rekv'=>array(
+					'name'=>'Пооле реквизитов',
+					'description'=>'Пооле реквизитов',
+				),
 			),
 			'block'=>array(
 				'view-content'=>array(
@@ -279,6 +283,49 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 				// отображение текущей даты ...
 				if (preg_match('#^curdate\:(.*)#i',$t,$dat)) 
 					$rep[$o]=format_date(REQUEST_TIME,'custom',end($dat));
+
+				// замена реквизитов 
+				if (preg_match('#rekv:(.*)#',$t,$t0)){
+					$fd=variable_get('site-trkvs',array());
+					$t0=explode(':',$t0[1]);
+					if ( empty($t0[0]) || empty($fd['rekv'][$t0[0]]) ){
+						$rep[$o]='';
+						break;
+					}
+					$res=$fd['rekv'][$t0[0]];
+					
+					if (in_array('colored',$t0)){
+						if (preg_match('#mail#i',$t0[0])){
+							$res=explode('@',$res);
+							$res[0]='<span>'.$res[0].'</span>';
+							$res=implode('@',$res);
+						}
+					}
+					if (preg_match('#phone#i',$t0[0])){
+						$res=explode('-',$res);
+						
+
+						if (in_array('text',$t0)){
+							$ar=array();
+							$ar[]=array_shift($res);
+							$ar[]=array_shift($res);
+							$ar[1]='('.$ar[1].')';
+							$ar[0]='8';
+							$ar=implode(' ',$ar);
+							if (in_array('colored',$t0))
+								$ar='<span>'.$ar.'</span>';
+							$res=$ar.' '.implode('-', $res);
+						}
+						else
+							$res=implode('',$res);	
+
+
+					}
+					$rep[$o]=$res;
+
+					
+					//dsm($t0);
+				}
 
 
 				

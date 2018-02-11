@@ -773,6 +773,9 @@ html.js fieldset.collapsed {
 .slider-discont-main .content .slick-arrow::before {
   color: black; }
 
+.not-front #block-mkmod-ad-block {
+  padding: 0; }
+
 /*
 .limits{display:none;}
 #block-views-main-slider-main-slider-focus{float:left;width:100%;}

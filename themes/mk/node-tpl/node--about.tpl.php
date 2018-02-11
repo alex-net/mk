@@ -21,7 +21,7 @@
 			</div>
 		</div>
 	</div>
-	<?php echo token_replace('[block:view-content:block:14]');?>
+	<?php echo module_invoke('mkmod','tokensshashreplacer','[block:view-content:block:14]');?>
 
 </div>
 <script>
