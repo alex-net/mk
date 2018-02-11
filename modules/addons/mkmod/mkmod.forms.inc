@@ -380,5 +380,6 @@ function mkrekvisits_form_submit($form,$form_state){
 	$vals=$form_state['values'];
 	$vals['rekv']=array_map('reset', $vals['rekv']);
 	variable_set('site-trkvs',$vals);
+	drupal_set_message('Настройки сохранены');
 }
 ?>

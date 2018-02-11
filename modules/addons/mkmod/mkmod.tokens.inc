@@ -293,11 +293,14 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 						break;
 					}
 					$res=$fd['rekv'][$t0[0]];
+					list($res,$befhtml)=array_pad(explode('::',$res),2,'');
+					
+					
 					
 					if (in_array('colored',$t0)){
 						if (preg_match('#mail#i',$t0[0])){
 							$res=explode('@',$res);
-							$res[0]='<span>'.$res[0].'</span>';
+							$res[0]='<span class="colored">'.$res[0].'</span>';
 							$res=implode('@',$res);
 						}
 					}
@@ -313,7 +316,7 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 							$ar[0]='8';
 							$ar=implode(' ',$ar);
 							if (in_array('colored',$t0))
-								$ar='<span>'.$ar.'</span>';
+								$ar='<span class="colored">'.$ar.'</span>';
 							$res=$ar.' '.implode('-', $res);
 						}
 						else
@@ -321,7 +324,7 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 
 
 					}
-					$rep[$o]=$res;
+					$rep[$o]='<span class="rekv-token">'.$befhtml.$res.'</span>';
 
 					
 					//dsm($t0);

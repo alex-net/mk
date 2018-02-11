@@ -382,10 +382,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 } 
 .contacts .emails .email{color:#5F5E5E;font-family:Arial;}
 .contacts .emails .email a {color:#5F5E5E;}
-.contacts .emails .email span{color:#AD31AE;}
+.contacts .emails .email span.colored{color:#AD31AE;}
 .contacts .phones .phone{color:#5F5E5E;font-family:Arial;}
 .contacts .phones .phone a {color:#5F5E5E;}
-.contacts .phones .phone span{color:#AD31AE;font-size:11px;margin:0 4px 0 0;font-weight:bold;}
+.contacts .phones .phone span.colored{color:#AD31AE;font-size:11px;margin:0 4px 0 0;font-weight:bold;}
 
 .contacts .graph:hover, 
 .contacts .phone:hover, 
