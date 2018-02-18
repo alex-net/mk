@@ -9,22 +9,18 @@ function mkmod_block_list_alter(&$blocks){
 			if (empty($fd))
 				continue;
 			// если были заданы местоположения 
-			
 			foreach($fd['mkplaces'] as $v)
-				switch($v){
+				switch($v.''){
 					// товары 
 					case 'products':
-						$args=arg();
-						
-						if (count($args)==2 && $args[0]=='node' && is_numeric($args['1'])){ // это нода узнаём тип
+						if (preg_match('#^node/(\d+)$#',current_path(),$t)){ // это нода узнаём тип
 							// ЗАПРОС В БАЗУ .. 
 							$res=db_select('node','n');
-							$res->condition('n.nid',$args[1]);
+							$res->condition('n.nid',end($t));
 							$res->condition('n.type','product_display');
 							$res->addExpression('count(*)');
 							$res=$res->execute()->fetchField();
 							$vis=$vis || !empty($res);
-							
 						}
 					break;
 					// каталог
@@ -45,7 +41,6 @@ function mkmod_block_list_alter(&$blocks){
 						$vis=$vis || drupal_is_front_page();
 					break;
 				}
-						
 			// если стало не видно = жахнуть блок 
 			if (!$vis)
 				unset($blocks[$x]);
