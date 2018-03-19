@@ -324,7 +324,10 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 
 
 					}
-					$rep[$o]='<span class="rekv-token">'.$befhtml.$res.'</span>';
+					if (in_array('plain',$t0))
+						$rep[$o]=strip_tags($res);	
+					else
+						$rep[$o]='<span class="rekv-token">'.$befhtml.$res.'</span>';
 
 					
 					//dsm($t0);

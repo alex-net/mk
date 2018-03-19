@@ -31,8 +31,8 @@
 								<div class="email animated "><?php echo $m2c=token_replace('[mk:rekv:mail-2:colored]');?></div>
 							</div>
 							<div class="max-width-479">
-								<div class="email animated marg-do"><a href="mailto:<?php echo token_replace('[mk:rekv:mail-1]');?>"><?php echo $m1c;?></a></div>
-								<div class="email animated "><a href="mailto:<?php echo token_replace('[mk:rekv:mail-2]');?>"><?php echo $m2c;?></a></div>
+								<div class="email animated marg-do"><a href="mailto:<?php echo token_replace('[mk:rekv:mail-1:plain]');?>"><?php echo $m1c;?></a></div>
+								<div class="email animated "><a href="mailto:<?php echo token_replace('[mk:rekv:mail-2:plain]');?>"><?php echo $m2c;?></a></div>
 							</div>
 						</div>
 						<div class="socnets-320">
@@ -46,9 +46,9 @@
 							<div class="phone marg-posle"><?php echo $p3tc=token_replace('[mk:rekv:phone-3:colored:text]');?></div>
 						</div>
 						<div class="max-width-479">
-							<div class="phone marg-do"><a href="tel:<?php echo token_replace('[mk:rekv:phone-1]');?>"><?php echo $p1tc;?></a></div>
-							<div class="phone "><a href="tel:<?php echo token_replace('[mk:rekv:phone-2]');?>"><?php echo $p2tc;?></a></div>
-							<div class="phone marg-posle"><a href="tel:<?php echo token_replace('[mk:rekv:phone-3]');?>"><?php echo $p3tc;?></a></div>
+							<div class="phone marg-do"><a href="tel:<?php echo token_replace('[mk:rekv:phone-1:plain]');?>"><?php echo $p1tc;?></a></div>
+							<div class="phone "><a href="tel:<?php echo token_replace('[mk:rekv:phone-2:plain]');?>"><?php echo $p2tc;?></a></div>
+							<div class="phone marg-posle"><a href="tel:<?php echo token_replace('[mk:rekv:phone-3:plain]');?>"><?php echo $p3tc;?></a></div>
 						</div>
 					</div>
 			</div>
