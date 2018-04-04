@@ -790,3 +790,30 @@ html.js fieldset.collapsed {
 #block-views-dfc135f0d7bdb4e809e16fa5b77d4dbf{float:left;width:100%;}
 .slider-discont-main .slider-main-small {}
 */
+#block-system-main .product.full.node .product-tabs {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1em;
+  font-family: Verdana,Arial; }
+  @media screen and (max-width: 769px) {
+    #block-system-main .product.full.node .product-tabs {
+      font-size: 0.7em; } }
+  @media screen and (max-width: 479px) {
+    #block-system-main .product.full.node .product-tabs {
+      font-size: 0.6em; } }
+  @media screen and (max-width: 390px) {
+    #block-system-main .product.full.node .product-tabs {
+      font-size: 0.5em; } }
+  #block-system-main .product.full.node .product-tabs li {
+    display: inline-block;
+    padding: 0.5em 1em;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px 3px 0 0;
+    border-bottom: none; }
+
+.current-content-of-tab {
+  padding: 1em;
+  background-color: #f7f7f7; }
+  .current-content-of-tab .wrap {
+    padding: 0.3em;
+    background: white; }

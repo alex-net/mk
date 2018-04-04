@@ -249,4 +249,65 @@ function discounts_config_form_submit($form,$form_state){
 	drupal_set_message('Настройки сохранены');
 
 }
+
+// ============================================
+// рулим табами в товаре .. настройки алиасов 
+function kmodproductstabs_form(){
+	$fd=variable_get('product tabs config',array());
+	$tabs=empty($fd['tabslist'])?array():$fd['tabslist'];
+	foreach($tabs as $x=>$y)
+		$tabs[$x]=sprintf('%s%s%s|%s',empty($y['def'])?'':'*',empty($y['com'])?'':'C',$x,$y['title']);
+
+	$form=array(
+		'actions'=>array(
+			'#type'=>'actions',
+			'submit'=>array(
+				'#type'=>'submit',
+				'#value'=>'Сохранить',
+			),
+		),
+		'tabslist'=>array(
+			'#type'=>'textarea',
+			'#title'=>'Набор табов',
+			'#default_value'=>implode("\n",$tabs),
+			'#description'=>'* = дефолтная таба, C = таба с кометами. Формат [*][C]key|titl',
+		),
+	);
+
+	return  $form;
+}
+// ====================================
+function kmodproductstabs_form_submit($form,$form_state){
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	$vals['tabslist']=empty($vals['tabslist'])?array():explode("\n",trim($vals['tabslist']));
+	$vals['tabslist']=array_map('trim',$vals['tabslist']);
+
+	foreach($vals['tabslist'] as $x=>$y){
+		unset($vals['tabslist'][$x]);
+		if (!empty($y) && strpos($y, '|')!==false){
+			list($k,$v)=explode('|',$y);
+			$def=false;// дефолтная таба 
+			$com=false; // таба с коментами (надо поставить номер)
+			if ($k[0]=='*'){
+				$def=true;
+				$k=substr($k, 1);
+			}
+			if ($k[0]=='C'){
+				$com=true;
+				$k=substr($k, 1);
+			}
+			$vals['tabslist'][$k]=array(
+				'title'=>$v,
+				'def'=>$def,
+				'com'=>$com,
+			);
+
+		}
+	}
+
+	//dsm($vals,'$vals');
+	variable_set('product tabs config',$vals);
+	drupal_set_message('Настройки сохранены');
+}
 ?>

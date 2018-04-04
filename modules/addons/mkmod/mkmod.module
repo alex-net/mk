@@ -132,6 +132,14 @@ function mkmod_menu(){
 			'page arguments'=>array('mkmod_otzivs_form'),
 			'file'=>'mkmod.admin.inc',
 		),
+		'admin/config/administration/mkmod/product-tabs'=>array(
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'Табы в товаре',
+			'access arguments'=>array('admine pages'),
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>array('kmodproductstabs_form'),
+			'file'=>'mkmod.admin.inc',
+		),
 			
 		/// admine pages
 		'admin/config/administration/sklads'=>array(
@@ -409,6 +417,58 @@ function mkmodaddonswebformsettings_submit($form,$form_state){
 // =====================================================================================
 function mkmod_node_view($node, $view_mode, $langcode) {
 	if ($view_mode=='full' && $node->type=='product_display'){
+
+		// определяем какой таб показывать сейчас
+		///dsm($node,'$node');
+		$fd=variable_get('product tabs config',array());
+		//dsm($fd);
+		
+		if (!empty($fd['tabslist'])){
+			$links=array();
+			$rp=request_path();
+			
+			$url=path_load(array('source'=>'node/'.$node->nid));
+			$url=empty($url['alias'])?'node/'.$node->nid:$url['alias'];
+			//dsm($rp,$url);
+			$fields=array(
+				'info'=>'field_parameters_product',
+				'characteristics'=>'field_harakteristic',
+				'description'=>'field_text',
+				'comments'=>'comments',
+				'instructions-for-use'=>'field_instructions',
+			);
+			foreach($fd['tabslist'] as $x=>$y){
+				if ($x!='comments'){
+					$data=field_get_items('node',$node,$fields[$x]);
+					if (empty($data))
+						continue;
+				}
+				$l=array(
+					'title'=>$y['title'].' '.($y['com']?sprintf('(%d)',$node->comment_count):''),
+					'href'=>$url.($y['def']?'':'/'.$x),
+					'html'=>true,
+				);
+				if ($rp==$url.'/'.$x || $rp==$url && $y['def']){
+
+					$l['attributes']['class'][]='active';
+					$node->curtab=$x;
+					$node->tabcontent=$fields[$x];
+				}
+				$links[]=$l;
+			}
+			$node->content['tabslinks']=array(
+				'#attributes'=>array(
+					'class'=>array('product-tabs'),
+				),
+				'#theme'=>'links',
+				'#links'=>$links,	
+			);		
+		}
+
+
+
+
+		
 		// ранее просморенные товары
 		$nids=explode(',',empty($_COOKIE['prods-view'])?'':$_COOKIE['prods-view']);
 		foreach($nids as $x=>$y)
@@ -576,4 +636,47 @@ function mklistblocksalter_sb($form,$form_state){
 	//dsm($form_state['values'],'save');
 
 }
+
+
+
+
+// ==================================================
+// рулим роутингом чтобы добавить нужные нам табы не пользуя алиасы . 
+function mkmod_url_inbound_alter(&$path,$pathorigin,$plang){
+	// https://netspark.ru/useful/papers/nemnogo-dinamicheskogo-rautinga-v-drupal-7
+	$fd=variable_get('product tabs config',array());
+	// нужно перебрать все алиасы и найти нужный 
+	if(!empty($fd['tabslist']))
+		foreach($fd['tabslist'] as $x=>$y)
+			if (preg_match('#/'.$x.'$#i',$pathorigin)){
+				$alias=substr($pathorigin, 0,strlen($pathorigin)-strlen($x)-1);
+				$alias=drupal_lookup_path('source',$alias);
+				if (!empty($alias))
+					$path=$alias;
+			}
+}
+
+
+// ===================================================
+// пробуем чинить метатеги 
+function mkmod_metatag_metatags_view_alter(&$output, $inst, $opt){
+	if ($inst=='node:product_display' &&  $opt['view_mode']=='full'){
+		$fd=variable_get('product tabs config',array());
+		if (!empty($fd['tabslist']))
+			foreach($fd['tabslist'] as $k=>$taba){
+				if ($taba['def'] || $k!=$opt['entity']->curtab)// пропустить дефолтную табу
+					continue;
+					
+					$newval=$opt['entity']->title.' '.drupal_strtolower($taba['title']);
+					if (!empty($output['title']['#attached']['metatag_set_preprocess_variable'][0][2]))
+						$output['title']['#attached']['metatag_set_preprocess_variable'][0][2]=$newval;
+					if (!empty($output['title']['#attached']['metatag_set_preprocess_variable'][1][2]['title']))
+						$output['title']['#attached']['metatag_set_preprocess_variable'][1][2]['title']=$newval;
+					if (!empty($output['description']['#attached']['drupal_add_html_head'][0][0]['#value']))
+						$output['description']['#attached']['drupal_add_html_head'][0][0]['#value']=$newval;
+			}
+		
+	}
+}
+
 ?>

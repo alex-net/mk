@@ -28,4 +28,38 @@ function mkmod_field_schema($field){
 		'columns'=>$col,
 	);
 }
+
+// =======================================
+function mkmod_schema(){
+	return array(
+		'url_aliases_binding'=>array(
+			'description'=>'Связка алиасов',
+			'fields'=>array(
+				'pid'=>array(
+					'description'=>'алиас для конкретной табы',
+					'type'=>'int',
+					'unsigned'=>true,
+					'not null'=>true,
+				),
+				'ppid'=>array(
+					'description'=>'Родительский алиас, алиас сновной страницы',
+					'type'=>'int',
+					'unsigned'=>true,
+					'not null'=>true,
+				),
+			),
+			'indexes'=>array(
+				'pid'=>array('pid'),
+				'ppid'=>array('ppid'),
+			),
+		),
+	);
+}
+///=================================================
+/** созадние таблицы для алиасов табов */
+function mkmod_update_7000(){
+	$sh=drupal_get_schema_unprocessed('mkmod','url_aliases_binding');
+	db_create_table('url_aliases_binding',$sh);
+	return 'таблица добавлена';
+}
 ?>

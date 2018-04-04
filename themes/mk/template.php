@@ -118,9 +118,8 @@
 				$n['marker']=$marker[0]['tid'];	
 		}
 		if ($n['type']=='product_display' && $n['view_mode']=='full'){
-			drupal_add_library('system','ui.tabs');
-			if ($n['type']=='product_display')
-				drupal_add_library('system','ui.tabs');
+			//kprint_r($n);
+			//drupal_add_library('system','ui.tabs');
 
 				// малюем рейтинг 
 				// получаем данные .. 
