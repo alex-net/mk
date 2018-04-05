@@ -445,10 +445,10 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 				}
 				$l=array(
 					'title'=>$y['title'].' '.($y['com']?sprintf('(%d)',$node->comment_count):''),
-					'href'=>$url.($y['def']?'':'/'.$x),
+					'href'=>$url.($y['def']?'':'/'.$y['href']),
 					'html'=>true,
 				);
-				if ($rp==$url.'/'.$x || $rp==$url && $y['def']){
+				if ($rp==$url.'/'.$y['href'] || $rp==$url && $y['def']){
 
 					$l['attributes']['class'][]='active';
 					$node->curtab=$x;
@@ -648,8 +648,8 @@ function mkmod_url_inbound_alter(&$path,$pathorigin,$plang){
 	// нужно перебрать все алиасы и найти нужный 
 	if(!empty($fd['tabslist']))
 		foreach($fd['tabslist'] as $x=>$y)
-			if (preg_match('#/'.$x.'$#i',$pathorigin)){
-				$alias=substr($pathorigin, 0,strlen($pathorigin)-strlen($x)-1);
+			if (preg_match('#/'.$y['href'].'$#i',$pathorigin)){
+				$alias=substr($pathorigin, 0,strlen($pathorigin)-strlen($y['href'])-1);
 				$alias=drupal_lookup_path('source',$alias);
 				if (!empty($alias))
 					$path=$alias;
