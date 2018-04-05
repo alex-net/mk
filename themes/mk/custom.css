@@ -903,12 +903,18 @@ h1 {position:relative;}
 
 .product.full.node .info-tail  div.ahtung .body {color:#515050;} 
 .product.full.node .field-name-field-product-variations .form-actions {text-align: center;}
-.product.full.node .full-view-form .field-name-field-product-variations .form-submit {background: url(i/card-botton.png) 5px 50% no-repeat #b32121;padding:0.7em .7em .7em 2.5em;font-size:1.1em;font-weight: bold;color: white;border:none;width:100%;box-sizing: border-box;background-position: 25% 50%;}
+.product.full.node .buy-form .form-submit{background: url(i/card-botton.png) 5px 50% no-repeat #b32121;padding:0.7em .7em .7em 2.5em;font-size:1.1em;font-weight: bold;color: white;border:none;width:100%;box-sizing: border-box;background-position: 25% 50%;}
 .product.full.node .buy-form .form-submit {background-position: 25% 50%;}
 .product.full.node .buy-form .form-submit:hover {background-color:#b626bc ;}
 
+@media screen and (max-width: 768px){
+  .product.full.node .buy-form .form-submit {background-position: 14% 50%;}
+}
 @media screen and (max-width: 479px){
   .product.full.node .buy-form .form-submit {background-position: 15% 50%;}
+}
+@media screen and (max-width: 320px){
+  .product.full.node .buy-form .form-submit {background-position: 10% 50%;}
 }
 .product.full.node .field-name-field-product-variations .argblock-wrapp {width:60%;float:right;}
 .product.full.node .field-name-field-product-variations .argblock-wrapp * {display: block;}
