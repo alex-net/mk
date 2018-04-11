@@ -452,6 +452,8 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 
 					$l['attributes']['class'][]='active';
 					$node->curtab=$x;
+					if (!$y['def'])
+						$node->titletaba=drupal_get_title().' '.drupal_strtolower($y['title']);
 					$node->tabcontent=$fields[$x];
 				}
 				$links[]=$l;

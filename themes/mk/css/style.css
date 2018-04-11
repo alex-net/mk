@@ -790,6 +790,10 @@ html.js fieldset.collapsed {
 #block-views-dfc135f0d7bdb4e809e16fa5b77d4dbf{float:left;width:100%;}
 .slider-discont-main .slider-main-small {}
 */
+#block-system-main .product.full.node .taba-title {
+  color: #d254c9;
+  text-align: center; }
+
 #block-system-main .product.full.node .product-tabs {
   margin: 0;
   padding: 0;

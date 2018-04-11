@@ -32,6 +32,9 @@
 	<?php if (!empty($tabcontent)): ?>
 	<div class="current-content-of-tab">
 		<div class="wrap clearfix">
+			<?php if (!empty($node->titletaba)):?>
+				<h2 class="taba-title"><?php echo $node->titletaba;?></h2>
+			<?php endif;?>
 			<?php echo render($content[$tabcontent]);?>
 		</div>
 	</div>
