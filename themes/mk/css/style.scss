@@ -186,7 +186,8 @@ html.js fieldset.collapsed {height:auto;}
 /* Оптовики ... страница  */
 #node-1566 img {width:100%;height:auto;}
 ul.optovik-list-punkts {
-	padding:0!important;column-count:2;color:#616161;
+	&::after {display:block;column-count:auto;content:'';}
+	padding:0!important;column-count:2;color:#616161;overflow:hidden;
 	@media screen and (max-width:570px){
 		& {column-count:auto;}
 	}
