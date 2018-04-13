@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .cls {
   clear: both; }
 
@@ -821,3 +822,52 @@ html.js fieldset.collapsed {
   .current-content-of-tab .wrap {
     padding: 0.3em;
     background: white; }
+
+/* Оптовики ... страница  */
+#node-1566 img {
+  width: 100%;
+  height: auto; }
+
+ul.optovik-list-punkts {
+  padding: 0!important;
+  column-count: 2;
+  color: #616161; }
+  @media screen and (max-width:570px) {
+    ul.optovik-list-punkts {
+      column-count: auto; } }
+  ul.optovik-list-punkts li {
+    margin: 0.5%;
+    box-sizing: border-box;
+    padding: 0 0  0.5em 4.125em;
+    vertical-align: top;
+    background-position: 0 3px;
+    background-repeat: no-repeat;
+    min-height: 3.5em;
+    list-style: none outside none!important; }
+    @media screen and (max-width:570px) {
+      ul.optovik-list-punkts li {
+        min-height: 5em;
+        padding-left: 5em; } }
+    ul.optovik-list-punkts li.optovik-1 {
+      background-image: url(../i/time-money-ico.png); }
+    ul.optovik-list-punkts li.optovik-2 {
+      background-image: url(../i/percent-sale-ico.png); }
+    ul.optovik-list-punkts li.optovik-3 {
+      background-image: url(../i/gruz-sendor-ico.png); }
+    ul.optovik-list-punkts li.optovik-4 {
+      background-image: url(../i/money-hand-ico.png); }
+    ul.optovik-list-punkts li.optovik-5 {
+      background-image: url(../i/organizacia-ico.png); }
+    ul.optovik-list-punkts li.optovik-6 {
+      background-image: url(../i/regim-obj-ico.png); }
+    ul.optovik-list-punkts li.optovik-7 {
+      background-image: url(../i/podbor-mater-ico.png); }
+    ul.optovik-list-punkts li.optovik-8 {
+      background-image: url(../i/product-infa-ico.png); }
+    ul.optovik-list-punkts li.optovik-9 {
+      background-image: url(../i/buch-info-ico.png); }
+    ul.optovik-list-punkts li.optovik-10 {
+      background-image: url(../i/map-ico.png);
+      break-after: column; }
+    ul.optovik-list-punkts li.optovik-11 {
+      background-image: url(../i/transport-ico.png); }
