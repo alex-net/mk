@@ -6,7 +6,7 @@ function mkmod_block_list_alter(&$blocks){
 		if ($y->status){
 			$vis=false;
 			$fd=variable_get('mk-vis-conf-for-'.$y->module.'-'.$y->delta,array());
-			if (empty($fd))
+			if (empty($fd['mkplaces']) || implode('',$fd['mkplaces'])=='000')
 				continue;
 			// если были заданы местоположения 
 			foreach($fd['mkplaces'] as $v)
