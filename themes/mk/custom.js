@@ -80,6 +80,24 @@
 
 			
 	});
+	
+	Drupal.behaviors.initsnamijob={
+		attach:function(c,s){
+			$('.jobs-mit-uns').once(function(){
+				$(this).slick({
+					slidesToShow:6,
+					prevArrow:'<span class="slic-prev-arr fa fa-chevron-left"></span>',
+					nextArrow:'<span class="slic-next-arr fa fa-chevron-right"></span>',
+					responsive:[
+						{breakpoint:1024,settings:{slidesToShow:2}}
+					],
+				});
+
+			});		
+		}
+	}
+
+	
 
 	Drupal.behaviors.customAddmi = {
 		attach: function (context, settings) {

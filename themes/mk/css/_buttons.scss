@@ -12,6 +12,10 @@ $button-size:12em;
 	&:hover {background:#ececec;border-color:#018fe2;text-decoration:none;}
 }
 
+.danger-button {@extend .accept-button; background:#b32121;border-color:#b32121;
+	&:hover {background:#a01D1D;border-color:#a01D1D;}
+}
+
 body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input  {
 	@extend .accept-button;
 }

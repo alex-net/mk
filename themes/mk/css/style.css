@@ -438,7 +438,7 @@ body.page-search #block-system-main .item-list {
     .region-wrap, footer .footer-blocks-wrap, footer .corp-data-copyr .corp-data-copyr-wrap {
       max-width: 1200px; } }
 
-.accept-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart, .cancel-button, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close, body.page-checkout .checkout-buttons .checkout-cancel {
+.accept-button, .danger-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart, .cancel-button, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close, body.page-checkout .checkout-buttons .checkout-cancel {
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -447,13 +447,13 @@ body.page-search #block-system-main .item-list {
   font-size: 1em;
   text-align: center; }
 
-.accept-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart {
+.accept-button, .danger-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart {
   background: #21b321;
   color: white;
   border: 1px solid #21b321;
   width: 12em;
   height: auto; }
-  .accept-button:hover, body.page-checkout .checkout-buttons .checkout-continue:hover, .page-cart #block-system-main .commerce-line-item-actions input:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart:hover {
+  .accept-button:hover, .danger-button:hover, body.page-checkout .checkout-buttons .checkout-continue:hover, .page-cart #block-system-main .commerce-line-item-actions input:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart:hover {
     background: #1b9a1b;
     border-color: #1b9a1b;
     text-decoration: none; }
@@ -469,6 +469,13 @@ body.page-search #block-system-main .item-list {
     background: #ececec;
     border-color: #018fe2;
     text-decoration: none; }
+
+.danger-button {
+  background: #b32121;
+  border-color: #b32121; }
+  .danger-button:hover {
+    background: #a01D1D;
+    border-color: #a01D1D; }
 
 div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .text .checkout-action {
   color: #21b321; }
@@ -824,23 +831,30 @@ html.js fieldset.collapsed {
     background: white; }
 
 /* Оптовики ... страница  */
+#node-1566 .mini-titl-1 {
+  color: block;
+  font-size: 1.428em;
+  font-style: italic; }
+#node-1566 .mini-titl-2 {
+  color: #600061;
+  font-size: 1.67em; }
 #node-1566 img {
   width: 100%;
   height: auto; }
-
-ul.optovik-list-punkts {
+#node-1566 ul.optovik-list-punkts {
   padding: 0!important;
   column-count: 2;
   color: #616161;
-  overflow: hidden; }
-  ul.optovik-list-punkts::after {
+  overflow: hidden;
+  font-size: 1.14em; }
+  #node-1566 ul.optovik-list-punkts::after {
     display: block;
     column-count: auto;
     content: ''; }
   @media screen and (max-width:570px) {
-    ul.optovik-list-punkts {
+    #node-1566 ul.optovik-list-punkts {
       column-count: auto; } }
-  ul.optovik-list-punkts li {
+  #node-1566 ul.optovik-list-punkts li {
     margin: 0.5%;
     box-sizing: border-box;
     padding: 0 0  0.5em 4.125em;
@@ -848,33 +862,90 @@ ul.optovik-list-punkts {
     background-position: 0 3px;
     background-repeat: no-repeat;
     min-height: 3.5em;
-    list-style: none outside none!important; }
+    list-style: none outside none!important;
+    font-weight: bold; }
+    #node-1566 ul.optovik-list-punkts li.mt-1 {
+      margin-top: 1em; }
     @media screen and (max-width:570px) {
-      ul.optovik-list-punkts li {
+      #node-1566 ul.optovik-list-punkts li {
         min-height: 5em;
-        padding-left: 5em; } }
-    ul.optovik-list-punkts li.optovik-1 {
+        padding-left: 5em; }
+      #node-1566 ul.optovik-list-punkts li.mt-1 {
+        margin-top: 0; } }
+    #node-1566 ul.optovik-list-punkts li.optovik-1 {
       background-image: url(../i/time-money-ico.png); }
-    ul.optovik-list-punkts li.optovik-2 {
+    #node-1566 ul.optovik-list-punkts li.optovik-2 {
       background-image: url(../i/percent-sale-ico.png); }
-    ul.optovik-list-punkts li.optovik-3 {
+    #node-1566 ul.optovik-list-punkts li.optovik-3 {
       background-image: url(../i/gruz-sendor-ico.png); }
-    ul.optovik-list-punkts li.optovik-4 {
+    #node-1566 ul.optovik-list-punkts li.optovik-4 {
       background-image: url(../i/money-hand-ico.png); }
-    ul.optovik-list-punkts li.optovik-5 {
+    #node-1566 ul.optovik-list-punkts li.optovik-5 {
       background-image: url(../i/organizacia-ico.png); }
-    ul.optovik-list-punkts li.optovik-6 {
+    #node-1566 ul.optovik-list-punkts li.optovik-6 {
       background-image: url(../i/regim-obj-ico.png); }
-    ul.optovik-list-punkts li.optovik-7 {
+    #node-1566 ul.optovik-list-punkts li.optovik-7 {
       background-image: url(../i/podbor-mater-ico.png); }
-    ul.optovik-list-punkts li.optovik-8 {
+    #node-1566 ul.optovik-list-punkts li.optovik-8 {
       background-image: url(../i/product-infa-ico.png); }
-    ul.optovik-list-punkts li.optovik-9 {
+    #node-1566 ul.optovik-list-punkts li.optovik-9 {
       background-image: url(../i/buch-info-ico.png); }
-    ul.optovik-list-punkts li.optovik-10 {
-      background-image: url(../i/map-ico.png);
-      break-after: column; }
-    ul.optovik-list-punkts li.optovik-11 {
+    #node-1566 ul.optovik-list-punkts li.optovik-10 {
+      background-image: url(../i/map-ico.png); }
+    #node-1566 ul.optovik-list-punkts li.optovik-11 {
       background-image: url(../i/transport-ico.png); }
-    ul.optovik-list-punkts li.optovik-12 {
+    #node-1566 ul.optovik-list-punkts li.optovik-12 {
       background-image: url(../i/bud-dom-ico.png); }
+    #node-1566 ul.optovik-list-punkts li.breakpoint {
+      break-after: column; }
+#node-1566 ul.reg-places {
+  margin: -0.5em;
+  padding: 0; }
+  #node-1566 ul.reg-places li {
+    list-style: none outside none;
+    margin: 0.9%;
+    background-color: #e0fbfb;
+    width: 48%;
+    float: left;
+    box-sizing: border-box;
+    font-size: 1.428em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    padding: 0.7em 0 0.7em 4.75em;
+    background-position: 0.5em 50%;
+    background-repeat: no-repeat; }
+    @media screen and (max-width:710px) {
+      #node-1566 ul.reg-places li {
+        width: 100%; } }
+    #node-1566 ul.reg-places li.reg-on-1 {
+      background-image: url(../i/postavkin-portal.png); }
+    #node-1566 ul.reg-places li.reg-on-2 {
+      background-image: url(../i/u-torg-platform.png); }
+    #node-1566 ul.reg-places li.reg-on-3 {
+      background-image: url(../i/u-torg-place.png); }
+    #node-1566 ul.reg-places li.reg-on-4 {
+      background-image: url(../i/zakupka-portal.png); }
+#node-1566 .jobs-mit-uns {
+  padding: 0 3em; }
+  #node-1566 .jobs-mit-uns img {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5em;
+    display: block;
+    margin: 0.5em; }
+  #node-1566 .jobs-mit-uns .slick-arrow {
+    display: block;
+    width: 2em;
+    height: 2em;
+    border: 2px solid #636262;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    margin-top: -1em;
+    cursor: pointer;
+    text-align: center;
+    line-height: 2em;
+    color: #de85d3; }
+    #node-1566 .jobs-mit-uns .slick-arrow.slic-prev-arr {
+      left: 0em; }
+    #node-1566 .jobs-mit-uns .slick-arrow.slic-next-arr {
+      right: 0em; }
