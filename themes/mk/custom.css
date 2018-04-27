@@ -1214,7 +1214,8 @@ h2 {font-size: 1.71em;}
 .page_title.fixed h1{padding-left:10px;padding-right:10px;background:#C1BFBF;color:#fff;padding-top:3px;padding-bottom:4px;}
 .page_title.fixed{margin:0;padding:0;}
 .page_title.fixed #block-views-product-titles-block{top:28px;}*/
-#block-system-main{float:left;width:100%;padding:0;}
+#block-system-main{float:left;width:100%;padding:0px;}
+.front #block-system-main {padding:10px;}
 .field-name-field-block-pic-text-prod{float:left;width:100%;}
 .field-name-field-products-links{float:left;width:100%;margin: 0 0 30px;}
 .field-name-field-products-links > .field-items{table-layout:fixed;display:table;width:100%;text-align:center;}

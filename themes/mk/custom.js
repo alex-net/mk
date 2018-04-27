@@ -169,7 +169,8 @@
 				var s=$(this);
 				s.slick({
 					arrows:false,
-					autoplay:true
+					autoplay:true,
+					autoplaySpeed:(typeof Drupal.settings['accii-slider-small-speed']=='undefined')?3000:Drupal.settings['accii-slider-small-speed']*1000,
 				});
 				$('#block-mkmod-akcii-slider-block .flex-direction-nav span').on('click',function(){
 					//console.log(this);

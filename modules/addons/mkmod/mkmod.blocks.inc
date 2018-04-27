@@ -72,6 +72,7 @@ function mkmod_block_configure ($delta=''){
 	$fd=variable_get('mkmod blocks '.$delta,array());
 	switch($delta){
 		case 'akcii-slider-big':
+		case 'akcii-slider-block':
 			$form['mkblock-data']=array(
 				'#type'=>'fieldset',
 				'#tree'=>true,
@@ -160,7 +161,7 @@ function mkmod_block_view($delta=''){
 			$els=_getactionprodag();
 			if (empty($els))
 				break;
-			$fd=variable_get('discounts config',array());
+			$bd=variable_get('discounts config',array());
 			///dsm($fd);
 			$out=array();
 			if (count($els)>1)
@@ -172,9 +173,9 @@ function mkmod_block_view($delta=''){
 					'prev'=>array('#markup'=>'<span class="flex-prev"></span>'),
 					'next'=>array('#markup'=>'<span class="flex-next"></span>'),
 				);
-			if (!empty($fd['block-top-mess']))
+			if (!empty($$bd['block-top-mess']))
 				$out['head']=array(
-					'#markup'=>$fd['block-top-mess'],
+					'#markup'=>$$bd['block-top-mess'],
 					'#prefix'=>'<div class="b-header">',
 					'#suffix'=>'</div>',
 				);
@@ -197,6 +198,11 @@ function mkmod_block_view($delta=''){
 					'#data'=>$v,
 				);
 			}
+			$out['#attached']=array(
+				'js'=>array(
+					array('data'=>array('accii-slider-small-speed'=>empty($fd['timeslide'])|| !is_numeric($fd['timeslide']) ?3:intval($fd['timeslide'])),'type'=>'setting'),
+				),
+			);
 			$b['content']=$out;
 		break;
 		case 'catlist':
