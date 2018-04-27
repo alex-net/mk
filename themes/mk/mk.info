@@ -14,7 +14,7 @@ stylesheets[all][] = js/pt/css/jquery.powertip-light.css
 stylesheets[all][] = custom.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = addmi_custom.css
-
+stylesheets[all][] = css/fonts/fa/css/font-awesome.min.css
 
 
 
