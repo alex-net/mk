@@ -29,19 +29,6 @@
 }
 
 
-//  страница успешного заказа . ( довели заказ до финала оформения 
-body.page-checkout-complete{
-	h1, .breadcrumb {display: none;}
-	// сообщение .. 
-	#block-system-main .checkout-completion-message {text-align: center;padding: 100px 0;border:2px dashed $colorrosoviy;padding:0.5em;margin-top:0.5em;
-		h2 {color: #19D873;margin: 0 0 40px;position: relative;vertical-align: middle;
-			&::before {content:'';display:inline-block;width:2em;height:2em;background:url(../i/complete.png) 0 0 no-repeat;background-size: cover;vertical-align: middle;margin-right: 0.5em;}
-		}
-		span.text {font-size:1.5em;
-			.number {color:$colorrosoviy;font-weight:bold;}
-		}
-	}	
-}
 
 
 // блок внимиание ..  
@@ -239,4 +226,101 @@ html.js fieldset.collapsed {height:auto;}
 			&.slic-next-arr {right:0em;}
 		}
 	}
+}
+
+
+
+
+
+
+/* START CHECKOUT PAGE */
+.checkout-form-element {
+	width:580px;margin:  0 auto 0.5em;
+	&::after {display:block;content:'';clear:both;}
+	@media screen and (max-width:630px){
+		width:100%;
+	}
+}
+
+body.page-checkout #block-system-main {
+	padding: 10px;
+	.commerce-line-item-views-form {
+		.commerce-line-item-actions {display: none;}		
+	}
+	.views-field-title a {
+		text-decoration: none !important;
+		color: #999 !important;
+		cursor: default;
+	}
+	.checkout-buttons {text-align:right;max-width:580px;margin:0 auto;
+		.checkout-cancel {float:left;}
+	}
+	.el-assept-politik {@extend .checkout-form-element;
+		input {margin:0;}
+	}	
+	.link-politik {text-align:center;}
+	.form-wrapper {
+		@extend .checkout-form-element;
+		label {float: left;width: 150px;margin: 3px 0 0 0;padding: 0;}
+		label + input, label + div {float: right;width: 422px;} 
+		@media screen and (max-width:630px){
+			label,label + input, label + div {float:none;width:100%;}
+		}
+			
+	}
+		
+
+
+
+
+}
+/*
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + 
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + div {float: right;width: 422px;}
+
+*/
+
+
+/*
+.checkout-buttons {text-align:right;width:580px;margin:0 auto;}
+body.page-checkout #block-system-main {padding-left: 10px;padding-right: 10px;}
+body.page-checkout .customer_profile_billing {float: left;width: 100%;margin: 5px 0 0 0;}
+body.page-checkout .customer_profile_billing > legend {border: 0 none;color: #d254c9;width: 580px;margin: 0 auto 20px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper {margin: 0 auto;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper .form-wrapper, body.page-checkout .link-politik {max-width: 580px;margin-right: auto;margin-left: auto;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label {float: left;width: 150px;margin: 3px 0 0 0;padding: 0;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + input {float: right;width: 422px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + div {float: right;width: 422px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper > div {width: 100%;margin: 0 0 20px 0; overflow: hidden;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper input, 
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {float: left;margin: 0;padding: 0;width: 422px;border: 1px solid #B0B0B0;padding: 4px 8px;-webkit-border-radius: 5px;border-radius: 5px;}
+
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {height: 30px;resize: none;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea:focus {height: auto;}
+
+
+
+body.page-checkout .messages.error {
+  float: none;
+}
+
+body.page-checkout .customer_profile_billing {
+  float: none;
+}
+*/
+
+
+
+//  страница успешного заказа . ( довели заказ до финала оформения 
+body.page-checkout-complete{
+	h1, .breadcrumb {display: none;}
+	// сообщение .. 
+	#block-system-main .checkout-completion-message {text-align: center;padding: 100px 0;border:2px dashed $colorrosoviy;padding:0.5em;margin-top:0.5em;
+		h2 {color: #19D873;margin: 0 0 40px;position: relative;vertical-align: middle;
+			&::before {content:'';display:inline-block;width:2em;height:2em;background:url(../i/complete.png) 0 0 no-repeat;background-size: cover;vertical-align: middle;margin-right: 0.5em;}
+		}
+		span.text {font-size:1.5em;
+			.number {color:$colorrosoviy;font-weight:bold;}
+		}
+	}	
 }

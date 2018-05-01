@@ -476,7 +476,23 @@ function mk_preprocess_username(&$vars){
 function mk_form_commerce_checkout_form_checkout_alter(&$form,$form_state){
 	foreach (element_children($form['buttons']) as $x)
 		unset($form['buttons'][$x]['#prefix'],$form['buttons'][$x]['#suffix']);
+	$form['buttons']['#weight']=10;
 	$form['buttons']['continue']['#weight']=15;	
+	//dsm($form);
+	$form['accept']=array(
+		'#type'=>'checkbox',
+		'#prefix'=>'<div class="el-assept-politik">',
+		'#suffix'=>'</div>',
+		'#weight'=>5,
+		'#title'=>'Я даю своё согласие на обработку моих персональных данных. ',
+		'#required'=>true,
+	);
+	$form['ppolitic']=array(
+		'#prefix'=>'<div class="form-wrapper link-politik">',
+		'#suffix'=>'</div>',
+		'#markup'=>'<p class="center">'.l('Политика конфиденциальности','politika-konfidencialnosti').'</p>',
+		'#weight'=>7,
+	);
 }
 // =====================================
 function mk_commerce_currency_info_alter(&$cur){

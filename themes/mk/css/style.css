@@ -438,6 +438,14 @@ body.page-search #block-system-main .item-list {
     .region-wrap, footer .footer-blocks-wrap, footer .corp-data-copyr .corp-data-copyr-wrap {
       max-width: 1200px; } }
 
+.simple-button:hover, .accept-button:hover, .danger-button:hover, body.page-checkout .checkout-buttons .checkout-continue:hover, .page-cart #block-system-main .commerce-line-item-actions input:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart:hover, .cancel-button:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close:hover, body.page-checkout .checkout-buttons .checkout-cancel:hover {
+  text-decoration: none; }
+@media screen and (max-width:480px) {
+  .simple-button, .accept-button, .danger-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart, .cancel-button, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close, body.page-checkout .checkout-buttons .checkout-cancel {
+    width: 100%;
+    float: none;
+    margin-bottom: 0.2em; } }
+
 .accept-button, .danger-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart, .cancel-button, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close, body.page-checkout .checkout-buttons .checkout-cancel {
   border-radius: 4px;
   -moz-border-radius: 4px;
@@ -450,25 +458,18 @@ body.page-search #block-system-main .item-list {
 .accept-button, .danger-button, body.page-checkout .checkout-buttons .checkout-continue, .page-cart #block-system-main .commerce-line-item-actions input, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart {
   background: #21b321;
   color: white;
-  border: 1px solid #21b321;
-  width: 12em;
-  height: auto; }
+  border: 1px solid #21b321; }
   .accept-button:hover, .danger-button:hover, body.page-checkout .checkout-buttons .checkout-continue:hover, .page-cart #block-system-main .commerce-line-item-actions input:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart:hover {
     background: #1b9a1b;
-    border-color: #1b9a1b;
-    text-decoration: none; }
+    border-color: #1b9a1b; }
 
 .cancel-button, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close, body.page-checkout .checkout-buttons .checkout-cancel {
   background: #f8f4f0;
   color: #018fe2;
-  border: 1px solid #018fe2;
-  width: 12em;
-  height: auto;
-  float: left; }
+  border: 1px solid #018fe2; }
   .cancel-button:hover, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .commerce-add-to-cart-confirmation-close:hover, body.page-checkout .checkout-buttons .checkout-cancel:hover {
     background: #ececec;
-    border-color: #018fe2;
-    text-decoration: none; }
+    border-color: #018fe2; }
 
 .danger-button {
   background: #b32121;
@@ -493,11 +494,6 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
   div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart {
     float: right;
     width: 12em; }
-
-.checkout-buttons {
-  text-align: right;
-  width: 580px;
-  margin: 0 auto; }
 
 .not-front #main_content > .row {
   margin: 0; }
@@ -530,34 +526,6 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
     display: inline-block;
     margin: 0.5em; }
     .per-page-sizer li a.current {
-      font-weight: bold; }
-
-body.page-checkout-complete h1, body.page-checkout-complete .breadcrumb {
-  display: none; }
-body.page-checkout-complete #block-system-main .checkout-completion-message {
-  text-align: center;
-  padding: 100px 0;
-  border: 2px dashed #d254c9;
-  padding: 0.5em;
-  margin-top: 0.5em; }
-  body.page-checkout-complete #block-system-main .checkout-completion-message h2 {
-    color: #19D873;
-    margin: 0 0 40px;
-    position: relative;
-    vertical-align: middle; }
-    body.page-checkout-complete #block-system-main .checkout-completion-message h2::before {
-      content: '';
-      display: inline-block;
-      width: 2em;
-      height: 2em;
-      background: url(../i/complete.png) 0 0 no-repeat;
-      background-size: cover;
-      vertical-align: middle;
-      margin-right: 0.5em; }
-  body.page-checkout-complete #block-system-main .checkout-completion-message span.text {
-    font-size: 1.5em; }
-    body.page-checkout-complete #block-system-main .checkout-completion-message span.text .number {
-      color: #d254c9;
       font-weight: bold; }
 
 .warn-block {
@@ -949,3 +917,106 @@ html.js fieldset.collapsed {
       left: 0em; }
     #node-1566 .jobs-mit-uns .slick-arrow.slic-next-arr {
       right: 0em; }
+
+/* START CHECKOUT PAGE */
+.checkout-form-element, body.page-checkout #block-system-main .el-assept-politik, body.page-checkout #block-system-main .form-wrapper {
+  width: 580px;
+  margin: 0 auto 0.5em; }
+  .checkout-form-element::after, body.page-checkout #block-system-main .el-assept-politik::after, body.page-checkout #block-system-main .form-wrapper::after {
+    display: block;
+    content: '';
+    clear: both; }
+  @media screen and (max-width:630px) {
+    .checkout-form-element, body.page-checkout #block-system-main .el-assept-politik, body.page-checkout #block-system-main .form-wrapper {
+      width: 100%; } }
+
+body.page-checkout #block-system-main {
+  padding: 10px; }
+  body.page-checkout #block-system-main .commerce-line-item-views-form .commerce-line-item-actions {
+    display: none; }
+  body.page-checkout #block-system-main .views-field-title a {
+    text-decoration: none !important;
+    color: #999 !important;
+    cursor: default; }
+  body.page-checkout #block-system-main .checkout-buttons {
+    text-align: right;
+    max-width: 580px;
+    margin: 0 auto; }
+    body.page-checkout #block-system-main .checkout-buttons .checkout-cancel {
+      float: left; }
+  body.page-checkout #block-system-main .el-assept-politik input {
+    margin: 0; }
+  body.page-checkout #block-system-main .link-politik {
+    text-align: center; }
+  body.page-checkout #block-system-main .form-wrapper label {
+    float: left;
+    width: 150px;
+    margin: 3px 0 0 0;
+    padding: 0; }
+  body.page-checkout #block-system-main .form-wrapper label + input, body.page-checkout #block-system-main .form-wrapper label + div {
+    float: right;
+    width: 422px; }
+  @media screen and (max-width:630px) {
+    body.page-checkout #block-system-main .form-wrapper label, body.page-checkout #block-system-main .form-wrapper label + input, body.page-checkout #block-system-main .form-wrapper label + div {
+      float: none;
+      width: 100%; } }
+
+/*
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + 
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + div {float: right;width: 422px;}
+
+*/
+/*
+.checkout-buttons {text-align:right;width:580px;margin:0 auto;}
+body.page-checkout #block-system-main {padding-left: 10px;padding-right: 10px;}
+body.page-checkout .customer_profile_billing {float: left;width: 100%;margin: 5px 0 0 0;}
+body.page-checkout .customer_profile_billing > legend {border: 0 none;color: #d254c9;width: 580px;margin: 0 auto 20px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper {margin: 0 auto;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper .form-wrapper, body.page-checkout .link-politik {max-width: 580px;margin-right: auto;margin-left: auto;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label {float: left;width: 150px;margin: 3px 0 0 0;padding: 0;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + input {float: right;width: 422px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper label + div {float: right;width: 422px;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper > div {width: 100%;margin: 0 0 20px 0; overflow: hidden;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper input, 
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {float: left;margin: 0;padding: 0;width: 422px;border: 1px solid #B0B0B0;padding: 4px 8px;-webkit-border-radius: 5px;border-radius: 5px;}
+
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {height: 30px;resize: none;}
+body.page-checkout .customer_profile_billing .fieldset-wrapper textarea:focus {height: auto;}
+
+
+
+body.page-checkout .messages.error {
+  float: none;
+}
+
+body.page-checkout .customer_profile_billing {
+  float: none;
+}
+*/
+body.page-checkout-complete h1, body.page-checkout-complete .breadcrumb {
+  display: none; }
+body.page-checkout-complete #block-system-main .checkout-completion-message {
+  text-align: center;
+  padding: 100px 0;
+  border: 2px dashed #d254c9;
+  padding: 0.5em;
+  margin-top: 0.5em; }
+  body.page-checkout-complete #block-system-main .checkout-completion-message h2 {
+    color: #19D873;
+    margin: 0 0 40px;
+    position: relative;
+    vertical-align: middle; }
+    body.page-checkout-complete #block-system-main .checkout-completion-message h2::before {
+      content: '';
+      display: inline-block;
+      width: 2em;
+      height: 2em;
+      background: url(../i/complete.png) 0 0 no-repeat;
+      background-size: cover;
+      vertical-align: middle;
+      margin-right: 0.5em; }
+  body.page-checkout-complete #block-system-main .checkout-completion-message span.text {
+    font-size: 1.5em; }
+    body.page-checkout-complete #block-system-main .checkout-completion-message span.text .number {
+      color: #d254c9;
+      font-weight: bold; }

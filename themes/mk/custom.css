@@ -474,38 +474,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 
 
 
-/* START CHECKOUT PAGE */
-
-body.page-checkout #block-system-main {padding-left: 10px;padding-right: 10px;}
-body.page-checkout .customer_profile_billing {float: left;width: 100%;margin: 5px 0 0 0;}
-body.page-checkout .customer_profile_billing > legend {border: 0 none;color: #d254c9;width: 580px;margin: 0 auto 20px;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper {margin: 0 auto;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper .form-wrapper {width: 580px;margin-right: auto;margin-left: auto;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper label {float: left;width: 150px;margin: 3px 0 0 0;padding: 0;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper label + input {float: right;width: 422px;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper label + div {float: right;width: 422px;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper > div {width: 100%;margin: 0 0 20px 0; overflow: hidden;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper input, 
-body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {float: left;margin: 0;padding: 0;width: 422px;border: 1px solid #B0B0B0;padding: 4px 8px;-webkit-border-radius: 5px;border-radius: 5px;}
-
-body.page-checkout .customer_profile_billing .fieldset-wrapper textarea {height: 30px;resize: none;}
-body.page-checkout .customer_profile_billing .fieldset-wrapper textarea:focus {height: auto;}
-
-
-
-
-
-
-
-
-
-body.page-checkout .messages.error {
-  float: none;
-}
-
-body.page-checkout .customer_profile_billing {
-  float: none;
-}
 
 
 
@@ -1732,15 +1700,6 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
   padding-top: 10px;
 }
 
-.page-checkout .commerce-line-item-views-form .commerce-line-item-actions {
-  display: none;
-}
-
-.page-checkout .commerce-line-item-views-form .views-field-title a {
-  text-decoration: none !important;
-  color: #999 !important;
-  cursor: default;
-}
 
 .view-id-best_products .views-row {
   border-bottom: 1px solid #ccc;
