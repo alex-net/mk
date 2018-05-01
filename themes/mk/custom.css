@@ -1789,11 +1789,11 @@ h6 {
 
   #slider_main {display: none;}
 }
-
+/*
 #main_content {
   min-height: 1600px !important;
 }
-
+*/
 .flag-outer-comparison {
   display: none;
 }
