@@ -39,7 +39,7 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
 	.buttons {
 		margin:20px 0;
 		&::after {display:block;clear:both;content:'';}
-		.commerce-add-to-cart-confirmation-close  { @extend .cancel-button;position:static;width:$button-size;}
+		.commerce-add-to-cart-confirmation-close  { @extend .cancel-button;position:static;width:$button-size;height:auto;float:left;}
 		.to_cart {float:right; @extend .accept-button;width:$button-size;}
 	}
 }

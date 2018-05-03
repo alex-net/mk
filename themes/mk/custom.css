@@ -448,6 +448,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 
 .page-cart #block-system-main .commerce-line-item-views-form td {vertical-align: middle;}
 .page-cart #block-system-main .commerce-line-item-views-form th {font-weight: normal;color: #222;}
+.page-cart #block-system-main .form-actions .clear-cart {float: left;}
 
 
 .pic_title_attr .pic {padding-right: 0;}
