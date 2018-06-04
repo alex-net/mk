@@ -6,3 +6,4 @@
 !/modules/addons
 !/modules/discount_time
 .sass-cache
+!/modules/_custom

@@ -1,0 +1,87 @@
+<?php
+module_load_include('inc', 'addmi', 'addmi_helper');
+
+
+/**
+ * Implement hook_block_info()
+ */
+function addmi_block_info()
+{
+    $blocks['catalog_children_terms'] = array(
+        'info' => "Список терминов у дочерних елементов",
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+
+    return $blocks;
+}
+
+
+/**
+ * Implement hook_block_view()
+ */
+function addmi_block_view($delta = '')
+{
+    $block = array();
+    if ($delta == 'catalog_children_terms') {
+        $block['content'] = catalog_children_terms_block_content();
+    }
+    return $block;
+}
+
+
+/**
+ * block content
+ */
+function catalog_children_terms_block_content(){
+    $data = array();
+    $term = taxonomy_term_load(arg(2));
+
+    // Выводим только на Каталоге
+    if(!$term || $term->vocabulary_machine_name !== 'categories'){
+        return false;
+    }
+
+    // Выводим только на 1-м уровне таксономии
+    $query = db_select('taxonomy_term_hierarchy', 't');
+    $query->fields('t', array('parent'));
+    $query->condition('tid', $term->tid);
+    $parent = $query->execute()->fetchField();
+    /*if($parent !== '0'){
+        return false;
+    }
+    */
+
+    // Формируем array для рендера
+    $children = taxonomy_get_children($term->tid, $term->vid);
+    
+    foreach($children as $child){
+        $data[$child->tid] = $child;
+        $data[$child->tid]->children = taxonomy_get_children($child->tid, $child->vid) ;// : false;
+    }
+
+    return theme('catalog_children_terms', array('data' => $data));
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function addmi_theme($existing, $type, $theme, $path)
+{
+    return array(
+        'catalog_children_terms' => array('template' => 'templates/catalog_children_terms'),
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

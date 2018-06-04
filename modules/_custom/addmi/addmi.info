@@ -1,0 +1,4 @@
+name = AddMi
+description = Пустой модуль для кода
+package = AddMi
+core = 7.x
