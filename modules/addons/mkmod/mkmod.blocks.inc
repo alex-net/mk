@@ -173,9 +173,9 @@ function mkmod_block_view($delta=''){
 					'prev'=>array('#markup'=>'<span class="flex-prev"></span>'),
 					'next'=>array('#markup'=>'<span class="flex-next"></span>'),
 				);
-			if (!empty($$bd['block-top-mess']))
+			if (!empty($bd['block-top-mess']))
 				$out['head']=array(
-					'#markup'=>$$bd['block-top-mess'],
+					'#markup'=>$bd['block-top-mess'],
 					'#prefix'=>'<div class="b-header">',
 					'#suffix'=>'</div>',
 				);
