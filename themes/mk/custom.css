@@ -1713,7 +1713,7 @@ body.front .node-page.node-promoted .field-name-body {overflow: hidden;
    -moz-transition: all 0.9s;
     -ms-transition: all 0.9s;
      -o-transition: all 0.9s;
-        transition: all 0.9s;float: left;width: 100%;height: 105px;max-height: 105px; }
+        transition: all 0.9s;float: left;width: 100%;height: 105px;max-height: 105px;padding-bottom: 1em; position: relative; }
 body.front .node-page.node-promoted {overflow: hidden;}
 body.front .node-page.node-promoted .field-name-body > a {float: left; position: absolute; right: 0; bottom: 0; width: 100%; text-align: right; padding: 10px ; background-color: #F5F5F5; }
 body.front .node-page.node-promoted .field-name-body.showed {max-height: 5000px;height: auto;}
