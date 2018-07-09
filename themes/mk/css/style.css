@@ -496,6 +496,13 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
   div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons .to_cart {
     float: right;
     width: 12em; }
+  @media screen and (max-width:479px) {
+    div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons {
+      margin: 10px 0; }
+      div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons a.to_cart, div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-message-product-display .buttons a.commerce-add-to-cart-confirmation-close {
+        float: none;
+        display: block;
+        margin: 5px auto; } }
 
 .not-front #main_content > .row {
   margin: 0; }

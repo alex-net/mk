@@ -1857,7 +1857,9 @@ h6 {
 @media (max-width:767px){
 
 	.container_wrap #main_content {position: static;}
-	div.messages.commerce-add-to-cart-confirmation {top: 30px;position: absolute;}
+	div.messages.commerce-add-to-cart-confirmation {top: 30px;position: fixed;}
+  div.messages.commerce-add-to-cart-confirmation .buttons {text-align: center;;}
+   div.messages.commerce-add-to-cart-confirmation .buttons a {float: none;}
 
 
   .product.teaser.col-md-9 {

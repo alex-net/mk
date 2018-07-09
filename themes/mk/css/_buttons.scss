@@ -41,6 +41,10 @@ div.messages.commerce-add-to-cart-confirmation .message-inner .view-confirm-mess
 		&::after {display:block;clear:both;content:'';}
 		.commerce-add-to-cart-confirmation-close  { @extend .cancel-button;position:static;width:$button-size;height:auto;float:left;}
 		.to_cart {float:right; @extend .accept-button;width:$button-size;}
+		@media screen and (max-width:479px){
+			margin:10px 0;
+			a.to_cart, a.commerce-add-to-cart-confirmation-close	{float:none;display:block;margin:5px auto;}
+		}
 	}
 }
 
