@@ -146,9 +146,11 @@
 			$im=field_get_items('node',$n['node'],'field_background');
 			$bg=field_get_items('node',$n['node'],'field_gradbg');
 			
-			if ($im && $bg)
+			if ($im && $bg){
 				$n['content']['field_gradbg']['#access']=false;
-			//kprint_r($n);
+			}
+			
+
 		}
 
 		

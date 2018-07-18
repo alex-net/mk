@@ -107,6 +107,10 @@ function mkmod_block_view($delta=''){
 				));
 		break;
 		case 'ad-block':
+			// запрашваем акции  
+			$els=_getactionprodag();
+			if ($els)
+				break;
 			$res=db_select('node','n');
 			$res->condition('n.type','ad_for_main');
 			$res->fields('n',array('nid'));
@@ -116,7 +120,6 @@ function mkmod_block_view($delta=''){
 				$res=node_view_multiple(node_load_multiple($res));
 				$res['nodes']['#prefix']='<div class="slider-ad-wrapper">';
 				$res['nodes']['#suffix']='</div>';
-				//dsm($res);
 				$b['content']=render($res);
 			}
 			//$b['content']='adad';

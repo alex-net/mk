@@ -62,27 +62,43 @@ html.js fieldset.collapsed {height:auto;}
 
 }
 
-.ad-main {
+// слайдер на главной .. общий стиль ... 
+.slick-slider-in-blocks-on-front {
+	.slick-arrow {z-index:5;border-radius:50%;overflow:hidden;width:3em;height:3em;font-size:1em;display:none!important;
+		&::before {font-size:3em;display:block;font-family:FontAwesome;color:$colorrosoviy}
+	}
 	.slick-prev {left:25px;
-		&::before {content:'<';font-family:arial;}
-
+		&::before {content:'\f137';}
 	}
 	.slick-next {right:25px;
-		&::before {content:'>';font-family:arial;}
-	}
-	.slick-arrow {z-index:5;border-radius:50%;overflow:hidden;background:#514F50;width:2em;height:2em;font-size:1em;display:none!important;
-		&::before {font-size:2em;display:block;}
+		&::before {content:'\f138';}
 	}
 	&:hover .slick-arrow {display:block!important;}
 }
-.node-ad-for-main.node-teaser {position: relative;
-	.grad-bg {height: 312px;display: block;}
-	.field-name-body  {position:absolute;left:0;top:50%;} 
+
+
+.ad-main {
+	.slick-slider {
+		@extend .slick-slider-in-blocks-on-front;
+		.node-ad-for-main.node-teaser {position: relative;height: 312px;display: block;
+			&::before {content:'';display:inline-block;height:312px;width:0;vertical-align:middle;position:relative;z-index:6;}
+			.grad-bg,.image-bg  {height:100%;width:100%;position:absolute;z-index:5;left:0;top:0;}
+			.image-bg {background-repeat:no-repeat;background-size:cover;background-position:50% 50%;}
+			.field-name-body {width:98%;margin:0 auto;display:inline-block;vertical-align:middle;position:relative;z-index:6;}
+			
+
+		}
+	}
 }
+
 
 // слайдер акций 
 .slider-discont-main .content {
-	.slider-main-big {margin:0 -24px;}
+	.slider-main-big {
+		margin:0 -24px;
+		@extend .slick-slider-in-blocks-on-front;
+		.slick-arrow {top:85%;}
+	}
 	.akcion-big-el {padding:0 24px;
 		h2 {color:#B32121;font-size:30px;line-height:17px;margin-bottom:0;
 			span {display:block;
@@ -108,7 +124,7 @@ html.js fieldset.collapsed {height:auto;}
 		}
 
 	}
-	.akcion-small-el{cursor:pointer;
+	.akcion-small-el{cursor:pointer;margin:0 4px;
 		.pic{padding-left:0;padding-right:0;
 			img {border:1px solid #FFFFFF;padding:0;}
 		}
@@ -119,6 +135,7 @@ html.js fieldset.collapsed {height:auto;}
 
 	}
 	.slider-main-small {background: #F5F5F5;padding: 5px 35px;
+		@media screen and (max-width:650px){display:none;}
 		.slick-prev{left:12px;opacity:1!important;top:50%;z-index: 20;}
 		.slick-next{right:12px;opacity:1!important;top:50%;z-index: 20;}
 	}

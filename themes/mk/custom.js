@@ -163,15 +163,26 @@
 			// запускайм слайдер на главной slider-discont-main
 			$('.slider-discont-main').once(function(){
 				
-				var ss=$('.slider-discont-main .slider-main-small');
+				// осовной слайдер 
 				$('.slider-discont-main .slider-main-big').slick({
 					arrows:false,
 					fade:true,
 					asNavFor:'.slider-discont-main .slider-main-small',
 					autoplay:true,
 					autoplaySpeed:(typeof Drupal.settings['accii-slider-speed']=='undefined')?3000:Drupal.settings['accii-slider-speed']*1000,
+					responsive:[
+						{
+							breakpoint:650,
+							settings:{
+								arrows:true,
+								//prevArrow:'<div class="left"></div>',
+								//nextArrow:'<div class="right"></div>',
+							}
+						}
+					],
 				});
-				ss.slick({
+				// управление....  
+				$('.slider-discont-main .slider-main-small').slick({
 					slidesToShow:3,
 					asNavFor:'.slider-discont-main .slider-main-big'
 				});

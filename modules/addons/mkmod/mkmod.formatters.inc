@@ -8,9 +8,14 @@ function mkmod_field_formatter_info(){
 			'field types'=>array('commerce_product_reference'),
 		),
 		'grad_background'=>array(
-			'label'=>'гардиентная заливка',
+			'label'=>'Гардиентная заливка',
 			'description'=>'гарадиентная заливка',
 			'field types'=>array('grad_background'),
+		),
+		'image_backgound'=>array(
+			'label'=>'Фоновая картинка',
+			'description'=>'Каринка в качесве фона',
+			'field types'=>array('image'),
 		),
 	);
 }
@@ -142,10 +147,25 @@ function mkmod_field_formatter_view($enttype,$ent,$field,$instance,$language,$it
 					'#markup'=>sprintf('<span %s ></span>',drupal_attributes($attrs)),
 				);
 			}
-			
+		break;
+		//фоноваое изображение 
+		case 'image_backgound':
+			foreach($items as $delta=>$item){
+				$img=file_create_url($item['uri']);
+				//dsm($item);
+				$imgs=array(
+					sprintf('background-image:url(%s);',$img),
 
-			
-			
+				);
+				$attrs=array(
+						'class'=>array('image-bg'),
+						'style'=>$imgs,
+					);
+					$el[$delta]=array(
+						'#markup'=>sprintf('<span %s ></span>',drupal_attributes($attrs)),
+					);
+					//dsm('s');
+			}
 		break;
 	}
 	return $el;

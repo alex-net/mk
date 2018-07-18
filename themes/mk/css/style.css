@@ -605,43 +605,65 @@ html.js fieldset.collapsed {
   box-sizing: border-box;
   margin: 10px 0; }
 
-.ad-main .slick-prev {
-  left: 25px; }
-  .ad-main .slick-prev::before {
-    content: '<';
-    font-family: arial; }
-.ad-main .slick-next {
-  right: 25px; }
-  .ad-main .slick-next::before {
-    content: '>';
-    font-family: arial; }
-.ad-main .slick-arrow {
+.slick-slider-in-blocks-on-front .slick-arrow, .ad-main .slick-slider .slick-arrow, .slider-discont-main .content .slider-main-big .slick-arrow {
   z-index: 5;
   border-radius: 50%;
   overflow: hidden;
-  background: #514F50;
-  width: 2em;
-  height: 2em;
+  width: 3em;
+  height: 3em;
   font-size: 1em;
   display: none!important; }
-  .ad-main .slick-arrow::before {
-    font-size: 2em;
-    display: block; }
-.ad-main:hover .slick-arrow {
+  .slick-slider-in-blocks-on-front .slick-arrow::before, .ad-main .slick-slider .slick-arrow::before, .slider-discont-main .content .slider-main-big .slick-arrow::before {
+    font-size: 3em;
+    display: block;
+    font-family: FontAwesome;
+    color: #d254c9; }
+.slick-slider-in-blocks-on-front .slick-prev, .ad-main .slick-slider .slick-prev, .slider-discont-main .content .slider-main-big .slick-prev {
+  left: 25px; }
+  .slick-slider-in-blocks-on-front .slick-prev::before, .ad-main .slick-slider .slick-prev::before, .slider-discont-main .content .slider-main-big .slick-prev::before {
+    content: '\f137'; }
+.slick-slider-in-blocks-on-front .slick-next, .ad-main .slick-slider .slick-next, .slider-discont-main .content .slider-main-big .slick-next {
+  right: 25px; }
+  .slick-slider-in-blocks-on-front .slick-next::before, .ad-main .slick-slider .slick-next::before, .slider-discont-main .content .slider-main-big .slick-next::before {
+    content: '\f138'; }
+.slick-slider-in-blocks-on-front:hover .slick-arrow, .ad-main .slick-slider:hover .slick-arrow, .slider-discont-main .content .slider-main-big:hover .slick-arrow {
   display: block!important; }
 
-.node-ad-for-main.node-teaser {
-  position: relative; }
-  .node-ad-for-main.node-teaser .grad-bg {
+.ad-main .slick-slider .node-ad-for-main.node-teaser {
+  position: relative;
+  height: 312px;
+  display: block; }
+  .ad-main .slick-slider .node-ad-for-main.node-teaser::before {
+    content: '';
+    display: inline-block;
     height: 312px;
-    display: block; }
-  .node-ad-for-main.node-teaser .field-name-body {
+    width: 0;
+    vertical-align: middle;
+    position: relative;
+    z-index: 6; }
+  .ad-main .slick-slider .node-ad-for-main.node-teaser .grad-bg, .ad-main .slick-slider .node-ad-for-main.node-teaser .image-bg {
+    height: 100%;
+    width: 100%;
     position: absolute;
+    z-index: 5;
     left: 0;
-    top: 50%; }
+    top: 0; }
+  .ad-main .slick-slider .node-ad-for-main.node-teaser .image-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%; }
+  .ad-main .slick-slider .node-ad-for-main.node-teaser .field-name-body {
+    width: 98%;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    z-index: 6; }
 
 .slider-discont-main .content .slider-main-big {
   margin: 0 -24px; }
+  .slider-discont-main .content .slider-main-big .slick-arrow {
+    top: 85%; }
 .slider-discont-main .content .akcion-big-el {
   padding: 0 24px; }
   .slider-discont-main .content .akcion-big-el h2 {
@@ -728,7 +750,8 @@ html.js fieldset.collapsed {
         height: 1px;
         background: red; }
 .slider-discont-main .content .akcion-small-el {
-  cursor: pointer; }
+  cursor: pointer;
+  margin: 0 4px; }
   .slider-discont-main .content .akcion-small-el .pic {
     padding-left: 0;
     padding-right: 0; }
@@ -745,6 +768,9 @@ html.js fieldset.collapsed {
 .slider-discont-main .content .slider-main-small {
   background: #F5F5F5;
   padding: 5px 35px; }
+  @media screen and (max-width:650px) {
+    .slider-discont-main .content .slider-main-small {
+      display: none; } }
   .slider-discont-main .content .slider-main-small .slick-prev {
     left: 12px;
     opacity: 1!important;
