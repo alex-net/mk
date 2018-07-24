@@ -274,10 +274,7 @@ function mk_breadcrumb($b){
 		
 		//array_shift($n);
 		foreach($n as $x=>$y)
-			if ($x==1)
-				$b[]=$y->name;
-			else
-				$b[]=l($y->name,'taxonomy/term/'.$y->tid);
+			$b[]=l($y->name,'taxonomy/term/'.$y->tid);
 		//$b[]=$t->name;
 		//dsm($n);
 	}

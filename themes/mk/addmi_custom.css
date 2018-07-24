@@ -48,6 +48,7 @@
     padding-left: 10px;
     position: relative;
 }
+#block-addmi-catalog-children-terms .wrap-title .title  a {color: #fff;}
 #block-addmi-catalog-children-terms .block_row:hover .title {
     background-color: #ce37bf;
 }

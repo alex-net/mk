@@ -58,6 +58,7 @@ function catalog_children_terms_block_content(){
         $data[$child->tid] = $child;
         $data[$child->tid]->children = taxonomy_get_children($child->tid, $child->vid) ;// : false;
     }
+    //dsm($children);
 
     return theme('catalog_children_terms', array('data' => $data));
 }

@@ -10,7 +10,7 @@
                                 echo "<a href='" .$path_term. "'>";
                             } ?>
                             <div class="title">
-                                <span><?php print $term->name; ?></span>
+                                <span><?php echo l($term->name,'taxonomy/term/'.$term->tid);  ?></span>
                                 <?php if ($term->children): ?>
                                     <div class="has-children"></div>
                                 <?php endif;?>
@@ -29,7 +29,7 @@
                             <?php endif;?>
                                         
                             <?php $img = field_view_field('taxonomy_term', $term, 'field_pic_category', 'token'); ?>
-                            <?php print render($img); ?>
+                            <?php print l(render($img),'taxonomy/term/'.$term->tid,['html'=>true]); ?>
                           </a>
                         </div>
                     </div>
