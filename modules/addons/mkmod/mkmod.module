@@ -304,9 +304,14 @@ function _getactionprodag(){
 // достать нужное количество хитов прожаж
 function _gethitprodag($count){
 	$cid=__FUNCTION__.$count;
+	$result=&drupal_static($cid);
+	if ($result)
+		return $result;
 	$data=cache_get($cid);
-	if (!empty($data->data) && $data->expire>=REQUEST_TIME)
+	if (!empty($data->data) && $data->expire>=REQUEST_TIME){
+		$result=$data->data;
 		return $data->data;
+	}
 	
 	$res=db_select('node','n');
 	$res->condition('n.status',1);
@@ -341,6 +346,7 @@ function _gethitprodag($count){
 	$res->range(0,$count);
 	$res->groupBy('n.nid');
 	$res=$res->execute()->fetchCol();
+	$result=$res;
 	cache_set($cid,$res,'cache',REQUEST_TIME+3600*24);
 	return $res; 
 }
