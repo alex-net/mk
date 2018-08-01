@@ -49,8 +49,12 @@
     position: relative;
 }
 #block-addmi-catalog-children-terms .wrap-title .title  a {color: #fff;}
-#block-addmi-catalog-children-terms .block_row:hover .title {
+#block-addmi-catalog-children-terms .wrap-title .title  a:hover {color: #49a6f7;}
+#block-addmi-catalog-children-terms .block_row.hovered .title {
     background-color: #ce37bf;
+}
+@media screen and (min-width: 1280px){
+    #block-addmi-catalog-children-terms .block_row:hover .title {background-color: #ce37bf;}
 }
 #block-addmi-catalog-children-terms .has-children {
     width: 15px;
@@ -73,8 +77,11 @@
     background-repeat: no-repeat;
     background-position: -124px -382px;
 }
-#block-addmi-catalog-children-terms .block_row:hover .wrap-children {
+#block-addmi-catalog-children-terms .block_row.hovered .wrap-children {
     display: block;
+}
+@media screen and (min-width: 1280px){
+    #block-addmi-catalog-children-terms .block_row:hover .wrap-children {display: block;}
 }
 #block-addmi-catalog-children-terms .children {
     background-color: #ce37bf;

@@ -470,7 +470,10 @@ jQuery(document).ready(function() {
 		$("#block-views-product-titles-block .views-row a").removeClass("active");
 		$(this).addClass("active");
 	})
-
+	// показать скрыть меню подпунктов категрии  в каталоге 
+	$('#block-addmi-catalog-children-terms .block_row .has-children').on('click',function(){
+		$(this).parents('.block_row').toggleClass('hovered');
+	})
 	/*if ($(".page_title").length){ 
 
 		$(".page_title").hover(function() {
