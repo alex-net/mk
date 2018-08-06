@@ -116,7 +116,10 @@
 			$n['marker']=0;
 			if (!empty($marker[0]['tid']))
 				$n['marker']=$marker[0]['tid'];	
-			if (empty($n['marker']) && current_path()!='bestsellers' && in_array($n['nid'],_gethitprodag(40)) )
+			// признак акционного товара ..
+			if (!empty($n['content']['counter']))
+				$n['classes_array'][]='akcia-todo';
+			if (empty($n['marker'])&& current_path()!='bestsellers' && in_array($n['nid'],_gethitprodag(40)) )
 				$n['marker']=132;
 		}
 		if ($n['type']=='product_display' && $n['view_mode']=='full'){

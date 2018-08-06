@@ -816,8 +816,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 
 
 .product .icon_hit {position: absolute;top: 3px;left: 3px;background: url("i/icon_top_sale.png") center center no-repeat;width: 80px;height: 51px;}
+.akcia-todo.product .icon_hit {left: auto;right: 3px;}
+
 /*.product.teaser:hover .wrap_teaser .icon_hit, .product.teaser.show_more_info .wrap_teaser .icon_hit {top: 5px;left: 7px;}*/
 .product-lists .product.teaser .wrap_teaser .icon_hit {right: 3px;left: auto;}
+.product-lists .product.teaser.akcia-todo .wrap_teaser .icon_hit {left: 3px;right: auto;}
 .product-lists .product.teaser:hover .wrap_teaser .icon_hit, .product-lists .product.teaser.show_more_info .wrap_teaser .icon_hit {top: 5px;right: 7px;}
 
 .product .icon_new {position: absolute;top: 3px;left: 3px;background: url("i/icon_new.png") center center no-repeat;width: 83px;height: 83px;min-height: 3em ;}
