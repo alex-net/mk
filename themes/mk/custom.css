@@ -672,10 +672,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 .news_articles .views-row .text span{display:block;font-size:12px;color:#767575;}
 .news_articles .views-row .text span a{color:#040404;}
 
-/*.fancybox-close {background:url(i/fancy-close.png) 50% 50% no-repeat;width: 23px;height: 23px;top:15px;right: 15px;}*/
-.fancybox-close {background:url(i/fancy-krest.png) 50% 50% no-repeat;background-size: contain; width: 23px;height: 23px;top:15px;right: 15px;}
 
-.fancybox-skin {background: white;}
 
 @media (min-width:768px){
 	.news_articles .pager_for .per_page label{font-size:14px;font-weight:normal;}
@@ -904,10 +901,11 @@ h1 {position:relative;}
   .quick-zakaz {margin:10px 0 0;}
   .back-change-tovars{width: 32%;}
 }
-.fancybox-inner {width: 100%!important;}
+/*.fancybox-inner {width: 100%!important;}
 .fancybox-wrap{width: 80%!important;}
 .fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform{width: auto!important;}
  .fancybox-wrap.commerce-add-to-cart-confirmation {width: 60%!important;}
+ */
  
 .webform-client-form textarea, .webform-client-form input {width: 100%;margin:0 auto;border:1px solid #ccc;padding: 0.6em;}
 .webform-client-form .form-actions input {background:linear-gradient(#d22f2f,#961414);color:white;font-weight: 800;font-size: 1.7em;padding: 0.3em;border:none;transition: all 0.5s linear;}
@@ -947,9 +945,6 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
   form .captcha .form-item{width: 100%;float: none;}
 }
 @media screen and (max-width:1024px){
-  .fancybox-wrap,.fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform {width:100%!important;left: 0!important;}
-  .fancybox-wrap.form-in-popup {text-align: center;}
-  .fancybox-wrap.form-in-popup .fancybox-inner {width: auto!important;display: inline-block;text-align: left;}
   /*.fancybox-wrap.form-QuickZakaz {width: auto!important;left:auto!important;}*/
   #node-1524 img,.fancybox-wrap img {max-width: 100%;display: block;margin: 0 auto;}
 }
@@ -1216,23 +1211,24 @@ h2 {font-size: 1.71em;}
 
 
 
-div.messages.commerce-add-to-cart-confirmation{width:500px; position:fixed; margin-left:-250px!important;border:1px solid #000000;padding:0!important;-webkit-border-radius:4px;border-radius:4px;margin-left: -250px;left: 50%;}
+/*div.messages.commerce-add-to-cart-confirmation{width:500px; position:fixed; margin-left:-250px!important;border:1px solid #000000;padding:0!important;-webkit-border-radius:4px;border-radius:4px;margin-left: -250px;left: 50%;}*/
 div.messages.commerce-add-to-cart-confirmation > .message-inner > .commerce-add-to-cart-confirmation-close{background:url("i/icon_close.png") no-repeat;width:19px;height:19px;float:left;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display {padding: 0;}
 div.messages.commerce-add-to-cart-confirmation > .message-inner > .commerce-add-to-cart-confirmation-close span.element-invisible{float:left;position:absolute;right:0;background:#535353;color:#fff;padding:4px 8px;border-radius:6px;}
 div.messages.commerce-add-to-cart-confirmation > .message-inner > .commerce-add-to-cart-confirmation-close:hover > span.element-invisible{display:block;}
 div.messages.commerce-add-to-cart-confirmation .added-product-title{display:none;}
 div.messages.commerce-add-to-cart-confirmation .button-wrapper{display:none;}
 div.messages.commerce-add-to-cart-confirmation a.messageclose{display:none;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-header{float:left;width:100%;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-header h2{float:left;width:100%;text-align:center;color:#000;font-family:'PT Sans',sans-serif;font-weight:normal;font-size:18px;margin:30px 0 15px 0;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content{float:left;width:100%;padding:8px 20px;background:#AD31AE;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row{float:left;width:100%;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic{width:60px;float:left;margin:0 8px 0 0;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic a{float:left;width:100%;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic a img{float:left;width:100%;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-header{}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-header h2{text-align:center;color:#000;font-family:'PT Sans',sans-serif;font-weight:normal;font-size:18px;margin:0px 0 15px 0;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content{padding:8px 20px;background:#AD31AE;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row{}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic{float:left;width:60px;margin:0 8px 0 0;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic a{}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .pic a img{}
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .title{float:left;margin:8px 0 0 0;}
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .title a{float:left;margin:0;padding:0;/*white-space:nowrap;*/text-overflow:ellipsis;overflow:hidden;/*width:390px;*/font-family:'PT Sans',sans-serif;font-size:18px;font-weight:bold;color:#FFF;text-decoration:none;}
-div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .info {float: left; width: 100%; padding: 0 0 0 68px; color: #FFF;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .info {clear:both;padding: 0 0 0 68px; color: #FFF;}
 
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-footer{float:left;width:100%;}
 div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-footer .text{margin:8px 0 0 0;color:#4F4F4F;font-size:18px;text-align:center;}
@@ -1245,6 +1241,35 @@ div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-dis
 
 */
 
+div.messages.commerce-add-to-cart-confirmation {width: auto;position: static;margin:0!important;padding: 0!important;border:none;}
+div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display {margin: 0;width: auto;}
+div.messages.commerce-add-to-cart-confirmation .message-inner {padding: 0;}
+.commerce_add_to_cart_confirmation_overlay {display: none;}
+  @media (max-width:767px){
+div.messages.commerce-add-to-cart-confirmation {width: 100%;float: none;padding: 0;}
+  div.messages.commerce-add-to-cart-confirmation .buttons {text-align: center;;}
+   div.messages.commerce-add-to-cart-confirmation .buttons a {float: none;}
+
+}
+
+
+
+@media (max-width:479px){
+  /*div.messages.commerce-add-to-cart-confirmation {
+      top: 10px;
+      width: 350px;
+      margin-left: -175px!important;
+  }*/
+  div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .title {width: 240px;}
+  div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-footer .text {padding: 0 10px;}
+
+}
+
+ /*div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display {width: 100%;}**/
+
+@media screen and (max-width: 350px){
+  /*div.messages.commerce-add-to-cart-confirmation {left:0;margin: 0!important;width: 100%;}*/
+}
 
 
 
@@ -1864,9 +1889,6 @@ h6 {
 @media (max-width:767px){
 
 	.container_wrap #main_content {position: static;}
-	div.messages.commerce-add-to-cart-confirmation {top: 30px;position: fixed;}
-  div.messages.commerce-add-to-cart-confirmation .buttons {text-align: center;;}
-   div.messages.commerce-add-to-cart-confirmation .buttons a {float: none;}
 
 
   .product.teaser.col-md-9 {
@@ -1907,14 +1929,7 @@ h6 {
 	.link_catalog_main_menu .catalog {width: 182px;padding-right: 0;}
 	.link_catalog_main_menu #main_menu {float: right; min-width: 110px; margin: 0 8px 0 0; }
 
-	div.messages.commerce-add-to-cart-confirmation {
-    	top: 10px;
-    	width: 350px;
-    	margin-left: -175px!important;
 
-	}
-	div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-content .views-row .title {width: 240px;}
-	div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display .view-footer .text {padding: 0 10px;}
 }
 
 .link_catalog_main_menu {padding: 0;}
@@ -1925,7 +1940,7 @@ h6 {
 .socnet-1024-1280 {display: none;}
  /*.search-form {width: 0;overflow: hidden;display: none;height: 1.7em;padding:0.3em 0;}*/
  /*.search-form *{height: 100%;border:none;border-radius: 3px;}*/
- div.messages.commerce-add-to-cart-confirmation .view-confirm-message-product-display {width: 100%;}
+
 @media screen and (max-width: 1279px) and (min-width: 768px){
   .link_catalog_main_menu #main_menu{width: 67%;}
  .socnet-1024-1280 {display: block;line-height: 3.15em;} 
@@ -2105,7 +2120,7 @@ h6 {
 @media screen and (max-width: 350px){
   .product.full.node .buy-form .form-actions { width: 69%; }
   .back-change-tovars {width: 8em;}
-  div.messages.commerce-add-to-cart-confirmation {left:0;margin: 0!important;width: 100%;}
+  
   .ui-tabs-panel {font-size:0.7em; }
 }
 @media screen and (max-width: 320px){
@@ -2116,7 +2131,7 @@ h6 {
   .phone.marg-posle .whatsap-ico {margin-left:-1.5em;}
 }
 
-img.img-responsive {width: 100%;}
+/*img.img-responsive {width: 100%;}*/
 .about-logo-img {width:300px!important;max-width:100%;display: block;}
 
 .for_catalog_menu .menu li {list-style: none outside none;}

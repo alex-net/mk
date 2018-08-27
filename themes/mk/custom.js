@@ -225,6 +225,16 @@ jQuery(document).ready(function() {
 
 	var $ = jQuery.noConflict();
 
+	$('body').on('click','.commerce-add-to-cart-confirmation-close', function(e) {
+        e.preventDefault();
+
+          //$('.commerce-add-to-cart-confirmation').remove();
+          //$('.' + overlayClass).remove();
+          jQuery.fancybox.close();
+    });
+
+	
+
 	if ($("aside.sidebar").height() > $("#main_content").height()) {
 		var height_sidebar = $("aside.sidebar").height();
 		$("#main_content").css('minHeight', height_sidebar);

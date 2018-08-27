@@ -198,17 +198,23 @@ function formaddtocart_form_jscb($form,$form_state){
 		// показываем уведомлялку 
 		if($form_state['li-id']){
 			$win=views_embed_view('confirm_message_product_display','default',$form_state['li-id']);
-			$win.='<a href="#" class="commerce-add-to-cart-confirmation-close"><span class="element-invisible">Закрыть</span></a><div class="clearfix"></div>';
+			//$win.='<a href="#" class="commerce-add-to-cart-confirmation-close"><span class="element-invisible">Закрыть</span></a><div class="clearfix"></div>';
 			$win='<div class="messages commerce-add-to-cart-confirmation"><div class="message-inner">'.$win.'</div></div>';
-			$cmd[]=ajax_command_prepend('#main_content',$win);
-			/*
+			//$cmd[]=ajax_command_prepend('#main_content',$win);
+			
 			$cmd[]=array(
 				'command'=>'show_in_popup',
 				'content'=>$win,
-				'wrapCSS'=>'messages commerce-add-to-cart-confirmation',
+				'wrapCSS'=>'form-in-popup messages-commerce-add-to-cart-confirmation',
+				'padding'=>10,
+				'width'=>'auto',
+				//'type'=>'html',
+				'scrolling'=>'no',
+				'autoSize'=>false,
+				'autoHeight'=>true,
 				'fitToView'=>false,
 
-			);*/
+			);
 
 
 			//dsm($win,'$win');

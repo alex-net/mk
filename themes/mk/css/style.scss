@@ -344,3 +344,33 @@ body.page-checkout-complete{
 		}
 	}	
 }
+
+
+.fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform{width: auto!important;}
+
+ /*.fancybox-wrap.commerce-add-to-cart-confirmation {width: 60%!important;}*/
+ /*.fancybox-close {background:url(i/fancy-close.png) 50% 50% no-repeat;width: 23px;height: 23px;top:15px;right: 15px;}*/
+.fancybox-close {background:url(../i/fancy-krest.png) 50% 50% no-repeat;background-size: contain; width: 23px;height: 23px;top:15px;right: 15px;}
+
+.fancybox-skin {background: white;}
+
+
+
+@media screen and (max-width:1024px){
+  /*.fancybox-wrap,.fancybox-wrap.form-in-popup, .fancybox-wrap.node-webform {width:100%!important;left: 0!important;}*/
+  .fancybox-wrap.form-in-popup {text-align: center;}
+  .fancybox-wrap.form-in-popup .fancybox-inner {width: auto!important;display: inline-block;text-align: left;}
+  /*.fancybox-wrap.form-QuickZakaz {width: auto!important;left:auto!important;}*/
+}
+
+/* адаптиция fancybox  */
+@media screen and (max-width:769px){
+	
+	.fancybox-overlay .fancybox-wrap{width: 100%!important;;left:0!important;}
+	.fancybox-inner {width: 100%!important;}
+}
+//
+
+
+
+
