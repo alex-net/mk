@@ -18,7 +18,7 @@
 				var ind=-1;
 				$(this).find('option').each(function(i){
 					if ($(this).attr('value')==val)
-						ind=i;
+						ind=i-1;
 					
 				});
 				$(this).data('changed-val',ind);
@@ -36,11 +36,9 @@
 			},function(e){
 				val=select.val();
 				el.find('.one-star').removeClass('hovered');
-				console.log(select[0].selectedIndex,select.data('changed-val'));
 				for(var i=0;i<=select.data('changed-val');i++)
 					el.find('.one-star').eq(i).addClass('hovered');
 			}).on('click',function(){
-				
 				select.val($(this).data('it')).trigger('change');
 				
 				

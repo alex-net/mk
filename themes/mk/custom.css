@@ -1155,7 +1155,7 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 /* Rating */
 .mk-rating-widget {display: inline-block;}
 .field-name-field-rating label {font-size: 1.57em;}
-.mk-rating-widget .one-star {display: inline-block;padding: 0 0.5em;cursor: pointer;font-size: 0.719em;text-align: center;}
+.mk-rating-widget .one-star {display: inline-block;padding: 0.5em;cursor: pointer;font-size: 0.719em;text-align: center;}
 .mk-rating-widget .one-star .star-ico {background:url(i/big-stars.png) 0 -35px no-repeat;display: inline-block;width: 35px;height: 35px;display:block;margin: 0 auto;}
 .mk-rating-widget .one-star.hovered .star-ico {background-position: 0 0 ;}
 .rating-widget-view {display: inline-block;height: 15px;width: 100px;background: url(i/small-stars.png) 0 -15px repeat-x;}
