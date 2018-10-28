@@ -794,7 +794,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 /*.product.teaser .buy_more .show_more:after{content:"";right:0;bottom:-1px;width:10px;height:5px;background:#FFF;position:absolute;}*/
 .product.teaser .hidden_from_js.more_info{;position:absolute;top:100%;background:#fff;min-width: 100%; border:1px solid #ABABAB;border-top:none;left:0;padding:10px 10px 8px 10px;z-index:500;box-sizing: border-box;;margin:0; border-radius: 0 0 6px 6px;}
 .product.teaser .hidden_from_js.more_info .field-name-field-parameters-product{float:left;width:100%;}
-.product.teaser .hidden_from_js.more_info .field-name-field-parameters-product .field-item{float:left;width:100%;}
+.product.teaser .hidden_from_js.more_info .field-name-field-parameters-product .field-item{float:left;width:100%;padding: 0 0 0.2em;}
 .product.teaser .hidden_from_js.more_info .field-name-field-parameters-product .field-item .double-field-first{font-weight:bold;font-size:14px;}
 .product.teaser .hidden_from_js.more_info .field-name-field-parameters-product .field-item .double-field-second{font-weight:normal;font-size:14px;}
 .product.teaser .hidden_from_js.more_info .field-name-field-text{float:left;width:100%;margin:5px 0;}
