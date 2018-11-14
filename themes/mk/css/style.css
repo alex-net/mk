@@ -1222,3 +1222,15 @@ body.page-checkout-complete #block-system-main .checkout-completion-message {
 
   .fancybox-inner {
     width: 100%!important; } }
+ul.imagesdecr-list {
+  padding: 0!important;
+  margin: 0;
+  text-align: center; }
+  ul.imagesdecr-list li {
+    display: inline-block;
+    width: 15em;
+    padding: 0.5em;
+    box-sizing: border-box; }
+    ul.imagesdecr-list li img {
+      max-width: 100%;
+      height: auto; }

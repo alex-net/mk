@@ -374,3 +374,11 @@ body.page-checkout-complete{
 
 
 
+// куча картинок с переносом на новую строку ...
+ul.imagesdecr-list{
+	padding: 0!important;margin:0;text-align:center;
+	li {display:inline-block ;width: 15em;padding: 0.5em;box-sizing: border-box;
+		img {max-width: 100%;height: auto;}
+	}
+
+}
