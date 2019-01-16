@@ -89,6 +89,7 @@
 	// ----------------
 	function mk_js_alter(&$js){
 		$js['misc/jquery.js']['data']=drupal_get_path('theme','mk').'/jquery-1.8.3.min.js';
+		// http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js
 	}
 
 	function mk_html_head_alter(&$head_elements) {

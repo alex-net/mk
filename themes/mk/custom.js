@@ -445,8 +445,43 @@ jQuery(document).ready(function() {
 			cloned_categories.insertAfter("div.view-category-products-home > .view-content");
 		}
 	});*/
+	// временная заглушка .. 
+	if (0)
+	$('#block-system-main .content table').once(function(){
+		// data-breakpoints="phone_p phone_l tablet_p tablet_l"
 
+		var hrows=$(this).find('thead tr').size();
+		var r=false;
+		//  поиск первой колонки уоторую скрывать не надо 
+		$(this).find('thead tr').each(function(){
+			if (r)
+				return;
+			var htfirst=$(this).find('th:first');
+			if (hrows==1 || htfirst.attr('rowspan')==hrows )
+			{
+				$(this).find('th:first').attr('nohidden',1);
+				r=true;
+				return;
+			}
+		});
+		// добавление всем нужных беакпоинтво ... 
+		$(this).find('thead th').each(function(){
+			if ($(this).attr('nohidden'))
+				return ;
+			$(this).data({breakpoints:"phone_p phone_l tablet_p tablet_l"});
+		});
 
+		$(this).footable({
+			expandAll: true,
+			breakpoints:{
+				phone_p:320,
+				phone_l:480,
+				tablet_p:768,
+				tablet_l:1024,
+				pc:1200,
+			}
+		});
+	});
 
 
 	$(".up_down a.up").click(function() {
