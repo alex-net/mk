@@ -776,6 +776,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 .product.teaser .buy_more{padding:0 10px 60px 10px;}
 .mk-form-add-to-cart .qty-wrapp {display: table;width: 100%;}
 .mk-form-add-to-cart .qty-wrapp .real-cost {text-align: right;}
+.mk-form-add-to-cart .qty-wrapp .real-cost span {color: #b32121;}
+
 .mk-form-add-to-cart .qty-wrapp > div{display: table-cell;}
 .full-view-form .real-cost {color:#b32121; font-weight: 800;font-size: 1.1em;}
 .product.teaser .mk-form-add-to-cart .form-actions{z-index:20;margin:0 0 10px 0;position:absolute;bottom:5px;left:0;width: 50%;text-align: center;padding-left: 10px;}
@@ -1038,6 +1040,9 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 .product.full.node .ui-tabs .ui-tabs-panel#tovar-full-haract  table td {background: white;color:black;}
 .product.full.node .ui-tabs .ui-tabs-panel#tovar-full-haract  table th:first-child {border-left:none;}
 
+.product.full.node .ui-widget {font-size: 1em;font-family: 'PT Sans',sans-serif;}
+.product.full.node .ui-widget a {color:#428bca;}
+.product.full.node .ui-widget a:hover {color:#2a6496;}
 
 .product.full.node .product-lists .field-type-node-reference > .field-label {color:#600061;font-size: 1.64em;}
 .product.full.node .product-lists div .product.teaser {width: 100%!important;margin: 0;}
