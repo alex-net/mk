@@ -39,10 +39,16 @@
 				<?php if (!empty($content['field_text'])):?>
 					<li><a href="#tovar-full-descr">Описание</a></li>
 				<?php endif;?>
+				<?php if (!empty($content['field_instructions'])):?>
+					<li><a href="#tovar-full-instruction">Инструкция по применению</a></li>
+				<?php endif;?>
 				<?php if (!empty($content['comments'])):?>
 					<li><a href="#tovar-full-otsivs">Отзывов о товаре(<?php echo $comment_count;?>)</a></li>
 				<?php endif;?>                  
 			</ul>
+			<div id="tovar-full-instruction"> 
+				<div class="wrap"><?php echo render($content['field_instructions']);?> </div> 
+			</div>
 			<div id='tovar-full-infa'> <div class="wrap ">
 				<?php echo render($content['field_parameters_product']);?>
 			</div> </div>
