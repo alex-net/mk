@@ -426,7 +426,7 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 
 		// определяем какой таб показывать сейчас
 		///dsm($node,'$node');
-		$fd=variable_get('product tabs config',array());
+		//$fd=variable_get('product tabs config',array());
 		//dsm($fd);
 		
 		if (!empty($fd['tabslist'])){
@@ -652,7 +652,7 @@ function mklistblocksalter_sb($form,$form_state){
 // рулим роутингом чтобы добавить нужные нам табы не пользуя алиасы . 
 function mkmod_url_inbound_alter(&$path,$pathorigin,$plang){
 	// https://netspark.ru/useful/papers/nemnogo-dinamicheskogo-rautinga-v-drupal-7
-	$fd=variable_get('product tabs config',array());
+	//$fd=variable_get('product tabs config',array());
 	// нужно перебрать все алиасы и найти нужный 
 	if(!empty($fd['tabslist']))
 		foreach($fd['tabslist'] as $x=>$y)
@@ -669,7 +669,7 @@ function mkmod_url_inbound_alter(&$path,$pathorigin,$plang){
 // пробуем чинить метатеги 
 function mkmod_metatag_metatags_view_alter(&$output, $inst, $opt){
 	if ($inst=='node:product_display' &&  $opt['view_mode']=='full'){
-		$fd=variable_get('product tabs config',array());
+		//$fd=variable_get('product tabs config',array());
 		if (!empty($fd['tabslist']))
 			foreach($fd['tabslist'] as $k=>$taba){
 				if ($taba['def'] || $k!=$opt['entity']->curtab)// пропустить дефолтную табу

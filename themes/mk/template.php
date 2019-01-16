@@ -125,7 +125,7 @@
 		}
 		if ($n['type']=='product_display' && $n['view_mode']=='full'){
 			//kprint_r($n);
-			//drupal_add_library('system','ui.tabs');
+			drupal_add_library('system','ui.tabs');
 
 				// малюем рейтинг 
 				// получаем данные .. 
