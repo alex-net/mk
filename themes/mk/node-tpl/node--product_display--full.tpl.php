@@ -69,8 +69,16 @@
 			<?php endif;?>
 
 	
-			<div class="mit-buy clearfix product-lists "><?php echo render($content['field_mit_tovar_buy']);?></div>
-			<div class="analogs clearfix product-lists "><?php echo render($content['field_tovar_analogs']);?></div>
+			<div class="mit-buy clearfix product-lists ">
+				<?php $inst=field_info_instance('node','field_mit_tovar_buy','product_display');?>
+				<label class="field-label"><?=$inst['label'];?></label>
+				<?php echo render($content['field_mit_tovar_buy']);?>
+			</div>
+			<div class="analogs clearfix product-lists ">
+				<?php $inst=field_info_instance('node','field_tovar_analogs','product_display');?>
+				<label class="field-label"><?=$inst['label'];?></label>
+				<?php echo render($content['field_tovar_analogs']);?>
+			</div>
 			<div class="old-viewed product-lists clearfix "><?php echo render($content['prod-viewed']);?></div>
 
 		</div>

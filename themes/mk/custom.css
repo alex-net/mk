@@ -1044,7 +1044,7 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 .product.full.node .ui-widget a {color:#428bca;}
 .product.full.node .ui-widget a:hover {color:#2a6496;}
 
-.product.full.node .product-lists .field-type-node-reference > .field-label {color:#600061;font-size: 1.64em;}
+.product.full.node .product-lists .field-type-node-reference > .field-label, .product.full.node .product-lists label.field-label {color:#600061;font-size: 1.64em;font-weight: normal;}
 .product.full.node .product-lists div .product.teaser {width: 100%!important;margin: 0;}
 
 

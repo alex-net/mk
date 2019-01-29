@@ -9,12 +9,14 @@ function _get_node_in_popup_cb($n){
 		'command'=>'show_in_popup',
 		'content'=>render($nw),
 		'wrapCSS'=>'node-in-popup node-'.$n->nid.' node-'.$n->type,
-		'width'=>'auto',
-		//'type'=>'html',
+		'autoHeight'=>true,
 		'scrolling'=>'no',
 		'autoSize'=>false,
-		'autoHeight'=>true,
 		'fitToView'=>false,
+		/*'width'=>'auto',
+		//'type'=>'html',
+		
+		*/
 		'tpl'=>array(
 			'closeBtn'=>'<a title="Закрыть" class="fancybox-item fancybox-close" href="javascript:;"></a>',
 		),
