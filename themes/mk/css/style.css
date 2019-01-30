@@ -1234,3 +1234,96 @@ ul.imagesdecr-list {
     ul.imagesdecr-list li img {
       max-width: 100%;
       height: auto; }
+
+.page-node-2168 #block-system-main .bank-mogno {
+  border: 1px solid #dcdcdc;
+  padding: 0.5em;
+  display: table; }
+  .page-node-2168 #block-system-main .bank-mogno > * {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 1.29em; }
+  @media screen and (max-width: 600px) {
+    .page-node-2168 #block-system-main .bank-mogno {
+      display: block; }
+      .page-node-2168 #block-system-main .bank-mogno > * {
+        display: block; }
+      .page-node-2168 #block-system-main .bank-mogno img {
+        margin: 0 auto 1em; } }
+  .page-node-2168 #block-system-main .bank-mogno img {
+    padding-right: 2.5em; }
+.page-node-2168 #block-system-main h2 {
+  color: #b32121; }
+.page-node-2168 #block-system-main ul.uslovia-of-kredit {
+  padding-left: 0; }
+  .page-node-2168 #block-system-main ul.uslovia-of-kredit li {
+    list-style: none outside none;
+    font-size: 1.29em; }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li::before {
+      content: '';
+      display: inline-block;
+      width: 2.33em;
+      height: 2.33em;
+      vertical-align: middle;
+      background: url(../i/kp/from300.png) 50% 50% no-repeat;
+      background-size: contain;
+      margin-right: 1em; }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.pasport::before {
+      background-image: url(../i/kp/passphone.png); }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.stavka::before {
+      background-image: url(../i/kp/16-percents.png); }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.gr-rf::before {
+      background-image: url(../i/kp/gr-rf.png); }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.min-15::before {
+      background-image: url(../i/kp/15min.png); }
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.point-300::before {
+      background-image: url(../i/kp/300-points.png); }
+.page-node-2168 #block-system-main .genegal-uslovia {
+  color: #2c2c2c; }
+  .page-node-2168 #block-system-main .genegal-uslovia .row {
+    margin: 0.5em 0;
+    border: 1px solid #f0f0f0;
+    padding: 0.5em;
+    position: relative; }
+    @media screen and (max-width: 768px) {
+      .page-node-2168 #block-system-main .genegal-uslovia .row {
+        padding-left: 2.5em; } }
+    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1) {
+      background: #f0f0f0; }
+    .page-node-2168 #block-system-main .genegal-uslovia .row > div {
+      float: left; }
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.num {
+        width: 2em;
+        font-weight: bold;
+        color: #d254c9; }
+        @media screen and (max-width: 768px) {
+          .page-node-2168 #block-system-main .genegal-uslovia .row > div.num {
+            position: absolute;
+            top: 0.5em;
+            left: 0.5em; } }
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key {
+        padding: 0 1em 0 0;
+        box-sizing: content-box; }
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.sepor {
+        float: none;
+        clear: both;
+        margin: 0.5em 0; }
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value {
+        width: 47%; }
+        @media screen and (max-width: 768px) {
+          .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value {
+            width: 100%; } }
+      @media screen and (max-width: 768px) {
+        .page-node-2168 #block-system-main .genegal-uslovia .row > div.key {
+          margin-bottom: 0.5em;
+          border-bottom: 1px dashed #c0c0c0;
+          padding-bottom: 0.5em;
+          padding-right: 0; } }
+    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1) .key {
+      border-bottom-color: #d254c9; }
+
+.block-mit-logo .content .sepor {
+  height: 1px;
+  background: #d6d6d4;
+  margin: 1em 0; }

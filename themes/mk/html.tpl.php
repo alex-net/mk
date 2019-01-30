@@ -10,7 +10,8 @@
   <?php print $scripts; ?>
   <meta name='yandex-verification' content='67bd89c04787fe11' />
   <meta name='yandex-verification' content='70e0d989fc56d0ab' />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <style type="text/css"> .ya-page_js_yes .ya-site-form_inited_no { display: none; } </style>
 </head>
 <body class="boxed <?php print $classes; ?>" <?php print $attributes;?>>

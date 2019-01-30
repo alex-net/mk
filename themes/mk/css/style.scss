@@ -382,3 +382,65 @@ ul.imagesdecr-list{
 	}
 
 }
+
+
+// Кредитование покупателей .. странца ..
+.page-node-2168 #block-system-main {
+	.bank-mogno {border:1px solid #dcdcdc;padding:0.5em;display: table;
+
+		& > * {display: table-cell; vertical-align: middle;font-weight: bold;font-size: 1.29em;}
+		@media screen and (max-width: 600px) {
+			display: block;
+			& > * {display: block;}
+			& img {margin: 0 auto 1em;}
+		}
+		img {padding-right: 2.5em;}
+		//&::after {content:'';display: block;clear: both;}
+	}
+	h2 {color:$colortemnokrasniy;}
+	ul.uslovia-of-kredit {padding-left:0;
+		li {list-style: none outside none;font-size: 1.29em;
+			&::before {content:'';display: inline-block;width: 2.33em;height: 2.33em;vertical-align: middle;background: url(../i/kp/from300.png) 50% 50% no-repeat;background-size: contain;margin-right: 1em;}
+			&.pasport::before {background-image: url(../i/kp/passphone.png);}
+			&.stavka::before {background-image: url(../i/kp/16-percents.png);}
+			&.gr-rf::before {background-image: url(../i/kp/gr-rf.png);}
+			&.min-15::before {background-image: url(../i/kp/15min.png);}
+			&.point-300::before {background-image: url(../i/kp/300-points.png);}
+		}
+	}
+	.genegal-uslovia { color:#2c2c2c;
+		.row {margin:0.5em 0;border:1px solid #f0f0f0;padding:0.5em;position:relative;
+			@media screen and (max-width: 768px) {
+				padding-left:2.5em;
+			}
+			&:nth-child(2n+1) {background:#f0f0f0;}
+			& > div {float:left;
+				&.num {width:2em; font-weight: bold;color:$colorrosoviy;
+					@media screen and (max-width: 768px) {position: absolute;top:0.5em;left: 0.5em;}
+				}
+				&.key {padding: 0 1em 0 0;box-sizing: content-box;}
+				&.sepor {float: none;clear: both;margin: 0.5em 0;}
+
+				&.key,&.value {width: 47%;
+					@media screen and (max-width: 768px) {
+						width: 100%;
+						//padding:0 0 0 2em;
+					}
+				}
+				@media screen and (max-width: 768px) {
+					&.key {margin-bottom: 0.5em;border-bottom: 1px dashed #c0c0c0; padding-bottom: 0.5em;padding-right: 0;}
+
+				}
+			}
+			&:nth-child(2n+1) .key {
+				border-bottom-color:$colorrosoviy;
+			}
+		}
+	}
+}
+
+
+// блок с иконками в сайтбаре .. .
+.block-mit-logo {
+	.content .sepor {height: 1px;background:#d6d6d4;margin:1em 0;}
+}
