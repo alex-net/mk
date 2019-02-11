@@ -705,11 +705,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f4', end
 #block-views-shipping-and-payment-block .views-row .all .fields .field.last{border-bottom:0 none;}
 
 @media screen and (min-width: 480px){
-  #block-views-shipping-and-payment-block .views-row {width: 49%;display: inline-block;}
+  #block-views-shipping-and-payment-block .views-row {width: 49%;display: inline-block;float: none;}
 }
 @media screen and (min-width: 768px){
   #block-views-shipping-and-payment-block .views-row {width: 33.3%;}
 
+}
+@media screen and (min-width: 1024px){
+  #block-views-shipping-and-payment-block .views-row {width: 24.5%;padding-right: 1px;padding-left: 1px;}
+  /*.fancybox-wrap #block-views-shipping-and-payment-block {width: 1000px;}*/
 }
 /* END SHIPPING PAGE */
 
@@ -995,6 +999,9 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
   .product.full.node .buy-form {font-size: 0.75em;}
 }
 .back-change-tovars > div {padding-left: 3em;margin:1em 0;cursor: pointer;}
+@media screen and (min-width: 1024px ){
+  .back-change-tovars > div {height: 34px;}
+}
 @media screen and (max-width: 479px){
   .product.full.node .img-block, .product.full.node .buy-form{width: 100%;}
   .product.full.node .buy-form {margin-bottom: -6em;}
@@ -1121,11 +1128,14 @@ form .captcha .form-item {float:right;margin:0;width: 68%;line-height: 2em;}
 .node-delivery-truck.node-teaser {border:5px solid #f7ecf8;margin:0.3em 0;}
 .node-delivery-truck.node-teaser img {display:block;width: 100%;height: auto;}
 .node-delivery-truck.node-teaser .titl {font-weight: 800;font-size: 1.2857em;text-align: center;}
-.node-delivery-truck.node-teaser .params .field {border-top:1px solid #ebebeb;color:#600061;font-size: 0.7857em;padding: 0.4em 0.7em;}
+.node-delivery-truck.node-teaser .params .field {border-top:1px solid #ebebeb;color:#600061;font-size: 0.7857em;padding: 0.4em 0.4em;}
 .node-delivery-truck.node-teaser .params .field .field-label {float:left;color:#949494;width: 80%;border-right:1px solid #ebebeb; }
 .node-delivery-truck.node-teaser .params .field .field-items {width: 20%;padding-left: 0.5em;}
- @media  (min-width: 1024px), screen and (max-width: 767px) {
+ @media   screen and (max-width: 767px) {
   .node-delivery-truck.node-teaser .params .field{font-size: 1.4em;}
+ }
+ @media screen and (min-width: 1024px){
+  .node-delivery-truck.node-teaser .titl {font-size: 1em;}
  }
 .product.full.node .views-form .form-text {background: #fafafa;border:none;/*box-shadow: 2px 2px 2px 0 grey;*/text-align: center;border-right: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;}
 .product.full.node .old_price {font-size: 0.7em;text-decoration: line-through;}
