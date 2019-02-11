@@ -64,6 +64,19 @@
 					ajax.eventResponse(ajax);
 				});
 			});
+			// Всплыть шаблоном .. из темы .. 
+			$('[data-show-tpl-in-popup]').once(function(){
+				$(this).on('click',function(e){
+					e.preventDefault();
+					dat=$(this).data();
+					dat['from-nid']=Drupal.settings['current-noda'];
+					var ajax= new Drupal.ajax(false,false,{
+						url:'/get-tpl-in-popup',
+						submit:dat,
+					});
+					ajax.eventResponse(ajax);
+				});
+			});
 			$('[data-openform-new-otziv]').once(function(){
 				$(this).on('click',function(e){
 					dat=$(this).data();

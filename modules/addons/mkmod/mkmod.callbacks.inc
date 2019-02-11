@@ -24,7 +24,7 @@ function _get_node_in_popup_cb($n){
 	return array('#type'=>'ajax','#commands'=>$cmd);
 }
 // ========================================================
-// подгрузить фому во всплывашку ..
+// подгрузить форму во всплывашку ..
 function _get_form_in_popup_cb(){
 	$cmd=array();
 	$post=$_POST;
@@ -86,6 +86,33 @@ function _get_form_in_popup_cb(){
 		
 	}
 	return array('#type'=>'ajax','#commands'=>$cmd);
+}
+
+// ========================================================
+// вернуть шаблон в ответ на аякс 
+function get_tpl_in_popup_cb(){
+	$cmd=[];
+	//dfb($_POST);
+	//dsm($_POST);
+	if (!empty($_POST['showTplInPopup']))
+		$cmd[]=array(
+			'command'=>'show_in_popup',
+			'content'=>theme(str_replace('-','_',$_POST['showTplInPopup'])),
+			'wrapCSS'=>'tpl-in-popup',
+			//'width'=>'auto',
+			//'type'=>'html',
+			'autoHeight'=>true,
+			'scrolling'=>'no',
+			'autoSize'=>false,
+			'fitToView'=>false,
+
+			///'fixed'=>false,
+			'tpl'=>array(
+				'closeBtn'=>'<a title="Закрыть" class="fancybox-item fancybox-close" href="javascript:;"></a>',
+			),
+			
+		);
+	return ['#type'=>'ajax','#commands'=>$cmd];
 }
 //=============================================================
 // подгрузить список коментов ..куда надо .. 

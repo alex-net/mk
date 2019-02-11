@@ -1235,32 +1235,32 @@ ul.imagesdecr-list {
       max-width: 100%;
       height: auto; }
 
-.page-node-2168 #block-system-main .bank-mogno {
+.page-node-2168 #block-system-main .bank-mogno, .fancybox-wrap .uslovia-kreditovania .bank-mogno {
   border: 1px solid #dcdcdc;
   padding: 0.5em;
   display: table; }
-  .page-node-2168 #block-system-main .bank-mogno > * {
+  .page-node-2168 #block-system-main .bank-mogno > *, .fancybox-wrap .uslovia-kreditovania .bank-mogno > * {
     display: table-cell;
     vertical-align: middle;
     font-weight: bold;
     font-size: 1.29em; }
   @media screen and (max-width: 600px) {
-    .page-node-2168 #block-system-main .bank-mogno {
+    .page-node-2168 #block-system-main .bank-mogno, .fancybox-wrap .uslovia-kreditovania .bank-mogno {
       display: block; }
-      .page-node-2168 #block-system-main .bank-mogno > * {
+      .page-node-2168 #block-system-main .bank-mogno > *, .fancybox-wrap .uslovia-kreditovania .bank-mogno > * {
         display: block; }
-      .page-node-2168 #block-system-main .bank-mogno img {
+      .page-node-2168 #block-system-main .bank-mogno img, .fancybox-wrap .uslovia-kreditovania .bank-mogno img {
         margin: 0 auto 1em; } }
-  .page-node-2168 #block-system-main .bank-mogno img {
+  .page-node-2168 #block-system-main .bank-mogno img, .fancybox-wrap .uslovia-kreditovania .bank-mogno img {
     padding-right: 2.5em; }
-.page-node-2168 #block-system-main h2 {
+.page-node-2168 #block-system-main h2, .fancybox-wrap .uslovia-kreditovania h2 {
   color: #b32121; }
-.page-node-2168 #block-system-main ul.uslovia-of-kredit {
+.page-node-2168 #block-system-main ul.uslovia-of-kredit, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit {
   padding-left: 0; }
-  .page-node-2168 #block-system-main ul.uslovia-of-kredit li {
+  .page-node-2168 #block-system-main ul.uslovia-of-kredit li, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li {
     list-style: none outside none;
     font-size: 1.29em; }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li::before {
       content: '';
       display: inline-block;
       width: 2.33em;
@@ -1269,60 +1269,118 @@ ul.imagesdecr-list {
       background: url(../i/kp/from300.png) 50% 50% no-repeat;
       background-size: contain;
       margin-right: 1em; }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.pasport::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.pasport::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.pasport::before {
       background-image: url(../i/kp/passphone.png); }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.stavka::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.stavka::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.stavka::before {
       background-image: url(../i/kp/16-percents.png); }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.gr-rf::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.gr-rf::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.gr-rf::before {
       background-image: url(../i/kp/gr-rf.png); }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.min-15::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.min-15::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.min-15::before {
       background-image: url(../i/kp/15min.png); }
-    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.point-300::before {
+    .page-node-2168 #block-system-main ul.uslovia-of-kredit li.point-300::before, .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.point-300::before {
       background-image: url(../i/kp/300-points.png); }
-.page-node-2168 #block-system-main .genegal-uslovia {
+.page-node-2168 #block-system-main .genegal-uslovia, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia {
   color: #2c2c2c; }
-  .page-node-2168 #block-system-main .genegal-uslovia .row {
+  .page-node-2168 #block-system-main .genegal-uslovia .row, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row {
     margin: 0.5em 0;
     border: 1px solid #f0f0f0;
     padding: 0.5em;
     position: relative; }
     @media screen and (max-width: 768px) {
-      .page-node-2168 #block-system-main .genegal-uslovia .row {
+      .page-node-2168 #block-system-main .genegal-uslovia .row, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row {
         padding-left: 2.5em; } }
-    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1) {
+    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1), .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row:nth-child(2n+1) {
       background: #f0f0f0; }
-    .page-node-2168 #block-system-main .genegal-uslovia .row > div {
+    .page-node-2168 #block-system-main .genegal-uslovia .row > div, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div {
       float: left; }
-      .page-node-2168 #block-system-main .genegal-uslovia .row > div.num {
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.num, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.num {
         width: 2em;
         font-weight: bold;
         color: #d254c9; }
         @media screen and (max-width: 768px) {
-          .page-node-2168 #block-system-main .genegal-uslovia .row > div.num {
+          .page-node-2168 #block-system-main .genegal-uslovia .row > div.num, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.num {
             position: absolute;
             top: 0.5em;
             left: 0.5em; } }
-      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key {
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.key {
         padding: 0 1em 0 0;
         box-sizing: content-box; }
-      .page-node-2168 #block-system-main .genegal-uslovia .row > div.sepor {
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.sepor, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.sepor {
         float: none;
         clear: both;
         margin: 0.5em 0; }
-      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value {
+      .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.key, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.value {
         width: 47%; }
         @media screen and (max-width: 768px) {
-          .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value {
+          .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .page-node-2168 #block-system-main .genegal-uslovia .row > div.value, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.key, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.value {
             width: 100%; } }
       @media screen and (max-width: 768px) {
-        .page-node-2168 #block-system-main .genegal-uslovia .row > div.key {
+        .page-node-2168 #block-system-main .genegal-uslovia .row > div.key, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row > div.key {
           margin-bottom: 0.5em;
           border-bottom: 1px dashed #c0c0c0;
           padding-bottom: 0.5em;
           padding-right: 0; } }
-    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1) .key {
+    .page-node-2168 #block-system-main .genegal-uslovia .row:nth-child(2n+1) .key, .fancybox-wrap .uslovia-kreditovania .genegal-uslovia .row:nth-child(2n+1) .key {
       border-bottom-color: #d254c9; }
 
+.fancybox-wrap .uslovia-kreditovania h2 {
+  text-align: center;
+  color: #800080;
+  margin-bottom: 1em;
+  font-size: 2.14em; }
+.fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li {
+  margin: .5em 0;
+  font-size: 1.7em; }
+  @media screen and (min-width:768px ) {
+    .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li {
+      white-space: nowrap; } }
+  @media screen and (max-width:768px) {
+    .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li {
+      text-align: center; }
+      .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li::before {
+        display: block;
+        margin: 0 auto; } }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li::before {
+    background-image: url(../i/kp/from300-pp.png); }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.pasport::before {
+    background-image: url(../i/kp/passphone-pp.png); }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.stavka::before {
+    background-image: url(../i/kp/16-percents-pp.png); }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.gr-rf::before {
+    background-image: url(../i/kp/gr-rf-pp.png); }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.min-15::before {
+    background-image: url(../i/kp/15min-pp.png); }
+  .fancybox-wrap .uslovia-kreditovania ul.uslovia-of-kredit li.point-300::before {
+    background-image: url(../i/kp/300-points-pp.png); }
+.fancybox-wrap .uslovia-kreditovania p {
+  font-size: 1.2em; }
+
+.button-win-closer-wrapper {
+  text-align: right;
+  clear: both;
+  display: none; }
+  .button-win-closer-wrapper button {
+    background: white;
+    color: #b9a1bb;
+    border: 3px solid #e8d3ea;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-size: 1.15em;
+    line-height: 1em;
+    font-weight: bold;
+    padding: 0.7em;
+    display: inline-block;
+    margin-top: 2.5em; }
+
+@media screen and (max-width:320px) {
+  .fancybox-wrap.node-1549 .button-win-closer-wrapper {
+    display: block; } }
+@media screen and (max-width:1200px) {
+  .fancybox-wrap.node-1524 .button-win-closer-wrapper {
+    display: block; } }
+@media screen and (max-width: 768px) {
+  .fancybox-wrap .uslovia-kreditovania .button-win-closer-wrapper {
+    display: block; } }
 .block-mit-logo .content .sepor {
   height: 1px;
   background: #d6d6d4;

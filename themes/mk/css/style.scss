@@ -385,7 +385,7 @@ ul.imagesdecr-list{
 
 
 // Кредитование покупателей .. странца ..
-.page-node-2168 #block-system-main {
+.page-node-2168 #block-system-main, .fancybox-wrap .uslovia-kreditovania {
 	.bank-mogno {border:1px solid #dcdcdc;padding:0.5em;display: table;
 
 		& > * {display: table-cell; vertical-align: middle;font-weight: bold;font-size: 1.29em;}
@@ -439,6 +439,44 @@ ul.imagesdecr-list{
 	}
 }
 
+.fancybox-wrap .uslovia-kreditovania{
+	h2 {text-align: center;color: #800080;margin-bottom: 1em;font-size: 2.14em;}
+	ul.uslovia-of-kredit li{
+		margin: .5em 0;font-size:1.7em;
+		@media screen and (min-width:768px ){
+			white-space: nowrap;
+		}
+
+		@media screen and (max-width:768px){
+			text-align: center;
+			&::before {display: block;margin:0 auto;}
+		}
+		&::before {background-image: url(../i/kp/from300-pp.png);}
+		&.pasport::before {background-image: url(../i/kp/passphone-pp.png);}
+		&.stavka::before {background-image: url(../i/kp/16-percents-pp.png);}
+		&.gr-rf::before {background-image: url(../i/kp/gr-rf-pp.png);}
+		&.min-15::before {background-image: url(../i/kp/15min-pp.png);}
+		&.point-300::before {background-image: url(../i/kp/300-points-pp.png);}
+	}
+	p {font-size: 1.2em;}
+}
+
+
+// кнопка закрыть окно 
+.button-win-closer-wrapper {text-align: right;clear: both;display: none;
+	//@media screen and (min-width: 1024px){display: none;}
+	button {background: white;color:#b9a1bb;border:3px solid #e8d3ea;border-radius: 5px;text-transform: uppercase;font-size: 1.15em;line-height: 1em; font-weight: bold;padding:0.7em;display: inline-block;margin-top: 2.5em;}
+}
+
+@media screen and (max-width:320px){
+	.fancybox-wrap.node-1549  .button-win-closer-wrapper {display: block;}
+}
+@media screen and (max-width:1200px){
+	.fancybox-wrap.node-1524  .button-win-closer-wrapper {display: block;}
+}
+@media screen and (max-width: 768px){
+	.fancybox-wrap .uslovia-kreditovania .button-win-closer-wrapper {display: block;}
+}
 
 // блок с иконками в сайтбаре .. .
 .block-mit-logo {

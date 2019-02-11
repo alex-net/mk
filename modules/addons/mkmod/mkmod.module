@@ -107,6 +107,12 @@ function mkmod_menu(){
 			'access arguments'=>array('access content'),
 			'delivery callback'=>'ajax_deliver',
 		),
+		'get-tpl-in-popup'=>[
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>['access content'],
+			'page callback'=>'get_tpl_in_popup_cb',
+			'delivery callback'=>'ajax_deliver',
+		],
 		'get-comments-list'=>array(
 			'type'=>MENU_CALLBACK,
 			'access arguments'=>array('access comments'),

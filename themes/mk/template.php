@@ -302,26 +302,30 @@ function mk_form_alter(&$form,&$form_state,$form_id){
 	if (preg_match('#mkmodformaddtocart_(?:\d+_)+form#i',$form_id) && preg_match('#^node/(\d+)$#i',current_path(),$nid) && !empty($form_state['fromnid']) && $form_state['fromnid']==end($nid)){
 		//dsm($nid);
 		$form['#attributes']['class'][]='buy-form';
-			$form['actions']['argblock']=array(
-				'#type'=>'container',
-				'#attributes'=>array(
-					'class'=>array('argblock-wrapp'),
-				),
-				'fastzakaz'=>array(
-					'#markup'=>'<span class="quick-zakaz" data-openform-quick-zakaz>Быстрый заказ</span>',
-					'#weight'=>109,
-				),
-				'submit'=>$form['actions']['submit'],
-			);
-			unset($form['actions']['submit']);
+		$form['actions']['argblock']=array(
+			'#type'=>'container',
+			'#attributes'=>array(
+				'class'=>array('argblock-wrapp'),
+			),
+			'fastzakaz'=>array(
+				'#markup'=>'<span class="quick-zakaz" data-openform-quick-zakaz>Быстрый заказ</span>',
+				'#weight'=>109,
+			),
+			'krredit'=>[
+				'#markup'=>'<span class="kupit-in-kredit-button" data-show-tpl-in-popup="uslovia-of-kredit-for-pokupatel">Купить в кредит</span>',
+				'#weight'=>110,
+			],
+			'submit'=>$form['actions']['submit'],
+		);
+		unset($form['actions']['submit']);
 			
-			$form['actions']['opt']=array(
-				'#markup'=>'<div class="back-tovar" data-show-node-in-popup="1549">Возврат товара</div>
-							<div class="change-tovar" data-show-node-in-popup="1550">Обмен товара</div>',
-				'#prefix'=>'<div class="opetions-pluss back-change-tovars">',
-				'#suffix'=>'</div>',
-				'#weight'=>115,
-			);
+		$form['actions']['opt']=array(
+			'#markup'=>'<div class="back-tovar" data-show-node-in-popup="1549">Возврат товара</div>
+						<div class="change-tovar" data-show-node-in-popup="1550">Обмен товара</div>',
+			'#prefix'=>'<div class="opetions-pluss back-change-tovars">',
+			'#suffix'=>'</div>',
+			'#weight'=>115,
+		);
 		//dsm(,'fs');
 	}
 
@@ -502,4 +506,13 @@ function mk_form_commerce_checkout_form_checkout_alter(&$form,$form_state){
 // =====================================
 function mk_commerce_currency_info_alter(&$cur){
 	$cur['RUB']['symbol']='руб';
+}
+
+// ====================================================
+function mk_theme(){
+	return [
+		'uslovia_of_kredit_for_pokupatel'=>[
+			'template'=>'uslovia-of-kredit-for-pokupatel',
+		],
+	];
 }
