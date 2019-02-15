@@ -94,10 +94,12 @@ function get_tpl_in_popup_cb(){
 	$cmd=[];
 	//dfb($_POST);
 	//dsm($_POST);
-	if (!empty($_POST['showTplInPopup']))
+	if (!empty($_POST['showTplInPopup'])){
+		$tpl=variable_get('tpls--'.$_POST['showTplInPopup'],'');
 		$cmd[]=array(
 			'command'=>'show_in_popup',
-			'content'=>theme(str_replace('-','_',$_POST['showTplInPopup'])),
+			//'content'=>theme(str_replace('-','_',$_POST['showTplInPopup'])),
+			'content'=>$tpl,
 			'wrapCSS'=>'tpl-in-popup',
 			//'width'=>'auto',
 			//'type'=>'html',
@@ -112,6 +114,7 @@ function get_tpl_in_popup_cb(){
 			),
 			
 		);
+	}
 	return ['#type'=>'ajax','#commands'=>$cmd];
 }
 //=============================================================
@@ -159,6 +162,31 @@ function _akciilist_page_cb(){
 		$out['prodsist']=$ns;
 				
 	}
+
+	return $out;
+}
+
+// ===========================================================================
+function tpls_view_cb(){
+	$tpllist=[
+		'uslovia-of-kredit-for-pokupatel'=>'Условия кредитования для покупателей'
+	];
+	$links=[];
+	foreach($tpllist as $x=>$y){
+		$links[]=[
+			'title'=>$y,
+			'href'=>'admin/config/administration/mkmod/tpls-editor/'.$x,
+		];
+	}
+	$out=[
+		'mark'=>[
+			'#markup'=>'<h1>Список шаблонов, для редактирования</h1>',
+		],
+		'links'=>[
+			'#theme'=>'links',
+			'#links'=>$links,
+		],
+	];
 
 	return $out;
 }

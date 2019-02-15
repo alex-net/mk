@@ -508,11 +508,3 @@ function mk_commerce_currency_info_alter(&$cur){
 	$cur['RUB']['symbol']='руб';
 }
 
-// ====================================================
-function mk_theme(){
-	return [
-		'uslovia_of_kredit_for_pokupatel'=>[
-			'template'=>'uslovia-of-kredit-for-pokupatel',
-		],
-	];
-}

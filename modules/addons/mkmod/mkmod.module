@@ -138,12 +138,22 @@ function mkmod_menu(){
 			'page arguments'=>array('mkmod_otzivs_form'),
 			'file'=>'mkmod.admin.inc',
 		),
-		'admin/config/administration/mkmod/product-tabs'=>array(
+
+		'admin/config/administration/mkmod/tpls-editor'=>array(
 			'type'=>MENU_LOCAL_TASK,
-			'title'=>'Табы в товаре',
+			'title'=>'Редактор шаблонов ',
 			'access arguments'=>array('admine pages'),
+			'page callback'=>'tpls_view_cb',
+			//'page callback'=>'drupal_get_form',
+			//'page arguments'=>array('kmodproductstabs_form'),
+			'file'=>'mkmod.admin.inc',
+		),
+		'admin/config/administration/mkmod/tpls-editor/%'=>array(
+			'title'=>'Редактирование шаблона ',
+			'access arguments'=>array('admine pages'),
+			//'page callback'=>'tpls_view_cb',
 			'page callback'=>'drupal_get_form',
-			'page arguments'=>array('kmodproductstabs_form'),
+			'page arguments'=>array('tpleditor_form',5),
 			'file'=>'mkmod.admin.inc',
 		),
 			
