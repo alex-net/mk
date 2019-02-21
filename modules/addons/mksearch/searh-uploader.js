@@ -36,6 +36,9 @@
 
 
 			});
+			$('body').once(function(){
+				$(window).trigger('resize');
+			});
 		//	console.log('dsa');
 		}
 	}

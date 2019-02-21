@@ -21,32 +21,38 @@ function mksearch_menu(){
 // ==================================
 // получить данные по поиску 
 function _getproductslist($ss,$cp=0,$pp=8){
+
 	$res=db_select('node','n');
 	drupal_add_js(array('search-string'=>$ss),'setting');
 	//$res=$res->extend('PagerDefault');
 	$res->condition('n.status',1);
 	$res->condition('n.type','product_display');
-	$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
-	$or=db_or();
-	foreach(search_index_split($ss) as $w)
-		$or->condition('i.word',$w);
-	// прикрутить товар искать в заголовке .. 
-	$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
-	$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
-	foreach(array_map('trim',explode(' ',$ss)) as $w){
-		$or->condition('cp.title','%'.db_like($w).'%','like');
-		$or->condition('cp.sku','%'.db_like($w).'%','like');
-	}
+	//$res->leftjoin('search_index','i','i.sid=n.nid and i.type=\'node\'');
 	
-	$res->condition($or);
+	//dsm(search_index_split($ss));
+	//foreach(search_index_split($ss) as $w)
+	//	$or->condition('i.word',$w);
+	// прикрутить товар искать в заголовке .. 
+	//$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
+	///$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
+	
+	
+	foreach(array_map('trim',explode(' ',$ss)) as $w)
+		$res->condition('n.title','%'.db_like($w).'%','like');
+		//$or->condition('cp.sku','%'.db_like($w).'%','like');
+	//$or->condition($and);
+	
+
+	
+	//$res->condition($or);
 	//$res->limit(20);
 	// доставть артикул если надо ... 
 	//dfb(intval($ss),'$ss');
-	$res->orderBy('cp.product_id='.intval($ss),'desc');
+	//$res->orderBy('cp.product_id='.intval($ss),'desc');
 	// поиск по заголовку витрины должен быть первым 
 	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
 	// обычный приск по части фразы 
-	$res->orderBy('i.score','desc');
+	//$res->orderBy('i.score','desc');
 
 	$res->groupBy('n.nid');
 	if ($cp>=0)
@@ -56,6 +62,8 @@ function _getproductslist($ss,$cp=0,$pp=8){
 	$res->fields('n',array('nid'));
 	//$res->addExpression('count(*)');
 	$res=$res->execute()->fetchCol();
+	//dsm($res);
+	
 	return $res; 
 }
 // ====================================
@@ -162,6 +170,9 @@ function mksearch_update_index(){
 // поиск ... 
 function mksearch_search_execute($keys=null,$conditions=null){
 	$res=_getproductslist($keys,-1);
+	
+	if (count($res)==1)
+		drupal_goto('node/'.reset($res));
 	$out=array();
 	/*foreach($res as $x=>$y)
 		$res[$x]['link']='node/'.$y['nid'];*/
