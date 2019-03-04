@@ -31,7 +31,8 @@ function mkmod_field_formatter_view($enttype,$ent,$field,$instance,$language,$it
 			foreach($items as $y)
 				$pids[]=$y['product_id'];
 
-
+			if (!$pids)// если не прикручено ни одного товара ..= показывать нечего ..
+				break;
 			// достаём данные. по товарам 
 			$res=db_select('commerce_product','p');
 			$res->condition('p.product_id',$pids);
