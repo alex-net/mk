@@ -190,4 +190,34 @@ function tpls_view_cb(){
 
 	return $out;
 }
+
+
+function get_next_content_elements_jscb()
+{
+	$cmds=[];
+	// запрашиваем витрины .. 
+	$res=db_select('node','n');
+	$res->fields('n',['nid']);
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->leftJoin('taxonomy_index','ti','ti.nid=n.nid');
+	$res->condition('ti.tid',$_POST['curtid']);
+	$res->range($_POST['exists'],$_POST['ppsize']);
+	$res=$res->execute()->fetchCol();
+	$fin=true;
+	if ($res){
+		$fin=count($res)<$_POST['ppsize'];
+
+		$res= node_view_multiple(node_load_multiple($res));
+
+	}
+	$cmd=[
+		'command'=>'get-next-content-elements',
+		'data'=>'test',
+		'nids'=>render($res),
+		'finish'=>$fin,
+	];
+	$cmds[]=$cmd;
+	return ['#type'=>'ajax','#commands'=>$cmds];
+}
 ?>

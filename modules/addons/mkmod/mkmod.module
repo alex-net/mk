@@ -60,6 +60,24 @@ function mkmod_init(){
 //=======================================================
 function mkmod_preprocess_page(&$p){
 	nodetokens_replacer($p);
+	//dsm(current_path());
+	if (preg_match('#taxonomy/term/(\d+)#',current_path(),$tid) && !empty($p['page']['content']['system_main']['pager'])) {
+		$tid=end($tid);
+		$p['page']['content']['system_main']['pager']['#access']=false;
+		$p['page']['content']['system_main']['nodes']['#type']='container';
+		$pagerparams=[
+			'tid'=>$tid,
+		];
+		$p['page']['content']['system_main']['nodes']['#attributes']=[
+			'class'=>['container-term-wrapp-autoload'],
+			'data-ppsize'=>variable_get('default_nodes_main',10),
+			'data-curtid'=>$tid,
+			
+		];
+		$p['page']['content']['system_main']['nodes']['#attached']['js'][]=drupal_get_path('module','mkmod').'/pager-uploader.js';
+	}
+	
+	//
 }
 // =================================================
 function mkmod_permission(){
@@ -119,6 +137,11 @@ function mkmod_menu(){
 			'page callback'=>'_get_comments_list_cb',
 			'delivery callback'=>'ajax_deliver',
 		),
+		'get-next-content-elements'=>[
+			'access arguments'=>['access content'],
+			'page callback'=>'get_next_content_elements_jscb',
+			'delivery callback'=>'ajax_deliver',
+		],
 		'admin/config/administration/mkmod'=>array(
 			'title'=>'Админко',
 			'access arguments'=>array('admine pages'),
@@ -703,4 +726,3 @@ function mkmod_metatag_metatags_view_alter(&$output, $inst, $opt){
 	}
 }
 
-?>

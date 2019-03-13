@@ -676,19 +676,51 @@ jQuery(document).ready(function() {
 
 (function($) {
 
+	
+
+
+	
+
 	$(function() {
 		$('.views-field-edit-quantity .form-item input').bind("change keyup input click", function() {
 		  if (this.value.match(/[^0-9]/g)) {
 			  this.value = this.value.replace(/[^0-9]/g, '');
 		  }
 		});
+		// одна высота для элеменнтов
+		$('body').on('one-height-elements',function(e,root,elssel){
+			if (root.data('autoheight'))
+				return ;
+			var oldh=root.data('autoheight-set');
+
+			root.data('autoheight',true);
+			var els=root.find(elssel);
+			var h=10000;
+			els.removeAttr('style');
+			els.each(function(){
+				if ($(this).height()<h)
+					h=$(this).height();
+			});
+			console.log(oldh<h,!oldh);;
+			if (!oldh || oldh<h){
+				els.height(h);
+				root.data('autoheight-set',h);
+				console.log(h);
+			}
+
+			root.data('autoheight',false);
+
+
+
+
+		});
 
 		$("form .field-name-field-user-phone input").mask("+7 (999) 999-99-99");
 
 		$('p:contains("На данный момент нет содержимого, классифицированного этим термином.")').css('display', 'none');
-
-		$('#block-system-main .product.teaser .wrap_teaser').matchHeight();
-
+		//$('body').trigger('one-height-elements',[$('#block-system-main'), '.product.teaser .wrap_teaser']);
+		$('#block-system-main .product.teaser .wrap_teaser').matchHeight();	
+		
 		$(".page-checkout .commerce-line-item-views-form .views-field-edit-quantity input").attr('disabled', 'disabled');
 
 		$('.page-checkout .commerce-line-item-views-form .views-field-title a').on('click',  function() {

@@ -1385,3 +1385,8 @@ ul.imagesdecr-list {
   height: 1px;
   background: #d6d6d4;
   margin: 1em 0; }
+
+.container-term-wrapp-autoload::after {
+  content: '';
+  display: block;
+  clear: both; }

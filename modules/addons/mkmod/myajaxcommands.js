@@ -34,6 +34,33 @@
 			Drupal.ajax.prototype.commands['fancy-update']=function(a,r,s){
 				$.fancybox.update();
 			}
+
+			///вставить подгруженный контент в конец списка .. 
+			Drupal.ajax.prototype.commands['get-next-content-elements']=function(a,r,s){
+					// завершили подгрузку
+				var wrap=$('.container-term-wrapp-autoload');
+				wrap.data('sended',r.finish);
+				if (r.nids){
+					wrap.append(r.nids);
+					Drupal.attachBehaviors($('.container-term-wrapp-autoload'));
+					var im=wrap.find('img');
+					//console.log(im.length);
+					var compl=0;
+					im.each(function(){
+						compl+=this.complete-0;
+						$(this).on('load',function(){
+							compl++;
+							if (compl>=im.length)
+								$('body').trigger('one-height-elements',[$('#block-system-main'),'.product.teaser .wrap_teaser']);
+								//console.log('Поехали');
+								//$('#block-system-main .product.teaser .wrap_teaser').matchHeight();	
+							//console.log('loaded');
+						});
+						//console.log(this.complete);
+					});
+				}
+				//console.log(r);
+			};
 			// ----------------------------
 			$('[data-show-node-in-popup]').once(function(){
 				$(this).on('click',function(e){
