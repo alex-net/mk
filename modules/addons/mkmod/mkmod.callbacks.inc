@@ -195,7 +195,21 @@ function tpls_view_cb(){
 function get_next_content_elements_jscb()
 {
 	$cmds=[];
-	// запрашиваем витрины .. 
+	// запрашиваем  все витрины .. что есть ..  
+
+	$res=db_select('taxonomy_index','ti');
+	$res->condition('ti.tid',$_POST['curtid']);
+	$res->leftJoin('node','n','ti.nid=n.nid');
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->range($_POST['exists'],$_POST['ppsize']);
+	$res->addTag('node_access');
+	$res->fields('n',['nid']);
+	$res->orderBy('n.created','asc');
+	$res=module_invoke('nodeweight','addweighttogetproducts',$res,$_POST['curtid']);
+	$res=$res->execute()->fetchCol();
+
+/*
 	$res=db_select('node','n');
 	$res->fields('n',['nid']);
 	$res->condition('n.status',1);
@@ -203,7 +217,11 @@ function get_next_content_elements_jscb()
 	$res->leftJoin('taxonomy_index','ti','ti.nid=n.nid');
 	$res->condition('ti.tid',$_POST['curtid']);
 	$res->range($_POST['exists'],$_POST['ppsize']);
+	$res->addTag('node_access');
+	$res=module_invoke('nodeweight','addweighttogetproducts',$res,$_POST['curtid']);
+
 	$res=$res->execute()->fetchCol();
+	*/
 	$fin=true;
 	if ($res){
 		$fin=count($res)<$_POST['ppsize'];

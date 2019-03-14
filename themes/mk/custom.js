@@ -701,12 +701,14 @@ jQuery(document).ready(function() {
 				if ($(this).height()<h)
 					h=$(this).height();
 			});
-			console.log(oldh<h,!oldh);;
+			//console.log(oldh<h,!oldh);;
 			if (!oldh || oldh<h){
 				els.height(h);
 				root.data('autoheight-set',h);
-				console.log(h);
+				//console.log(h);
 			}
+			else
+				els.height(oldh);
 
 			root.data('autoheight',false);
 

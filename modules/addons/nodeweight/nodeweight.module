@@ -67,33 +67,44 @@ function nodeweight_query_alter(&$q){
 	if (preg_match('#taxonomy/term/(\d+)#',current_path(),$tid) && $q->hasTag('node_access')){
 		// пристыковать таблицу веса
 		$tid=end($tid);
+		/// применить сортировку . если надо .. 
+		$q=nodeweight_addweighttogetproducts($q,$tid);
 		
-
-		
-		$ff=$q->getFields();
-		
-		$tt=array();
-		foreach($q->getTables() as $t)
-			// базовая таблица ... taxonomy_index  .. с сортировкой 
-			if ($t['table']=='taxonomy_index' && !isset($t['join type']) && $ob=&$q->getOrderBy()){
-				// привинчиваем табдицу с весами 
-				$q->leftjoin('nodeweight','nw','nw.tid='.$t['alias'].'.tid and nw.nid='.$t['alias'].'.nid');
-				// добавляем алиас таблицы к фильтрации 
-				$cond=&$q->conditions();
-				$cond[0]['field']='t.tid';
-				// указываем по чём сортировать надо 
-				$ob=array('nw.weight'=>'asc');
-		}
-		
-
-		if (!empty($ff['nid']) && !$q->getOrderBy()){
-			//$q->leftjoin('nodeweight','nw','nw.nid='.$ff['nid']['table'].'.'.$ff['nid']['field'].' and nw.tid='.$tid);
-			//$q->orderBy('nw.weight','asc');
-		}
-		
-		//dsm($q->fields);
-
+		///$ff=$q->getFields();
+		//dsm($ff);
+	
 	}
-		
+}
+
+/**
+ * добавить сортировку по весу для запроса нод из термина таксономии 
+ * @param  object $q   Объект запроса 
+ * @param  int $tid номер категории 
+ * @return object      объект запроса с сортировкой по весу .. 
+ */
+function nodeweight_addweighttogetproducts($q,$tid)
+{
+
+	foreach($q->getTables() as $t)
+			// базовая таблица ... taxonomy_index  .. с сортировкой 
+		if ($t['table']=='taxonomy_index' && !isset($t['join type']) ){
+			$ob=&$q->getOrderBy();
+			//dsm($ob,'$ob');
+			// указываем по чём сортировать надо 
+			$ob=array('nw.weight'=>'asc');
+
+
+			//dfb('dsad2');
+			
+			// привинчиваем табдицу с весами 
+			$q->leftjoin('nodeweight','nw','nw.tid='.$t['alias'].'.tid and nw.nid='.$t['alias'].'.nid');
+			// добавляем алиас таблицы к фильтрации 
+			$cond=&$q->conditions();
+			//dfb($cond,'$cond');
+			//dsm($cond,'$cond');
+			$cond[0]['field']=$t['alias'].'.tid';
+			
+	}
+	return $q;
 }
 ?>
