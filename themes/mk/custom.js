@@ -694,12 +694,15 @@ jQuery(document).ready(function() {
 			var oldh=root.data('autoheight-set');
 
 			root.data('autoheight',true);
+
 			var els=root.find(elssel);
-			var h=10000;
+			///console.log(els);
+			var h=0;
 			els.removeAttr('style');
 			els.each(function(){
-				if ($(this).height()<h)
+				if ($(this).height()>h)
 					h=$(this).height();
+				//console.log(h);
 			});
 			//console.log(oldh<h,!oldh);;
 			if (!oldh || oldh<h){
@@ -707,8 +710,11 @@ jQuery(document).ready(function() {
 				root.data('autoheight-set',h);
 				//console.log(h);
 			}
-			else
+			else{
 				els.height(oldh);
+				//console.log(oldh,h,'alter');
+			}
+
 
 			root.data('autoheight',false);
 
