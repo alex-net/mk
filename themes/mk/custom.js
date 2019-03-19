@@ -218,6 +218,47 @@
 		console.log(e);
 	});
 
+
+		Drupal.behaviors['product-teaer-show-more-info']={
+		attach:function(c,s){
+
+			$(".wrap_teaser div.show_more").once(function(){
+				if ($(this).parents('.slick-list').size()){
+					$(this).click(function(){
+						location.href=$(this).data('link');
+					});
+					return;
+				}
+				w=jQuery(window).width();
+				_this=$(this);
+				if (w<1200)
+					$(this).toggle(function() {
+						$(this).toggleClass('text-changed');
+						//console.log($(this).parent().parent());
+						$(this).parents('.product.teaser').eq(0).addClass('show_more_info');
+						//$(this).parent().parent().addClass('show_more_info');
+						$(this).text("Скрыть");
+					}, function() {
+						$(this).parents('.product.teaser').eq(0).removeClass('show_more_info');
+						//$(this).parent().parent().removeClass('show_more_info');
+						$(this).toggleClass('text-changed');
+						$(this).text("Подробнее");
+					});
+				else
+					$(this).on('click',function(){
+						location.href=$(this).data('link');
+					}).parents('.node-teaser').eq(0).hover(function() {
+						$(this).addClass('show_more_info');
+					}, function() {
+						$(this).removeClass('show_more_info')
+						//$(el).parent().parent().removeClass();
+						//$(el).text("Подробнее");
+					});
+			});
+		}
+	}
+
+
 })(jQuery);
 
 
@@ -383,39 +424,9 @@ jQuery(document).ready(function() {
 	// show_more
 
 	//$(".hidden_from_js").css('display', 'none');
+
 	$(".wrap_teaser div.show_more").each(function(){
-		if ($(this).parents('.slick-list').size()){
-			$(this).click(function(){
-				location.href=$(this).data('link');
-			});
-			return;
-		}
-		w=jQuery(window).width();
-		_this=$(this);
-		if (w<1200)
-			$(this).toggle(function() {
-				$(this).toggleClass('text-changed');
-				console.log($(this).parent().parent());
-				$(this).parents('.product.teaser').eq(0).addClass('show_more_info');
-				//$(this).parent().parent().addClass('show_more_info');
-				$(this).text("Скрыть");
-			}, function() {
-				$(this).parents('.product.teaser').eq(0).removeClass('show_more_info');
-				//$(this).parent().parent().removeClass('show_more_info');
-				$(this).toggleClass('text-changed');
-				$(this).text("Подробнее");
-			});
-		else
-			
-			$(this).on('click',function(){
-				location.href=$(this).data('link');
-			}).parents('.node-teaser').eq(0).hover(function() {
-				$(this).addClass('show_more_info');
-			}, function() {
-				$(this).removeClass('show_more_info')
-				//$(el).parent().parent().removeClass();
-				//$(el).text("Подробнее");
-			});
+		
 		
 	});
 	//$(".wrap_teaser div.show_more")
