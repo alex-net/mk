@@ -227,12 +227,16 @@ function get_next_content_elements_jscb()
 		$fin=count($res)<$_POST['ppsize'];
 
 		$res= node_view_multiple(node_load_multiple($res));
-
+		$res=render($res);
+		
+		$res=str_replace('destination='.current_path(), 'destination='.drupal_lookup_path('source',ltrim(parse_url($_SERVER['HTTP_REFERER'],PHP_URL_PATH),'/')), $res);
 	}
+	else
+		$res='';
 	$cmd=[
 		'command'=>'get-next-content-elements',
 		'data'=>'test',
-		'nids'=>render($res),
+		'nids'=>$res,
 		'finish'=>$fin,
 	];
 	$cmds[]=$cmd;
