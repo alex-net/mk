@@ -21,7 +21,7 @@
 								t=Math.round(parseFloat(data[i]['commerce_price'])*val*100)/100;
 								if (t-Math.round(t)==0)
 									t+='.0';
-								put.html('Итого: <span>'+(t)+' руб</span>');
+								put.html('Цена: <span>'+(t)+' руб</span>');
 						}
 							//console.log(data[i]);
 					if (isNaN(val))
