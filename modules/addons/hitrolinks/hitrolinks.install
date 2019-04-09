@@ -1,0 +1,33 @@
+<?php 
+
+function hitrolinks_install()
+{
+	db_create_table('hl',[
+		'description'=>'абличка с хитрыми ссылками.. тут сидят разделы ссылок и сами ссылки',
+		'fields'=>[
+			// ключик
+			'id'=>['type'=>'serial','unsigned'=>true,'not null'=>true,],
+			// тип записи // значения  tgroup ngroup ,link 
+			'type'=>['type'=>'varchar','length'=>6,'not null'=>true],
+			// ролительский элемент 
+			'pid'=>['type'=>'int','undigned'=>true,'default'=>0,'not null'=>true],
+			// имя рубрики/ссфлки.. 
+			'name'=>['type'=>'varchar','length'=>200,'not null'=>true,],
+			// ссылка 
+			'link'=>['type'=>'varchar','length'=>250,'not null'=>true,'default'=>'',],
+			// Вес .. 
+			'weight'=>['type'=>'int','default'=>0],
+			// активный/неактивный 
+			'active'=>['type'=>'int','size'=>'tiny','default'=>1],
+		],
+		'primary key'=>['id'],
+	]);
+
+
+}
+
+
+function hitrolinks_uninstall()
+{
+	db_drop_table('hl');
+}

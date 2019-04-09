@@ -1,0 +1,137 @@
+<?php
+
+function hitrolinks_permission()
+{
+	return [
+		'access to hitrolinks'=>[
+			'ttile'=>'Управление Хитрыми ссылками',
+		],
+	];
+}
+
+function hitrolinks_menu()
+{
+	$tagsmenu=[
+		'type'=>MENU_LOCAL_TASK,
+		'title'=>'Теги',
+		'page callback'=>'drupal_get_form',
+		'page arguments'=>['hitro_groups_list_form'],
+		'access arguments'=>['access to hitrolinks'],
+		'file'=>'hitrolinks.froms.inc',
+	];
+	$taglinksmenu=[
+		'title'=>'Теги + ссылки',
+			//'title callback'=>'hitro_title_links_cb',
+			//'title arguments'=>[3],
+		'page callback'=>'drupal_get_form',
+		'page arguments'=>['hitro_links_list_form'],
+		'access arguments'=>['access to hitrolinks'],
+		'file'=>'hitrolinks.froms.inc',
+	];
+	return [
+		// настройка групп ссылок ...
+		'node/%/tags'=>$tagsmenu,
+		'node/%/tags/%'=>$taglinksmenu,
+		'taxonomy/term/%/tags'=>$tagsmenu,
+		'taxonomy/term/%/tags/%'=>$taglinksmenu,
+		// настройка самих ссылок по группам ..
+		//'admin/config/content/h-l/%'=>,
+		
+	];
+}
+
+function hitro_title_links_cb($cat)
+{
+	$res=db_select('hl','t');
+	$res->condition('t.id',$cat);
+	$res->fields('t',['name']);
+	$res=$res->execute()->fetch(PDO::FETCH_ASSOC);
+	//dsm($res);
+	return sprintf('Обзор тегов-ссылок для заголовка "%s"',$res['name']);
+}
+
+function hitrolinks_theme()
+{
+	return [
+		'sortedtable'=>[
+			'render element'=>'form',
+			'file'=>'hitrolinks.themes.inc',
+			//'template'=>'sortedtable',
+		],
+		'hitrolinkspopup'=>[
+			'variables'=>['pid'=>0,'group'=>'group'],
+			'file'=>'hitrolinks.themes.inc',
+			'template'=>'hitrolinkspopup',
+			'preprocess functions'=>[
+				'popuplinks_prefunc',
+			],
+		],
+	];
+}
+
+function hitrolinks_forms($form_id,$args)
+{
+	$ret=[];
+	switch($form_id){
+		case 'hitro_groups_list_form':
+			$ret[$form_id]=[
+				'callback'=>'hitro_list_form',
+				'callback arguments'=>array_merge(['group'],$args),
+			];
+			break;
+
+		case 'hitro_links_list_form':
+			$ret[$form_id]=[
+				'callback'=>'hitro_list_form',
+				'callback arguments'=>array_merge(['link'],$args),
+			];
+			break;		
+	}
+	return $ret;
+}
+
+
+function hitrolinks_preprocess_page(&$vars)
+{
+	//dsm(current_path());
+	$classes=[];
+
+	$res=db_select('hl','t');
+	$res->condition('t.active',1);
+
+	$group=$pid=0;
+	switch(arg(0)){
+		case 'node':
+			$group='ngroup';
+			$pid=arg(1);
+			break;
+		case 'taxonomy':
+			$group='tgroup';
+			$pid=arg(2);
+			break;
+	}
+	$res->condition('t.pid',$pid);
+	$res->condition('t.type',$group);
+	/// стыкуем ссылки .. 
+	$res->leftjoin('hl','l','l.pid=t.id');
+	$res->addExpression('sum(l.active)','co');
+	$res=$res->execute()->fetch(PDO::FETCH_ASSOC);
+
+
+	if (!empty($res['co']))
+		$classes[]='active';
+	//dsm($res);
+	$vars['page']['content']['system_main']['hl']=[
+		'#type'=>'container',
+		'#weight'=>-100,
+		'#attributes'=>['class'=>['hitrolinks-wrapper']],
+		'#theme'=>'hitrolinkspopup',
+		'#pid'=>$pid,
+		'#group'=>$group,
+	];
+	//dsm($vars);
+
+}
+
+
+

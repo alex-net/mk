@@ -488,3 +488,37 @@ ul.imagesdecr-list{
 .container-term-wrapp-autoload {
 	&::after {content:'';display: block;clear: both;}
 }
+
+
+
+// сео ссылки на каждой страничке .. 
+.hitrolinks-wrapper {
+	.controll-panel {position:absolute;top:1em;right: 1em;font-size: 2em;color:blue;z-index: 1;cursor: pointer;transition: all .4s;
+		&.active {color: red;}
+	}
+	.popup-lisks {
+		.show-popup-links {color:#428bca;border:1px solid #428bca;border-radius: 0.3em;padding: .3em;display: inline-block;cursor: pointer;margin: .5em 0 1em;}
+	}
+	
+}
+#hitro-groups-list-form, #hitro-links-list-form {
+	#edit-addmore {margin-top: .5em;display: inline-block;}
+	.tags-wraper .draggable .handle::after {float: none;}
+	.form-actions {
+		input {display: inline-block;margin-right: 0.5em;}
+	}
+}
+.hl-win-wrapp {background:#f4fbfe;padding:1.4em 1em;display: none;
+			ul {margin:0;padding:0!important;
+				li {list-style: none outside none;display: inline-block;padding-bottom:0.5em;
+					a {display: block;border:1px solid $colorrosoviy;padding: .2em;border-radius: .2em;
+						&:hover {text-decoration: none;background: white;} 
+					}
+				}
+				&.l1 > li{display: block;padding-bottom:0.5em;margin-bottom: .5em;border-bottom:1px dashed lighten($colorrosoviy,20%);
+					&:last-child {border:none;}
+					.group {font-weight: bold;}
+				}
+				
+			}
+		}

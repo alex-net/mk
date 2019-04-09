@@ -747,4 +747,22 @@ jQuery(document).ready(function() {
 		});
 	});
 	
+
+	console.log('das');
+	Drupal.behaviors['seo-hitro-links']={
+		attach:function(c,s){
+			$('.hitrolinks-wrapper').once(function(){
+				$(this).find('.show-popup-links').on('click',function(){
+					jQuery.fancybox({
+						type:'inline',
+						href:'.hitrolinks-wrapper .hl-win-wrapp',
+						padding:0,
+					});
+				});
+			});
+		}
+	}
+	
+
+
 })(jQuery);
