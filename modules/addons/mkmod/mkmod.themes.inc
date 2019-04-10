@@ -85,7 +85,6 @@ function theme_ppswitcher($vars){
 			'class'=>array('per-page-sizer'),
 		),
 	));
-	kprint_r($vars['list']);
 }
 // ======================================================
 function topprodaglist_prefunc(&$vars){

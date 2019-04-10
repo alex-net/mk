@@ -194,7 +194,7 @@ function hitro_list_form_submit($form,$form_state)
 	$ids=$res->execute()->fetchCol();
 
 	$ids2=[];
-	kprint_r($fs);
+	//kprint_r($fs);
 	if (!empty($fs['tags']))
 		foreach($fs['tags'] as $t){
 			// пропускаем тех кто с пустыми полями . .
