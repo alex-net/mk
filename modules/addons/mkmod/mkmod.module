@@ -515,15 +515,20 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 
 
 
-		
+		//global $user;
+		//dsm($user->roles[3]);
 		// ранее просморенные товары
-		$nids=explode(',',empty($_COOKIE['prods-view'])?'':$_COOKIE['prods-view']);
-		foreach($nids as $x=>$y)
-			if ($node->nid==$y || empty($y)) // надо удалить ранее просмотренный товар 
-				unset($nids[$x]);
-	
-		if ($nids){
-			$nn=node_view_multiple(node_load_multiple(array_reverse($nids)));
+		$viewed=empty($_COOKIE['prods-view'])?[]:explode(',',$_COOKIE['prods-view']);
+		$nids=[];
+		// зачистка от пустых значений .. 
+		foreach($viewed as $v)
+			if ($v && $v!=$node->nid)
+				$nids[]=$v;
+
+			$nc=15;
+		if ($nids){// формируем вывод 
+			$nn=array_chunk($nids, $nc);
+			$nn=node_view_multiple(node_load_multiple($nn[0]));
 			foreach(element_children($nn['nodes']) as $k){
 				$nn['nodes'][$k]['#prefix']='<div class="wrap">';
 				$nn['nodes'][$k]['#suffix']='</div>';
@@ -541,18 +546,16 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 					'#markup'=>'Ранее просмотренные товары',
 				),
 				'list'=>$nn,
-
-
 			);
 		}
-		
 
-		$nids[]=$node->nid;
-		foreach($nids as $x=>$y)
-			if(!$y)
-				unset($nids[$x]);
-
+		// добавляем новый элемент в начало ..
+		array_unshift($nids, $node->nid);
+		$nids=array_chunk($nids, $nc+5);
+		$nids=end($nids);
 		setcookie('prods-view',implode(',', $nids),REQUEST_TIME+3600*24*30);
+
+		
 	}
 }
 
