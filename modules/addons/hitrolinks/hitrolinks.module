@@ -93,6 +93,10 @@ function hitrolinks_forms($form_id,$args)
 
 function hitrolinks_preprocess_page(&$vars)
 {
+	global $theme;
+	if ($theme!=variable_get('theme_default'))
+		return ;
+	
 	//dsm(current_path());
 	$classes=[];
 
