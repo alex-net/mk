@@ -1744,6 +1744,8 @@ a.messageclose{color:#FFFFFF!important;padding:1px 8px;line-height:22px;opacity:
   text-decoration: none !important;
 }
 
+#block-addmi-catalog-children-terms a.bg-image {display: block;height: 216px;background-position: 50% 50%;background-repeat: no-repeat;background-size: contain;background-color: #eeeeec;border: 1px solid #ecebeb;}
+
 #block-addmi-catalog-children-terms .wrap-children {
   z-index: 100;
 }
