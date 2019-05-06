@@ -125,3 +125,8 @@
     #block-addmi-catalog-children-terms .col {width: 100%;text-align: center;float: none;}
     #block-addmi-catalog-children-terms .col .block_row {display: inline-block;text-align: left;float: none;}
 }
+
+.front #block-mkmod-catlist .item-list li img {margin:0 auto;}
+@media screen and (max-width: 1279px){
+    .front #block-mkmod-catlist .item-list li img {width: 100%; height: auto;}
+}
