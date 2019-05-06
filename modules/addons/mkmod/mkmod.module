@@ -1,4 +1,6 @@
 <?php 
+// http://dev.masterkrowli.ru/profnastil-dlya-zabora
+// http://dev.masterkrowli.ru/tehnoelast
 module_load_include('inc','mkmod','mkmod.forms');
 module_load_include('inc','mkmod','mkmod.blocks');
 module_load_include('inc','mkmod','mkmod.tokens');
@@ -62,16 +64,50 @@ function mkmod_preprocess_page(&$p){
 	nodetokens_replacer($p);
 	//dsm(current_path());
 	if (preg_match('#taxonomy/term/(\d+)#',current_path(),$tid) && !empty($p['page']['content']['system_main']['pager'])) {
+		$pp=variable_get('default_nodes_main',10);
+		$els=element_children($p['page']['content']['system_main']['nodes']);
+
 		$tid=end($tid);
-		$p['page']['content']['system_main']['pager']['#access']=false;
+		
+		if (1 ||strpos($_SERVER['HTTP_REFERER'], url(current_path()))!==false){
+			
+			//dsm($p);
+			$p['page']['content']['system_main']['term_heading']['scroll-to']=[
+				'#markup'=>'<span class="scroll-after-paginator"></span>',
+			];
+			//dsm($p['page']['content']['system_main']);
+			//drupal_add_js()
+			//dsm($_SERVER['HTTP_REFERER'],'REF');
+		}
+			//dsm([$_SERVER['REQUEST_URI'],],'serv');
+		//dsm($p['page']['content']['system_main']['pager']);
+		//dsm(pager_find_page());
+		//$p['page']['content']['system_main']['pager']['#access']=false;
 		$p['page']['content']['system_main']['nodes']['#type']='container';
+		$p['page']['content']['system_main']['nodes']['load-more']=[
+			'#access'=>$pp==count($els),
+			'#type'=>'container',
+			'#attributes'=>['class'=>['load-more-contents']],
+			'button'=>[
+				'#type'=>'button',
+				'#value'=>'Загрузить ещё',
+			],
+			//'#markup'=>'<input type="button" value="Загрузить ещё" />',
+			'#weight'=>1000,
+		];
 		$pagerparams=[
 			'tid'=>$tid,
 		];
+		$args=drupal_get_query_parameters();
+		//dsm($args);
 		$p['page']['content']['system_main']['nodes']['#attributes']=[
 			'class'=>['container-term-wrapp-autoload'],
+			// товаров на страницу 
 			'data-ppsize'=>variable_get('default_nodes_main',10),
+			// текущаяя категория 
 			'data-curtid'=>$tid,
+			// текущая страница .. 
+			'data-curpage'=>empty($args['page'])?0:$args['page'],
 			
 		];
 		$p['page']['content']['system_main']['nodes']['#attached']['js'][]=drupal_get_path('module','mkmod').'/pager-uploader.js';

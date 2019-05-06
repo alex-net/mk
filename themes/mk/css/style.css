@@ -1448,3 +1448,20 @@ ul.imagesdecr-list {
         border: none; }
       .hl-win-wrapp ul.l1 > li .group {
         font-weight: bold; }
+
+/**
+ *  кнопка подгрузки товара .. 
+ */
+.load-more-contents {
+  text-align: center;
+  margin: 1em 0; }
+  .load-more-contents input {
+    border: 1px solid #701d6a;
+    background: #d254c9;
+    color: white;
+    border-radius: 0.5em;
+    padding: 0.3em 0.7em;
+    display: inline-block; }
+    .load-more-contents input:hover {
+      background-color: #e291dc;
+      border-color: #ac2da3; }

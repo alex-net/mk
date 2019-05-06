@@ -114,10 +114,11 @@
 }
 #block-addmi-catalog-children-terms .field-name-field-pic-category {
     padding: 4px 3px;
+
     background-color: #eeeeec;
 }
 #block-addmi-catalog-children-terms .field-name-field-pic-category .field-item {
-    border: 1px solid #ecebeb;
+    border: 1px solid #ecebeb;width: 216px;height: 216px;
 }
 
 @media (max-width:490px){

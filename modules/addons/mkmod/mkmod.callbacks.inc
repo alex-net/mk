@@ -202,7 +202,7 @@ function get_next_content_elements_jscb()
 	$res->leftJoin('node','n','ti.nid=n.nid');
 	$res->condition('n.status',1);
 	$res->condition('n.type','product_display');
-	$res->range($_POST['exists'],$_POST['ppsize']);
+	$res->range($_POST['exists']+$_POST['ppsize']*$_POST['curpage'],$_POST['ppsize']);
 	$res->addTag('node_access');
 	$res->fields('n',['nid']);
 	$res->orderBy('n.created','asc');

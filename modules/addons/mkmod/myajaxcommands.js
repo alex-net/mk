@@ -40,8 +40,17 @@
 					// завершили подгрузку
 				var wrap=$('.container-term-wrapp-autoload');
 				wrap.data('sended',r.finish);
+				if (r.finish)
+					wrap.find('.load-more-contents').remove();
 				if (r.nids){
-					wrap.append(r.nids);
+					//wrap.append(r.nids);
+					//console.log(wrap.find('.load-more-contents'));
+		
+					
+					wrap.find('.load-more-contents').before(r.nids);
+					
+					//	console.log(wrap.find('.load-more-contents'));
+					//}
 					Drupal.attachBehaviors($('.container-term-wrapp-autoload'));
 					var im=wrap.find('img');
 					//console.log(im.length);

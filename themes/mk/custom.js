@@ -693,6 +693,17 @@ jQuery(document).ready(function() {
 	
 
 	$(function() {
+
+
+		jQuery(function(){
+					if (jQuery('.scroll-after-paginator').length){
+						//console.log(jQuery('.scroll-after-paginator').position().top);
+						$('body,html').animate({'scroll-top':jQuery('.scroll-after-paginator').position().top},1000);
+						//console.log('111');
+					}
+				});
+
+
 		$('.views-field-edit-quantity .form-item input').bind("change keyup input click", function() {
 		  if (this.value.match(/[^0-9]/g)) {
 			  this.value = this.value.replace(/[^0-9]/g, '');
