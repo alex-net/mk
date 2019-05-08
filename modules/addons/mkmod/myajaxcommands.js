@@ -40,8 +40,7 @@
 					// завершили подгрузку
 				var wrap=$('.container-term-wrapp-autoload');
 				wrap.data('sended',r.finish);
-				if (r.finish)
-					wrap.find('.load-more-contents').remove();
+				
 				if (r.nids){
 					//wrap.append(r.nids);
 					//console.log(wrap.find('.load-more-contents'));
@@ -68,6 +67,8 @@
 						//console.log(this.complete);
 					});
 				}
+				if (r.finish)
+					wrap.find('.load-more-contents').remove();
 				//console.log(r);
 			};
 			// ----------------------------
