@@ -1465,3 +1465,6 @@ ul.imagesdecr-list {
     .load-more-contents input:hover {
       background-color: #e291dc;
       border-color: #ac2da3; }
+
+p {
+  margin: 10px 0; }
