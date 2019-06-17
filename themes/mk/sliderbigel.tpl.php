@@ -1,7 +1,7 @@
 <?php foreach($data as $v):?>
 <div class="akcion-big-el clearfix">
 	<div class="col-sm-21 col-md-21"><h2><span><?php echo $v['titletop'];?></span><span><?php echo $v['titlebottom'];?></span></h2>
-	<div class="body"><?php echo $v['body'];?></div>
+	<div class="body"><p><?php echo $v['body'];?></p></div>
 	<div class="price_buy_button">
 	<div class="price_discount_wrap"><span class="discount_price">Акционная цена: <?php echo $v['cp'];?>  / <span><?php echo $v['measure'];?></span></span></div>
 	<div class="buy_prod_button" ><a href="<?php echo $v['url'];?>" >подробнее</a></div>

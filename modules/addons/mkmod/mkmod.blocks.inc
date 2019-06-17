@@ -136,6 +136,7 @@ function mkmod_block_view($delta=''){
 					$els[$x]['oldp']=commerce_currency_format($y['oldp'],null);
 					$els[$x]['cp']=commerce_currency_format($y['cp'],null);
 					$els[$x]['measure']=drupal_strtolower($y['measure']);
+					$els[$x]['body']=drupal_substr(strip_tags($els[$x]['body']),0,150);
 				}
 
 				//dsm($els);
