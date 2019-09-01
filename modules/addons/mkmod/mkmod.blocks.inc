@@ -66,9 +66,6 @@ function mkmod_block_info(){
 		'akcii-slider-big'=>array(
 			'info'=>'Акции слайдер большой',
 		),
-		'akcii-slider-block'=>array(
-			'info'=>'Акции слайдер мини',
-		),
 		'catlist'=>array(
 			'info'=>'Категории товаров',
 		),
@@ -82,7 +79,6 @@ function mkmod_block_configure ($delta=''){
 	$fd=variable_get('mkmod blocks '.$delta,array());
 	switch($delta){
 		case 'akcii-slider-big':
-		case 'akcii-slider-block':
 			$form['mkblock-data']=array(
 				'#type'=>'fieldset',
 				'#tree'=>true,
@@ -234,54 +230,6 @@ function mkmod_block_view($delta=''){
 					),
 				);
 			
-		break;
-		case 'akcii-slider-block':
-			$els=_getactionprodag();
-			if (empty($els))
-				break;
-			$bd=variable_get('discounts config',array());
-			///dsm($fd);
-			$out=array();
-			if (count($els)>1)
-				$out['nav']=array(
-					'#type'=>'container',
-					'#attributes'=>array(
-						'class'=>array('flex-direction-nav'),
-					),
-					'prev'=>array('#markup'=>'<span class="flex-prev"></span>'),
-					'next'=>array('#markup'=>'<span class="flex-next"></span>'),
-				);
-			if (!empty($bd['block-top-mess']))
-				$out['head']=array(
-					'#markup'=>$bd['block-top-mess'],
-					'#prefix'=>'<div class="b-header">',
-					'#suffix'=>'</div>',
-				);
-			$out['prod-list']=array(
-				'#type'=>'container',
-				'#attributes'=>array(
-					'class'=>array('a-prod-list-wrap','clearfix'),
-				),
-			);
-			foreach($els as $k=>$v){
-				$v['url']=url('node/'.$k);
-				$v['img']=image_style_url('60x40',$v['uri']);
-				$v['oldp']=commerce_currency_format($v['oldp'],null);
-				$v['cp']=commerce_currency_format($v['cp'],null);
-				$v['afrom']=strtotime($v['afrom']);
-				$v['ato']=strtotime($v['ato']);
-
-				$out['prod-list'][]=array(
-					'#theme'=>'slidersidebarel',
-					'#data'=>$v,
-				);
-			}
-			$out['#attached']=array(
-				'js'=>array(
-					array('data'=>array('accii-slider-small-speed'=>empty($fd['timeslide'])|| !is_numeric($fd['timeslide']) ?3:intval($fd['timeslide'])),'type'=>'setting'),
-				),
-			);
-			$b['content']=$out;
 		break;
 		case 'catlist':
 			// запрашиваем категории первый уровень 
