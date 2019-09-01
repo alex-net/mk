@@ -105,10 +105,11 @@ function mkmod_field_formatter_settings_form($field,$int,$viewmode,$form,$form_s
 	$els=[];
 	switch($int['display'][$viewmode]['type']){
 		case 'productslistbuy':
+
 			$els['viewotherbuttons']=[
 				'#type'=>'checkbox',
 				'#title'=>'Отображать дополнительные кнопки в форме товара',
-				'#default_value'=>true,
+				'#default_value'=>!empty($int['display'][$viewmode]['settings']['viewotherbuttons']),
 			];
 		break;
 	}
