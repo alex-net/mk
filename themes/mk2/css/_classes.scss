@@ -1,0 +1,132 @@
+%redgrad {background-image:  linear-gradient(180deg,lighten($rcolor,10%),darken($rcolor,10%));} 
+
+// градиентная заливка .. 
+
+%scolorgrad {background: linear-gradient(180deg,lighten($scolor,10%),darken($scolor,10%));background-origin: border-box;
+	&:hover {@extend %redgrad;}
+}
+
+%fontas {font-family: "Font Awesome 5 Free";font-weight: bold;}
+
+%h-tag-icon {background-position: 0% 50%; background-repeat:no-repeat; padding-left: 1.5em;}
+%h-tag {font-weight: normal;font-size: 2.14em;color:#333232;
+	.all {position: absolute; right: 0;top:50%; font-size: 0.467em;color:black;padding:0.3em 0.5em;border:2px solid #a3a3a3;text-decoration: none;margin-top:-1em;transition: all $animate-length linear; 
+		&:hover {background: #be2d2d;color:white;}
+	}
+	&.all-link {position: relative;padding-right: 2.7em;}
+
+}
+
+
+// внешний вид кнопки каталог . 
+%catalog-menu-button {cursor: pointer;background: $hoverfon;
+	&::after {content:attr(title);padding: 0.5em 1em;display: inline-block;color:#fefcfc}
+	&::before {content:'';display: inline-block;width: 27px; height:24px;background: url(../imgs/cat-menu-list.png) 50% 0 no-repeat;vertical-align: middle;margin: 0.5em 0;}
+	a {display: none;}
+	&:hover::after, &.hovered::after {color:$scolor;}
+	&:hover::before, &.hovered::before {background-position: 50% 100%;}
+}
+
+
+
+// каталог всплывающее окно  .. 
+%catalog-menu-popup {position: absolute;background: #222222;z-index: 10;padding:1em;box-sizing: border-box;display: none;
+	@media screen and (max-width: 1000px){width: 100%;}
+	ul {margin:0;padding: 0;
+		li {list-style: none outside none;padding:1em 1em 1em 0.5em;box-sizing:border-box;cursor: pointer;border-bottom:1px solid #3a3a3a;position:relative;
+			// подменюшка  второй уровень 
+			.sublevel {position: absolute;top:0;left:100%;background: black;z-index: 5;padding:0.5em 0;display: none;		
+				a.mover {text-decoration: none;color: white;display: block;margin:0 0.5em;padding:0.25em ; white-space: nowrap;border-top:1px solid #222222;
+					&::before {content:'►';color:$scolor;padding-right: 0.5em;}
+					&:first-child {border:none;}
+					&:hover {background: linear-gradient(180deg,#cf4f4f, #b42222);
+						&::before {color:white;}
+					}
+				}
+				@media screen and (max-width: 1000px) {position: static;margin:1em -1em -1em -0.5em;
+					a.mover {white-space: normal;display: flex;align-items: center;}
+				}
+			}
+			&.opened .sublevel {display: block;}
+			a.first-level {text-decoration: none;color:white;display: flex;font-size: 1.14285em;line-height: 1.375em;align-items:center;justify-content: space-between;flex-grow:1;
+				span {flex-grow: 1;padding-right: 0.5em;}
+				&::before {content:'';width: /*1.375em*/1.9em;height: /*1.375em*/1.6em;background:$scolor; display: inline-block;margin-right: 0.5em;}
+				&::after {content:'〉';float: right;font-size: 1em;color:#565655;}
+			}
+			&:hover, &.opened {background: linear-gradient(180deg,#cf4f4f, #b42222);
+				> a {
+					&::before {background: white;}
+					&::after {color:white;}
+				}
+			}
+			&.empty a.first-level:after{display: none;}
+			$cats:5,620,327,407,324,22,622,623,624,104,101,625,337,107,106,110,116,150,125,232,201,459,517,121,411,631;
+			@each $cat in $cats { 
+				&.for-#{$cat} a.first-level::before {@include maskimage('../imgs/cat-ico/#{$cat}.png');}
+			}
+		}
+
+	}
+			
+}
+
+// голосование .. звезда ... рейтинг товара ..
+$star-size:1.37em;
+%star-bg {display: inline-block;height:$star-size;background-position: 0 50%;background-repeat: repeat-x;background-size: $star-size $star-size;}
+%star-widget {	@extend %star-bg;width: $star-size*5;background-image:  url(../imgs/rating-star-void.png); vertical-align: middle;margin-left: 1em;
+	> span   {@extend %star-bg;background-image: url(../imgs/rating-star-full.png); }
+}
+
+// общий класс для списков .. нумерованных .. делаем сиреневую нумирацию 
+ol {
+	counter-reset: list1;
+	li{list-style: none outside none;position:relative;
+		&::before {counter-increment:list1;content:counter(list1)".";position: absolute;left: -1.5em;width:1.5em;display: block;text-align: left;color:$scolor;font-weight: bold;}
+	}
+}
+
+// размер и адаптив товара в тизере 
+%noda-taser {flex-basis: 33%;
+	@media screen and (max-width: 1100px) {flex-basis: 50%;}
+	@media screen and (max-width: 750px) {flex-basis: 100%;padding-left: 0!important;padding-right: 0!important;}
+}
+// списки товаров .. ( по три штуки на строку . с переносом строк)
+%product-list {display: flex;flex-wrap: wrap;justify-content: center;
+	> div.node, > div.field-item {@extend %noda-taser;}
+}
+
+%block-shadow {
+	box-shadow: 0 0 0.5em -3px black;
+}
+
+// выравнивание по высоте . растягивание контента .. (весь одинаковый) 
+%flex-slick-block-content{
+	.slick-track {display: flex;
+		> div {height: auto;}
+	}
+	// стрелки 
+	.slick-arrow {position:absolute;width: 2em;display: inline-block;background: white;top:50%;margin-top:-1em;font-size: 2em;z-index: 5;border-radius: 50%;box-shadow: 0 0 0.5em -3px black;cursor: pointer;text-align: center;line-height: 2em;transition: all $animate-length linear;opacity: 0;
+			&:hover {background: #c1c1c1;}
+			@media screen and (max-width: 1100px){font-size: 1.5em;}
+			@media screen and (max-width: 750px){font-size: 1em;}
+			&.next-product {right: 0;}
+			&.prev-product {left:0;}
+		}
+	&:hover .slick-arrow{opacity: 1;}
+	// точки .. 
+	ul.slick-dots {bottom:-2.5em;
+		li {
+			button:before {font-size: 14px;}
+			&.slick-active button:before {color:$scolor;} 
+		}
+	}
+}
+
+%btn2-hover {color:white;background-color: #595959;}
+
+// кнопка .. розовая на красную .. 
+%btn1 {@extend %scolorgrad;padding: 0.5em;color:white;border:none;font-size: 1.5em;}
+// кнопка .. серая на чёрный ..
+%btn2 {background: #eeeeec;text-align: center;cursor:pointer;transition: all $animate-length linear;color:black;text-decoration: none;border:2px solid #c7c7c7;padding:0.5em;
+	&:hover {@extend %btn2-hover;}
+}

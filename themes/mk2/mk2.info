@@ -1,0 +1,19 @@
+name = MK2
+core = 7.x
+description = Новая тема для MK 
+
+
+stylesheets[all][]=css/styles.css
+stylesheets[all][]=node_modules/@fortawesome/fontawesome-free/css/all.min.css
+
+scripts[]=node_modules/@fortawesome/fontawesome-free/js/all.min.js
+scripts[]=js/scripts-ajax.js
+scripts[]=js/scripts-themes.js
+scripts[]=js/scripts-events.js
+scripts[]=js/mk-rating.js
+scripts[]=js/scripts.js
+
+regions[underh1]=Над заголовком страницы 
+regions[content]=содержимое
+regions[footer]=Подвалио
+

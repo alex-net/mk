@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+html,body {margin:0;padding: 0;min-height: 100%;}
+html {height: 100%;} 
+body {font-size: 0.875em;font-family: 'PT Sans', sans-serif;background:#f2f2f0;
+	&.adminimal-menu {padding-top: 2.21em;}
+}
+
+
+
+
+// основной цвет  фирменный ..
+$scolor:#C243C1;//#9e1899;
+$rcolor:#c73838;
+
+$animate-length:0.3s;
+
+// максимальная ширина контента .. 
+$maxw:1182em / 14;
+
+$colortemnokrasniy:#b32121;
+
+//%scolorgrad {background: linear-gradient(180deg,lighten(#be2e2e,10%),darken(#be2e2e,10%));}
+
+
+$hoverfon:#141414;// фон при наведении 
+
+
+
+
+@mixin maskimage($url){
+	-webkit-mask:url($url) 50% 50% no-repeat;
+	-o-mask:url($url) 50% 50% no-repeat;
+	-ms-mask:url($url) 50% 50% no-repeat;
+	-moz-mask:url($url) 50% 50% no-repeat;
+}
+
+@import 'classes';

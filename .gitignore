@@ -2,8 +2,10 @@
 /libraries
 /themes/*
 !/themes/mk
+!/themes/mk2
 /modules/*
 !/modules/addons
 !/modules/discount_time
 .sass-cache
+node_modules
 !/modules/_custom

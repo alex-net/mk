@@ -1,0 +1,123 @@
+
+
+// блок хитов продаж ... (главная страница)
+#block-mkmod-top-sales {margin-bottom: 1em;
+	> h2 {@extend %h-tag;@extend %h-tag-icon;background-image:url(../imgs/h1-ico-star.png); }
+	.content {box-sizing: border-box;padding:0 1em;@extend %flex-slick-block-content;}
+}
+
+// блок новостей на главной .. 
+#block-mkmod-news-list {margin-bottom: 1em;
+	> h2 {@extend %h-tag;@extend %h-tag-icon;background-image:url(../imgs/h1-ico-news.png); }
+	> .content {display: flex;justify-content: space-between;
+		
+		> .node {margin:0 0.5em;flex-basis: 100%;;box-sizing: border-box;padding: 1em 1em 1em 4em;background:url(../imgs/news-item-block.png) 0.5em 50% no-repeat, white;display: flex;flex-direction: column;
+			&:hover {box-shadow: 0 0 1.2em -0.7em black;}
+
+			.title {font-size: 1.14285em;color:black;text-decoration: none;flex-grow: 1;}
+			.wrap {margin-top:0.5em;display: flex;justify-content: space-between;
+				.date {opacity: 0.48;}
+				.more {color:$rcolor;text-decoration: none;
+					span {border-bottom: 1px solid $rcolor;}
+					&::after {content:'→';}
+				}
+			}
+		}
+		@media screen and (max-width: 740px){flex-direction: column;margin:0;
+			> .node {margin:0 0 1em;}
+		}
+	}
+}
+// блок статей  ..
+#block-mkmod-articles-list {margin-bottom: 1em;
+	> h2 {@extend %h-tag;@extend %h-tag-icon;background-image:url(../imgs/h1-ico-articles.png); }
+	.content  {margin-bottom: 3em;@extend %flex-slick-block-content;
+		.node {margin:0 0.5em;padding: 1em;box-sizing: border-box;background: white;display: flex;flex-direction: column;
+			&:hover {box-shadow: 0 0 1.2em -0.7em black;}
+			.wrap {display: flex;justify-content: space-between;margin-top:1em;padding-top: 1em;border-top:1px solid #e0e0e0;
+				.views {font-size: 0.857em;padding-left: 2em;background:url(../imgs/views-oko.png) 0 50% no-repeat;background-size: 1.5em;}
+				.more {text-decoration: none;color:$scolor;
+					&::after {content:'→';}
+				}
+			}
+			.title {text-align: center;flex-grow: 1;
+				a {color:#060b0f;font-size: 1.2857em;text-decoration: none;}
+			}
+			.field-type-image img {margin:0 auto;max-width: 100%;height: auto;}
+		}
+		
+	}
+}
+
+.vendors-list {margin-bottom: 1em;
+	> h2 {@extend %h-tag;@extend %h-tag-icon;background-image:url(../imgs/h1-ico-vendors.png); }
+	.content p{@extend %flex-slick-block-content;padding:0 3em;
+		a{display: inline-block;margin:0 0.3em;
+			img {width: 100%!important;height: auto!important;}
+		}
+		.slick-arrow {opacity:1; box-shadow: none;background: none;width: auto;font-size: 1.5em;
+			&:hover {background: none;color:$scolor;}
+			//&.prev-product {left:0;}
+			//&.next-product {right:-1em;}
+		}
+	}
+}
+
+.contects-block {background-color: white;@extend %block-shadow;display: flex;color:#272727;font-size: 1.286em;font-weight: bold;justify-content: space-between;
+	> div {border-left: 1px solid #d9d9d9;display: flex;flex-direction: column;justify-content: space-around;box-sizing:border-box;padding: 0 0.5em;
+		&:first-child {border:none;}
+		&.logo {text-align: center;align-items: center;
+			img {max-width: 100%;height: auto;}
+		}
+		&.phones , &.mails {
+			> div{display: flex;justify-content: flex-start;align-items:center;
+				&::before {content:'';width: 2em;height: 2em;display:block; background-position: 50% 50%; background-repeat: no-repeat;background-size: 1.72em;margin-right: 0.5em;}
+				&.phones::before {background-image: url(../imgs/why-we/phone.png);}
+				&.ws::before {background-image: url(../imgs/why-we/wa.png);}
+				&.mail::before {background-image: url(../imgs/why-we/mail.png);}
+				&.time::before {background-image: url(../imgs/why-we/time.png);}
+				.colored {font-size: 0.83em; color:$scolor;}
+			}
+			@media screen and (max-width: 1024px) {align-items: center;}
+		}
+		&.otzivbtn {padding: 1em;@extend %redgrad;color:white;align-items: center;cursor: pointer;text-align: center;}
+	}
+	@media screen and (max-width: 1024px){flex-wrap: wrap;
+		> div {flex-basis: 50%;
+			&:nth-child(2n-1) {border:none;}
+		}
+		@media (max-width: 725px) {display: block;
+			> div {border:none;margin-bottom: 0.5em;}
+		}
+	}
+}
+
+/// слайдер акций ... 
+#block-mkmod-akcii-slider-big {
+	@media screen and (max-width: $maxw){display: none;}
+	.content {@extend %flex-slick-block-content;
+		.slider-el {background:url(../imgs/slider-akcia-bg.jpg) 50% 50% / contain no-repeat;width: 84.43em;height: 28.214em;box-sizing:border-box;padding:7.5em 49em 5.5em 8.85em;overflow: hidden;position:relative;color:black;
+			h2 {font-size: 2em;font-weight: bold;margin:0;}
+			.body {font-size: 1.1428em;}
+			.more-link {text-decoration: none;@extend %btn1;display: inline-block;font-size: 1.1428em;margin-top: 0.5em;
+				&::after {content:'→';padding-left: 0.3em;}
+			}
+			$acolor:#dd1301;
+			.prices {position: absolute;top:50%;left: 50%;width:11em;height: 11em;margin: -5.5em 0 0 -5.5em;border:5px solid $acolor;border-radius: 50%;box-sizing: border-box;text-align: center;background-color: white;color:$acolor;font-weight: bold;text-transform: uppercase;
+				.title, .new {font-size: 1.4128em;padding-top:0.7em;}
+				.new {padding: 0;font-size: 2.3571em;}
+				.v {font-size: 1.1em;color:#dd1301;}
+				.old {text-decoration: line-through;color:black;font-size: 1.255em;text-transform: none;}
+			}
+			.kartinko{position: absolute;width:23em;height: 18em;right: 2em;bottom:2em; background-position: 50% 50%;background-repeat: no-repeat;background-color: white;border:5px solid $acolor;border-radius: 6em/3em 0 0 6em;box-shadow: 0.3em 0.3em 2em 0 black;}
+
+			// 1182 395 
+			&.akcia-1 {background-image: url(../imgs/slider-akcia-bg.jpg);} 
+			&.news-1 {background-image: url(../imgs/slider-news-bg.png); color: white;} 
+			&.news-2 {background-image: url(../imgs/slider-news-bg2.jpg); color: white;} 
+			&.akcia-2 {background-image: url(../imgs/slider-akcia-bg2.jpg); color: white;
+				.kartinko {box-shadow: 0.3em 0.3em 2em -1em white;}
+			} 
+		}
+	}
+}
