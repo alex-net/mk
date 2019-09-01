@@ -1,41 +1,48 @@
 <?php 
+// функции общего назначения ..
+module_load_include('inc','mkmod','mkmod.funcs');
 // http://dev.masterkrowli.ru/profnastil-dlya-zabora
 // http://dev.masterkrowli.ru/tehnoelast
+// http://api.drupalhelp.net/api/commerce/constants/7
 module_load_include('inc','mkmod','mkmod.forms');
 module_load_include('inc','mkmod','mkmod.blocks');
 module_load_include('inc','mkmod','mkmod.tokens');
-module_load_include('inc','mkmod','mkmod.callbacks');
+//module_load_include('inc','mkmod','mkmod.callbacks');
 module_load_include('inc','mkmod','mkmod.formatters');
 module_load_include('inc','mkmod','mkmod.widgets');
 module_load_include('inc','mkmod','mkmod.fields');
 module_load_include('inc','mkmod','mkmod.themes');
-function mkmod_library(){
+
+module_load_include('inc','mkmod','mkmod.preprocess');
+module_load_include('inc','mkmod','mkmod.alter');
+/**
+ * альтер для сущностей ..
+ */
+function mkmod_entity_info_alter(&$ei)
+{
+	// добавляем . стиль отображения для нод во всплывашке ..
+	$ei['node']['view modes']['inpopup']=[
+		'label'=>'Контент во всплывашке',
+		'custom settings'=>1,
+	];
+}
+
+function mkmod_library()
+{
 	$p=drupal_get_path('module','mkmod');
-	return array(
-		'fb'=>array(
-			'title'=>'fancybox',
-			'website'=>'http://fancyapps.com/fancybox/',
-			'version'=>'2.1.7',
-			'js'=>array(
-				array('data'=>$p.'/fb/jquery.fancybox.pack.js','type'=>'file'),
-			),
-			'css'=>array(
-				array('data'=>$p.'/fb/jquery.fancybox.css','type'=>'file'),
-			),
-		),
-		'myajaxcommands'=>array(
+	return [
+		'myajaxcommands'=>[
 			'title'=>'Мои команды',
 			'webite'=>'',
 			'version'=>'',
-			'js'=>array(
-				array('data'=>$p.'/myajaxcommands.js','type'=>'file'),
-			),
-			'dependencies'=>array(
-				array('system','drupal.ajax'),
-				array('mkmod','fb'),
-
-			),
-		),
+			'js'=>[
+				['data'=>$p.'/myajaxcommands.js','type'=>'file'],
+			],
+			'dependencies'=>[
+				['system','drupal.ajax'],
+				['mklibs','fancybox'],
+			],
+		],
 		'jqautocompleter'=>array(
 			'title'=>'jquery-autocompleter',
 			'website'=>'https://github.com/ArtemFitiskin/jquery-autocompleter',
@@ -48,10 +55,11 @@ function mkmod_library(){
 				array('data'=>$p.'/jqac/jquery.autocompleter.css','type'=>'file'),
 			),
 		),
-	);
+	];
 }
 // ===============================================
-function mkmod_init(){
+function mkmod_init()
+{
 	global $pp_size;
 	$pp_size=10;
 	if (!empty($_COOKIE['pp-size']) && intval($_COOKIE['pp-size']))
@@ -59,73 +67,10 @@ function mkmod_init(){
 	//dsm($_COOKIE);
 	//pp-size
 }
-//=======================================================
-function mkmod_preprocess_page(&$p){
-	nodetokens_replacer($p);
-	//dsm(current_path());
-	if (preg_match('#taxonomy/term/(\d+)#',current_path(),$tid) && !empty($p['page']['content']['system_main']['pager'])) {
-		$pp=variable_get('default_nodes_main',10);
-		$els=element_children($p['page']['content']['system_main']['nodes']);
 
-		$tid=end($tid);
-		
-		if (1 ||strpos($_SERVER['HTTP_REFERER'], url(current_path()))!==false){
-			
-			//dsm($p);
-			$p['page']['content']['system_main']['term_heading']['scroll-to']=[
-				'#markup'=>'<span class="scroll-after-paginator"></span>',
-			];
-			//dsm($p['page']['content']['system_main']);
-			//drupal_add_js()
-			//dsm($_SERVER['HTTP_REFERER'],'REF');
-		}
-			//dsm([$_SERVER['REQUEST_URI'],],'serv');
-		//dsm($p['page']['content']['system_main']['pager']);
-		//dsm(pager_find_page());
-		//$p['page']['content']['system_main']['pager']['#access']=false;
-		$p['page']['content']['system_main']['nodes']['#type']='container';
-		$p['page']['content']['system_main']['nodes']['load-more']=[
-			'#access'=>$pp==count($els),
-			'#type'=>'container',
-			'#attributes'=>['class'=>['load-more-contents']],
-			'button'=>[
-				'#type'=>'button',
-				'#value'=>'Загрузить ещё',
-			],
-			//'#markup'=>'<input type="button" value="Загрузить ещё" />',
-			'#weight'=>1000,
-		];
-		$pagerparams=[
-			'tid'=>$tid,
-		];
-		$args=drupal_get_query_parameters();
-		//dsm($args);
-		$p['page']['content']['system_main']['nodes']['#attributes']=[
-			'class'=>['container-term-wrapp-autoload'],
-			// товаров на страницу 
-			'data-ppsize'=>variable_get('default_nodes_main',10),
-			// текущаяя категория 
-			'data-curtid'=>$tid,
-			// текущая страница .. 
-			'data-curpage'=>empty($args['page'])?0:$args['page'],
-			
-		];
-		$p['page']['content']['system_main']['nodes']['#attached']['js'][]=drupal_get_path('module','mkmod').'/pager-uploader.js';
-	}
-	
-	//
-}
-// =================================================
-function mkmod_permission(){
-	return array(
-		'admine pages'=>array(
-			'title'=>'Админко',
-		),
-		'skladlist editor'=>array(
-			'title'=>'Управнение складами',
-		),
-	);
-}
+
+
+
 // =======================================================
 function mkmod_getrekvlist(){
 	return array(
@@ -143,41 +88,146 @@ function mkmod_getrekvlist(){
 		'timejob2'=>'Время работы 2'
 	);
 }
-// =======================================================
-function mkmod_menu(){
+// =================================================
+function mkmod_permission()
+{
 	return array(
-		'get-node-in-popup/%node'=>array(
+		'admine pages'=>['title'=>'Админко',],
+		'skladlist editor'=>array(
+			'title'=>'Управнение складами',
+		),
+	);
+}
+// =======================================================
+function mkmod_menu()
+{
+	return array(
+		// отображаем страницу каталога 
+		'catalog'=>[
+			'title'=>'Каталог тороров',
+			'page callback'=>'catalog_list_cb',
+			'access arguments'=>['access content'],
+			'file'=>'mkmod.callbacks.inc',
+		],
+		// отдать субэлемент каталога 
+		'catalog-get-sub-ajax'=>[
+			'type'=>MENU_CALLBACK,
+			'page callback'=>'catalog_subitem_list_jscb',
+			'access arguments'=>['access content'],
+			'delivery callback'=>'ajax_deliver',
+			'file'=>'mkmod.callbacks.inc',
+		],
+		'bestsellers'=>[
+			'title'=>'Топ продаж',
+			'access arguments'=>['access content'],
+			'page callback'=>'bestsellers_cb',
+			'file'=>'mkmod.callbacks.inc',
+		],
+		'discounts'=>[
+			'title'=>'Акции',
+			'access arguments'=>['access content'],
+			'page callback'=>'akciilist_page_cb',
+			'file'=>'mkmod.callbacks.inc',
+		],
+		'discounts/view'=>[
+			'title'=>'Просмотр',
+			'weight'=>5,
+			'type'=>MENU_DEFAULT_LOCAL_TASK,
+		],
+		'discounts/config'=>[
+			'title'=>'Настройки',
+			'weight'=>10,
+			'type'=>MENU_LOCAL_TASK,
+			'access arguments'=>['admine pages'],
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>['discounts_config_form'],
+			'file'=>'mkmod.admin.inc',
+		],
+
+		// всплывашка контентом ноды .
+		'get-node-in-popup/%node'=>[
 			'type'=>MENU_CALLBACK,
 			'page callback'=>'_get_node_in_popup_cb',
-			'page arguments'=>array(1),
+			'page arguments'=>[1],
 			'access callback'=>'node_access',
-			'access arguments'=>array('view',1),
+			'access arguments'=>['view',1],
 			'delivery callback'=>'ajax_deliver',
-		),
-		'get-form-in-popup'=>array(
+			'file'=>'mkmod.callbacks.inc',
+		],
+		// всплывашка формой . 
+		'get-form-in-popup'=>[
 			'type'=>MENU_CALLBACK,
 			'page callback'=>'_get_form_in_popup_cb',
-			'page arguments'=>array(1),
-			'access arguments'=>array('access content'),
+			'page arguments'=>[1],
+			'access arguments'=>['access content'],
 			'delivery callback'=>'ajax_deliver',
-		),
+			'file'=>'mkmod.callbacks.inc',
+		],
+		// всплывашка шаблоном (шаблоны правятся через админку ..)
 		'get-tpl-in-popup'=>[
 			'type'=>MENU_CALLBACK,
 			'access arguments'=>['access content'],
 			'page callback'=>'get_tpl_in_popup_cb',
 			'delivery callback'=>'ajax_deliver',
+			'file'=>'mkmod.callbacks.inc',
 		],
+		// список шаблонов которыми можно всплыть  через  get-tpl-in-popup 
+		'admin/config/administration/mkmod/tpls-editor'=>[
+			'type'=>MENU_LOCAL_TASK,
+			'title'=>'Редактор шаблонов ',
+			'access arguments'=>['admine pages'],
+			'page callback'=>'tpls_view_cb',
+			//'page callback'=>'drupal_get_form',
+			//'page arguments'=>array('kmodproductstabs_form'),
+			'file'=>'mkmod.admin.inc',
+		],
+		'admin/config/administration/mkmod/tpls-editor/%'=>[
+			'title'=>'Редактирование шаблона ',
+			'access arguments'=>['admine pages'],
+			//'page callback'=>'tpls_view_cb',
+			'page callback'=>'drupal_get_form',
+			'page arguments'=>['tpleditor_form',5],
+			'file'=>'mkmod.admin.inc',
+		],
+
+		'news'=>[
+			'title'=>'Новости',
+			'access arguments'=>['access content'],
+			'page callback'=>'content_view_cb',
+			'page arguments'=>['new'],
+			'file'=>'mkmod.callbacks.inc',
+		],
+		'articles'=>[
+			'title'=>'Новости',
+			'access arguments'=>['access content'],
+			'page callback'=>'content_view_cb',
+			'page arguments'=>['article'],
+			'file'=>'mkmod.callbacks.inc',
+		],
+		// получить списоки нод ..
+		'get-nodes-list'=>[
+			'type'=>MENU_CALLBACK,
+			'access arguments'=>['access content'],
+			'page callback'=>'get_nodes_list_jscb',
+			'file'=>'mkmod.callbacks.inc',
+			'delivery callback'=>'ajax_deliver',
+		],
+		// погрузка контента на страницу списка товаров ( страница раздела таксономия )
+		'get-next-content-elements'=>[
+			'access arguments'=>['access content'],
+			'page callback'=>'get_next_content_elements_jscb',
+			'delivery callback'=>'ajax_deliver',
+			'file'=>'mkmod.callbacks.inc',
+		],
+
+//--------------
 		'get-comments-list'=>array(
 			'type'=>MENU_CALLBACK,
 			'access arguments'=>array('access comments'),
 			'page callback'=>'_get_comments_list_cb',
 			'delivery callback'=>'ajax_deliver',
 		),
-		'get-next-content-elements'=>[
-			'access arguments'=>['access content'],
-			'page callback'=>'get_next_content_elements_jscb',
-			'delivery callback'=>'ajax_deliver',
-		],
+
 		'admin/config/administration/mkmod'=>array(
 			'title'=>'Админко',
 			'access arguments'=>array('admine pages'),
@@ -198,23 +248,7 @@ function mkmod_menu(){
 			'file'=>'mkmod.admin.inc',
 		),
 
-		'admin/config/administration/mkmod/tpls-editor'=>array(
-			'type'=>MENU_LOCAL_TASK,
-			'title'=>'Редактор шаблонов ',
-			'access arguments'=>array('admine pages'),
-			'page callback'=>'tpls_view_cb',
-			//'page callback'=>'drupal_get_form',
-			//'page arguments'=>array('kmodproductstabs_form'),
-			'file'=>'mkmod.admin.inc',
-		),
-		'admin/config/administration/mkmod/tpls-editor/%'=>array(
-			'title'=>'Редактирование шаблона ',
-			'access arguments'=>array('admine pages'),
-			//'page callback'=>'tpls_view_cb',
-			'page callback'=>'drupal_get_form',
-			'page arguments'=>array('tpleditor_form',5),
-			'file'=>'mkmod.admin.inc',
-		),
+		
 			
 		/// admine pages
 		'admin/config/administration/sklads'=>array(
@@ -224,31 +258,8 @@ function mkmod_menu(){
 			'page arguments'=>array('skladconfig_form'),
 			'file'=>'mkmod.admin.inc',
 		),
-		'bestsellers'=>array(
-			'title'=>'Топ продаж',
-			'access arguments'=>array('access content'),
-			'page callback'=>'_bestsellers_cb',
-		),
-		'discounts'=>array(
-			'title'=>'Акции',
-			'access arguments'=>array('access content'),
-			'page callback'=>'_akciilist_page_cb',
-			'file'=>'mkmod.callbacks.inc',
-		),
-		'discounts/view'=>array(
-			'title'=>'Просмотр',
-			'weight'=>5,
-			'type'=>MENU_DEFAULT_LOCAL_TASK,
-		),
-		'discounts/config'=>array(
-			'title'=>'Настройки',
-			'weight'=>10,
-			'type'=>MENU_LOCAL_TASK,
-			'access arguments'=>array('admine pages'),
-			'page callback'=>'drupal_get_form',
-			'page arguments'=>array('discounts_config_form'),
-			'file'=>'mkmod.admin.inc',
-		),
+		
+
 		'admin/product-finder'=>array(
 			'title'=>'Поиск товаров',
 			'access arguments'=>array('admine pages'),
@@ -274,229 +285,66 @@ function mkmod_menu(){
 	);
 }
 
-/// ====================================================
-function _getcomentcontent($mkcc){
-	global $pager_page_array;
-	$n=node_load($mkcc['nid']);
-	$pp=$mkcc['pp'];
-	$cps=empty($mkcc['cps'])?array(0):$mkcc['cps'];// текущие страницы
-	$cp=end($cps);
-
-	$res=db_select('comment','c');
-	$res->fields('c',array('cid'));
-	$res->condition('c.nid',$n->nid);
-	if (!user_access('administer comments'))
-		$res->condition('c.status',1);
-	$cids=$res->execute()->fetchCol();
-	
-	if (count($cids)>$pp && count($cps)*$pp<count($cids)){
-		pager_default_initialize(count($cids),$pp);
-		$pager_page_array[0]=$cp;
-		$tags=array($cp==1?'noshow':'1','','','',);
-		$tags[]=$cp+2==ceil(count($cids)/$pp)?'noshow':ceil(count($cids)/$pp);
-
-		$pager=theme('pager',array('tags'=>$tags,'quantity'=>3));
-		$pager=preg_replace('#<li.*?><a.*?>noshow</a></li>#i','',$pager);
-		$out['pager']=array(
-			'#type'=>'container',
-			'#attributes'=>array('class'=>array('comment-list-pager','container-inline')),
-			'nextbut'=>array(
-				'#markup'=>'<div class="next-comment-butt">Показать ещё</div>',
-			),
-			'pager'=>array('#markup'=>$pager),
-			'#weight'=>20,
-		);
-	}
-	$cidsmas=array();
-	foreach($cps as $x)
-		$cidsmas=array_merge($cidsmas,array_slice($cids, $x*$pp,$pp));
-	$out['comment-list']=comment_view_multiple(comment_load_multiple($cidsmas),$n);
-	foreach(element_children($out['comment-list']) as $x)
-  		unset($out['comment-list'][$x]['#prefix']);
-  	
-
-	return $out;
-
-}
-// =========================================================
-// собрать акции 
-function _getactionprodag(){
-	// пробуем читать из кеша 
-	$data=cache_get(__FUNCTION__);
-	if (!empty($data->data) && $data->expire>REQUEST_TIME && 0)
-		return $data->data;
-
-	
-	$res=db_select('node','n');
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	// винтим товар //  и проверяем чтобы он был акционным
-	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
-	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
-	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	$res->where(' now() between adate.field_discount_from_date_value and (adate.field_discount_from_date_value2 +  interval 1 day)');
-	// выкатываем интервал акции (с по)
-	$res->addfield('adate','field_discount_from_date_value','afrom');
-	$res->addfield('adate','field_discount_from_date_value2','ato');
-	// проверяем чтобы была старая цена
-	$res->leftjoin('field_data_field_old_price','oldp','oldp.entity_id=p.product_id and oldp.bundle=\'product\'');
-	$res->condition('oldp.field_old_price_amount',0,'>');
-	// собираем поля 
-	$res->fields('n',array('nid','title'));
-
-	$ff=array(
-		array('field_title_top','value','titletop'),
-		array('field_title_bot','value','titlebottom'),
-		array('field_pic_product','fid',''),
-	);
-	foreach($ff as $i=>$v){
-		$res->leftjoin('field_data_'.$v[0],"t$i","t$i.entity_id=n.nid and t$i.bundle=n.type and t$i.entity_type='node'");
-		if ($v[2])
-			$res->addField("t$i",$v[0].'_'.$v[1],$v[2]);
-	}
-	// добавляем ссыль на картинку товара 
-	$res->leftjoin('file_managed','fm','fm.fid=t2.field_pic_product_fid');
-	$res->fields('fm',array('uri'));
-	// дергаем старую цену 
-	$res->addField('oldp','field_old_price_amount','oldp');
-	// дёргаем новую цену 
-	$res->leftjoin('field_data_commerce_price','cp','cp.entity_id=p.product_id and cp.bundle=\'product\'');
-	$res->addField('cp','commerce_price_amount','cp');
-	// дёрнуть размерность 
-	$res->leftjoin('field_data_field_unit_measure','m','m.entity_id=p.product_id and m.bundle=\'product\'');
-	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
-	$res->addField('td','name','measure');
-	/// достать содержимое ... 
-	$res->leftjoin('field_data_field_text','ft','ft.entity_id=n.nid and ft.bundle=n.type');
-	$res->addField('ft','field_text_value','body');
-	$res->range(0,100);
-	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
-	//dsm($res,'$res');
-	cache_set(__FUNCTION__,$res,'cache',REQUEST_TIME+3600*24);
-	return $res;
-}
-// =========================================================
-// достать нужное количество хитов прожаж
-function _gethitprodag($count){
-	$cid=__FUNCTION__.$count;
-	$result=&drupal_static($cid);
-	if ($result)
-		return $result;
-	$data=cache_get($cid);
-	if (!empty($data->data) && $data->expire>=REQUEST_TIME){
-		$result=$data->data;
-		return $data->data;
-	}
-	
-	$res=db_select('node','n');
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	// исключаем метки 
-	$res->leftjoin('field_data_field_marks_products','mark','mark.entity_id=n.nid and mark.bundle=n.type');
-	$res->isNull('mark.field_marks_products_tid');
-	// надо исключить акции 
-	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
-	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
-	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	///$res->leftjoin('field_data_field_old_price','oldp','oldp.entity_id=p.product_id and oldp.bundle=\'product\'');
-	$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2 ');
-	// надо взять всетовары которые купили .. .
-	$res->leftjoin('field_data_commerce_product','cp','cp.commerce_product_product_id=p.product_id');
-	$res->leftjoin('commerce_line_item','li','li.line_item_id=cp.entity_id');
-	// примотать таблицу ордеров ..
-	$res->leftjoin('commerce_order','o','o.order_id=li.order_id');
-	$st=module_invoke('commerce_order','statuses');
-	
-	foreach($st as $x=>$y)
-		if ($y['cart'])
-			unset($st[$x]);
-	unset($st['canceled']);
-	
-	if ($st)
-		$res->condition('o.status',array_keys($st));// куленый и оплаченный 
-
-	$res->fields('n',array('nid'));
-	
-	$res->orderBy('o.created','desc');
-	$res->range(0,$count);
-	$res->groupBy('n.nid');
+/**
+ * запуск крона .. 
+ * @return [type] [description]
+ */
+function mkmod_cron()
+{
+	$res=db_select('commerce_product','c');
+	// есть старая цена 
+	$res->leftjoin('field_data_field_old_price','o','o.entity_id=c.product_id and o.bundle=c.type');
+	$res->isNotNull('o.field_old_price_amount');
+	$res->condition('o.field_old_price_amount','','!=');
+	// не в акции 
+	$res->leftjoin('field_data_field_discount_from_date','d','d.entity_id=c.product_id and d.bundle=c.type');
+	$res->where('not now() between d.field_discount_from_date_value and d.field_discount_from_date_value2');
+	$res->fields('c',array('product_id'));
 	$res=$res->execute()->fetchCol();
-	$result=$res;
-	cache_set($cid,$res,'cache',REQUEST_TIME+3600*24);
-	return $res; 
-}
-// =====================================================
-function mkmod_tokensshashreplacer($el){
-	do{
-		$a=md5($el);
-		//dsm(array($el),$a);
-		$el=token_replace($el);
-	}while($a!=md5($el));
-	//dsm(array($a,md5($el),$el));
-	return $el;
-}
-// ===========================================
-function nodetokens_replacer(&$el){
-	foreach(array('#markup','#prefix','#suffix') as $k)
-		if (is_array($el) && !empty($el[$k]))
-			$el[$k]=mkmod_tokensshashreplacer($el[$k]);
-	if (is_string($el))
-		$el=mkmod_tokensshashreplacer($el);
-	if (is_array($el))
-		foreach(element_children($el) as $k)
-			nodetokens_replacer($el[$k]);
-}
-// =======================================================
-function mkmod_preprocess_node(&$n){
+	if ($res){
+		drupal_set_message(implode($res));
+		
+		$pp=commerce_product_load_multiple($res);
+		foreach($pp as $p){
+			$op=field_get_items('commerce_product',$p,'field_old_price');
 
-	if (!empty($n['elements']['#setpagetotrue']))
-		$n['page']=true;
-	if (preg_match('#^node/(\d+)$#',current_path(),$nod) && $nod[1]==$n['nid'])
-		drupal_add_js(array('current-noda'=>$n['nid']),'setting');
-	// замена токенов 
-	if (!empty($n['content']))
-		nodetokens_replacer($n['content']);
-}
-// ============================================
-function mkmod_form_alter(&$form,&$form_state){
-	if (empty($form_state['fselector']))
-		$form_state['fselector']='form-hash-'.sha1(rand().REQUEST_TIME.rand());
-	$form['#attributes']['class'][]=$form_state['fselector'];
-	///добавоение к webform класса из админки 
-	if (!empty($form['#node']) && $form['#node']->type=='webform' && !empty($form['#node']->nid)){
-		$fd=variable_get('webforms mkmod adddons settings - '.$form['#node']->nid,array());
-		if (!empty($fd)){
-			$form['#attributes']['class'][]=$fd['csswrap'];
+			$p->commerce_price[LANGUAGE_NONE]=$op;
+			$p->field_old_price=array();
+
+			field_attach_presave('commerce_product',$p);
+			field_attach_update('commerce_product',$p);
 		}
 	}
-
-}
-// ====================================================
-// добавляем настроек для webform
-function mkmod_form_webform_configure_form_alter(&$form,$form_state){
-	$nid=$form['nid']['#value'];
-	$fd=variable_get('webforms mkmod adddons settings - '.$nid,array());
-	
-	$form['advanced']['csswrap']=array(
-		'#type'=>'textfield',
-		'#title'=>'Обёрточный класс для формы',
-		'#default_value'=>empty($fd['csswrap'])?'':$fd['csswrap'],
-	);
-	$form['#submit'][]='mkmodaddonswebformsettings_submit';
-}
-// ======================================================
-function mkmodaddonswebformsettings_submit($form,$form_state){
-	form_state_values_clean($form_state);
-	$vals=$form_state['values'];
-	///dsm($vals,'$vals');
-	$fields=array();
-	if (!empty($vals['csswrap']))
-		$fields['csswrap']=$vals['csswrap'];
-
-	variable_set('webforms mkmod adddons settings - '.$vals['nid'],$fields);
+	drupal_set_message('asda');
 }
 // =====================================================================================
-function mkmod_node_view($node, $view_mode, $langcode) {
+function mkmod_node_view($node, $view_mode, $langcode) 
+{
+
+	if ($view_mode=='full' && $node->type=='product_display'){
+		// ранее просмотренные товары ..
+		$viewed=empty($_COOKIE['prods-view'])?[]:explode(',',$_COOKIE['prods-view']);
+		$nids=[];
+		// зачистка от пустых значений .. 
+		foreach($viewed as $v)
+			if ($v && $v!=$node->nid)
+				$nids[]=$v;
+
+			$nc=15;
+		if ($nids){// формируем вывод 
+			$nn=array_chunk($nids, $nc);
+			$oldvieved=&drupal_static('old-viewed-products-list');
+			$oldvieved=$nn[0];
+		}
+
+		// добавляем новый элемент в начало ..
+		array_unshift($nids, $node->nid);
+		$nids=array_chunk($nids, $nc+5);
+		$nids=end($nids);
+		setcookie('prods-view',implode(',', $nids),REQUEST_TIME+3600*24*30);
+
+	}
+	return ;
 	if ($view_mode=='full' && $node->type=='product_display'){
 
 		// определяем какой таб показывать сейчас
@@ -585,28 +433,106 @@ function mkmod_node_view($node, $view_mode, $langcode) {
 			);
 		}
 
-		// добавляем новый элемент в начало ..
-		array_unshift($nids, $node->nid);
-		$nids=array_chunk($nids, $nc+5);
-		$nids=end($nids);
-		setcookie('prods-view',implode(',', $nids),REQUEST_TIME+3600*24*30);
+		
 
 		
 	}
 }
+
+/// ====================================================
+function _getcomentcontent($mkcc){
+	global $pager_page_array;
+	$n=node_load($mkcc['nid']);
+	$pp=$mkcc['pp'];
+	$cps=empty($mkcc['cps'])?array(0):$mkcc['cps'];// текущие страницы
+	$cp=end($cps);
+
+	$res=db_select('comment','c');
+	$res->fields('c',array('cid'));
+	$res->condition('c.nid',$n->nid);
+	if (!user_access('administer comments'))
+		$res->condition('c.status',1);
+	$cids=$res->execute()->fetchCol();
+	
+	if (count($cids)>$pp && count($cps)*$pp<count($cids)){
+		pager_default_initialize(count($cids),$pp);
+		$pager_page_array[0]=$cp;
+		$tags=array($cp==1?'noshow':'1','','','',);
+		$tags[]=$cp+2==ceil(count($cids)/$pp)?'noshow':ceil(count($cids)/$pp);
+
+		$pager=theme('pager',array('tags'=>$tags,'quantity'=>3));
+		$pager=preg_replace('#<li.*?><a.*?>noshow</a></li>#i','',$pager);
+		$out['pager']=array(
+			'#type'=>'container',
+			'#attributes'=>array('class'=>array('comment-list-pager','container-inline')),
+			'nextbut'=>array(
+				'#markup'=>'<div class="next-comment-butt">Показать ещё</div>',
+			),
+			'pager'=>array('#markup'=>$pager),
+			'#weight'=>20,
+		);
+	}
+	$cidsmas=array();
+	foreach($cps as $x)
+		$cidsmas=array_merge($cidsmas,array_slice($cids, $x*$pp,$pp));
+	$out['comment-list']=comment_view_multiple(comment_load_multiple($cidsmas),$n);
+	foreach(element_children($out['comment-list']) as $x)
+  		unset($out['comment-list'][$x]['#prefix']);
+  	
+
+	return $out;
+
+}
+
+// =====================================================
+
+
+// ============================================
+function mkmod_form_alter(&$form,&$form_state){
+	if (empty($form_state['fselector']))
+		$form_state['fselector']='form-hash-'.sha1(rand().REQUEST_TIME.rand());
+	$form['#attributes']['class'][]=$form_state['fselector'];
+	///добавоение к webform класса из админки 
+	if (!empty($form['#node']) && $form['#node']->type=='webform' && !empty($form['#node']->nid)){
+		$fd=variable_get('webforms mkmod adddons settings - '.$form['#node']->nid,array());
+		if (!empty($fd)){
+			$form['#attributes']['class'][]=$fd['csswrap'];
+		}
+	}
+
+}
+// ====================================================
+// добавляем настроек для webform
+function mkmod_form_webform_configure_form_alter(&$form,$form_state){
+	$nid=$form['nid']['#value'];
+	$fd=variable_get('webforms mkmod adddons settings - '.$nid,array());
+	
+	$form['advanced']['csswrap']=array(
+		'#type'=>'textfield',
+		'#title'=>'Обёрточный класс для формы',
+		'#default_value'=>empty($fd['csswrap'])?'':$fd['csswrap'],
+	);
+	$form['#submit'][]='mkmodaddonswebformsettings_submit';
+}
+// ======================================================
+function mkmodaddonswebformsettings_submit($form,$form_state){
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	///dsm($vals,'$vals');
+	$fields=array();
+	if (!empty($vals['csswrap']))
+		$fields['csswrap']=$vals['csswrap'];
+
+	variable_set('webforms mkmod adddons settings - '.$vals['nid'],$fields);
+}
+
 
 // =====================================================
 // чистим таблицу кеша форм
 function mkmod_flush_caches(){
 	return array('cache_form');
 }
-// ========================================================
-// передаём в обёртку коментов число коментов на страницу
-function mkmod_preprocess_comment_wrapper(&$vars){
-	$fd=variable_get('mkmodadmin_form',array());
-	if(!empty($fd['otsivs-count']))
-		$vars['cc']=$fd['otsivs-count'];
-}
+
 // ===================================================
 function mkmod_form_comment_node_product_display_form_alter(&$form,&$form_state){
 	$form['actions']['submit']['#ajax']=array(
@@ -657,16 +583,7 @@ function mkmodonsivajax_jscb($form,$form_state){
 	// 
 	return array('#type'=>'ajax','#commands'=>$cmd);
 }
-// ===================================================
-function mkmod_preprocess_link(&$vars){
 
-	// нужно подгрузить аякс команды .. 
-	if (!empty($vars['options']['attributes']['data-show-node-in-popup']) && stripos(current_path(), 'admin')!==0){
-		drupal_add_library('mkmod','myajaxcommands');
-		$vars['options']['attributes']['class'][]='node-popup';
-	}
-		
-}
 // ========================================================
 function mkmod_form_menu_edit_item_alter(&$form,$form_state){
 	array_unshift($form['#submit'],'mkmodmenuitemsavedata_sb');
@@ -764,4 +681,54 @@ function mkmod_metatag_metatags_view_alter(&$output, $inst, $opt){
 		
 	}
 }
+
+
+/**
+ * расширяем форму редактирования таксономии 
+ */
+function mkmod_form_taxonomy_form_term_alter(&$form,&$form_state)
+{
+	//$form['vis']=[
+	//	'#type'=>'checkbox',
+	//	'#title'=>'Видимый?',
+
+	//];
+	$vis=0;
+	// делаем запрос на получение значения 
+	if ($form['#entity']->tid){
+		$res=db_select('taxonomy_term_data','t');
+		$res->condition('t.tid',$form['#entity']->tid);
+		$res->fields('t',['vis']);
+		$res=$res->execute();
+		$res=$res->fetch(PDO::FETCH_ASSOC);
+		$vis=$res['vis'];
+		$form['#submit'][]='vis_taxa_submit_cb';
+		//dsm($form);
+	}
+
+	$form['visible']=[
+		'#type'=>'checkbox',
+		'#title'=>'Отображение раздела',
+		'#default_value'=>$vis,
+	];
+	//dsm($form['#entity']->tid,'dsad');
+}
+
+/**
+ * отправка формы . 
+ */
+function vis_taxa_submit_cb($form,$form_state)
+{
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	if (empty($vals['tid']))
+		return ;
+
+	// обновление видимости .. 
+	$res=db_update('taxonomy_term_data');
+	$res->fields(['vis'=>$form_state['values']['visible']]);
+	$res->condition('tid',$vals['tid']);
+	$res->execute();
+}
+
 

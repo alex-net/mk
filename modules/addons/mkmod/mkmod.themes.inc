@@ -2,8 +2,36 @@
 // ====================================================
 function mkmod_theme(){
 	return array(
-		'skladmapballoon'=>array(
-			'variables'=>array(
+		// темизация страницы каталога .. 
+		'catalogpage'=>[
+			'render element'=>'terms',
+			'template'=>'catalogpage',
+		],
+		// список цен .. в карточке товара .. по номерам товара .. 
+		'price_list'=>[
+			'variables'=>['pids'=>[]],
+			//'render element'=>'list',
+			'template'=>'price-list',
+			'preprocess functions'=>['price_list_prefunc'],
+		],
+
+		// темизация блока корзины в шапке . 
+		'site_cart_head'=>[
+			'variables'=>[],
+			'template'=>'site-cart-head',
+			'preprocess functions'=>['site_cart_head_prefunc'],
+		],
+		// всплывашка товара .. после добавления его в корзину 
+		'product_in_popup'=>[
+			'variables'=>[
+				'nodeview'=>[],// массив ноды товара который был добавлен в корзину ..
+				'nacenka'=>'',// текст наценки .. 
+			],
+			'template'=>'product-in-popup',
+		],
+		// стилизация балона на карте яндекса .. 
+		'skladmapballoon'=>[
+			'variables'=>[
 				'title'=>'Заголовок склада',
 				'subname'=>'',// текст под заголовкам
 				'timepn'=>'',// время работы понедельник пятница
@@ -11,29 +39,34 @@ function mkmod_theme(){
 				'descr'=>'', // доп инфа 
 				'addres'=>'',//адрес
 				'tel'=>'',// телефон 
-			),
+			],
 			'template'=>'skladmapballoon',
-		),
+		],
+
+		// большой слайдер с акциями ...(единичка)
+		'sliderbigel'=>[
+			'variables'=>[
+				'data'=>[],
+			],
+			'template'=>'sliderbigel',
+		],
+
+		/*// мелкий слайдер на главной ( по 3 штуки ) сидит под большим и управляет большим . 		
+		'slidersmalel'=>array(
+			'variables'=>array(
+				'data'=>array(),
+			),
+			'template'=>'slidersmalel',
+		),*/
+
 		'topprodaglist'=>array(
 			'render element'=>'list',
 			'template'=>'topprodaglist',
 			'preprocess functions'=>array('topprodaglist_prefunc'),
 			'file'=>'mkmod.themes.inc',
 		),
-		// большой слайдер с акциями ...(единичка)
-		'sliderbigel'=>array(
-			'variables'=>array(
-				'data'=>array(),
-			),
-			'template'=>'sliderbigel',
-		),
-		// мелкий слайдер на главной ( по 3 штуки ) сидит под большим и управляет большим . 		
-		'slidersmalel'=>array(
-			'variables'=>array(
-				'data'=>array(),
-			),
-			'template'=>'slidersmalel',
-		),
+		
+		
 		// слайдер акций .  в сайтбаре
 		'slidersidebarel'=>array(
 			'variables'=>array(
@@ -86,6 +119,43 @@ function theme_ppswitcher($vars){
 		),
 	));
 }
+
+/**
+ * препроцесс генерации списка цен для витрины .. 
+ */
+function price_list_prefunc(&$vars)
+{
+	$vars['classes_array']=$vars['attributes_array']=$vars['title_attributes_array']=$vars['content_attributes_array']=[];
+	$vars['prices']=[];
+	if (empty($vars['pids']))
+		return ;
+
+	$vars['prices']=getDataForProductList($vars['pids']);
+
+}
+
+/**
+ * препроцесс для функции темизации корзины в шапке сайта .. 
+ */
+function site_cart_head_prefunc(&$vars)
+{
+	global $user;
+	$vars['classes_array']=$vars['attributes_array']=$vars['title_attributes_array']=$vars['content_attributes_array']=[];
+		// данные по корзине .. 
+	$vars['ccart']=[];
+	if ($order = commerce_cart_order_load($user->uid)) {
+		$wrapper = entity_metadata_wrapper('commerce_order', $order);
+		// количество в корзине ..
+		$vars['ccart']['count']=commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types());
+		if ($vars['ccart']['count']){
+			$vars['ccart']['sum']=field_get_items('commerce_order',$order,'commerce_order_total');
+			$vars['ccart']['sum']=number_format($vars['ccart']['sum'][0]['amount']/100,0,'.',' ');
+		}
+		else 
+			$vars['ccart']=[];
+	}
+}
+
 // ======================================================
 function topprodaglist_prefunc(&$vars){
 	//dsm($vars['list']);

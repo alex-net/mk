@@ -1,0 +1,54 @@
+<?php 
+
+/**
+ * объявление доступных библиотек
+ */
+function mklibs_library()
+{
+	$p=drupal_get_path('module','mklibs');
+	return [
+		'slick'=>[
+			'version'=>'v1.8.1',
+			'title'=>'Slick Slider',
+			'js'=>[
+				['type'=>'file','data'=>$p.'/node_modules/slick-carousel/slick/slick.min.js']
+			],
+			'css'=>[
+				['type'=>'file','data'=>$p.'/node_modules/slick-carousel/slick/slick.css'],
+				['type'=>'file','data'=>$p.'/node_modules/slick-carousel/slick/slick-theme.css'],
+			],
+			// dependencies=>[],
+		],
+		'fancybox'=>[
+			'version'=>'3.0.1',
+			'title'=>'FancyBox',
+			'js'=>[
+				['type'=>'file','data'=>$p.'/node_modules/fancybox/dist/js/jquery.fancybox.pack.js'],
+			],
+			'css'=>[
+				['type'=>'file','data'=>$p.'/node_modules/fancybox/dist/css/jquery.fancybox.css'],
+			],
+		],
+		'inputmask'=>[
+			'version'=>'4',
+			'title'=>'Inputmask',
+			'js'=>[
+				['type'=>'file','data'=>$p.'/node_modules/inputmask/dist/min/jquery.inputmask.bundle.min.js'],
+			],
+		],
+		'animate'=>[
+			'version'=>'3.7.2',
+			'title'=>'Animate.css',
+			'css'=>[
+				['type'=>'file','data'=>$p.'/node_modules/animate.css/animate.min.css'],
+			],
+		],
+		'contentuploader'=>[
+			'version'=>'1.0.0',
+			'title'=>'Content Uploader',
+			'js'=>[
+				['type'=>'file','data'=>$p.'/pager-uploader.js'],
+			],
+		],
+	];
+}

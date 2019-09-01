@@ -8,6 +8,7 @@ function mksearch_menu(){
 			'type'=>MENU_CALLBACK,
 			'access arguments'=>array('search content'),
 			'page callback'=>'vitrfinder_cb',
+			'file'=>'mksearch.callbacks.inc',
 		),
 		// подгрузка результатов .. 
 		'get-next-page-search'=>array(
@@ -15,14 +16,27 @@ function mksearch_menu(){
 			'access arguments'=>array('search content'),
 			'page callback'=>'GetNextpageSearch_jscb',
 			'delivery callback'=>'ajax_deliver',
+			'file'=>'mksearch.callbacks.inc',
 		),
 	);
 }
-// ==================================
-// получить данные по поиску 
-function _getproductslist($ss,$cp=0,$pp=8){
 
-	$res=db_select('node','n');
+
+// ==================================
+/**
+ * получить данные по поиску
+ * @param string   $ss Стока поиска .. (поисковый запрос)
+ * @param  integer $ce количество элементов на странице
+ * @return array      список найденных нод 
+ */
+function _getproductslist(string $ss,int $ce=0)
+{
+
+	$pp=variable_get('default_nodes_main',10);
+
+	$res=db_select('node','n');//
+	if (!$ce)// нужен пагинатор ..
+		$res=$res->extend('PagerDefault');
 	drupal_add_js(array('search-string'=>$ss),'setting');
 	//$res=$res->extend('PagerDefault');
 	$res->condition('n.status',1);
@@ -50,76 +64,32 @@ function _getproductslist($ss,$cp=0,$pp=8){
 	//dfb(intval($ss),'$ss');
 	//$res->orderBy('cp.product_id='.intval($ss),'desc');
 	// поиск по заголовку витрины должен быть первым 
-	$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
+	//$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
 	// обычный приск по части фразы 
 	//$res->orderBy('i.score','desc');
 
 	$res->groupBy('n.nid');
-	if ($cp>=0)
-		$res->range($cp*$pp,$pp);
+	// показываем первую страницу с пагинатором .. 
+	if (!$ce)// нужен пагинатор 
+		$res->limit($pp);
+	else
+		$res->range($ce,$pp);
 
 
 	$res->fields('n',array('nid'));
 	//$res->addExpression('count(*)');
 	$res=$res->execute()->fetchCol();
 	//dsm($res);
-	
 	return $res; 
 }
-// ====================================
-function GetNextpageSearch_jscb(){
-	$cmd=array();
-	$post=$_POST;
-	//dsm($post,'spost');
-	//dfb($post,'$post');
-	//dsm($post);
-	$out=array();
-	$pp=_getproductslist($post['ss'],$post['cp'],$post['pp']);
-	if ($pp)
-		$out=node_view_multiple(node_load_multiple($pp));
-	$cmd[]=array(
-		'command'=>'update-prod-list',
-		'content'=>render($out),
-		'loaded'=>count($pp),
-		'pp'=>$post['pp'],
-		'cp'=>$post['cp']+1,
-	);
-	//dsm(arg(5,$url['path']),'url');
-	return array('#type'=>'ajax','#commands'=>$cmd);
-}
-// ===================================
-// автокомплит для форм поиска 
-function vitrfinder_cb(){
-	$params=drupal_get_query_parameters();
-	if (empty($params['query'])){
-		drupal_json_output(array());
-		return ;
-	}
-	$limit=5;
-	if (!empty($params['limit']))
-		$limit=$params['limit'];
-	$res=db_select('node','n');
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	$res->condition('n.title','%'.db_like($params['query']).'%','like');
-	$res->fields('n',array('title'));
-	$res->range(0,$limit);
-	$res->orderBy('n.title','asc');
-	$res=$res->execute()->fetchCol();
-	$out=array();
-	foreach($res as $v)
-		$out[]=array('value'=>$v,'label'=>preg_replace('#('.addslashes($params['query']).')#iu', '<strong>$1</strong>', $v));
-	drupal_json_output($out);
-	//$res=array_combine($res, $res);
-	
 
-}
 /// ===================================
-function mksearch_search_info(){
-	return array(
+function mksearch_search_info()
+{
+	return [
 		'title'=>'Товары',
 		'path'=>'products',
-	);
+	];
 }
 // ===========================================
 function mksearch_search_status(){
@@ -168,31 +138,69 @@ function mksearch_update_index(){
 }
 // =======================================================
 // поиск ... 
-function mksearch_search_execute($keys=null,$conditions=null){
-	$res=_getproductslist($keys,-1);
+function mksearch_search_execute($keys=null,$conditions=null)
+{
+	global $pager_total_items;
+	$res=_getproductslist($keys);
+	$ss=&drupal_static('search-query');
+	$ss=$keys;
 	
-	if (count($res)==1)
-		drupal_goto('node/'.reset($res));
-	$out=array();
-	/*foreach($res as $x=>$y)
-		$res[$x]['link']='node/'.$y['nid'];*/
-		$res=count($res);
-	if ($res)
-		$out['count']=$res;
+	switch($pager_total_items[0]){
+		case 0:
+			return [];
+		// в случае если нашли один товар . сраз переход на него ..
+		case 1:
+			drupal_goto('node/'.reset($res));
+	}
+	
+	// все остальные случаи  .. 
+	$nn=node_view_multiple(node_load_multiple($res));
+	$nn=$nn['nodes'];
 
-	return $out;
+	foreach($res as $x=>$y)
+		$res[$x]=[
+			'link'=>'node/'.$y,
+			'nid'=>$y,
+			'title'=>$y,
+			'res'=>$nn[$y],
+		];
+	
+	
+	//$res=node_view_multiple(node_load_multiple($res));
+	// /dsm($res,'$res load');
+	return  $res;// //;
 }
 // ======================================================
-function mksearch_preprocess_search_results(&$vars){
+function mksearch_preprocess_search_results(&$vars)
+{
+	global $pager_total_items,$pager_page_array,$pager_total;
 
-	if ($vars['module']=='mksearch' && isset($vars['results']['count']) &&  $vars['results']['count']>0 ){
-		
-		$vars['search_results']=theme('searchresultinfo',array('rc'=>$vars['results']['count'])).'<div class="product-placer"><div class="product-list  page-taxonomy-term"></div><div class="product-more" data-perpage="8"></div></div>';//render($n);
-		drupal_add_js(drupal_get_path('module','mksearch').'/searh-uploader.js');
+
+	$vars['lotalloaded']=$pager_total_items[0]??0;
+	$vars['perpage']=variable_get('default_nodes_main',10);
+	$pparams=drupal_get_query_parameters();
+	$vars['placebutton']=$pager_total[0]-1>$pager_page_array[0];
+
+	if ($vars['placebutton']){
+		drupal_add_library('mklibs','contentuploader');
+		drupal_add_js([
+			'pageruploader'=>[
+				'loadfrom'=>url('get-next-page-search'),
+				'data'=>[
+					'curpage'=>$pparams['page']??0,
+					'total'=>$pager_total_items[0],
+					'perpage'=>variable_get('default_nodes_main',10),
+					'ss'=>drupal_static('search-query'),
+				],
+			]
+		],'setting');
 	}
+	
 }
 // ===================================================
 function mksearch_form_alter(&$form,$form_state,$form_id){
+
+	return;
 	if ($form_id=='search_form'){
 		$form['basic']['keys']['#attributes']['data-countel']=15;
 		$form['basic']['keys']['#attributes']['class'][]='autocompleter-todo';

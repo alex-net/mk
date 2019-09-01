@@ -1,4 +1,120 @@
 <?php 
+/**
+ * Форома настройки текстов акций   
+ */
+function discounts_config_form()
+{
+	$fd=variable_get('discounts config',array());
+	$form=array(
+		'actions'=>array(
+			'#type'=>'actions',
+			'submit'=>array(
+				'#type'=>'submit',
+				'#value'=>'Сохранить',
+			),
+		),
+		'block-top-mess'=>array(
+			'#type'=>'textfield',
+			'#default_value'=>empty($fd['block-top-mess'])?'':$fd['block-top-mess'],
+			'#title'=>'Надпись в блоке акций',
+		),
+		'mess-on-page-exist'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Надпись на странице акций (акции есть)',
+			'#default_value'=>empty($fd['mess-on-page-exist'])?'':$fd['mess-on-page-exist'],
+		),
+		'mess-on-page-void'=>array(
+			'#type'=>'textfield',
+			'#title'=>'Надпись на странице акций (акций нет)',
+			'#default_value'=>empty($fd['mess-on-page-void'])?'':$fd['mess-on-page-void'],
+		),
+	);
+	return $form;
+}
+/**
+ * обработчик отправки данных от  формы настройки дисконта . 
+ */
+function discounts_config_form_submit($form,$form_state){
+	form_state_values_clean($form_state);
+	variable_set('discounts config',$form_state['values']);
+	drupal_set_message('Настройки сохранены');
+}
+// ====================================
+/**
+ * просмотр шаблонов .. доступных для всплывания . через popup 
+ */
+function tpls_view_cb()
+{
+	// заранее определённый список шаблонов .. 
+	$tpllist=[
+		'uslovia-of-kredit-for-pokupatel'=>'Условия кредитования для покупателей'
+	];
+	$links=[];
+	foreach($tpllist as $x=>$y){
+		$links[]=[
+			'title'=>$y,
+			'href'=>'admin/config/administration/mkmod/tpls-editor/'.$x,
+		];
+	}
+	$out=[
+		'mark'=>[
+			'#markup'=>'<h1>Список шаблонов, для редактирования</h1>',
+		],
+		'links'=>[
+			'#theme'=>'links',
+			'#links'=>$links,
+		],
+	];
+
+	return $out;
+}
+
+/**
+ * Форма рдактироания одного шаблона которым можно всплыть 
+ */
+function tpleditor_form($form,$form_state,$tplname)
+{
+	$form=[
+		'text'=>[
+			'#title'=>'Шаблон',
+			'#type'=>'text_format',
+			'#format'=>'full_html',
+			'#base_type'=>'textarea',
+			'#default_value'=>variable_get('tpls--'.$tplname,''),
+			'#rows'=>15,
+			'#required'=>true,
+		],
+		'tplname'=>[
+			'#type'=>'value',
+			'#value'=>$tplname,
+		],
+		'actions'=>[
+			'#type'=>'actions',
+			'submit'=>[
+				'#type'=>'submit',
+				'#value'=>'Сохранить',
+			],
+		],
+	];
+	return $form;
+}
+// --------------------------------
+/**
+ * сохранение редактируемого шаблона . .
+ */
+function tpleditor_form_submit($form,&$form_state)
+{
+	form_state_values_clean($form_state);
+	$fs=$form_state['values'];
+	variable_set('tpls--'.$fs['tplname'],$fs['text']['value']);
+	drupal_set_message('Шаблон сохранён');
+	$form_state['redirect']='admin/config/administration/mkmod/tpls-editor';	
+}
+
+
+//=======================================
+
+
 function mkmodadmin_form(){
 	$fd=variable_get(__FUNCTION__,array());
 	return array(
@@ -212,84 +328,5 @@ function mkmod_otzivs_form_submit($form,$form_state){
 	drupal_set_message('Выполнено');
 	//dsm($ot);
 }
-// =============================================================================
-// Настройка текстов акций 
-function discounts_config_form(){
-	$fd=variable_get('discounts config',array());
-	$form=array(
-		'actions'=>array(
-			'#type'=>'actions',
-			'submit'=>array(
-				'#type'=>'submit',
-				'#value'=>'Сохранить',
-			),
-		),
-		'block-top-mess'=>array(
-			'#type'=>'textfield',
-			'#default_value'=>empty($fd['block-top-mess'])?'':$fd['block-top-mess'],
-			'#title'=>'Надпись в блоке акций',
-		),
-		'mess-on-page-exist'=>array(
-			'#type'=>'textfield',
-			'#title'=>'Надпись на странице акций (акции есть)',
-			'#default_value'=>empty($fd['mess-on-page-exist'])?'':$fd['mess-on-page-exist'],
-		),
-		'mess-on-page-void'=>array(
-			'#type'=>'textfield',
-			'#title'=>'Надпись на странице акций (акций нет)',
-			'#default_value'=>empty($fd['mess-on-page-void'])?'':$fd['mess-on-page-void'],
-		),
-	);
-	return $form;
-}
-// ===============================================
-function discounts_config_form_submit($form,$form_state){
-	form_state_values_clean($form_state);
-	variable_set('discounts config',$form_state['values']);
-	drupal_set_message('Настройки сохранены');
-
-}
 
 
-// =============================================================
-// рдактироание одного шаблона 
-function tpleditor_form($form,$form_state,$tplname)
-{
-	$form=[
-		'text'=>[
-			'#title'=>'Шаблон',
-			'#type'=>'text_format',
-			'#format'=>'full_html',
-			'#base_type'=>'textarea',
-			'#default_value'=>variable_get('tpls--'.$tplname,''),
-			'#rows'=>15,
-			'#required'=>true,
-		],
-		'tplname'=>[
-			'#type'=>'value',
-			'#value'=>$tplname,
-		],
-		'actions'=>[
-			'#type'=>'actions',
-			'submit'=>[
-				'#type'=>'submit',
-				'#value'=>'Сохранить',
-			],
-		],
-	];
-	
-	
-	return $form;
-}
-// --------------------------------
-/// сохраняем... 
-function tpleditor_form_submit($form,&$form_state)
-{
-	form_state_values_clean($form_state);
-	$fs=$form_state['values'];
-	variable_set('tpls--'.$fs['tplname'],$fs['text']['value']);
-	drupal_set_message('Шаблон сохранён');
-	$form_state['redirect']='admin/config/administration/mkmod/tpls-editor';
-	
-}
-?>

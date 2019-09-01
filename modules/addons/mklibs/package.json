@@ -1,0 +1,19 @@
+{
+  "name": "mklibs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.7.2",
+    "fancybox": "^3.0.1",
+    "inputmask": "^4.0.8",
+    "jquery": "^3.4.1",
+    "slick-carousel": "^1.8.1"
+  }
+}

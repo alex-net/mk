@@ -3,9 +3,11 @@
 	
 	Drupal.behaviors['searh-uploader']={
 		attach:function(c,s){
-			var el=$('.product-placer .product-more');
+			var el=$('.load-more-contents input');
 
 			el.once(function(){
+				
+				/*
 				$(window).on('scroll resize',function(){
 					var pos=el.offset().top;
 		
@@ -33,7 +35,7 @@
 					}
 
 				});
-
+*/
 
 			});
 			$('body').once(function(){

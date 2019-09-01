@@ -1,2 +1,4 @@
-name = MKMod
+name = MK Mod
 core = 7.x
+package = MK
+dependencies[] = mklibs

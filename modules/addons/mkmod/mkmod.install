@@ -62,4 +62,15 @@ function mkmod_update_7000(){
 	db_create_table('url_aliases_binding',$sh);
 	return 'таблица добавлена';
 }
-?>
+
+/** добавление поля видимости в таксономию .. */
+function mkmod_update_7001(){
+	db_add_field('taxonomy_term_data','vis',[
+		'type'=>'int',
+		'size'=>'tiny',
+		'default'=>1,
+		'description'=>'Просмотр на сайте',
+		'not null'=>true,
+	]);
+	return 'Поле vis добавлено в таксономию';
+}

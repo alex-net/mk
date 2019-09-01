@@ -2,9 +2,30 @@
 	Drupal.behaviors.detectnewprice={
 		attach:function(c,s){
 			$('.mk-form-add-to-cart input[name="qty"]').once(function(){
+				// источник данных 
+				var sourcedatael=$(this);
+				// элемент обёртки 
+				var wrap=$(this).parents('.qty-wrapp').eq(0);
+				// элемент вывода .. 
+				var put=wrap.find('.real-cost');
+				// рулим кооличеством через кнопки 
+				wrap.find('.arrow').on('click',function(){
+					var val=sourcedatael.val();
+					if (val.match(/\D+/))
+						return ;
+					val=parseInt(val);
+					if ($(this).hasClass('right-btn'))
+						val++;
+					if ($(this).hasClass('left-btn'))
+						val--;
+					if (val<1)
+						return ;
+					sourcedatael.val(val).trigger('keyup');
+				});
+				// отслеживание ввода текста в input
 				$(this).on('keyup',function(){
 					val=$(this).val();
-					var put=$(this).parents('.qty-wrapp').find('.real-cost');
+					
 					if (val.match(/\D+/)){
 						put.html('Ошибка!');
 						return;
@@ -12,7 +33,6 @@
 					val=parseInt(val);
 					var data=$(this).parents('form').find('input[name="form_id"]').val();
 					data=Drupal.settings.qtdata[data];
-
 					//console.log(data);
 					for(i=0;i<data.length;i++)
 						if ((typeof data[i]['from'] !='undefined' && parseInt(data[i]['from'])<=val || typeof data[i]['from'] =='undefined' ) && 

@@ -50,6 +50,16 @@ function mkmod_block_list_alter(&$blocks){
 
 function mkmod_block_info(){
 	return array(
+		'top-sales'=>[
+			'info'=>'Топ Продаж',
+		],
+		'news-list'=>[
+			'info'=>'Новости',
+		],
+		'articles-list'=>[
+			'info'=>'Статьи',
+		],
+
 		'hit-prodag'=>array(
 			'info'=>'Хит продаж',
 		),
@@ -99,8 +109,45 @@ function mkmod_block_view($delta=''){
 	$b=array();
 	$fd=variable_get('mkmod blocks '.$delta,array());
 	switch($delta){
+		// топ продаж 
+		case 'top-sales':
+			$hitnids=getTopSalesNids(4);
+			if ($hitnids)
+				$b['content']=node_view_multiple( node_load_multiple($hitnids));
+			
+
+			//dsm($hitnids);
+			//$b['content']='dsa';
+			break;
+		// список новостей ..
+		case 'news-list':
+			$res=db_select('node','n');
+			$res->range(0,3);
+			$res->condition('n.type','new');
+			$res->condition('n.status',1);
+			$res->fields('n',['nid']);
+			$res->orderBy('n.created','desc');
+			$res=$res->execute()->fetchCol();
+			if (!$res)
+				break;
+			$b['content']=node_view_multiple(node_load_multiple($res),'inpopup');
+			break;
+		// статьи .. на главной .. 	
+		case 'articles-list':
+			$res=db_select('node','n');
+			$res->range(0,20);
+			$res->condition('n.type','article');
+			$res->condition('n.status',1);
+			$res->fields('n',['nid']);
+			$res->orderBy('n.created','desc');
+			$res=$res->execute()->fetchCol();
+			if (!$res)
+				break;
+			$b['content']=node_view_multiple(node_load_multiple($res),'inpopup');
+			break;
+
 		case 'hit-prodag':
-			$nids=_gethitprodag(4);
+			$nids=getTopSalesNids(4);
 			if ($nids)
 				$b['content']=theme('topprodaglist',array(
 					'list'=>$nids,
@@ -127,39 +174,66 @@ function mkmod_block_view($delta=''){
 		// блок слайдеров 
 		case 'akcii-slider-big':
 			// Достать акционные товары
-			$els=_getactionprodag();
+			$els=getActionProdag();
+			//dsm($els);
 			
 			if ($els){
 				foreach($els as $x=>$y){
 					$els[$x]['img']=image_style_url('350x170',$y['uri']);
 					$els[$x]['url']=url('node/'.$x);
-					$els[$x]['oldp']=commerce_currency_format($y['oldp'],null);
-					$els[$x]['cp']=commerce_currency_format($y['cp'],null);
+					$els[$x]['oldp']=number_format($y['oldp']/100,0,',',' '); //commerce_currency_format($y['oldp'],null);
+					$els[$x]['cp']= number_format($y['cp']/100,0,',',' '); //commerce_currency_format($y['cp'],null);
 					$els[$x]['measure']=drupal_strtolower($y['measure']);
-					$els[$x]['body']=drupal_substr(strip_tags($els[$x]['body']),0,150);
+					$s=strip_tags($els[$x]['body']);
+					$els[$x]['body']=drupal_strlen($s)>150?drupal_substr($s,0,150).'...':$s;
+					$els[$x]['classe']='akcia-'.rand(1,2);
+					$els[$x]['type']='akcia';
 				}
+			}
+			// запрос новостей .. 
+			$res=db_select('node','n');
+			$res->range(0,3);
+			$res->condition('n.type','new');
+			$res->condition('n.status',1);
+			$res->orderby('n.created','sesc');
+			$res->fields('n',['nid','title']);
+			$res->leftJoin('field_data_body','b','b.entity_id=n.nid and b.bundle=n.type');
+			$res->fields('b',['body_value']);
+			$res=$res->execute();
+			$res=$res->fetchAll(PDO::FETCH_ASSOC);
+			foreach($res as $x=>$y){
+				$s=strip_tags($y['body_value']);
+				$els[]=[
+					'type'=>'news',
+					'classe'=>'news-'.rand(1,2),
+					'body'=>drupal_strlen($s)>150?drupal_substr($s,0,150).'...':$s,
+					'titletop'=>$y['title'],
+					'titlebottom'=>'',
+					'url'=>url('node/'.$y['nid']),
+				];
+			}
 
 				//dsm($els);
 				$b['content']=array(
 					'slid-first'=>array(
 						'#theme'=>'sliderbigel',
 						'#data'=>$els,
-						'#prefix'=>'<div class="slider-main-big">',
-						'#suffix'=>'</div>',
+						//'#prefix'=>'<div class="slider-main-big">',
+						//'#suffix'=>'</div>',
 					),
-					'slid-second'=>array(
+					/*'slid-second'=>array(
 						'#theme'=>'slidersmalel',
 						'#data'=>$els,
 						'#prefix'=>'<div class="slider-main-small clearfix">',
 						'#suffix'=>'</div>',
-					),
+					),*/
 					'#attached'=>array(
 						'js'=>array(
 							array('data'=>array('accii-slider-speed'=>empty($fd['timeslide'])|| !is_numeric($fd['timeslide']) ?3:intval($fd['timeslide'])),'type'=>'setting'),
 						),
 					),
 				);
-			}
+			
 		break;
 		case 'akcii-slider-block':
 			$els=_getactionprodag();
@@ -245,4 +319,3 @@ function mkmod_block_view($delta=''){
 
 	return $b;
 }
-?>

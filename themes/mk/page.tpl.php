@@ -82,10 +82,11 @@
 <div class="full_width container_wrap">
 	<div class="container-fluid">
 		<div class="row">
-			<aside class="col-lg-8 for_catalog_menu sidebar">
+		<?php /* 	<aside class="col-lg-8 for_catalog_menu sidebar">
 				<?php print render($page['sidebar']); ?>
 			</aside>
-			<div id="main_content" class="col-lg-28">
+		*/	?>
+			<div id="main_content" class="col-lg-36">
 				<?php print $messages; ?>
 				<?php //kprint_r(get_defined_vars());?>
 				<div class="row">

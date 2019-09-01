@@ -1,66 +1,302 @@
 <?php 
-// быстрый заказ
-function mkm_quickzakaz_form($form,$form_state,$params=array()){
-	$form=array(
-		'actions'=>array(
+
+function mkmod_forms($form_id,$args){
+	$forms=[];
+	if (preg_match('#^mkmodformaddtocart_((?:\d+_)+)form$#i', $form_id,$pids))
+		$forms[$form_id]=['callback'=>'formaddtocart_form',];
+	
+	return $forms;
+}
+//=================================================================
+/**
+ * форма добавления в корзину .. 
+ * @param  array $dd          данные по товара .. + другие настройки 
+ * @param  int $nid         номе рноды витрины 
+ */
+function formaddtocart_form($form,&$form_state,$dd,int $nid){
+	//dsm($dd);
+	unset($form_state['input']);
+	
+	$ddasarray=$dd;
+	unset($ddasarray['#settings']);
+	$form_state['fselector']=$form_state['fselector']??user_password();
+
+	//dsm($dd,'$dd');
+	$form=[
+		'#attributes'=>[
+			'class'=>['mk-form-add-to-cart','mk-form-add-cart-'.$form_state['fselector']],
+		],
+		'#attached'=>[
+			'js'=>[
+				['data'=>drupal_get_path('module','mkmod').'/mkmod-formaddtocart.js','type'=>'file'],
+				['data'=>['qtdata'=>[$form_state['build_info']['form_id']=>$ddasarray,]],'type'=>'setting'],
+			],
+		],
+		'productdata'=>[
+			'#type'=>'value',
+			'#value'=>$dd,
+		],
+		'fromnid'=>[
+			'#type'=>'value',
+			'#value'=>$nid,
+		],
+		'actions'=>[
 			'#type'=>'actions',
-			'submit'=>array(
+			'submit'=>[
+				'#type'=>'submit',
+				'#value'=>'Купить',
+				'#ajax'=>[
+					'callback'=>'formaddtocart_form_jscb',
+					'progress'=>[],
+				],
+			],
+		],
+		'qty-wrap'=>[
+			'#type'=>'container',
+			'#attributes'=>[
+				'class'=>['qty-wrapp','container-inline'],
+			],
+			'qty'=>[
+				'#type'=>'textfield',
+				'#default_value'=>1,
+				'#required'=>true,
+				'#title_display'=>'invisible',
+				'#size'=>5,
+				'#title'=>'Количество',
+				'#attributes'=>[
+					'title'=>'Количество',
+				],
+			],
+			'real-cost'=>[
+				'#markup'=>'',
+				'#prefix'=>'<div class="real-cost">',
+				'#suffix'=>'</div>',
+			],
+		],
+	];
+	
+	return $form;
+}
+/**
+ * валидация формы добавления в корзину .. 
+ */
+function formaddtocart_form_validate(&$form,&$form_state){
+	///dsm($form,'$formv');
+	$val=$form['qty-wrap']['qty']['#value'];
+	if (!is_numeric($val) || intval($val)<1)
+		form_error($form['qty-wrap']['qty'],'Количество должно быть целым положительным числом');
+}
+/**
+ * ajax обработчик формы .. 
+ */
+function formaddtocart_form_jscb($form,$form_state){
+	$cmd=array();
+	global $user;
+	if (form_get_errors()){
+
+		// вываливаем сообщение 
+		$cmd[]=[
+			'command'=>'show_in_popup',
+			'content'=>theme('status_messages'),
+		];
+		// перебиваем форму
+		$cmd[]=ajax_command_replace('.mk-form-add-cart-'.$form_state['fselector'],render($form));
+		// тыкаем клиента носом в ошибку 
+		$cmd[]=['command'=>'focustoerrorfield'];
+	}
+	else{
+		// чистим сообщения ..
+		drupal_get_messages('status');
+		// надо обновить корзинку в шапке ... сайта .. 
+		//$html=views_embed_view('commerce_cart_block', 'default');
+		$cmd[]=ajax_command_replace ('.site-head .cart',theme('site_cart_head'));
+		// показываем уведомлялку 
+		if(!empty($form_state['li'])){
+			$vals=$form_state['values'];
+			//dsm($form_state['li'],'li');
+			//$price=field_get_items('commerce_line_item',$form_state['li'],'commerce_unit_price');
+			//$total=field_get_items('commerce_line_item',$form_state['li'],'commerce_total');
+			//dsm($price);
+			// цена из товара .. 
+			//dsm($form_state['added'],'pro-added');
+			$priceformproduct=field_get_items('commerce_product',$form_state['added'],'commerce_price');
+			$unit=field_get_items('commerce_product',$form_state['added'],'field_unit_measure');
+			$unit=taxonomy_term_load($unit[0]['tid']);
+			$unit=field_get_items('taxonomy_term',$unit,'field_mini_unit_prod');
+			//dsm($unit,'$unit');
+			$unit=$unit[0]['value'];
+
+
+			$sum=0;
+			$nacenka='';
+			//сумма заказа .. 
+			if ($order = commerce_cart_order_load($user->uid)){
+				$sum=field_get_items('commerce_order',$order,'commerce_order_total');
+				$sum=$sum[0]['amount']/100;
+				$fd=theme_get_setting('nacenka');
+				if (!empty($fd['size']) && intval($fd['size'])>$sum && !empty($fd['text']))
+					$nacenka=$fd['text'];
+				
+			}
+			//$win=views_embed_view('confirm_message_product_display','default',$form_state['li-id']);
+			//$win.='<a href="#" class="commerce-add-to-cart-confirmation-close"><span class="element-invisible">Закрыть</span></a><div class="clearfix"></div>';
+			$nodaprod=node_view(node_load($form_state['values']['fromnid']),'inpopup');
+			$nodaprod['cart-data']=[
+				//'#qty'=>$form_state['li']->quantity,
+				//'#price'=>number_format($price[0]['amount']/100,1,'.',' '),
+				//'#total'=>$total[0]['amount'],
+				'#added-now'=>$vals['qty'],
+				'#price-from-product'=>number_format($priceformproduct[0]['amount']/100,1,'.',' '),
+				'#summ-now'=>number_format($priceformproduct[0]['amount']/100*$vals['qty'],1,'.',' '),
+				'#unit'=>$unit,
+			];
+			//dsm($nodaprod,'$nodaprod');
+			$win=theme('product_in_popup',[
+				'nodeview'=>$nodaprod,
+				'nacenka'=>$nacenka,
+			]);
+				//'adasdd -- '.$form_state['added']->title;
+			//$cmd[]=ajax_command_prepend('#main_content',$win);
+			
+			$cmd[]=[
+				'command'=>'show_in_popup',
+				'content'=>$win,
+				'wrapCSS'=>'form-in-popup messages-commerce-add-to-cart-confirmation',
+				'padding'=>10,
+				'width'=>'auto',
+				//'type'=>'html',
+				//'scrolling'=>'no',
+				'autoSize'=>false,
+				'autoHeight'=>true,
+				//'fitToView'=>false,
+
+			];
+		}	
+	}
+	return ['#type'=>'ajax','#commands'=>$cmd];
+}
+// ============================================================
+/**
+ * форма добавления товара в корзину ..  примененение действий.. 
+ */
+function formaddtocart_form_submit($form,&$form_state)
+{
+	form_state_values_clean($form_state);
+	global $user;
+	$vals=$form_state['values'];
+	//dfb($vals,'$vals');
+	$pd=$vals['productdata'];
+	$pid=0;
+	// ищем товар который надо добавить в корзину.. 
+	foreach(element_children($pd) as $pk)
+		if ( 
+			(!empty($pd[$pk]['from']) && $vals['qty']>=intval($pd[$pk]['from']) || empty($pd[$pk]['from']) ) &&  
+			(!empty($pd[$pk]['to']) && $vals['qty']<=intval($pd[$pk]['to']) || empty($pd[$pk]['to']) )
+		)
+			$pid=$pd[$pk]['product_id'];
+	if (!$pid)
+		return ;
+	// грузим товар ..
+	$pid=commerce_product_load($pid);
+	// создаём запись в корзине ... 
+	$li=commerce_product_line_item_new($pid,$vals['qty'],0,['fronnid'=>$vals['fromnid']]);
+	drupal_alter('commerce_product_calculate_sell_price_line_item', $li);
+	rules_invoke_event('commerce_product_calculate_sell_price', $li);
+
+    // Only attempt an Add to Cart if the line item has a valid unit price.
+	$line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $li);
+
+	if (!is_null($line_item_wrapper->commerce_unit_price->value())) {
+		// Add the product to the specified shopping cart.
+		$li=commerce_cart_product_add(
+			$user->uid,
+			$li, 
+			isset($li->data['context']['add_to_cart_combine']) ? $line_item->data['context']['add_to_cart_combine'] : TRUE
+		);
+		$form_state['li']=$li;
+		$form_state['added']=$pid;
+			//dfb($li,'li');
+	}
+		
+}
+
+// =============================================
+
+/**
+ * форма быстрого заказа 
+ */
+function mkm_quickzakaz_form($form,$form_state,$params=array()){
+	$form=[
+		'#attached'=>[
+			'library'=>[
+				['mklibs','inputmask'],
+			]
+		],
+
+		'actions'=>[
+			'#type'=>'actions',
+			'submit'=>[
 				'#type'=>'submit',
 				'#value'=>'Отправить',
-				'#ajax'=>array(
+				'#ajax'=>[
 					'callback'=>'mkm_quickzakaz_form_jscb',
-				),
-			),
-		),
-		'titl'=>array(
+				],
+			],
+		],
+		'titl'=>[
 			'#markup'=>'Быстрый заказ',
 			'#prefix'=>'<div class="popup-titl">',
 			'#suffix'=>'</div>',
-		),
-		'phone'=>array(
+		],
+		'phone'=>[
 			'#type'=>'textfield',
 			'#required'=>true,
 			'#title'=>'Телефон',
 			'#title_display'=>'invisible',
-			'#attributes'=>array(
+			'#attributes'=>[
 				'placeholder'=>'Телефон*',
-				'data-masked'=>'+7(999)999-99-99',
-			),
+				'data-inputmask'=>"'mask':'+7(999)999-99-99'",
+			],
 			'#size'=>30,
-		),
-		'name'=>array(
+		],
+		'name'=>[
 			'#type'=>'textfield',
 			'#title'=>'Ваше имя',
 			'#title_display'=>'invisible',
 			'#required'=>true,
-			'#attributes'=>array(
+			'#attributes'=>[
 				'placeholder'=>'Ваше имя*',
-			),
+				'data-inputmask'=>"'regex':'[a-zа-яA-ZА-Я]+[a-zа-яA-ZА-Я ]*'",
+			],
 			'#size'=>30,
-		),
-	);
+		],
+	];
 	if (!empty($params['from-nid']))
-		$form['from-nid']=array(
+		$form['from-nid']=[
 			'#type'=>'value',
 			'#value'=>$params['from-nid'],
 			'#title'=>'Товар',
-		);
+		];
 	return $form;
 }
-// ================================================
+/**
+ * обработка отправки формы быстрого заказа  (ajax)
+ */
 function mkm_quickzakaz_form_jscb($form,$form_state){
-	$cmd=array();
-	$form['mess']=array(
+	$cmd=[];
+	$form['mess']=[
 		'#theme'=>'status_messages',
 		'#weight'=>-1,
-	);
+	];
 	if (!form_get_errors())
 		$form=array($form['mess']);
 	$cmd[]=ajax_command_replace('.'.$form_state['fselector'],render($form));
-	$cmd[]=array('command'=>'update_size_of_popup');
-	return array('#type'=>'ajax','#commands'=>$cmd);
+	$cmd[]=['command'=>'update_size_of_popup'];
+	return ['#type'=>'ajax','#commands'=>$cmd];
 }
-// ====================================================
+/**
+ * собственно обработка данных формы быстрого заказа 
+ */
 function mkm_quickzakaz_form_submit($form,$form_state){
 	drupal_set_message('Ваш заказ отправлен');
 	form_state_values_clean($form_state);
@@ -96,177 +332,7 @@ function mkm_quickzakaz_form_submit($form,$form_state){
 	$headers.='Content-type: text/html; charset=utf8' . "\r\n";
 	mail($fd['mailofadmin'],sprintf('"Быстрый заказ" для %s от %s',$vals['phone'],date('Y-m-d H:i',REQUEST_TIME)),$mess,$headers);
 }
-/// ===============================================================
-function mkmod_forms($form_id,$args){
-	$forms=array();
-	if (preg_match('#^mkmodformaddtocart_((?:\d+_)+)form$#i', $form_id,$pids)){
-		$forms[$form_id]=array(
-			'callback'=>'formaddtocart_form',
-		);
-	}
-	return $forms;
-}
-//=================================================================
-// форма добавления в корзину .. 
-function formaddtocart_form($form,&$form_state,$dd,$nid){
-	//dsm($dd);
-	unset($form_state['input']);
-	if (empty($form_state['fromnid']))
-		$form_state['fromnid']=$nid;
-	if (empty($form_state['dd']))
-		$form_state['dd']=$dd;
-	$dd=$form_state['dd'];
-	$form_state['fselector']=empty($form_state['fselector'])?user_password():$form_state['fselector'];
 
-	//dsm($dd,'$dd');
-	$form=array(
-		'#attributes'=>array(
-			'class'=>array('mk-form-add-to-cart','mk-form-add-cart-'.$form_state['fselector']),
-		),
-		'#attached'=>array(
-			'js'=>array(
-				array('data'=>drupal_get_path('module','mkmod').'/mkmod-formaddtocart.js','type'=>'file'),
-				array('data'=>array('qtdata'=>array(
-					$form_state['build_info']['form_id']=>$dd,
-				)),'type'=>'setting'),
-			),
-		),
-		'actions'=>array(
-			'#type'=>'actions',
-			'submit'=>array(
-				'#type'=>'submit',
-				'#value'=>'Купить',
-				'#ajax'=>array(
-					'callback'=>'formaddtocart_form_jscb',
-					'progress'=>array(),
-				),
-			),
-		),
-		'qty-wrap'=>array(
-			'#type'=>'container',
-			'#attributes'=>array(
-				'class'=>array('qty-wrapp','container-inline'),
-			),
-			'qty'=>array(
-				'#type'=>'textfield',
-				'#default_value'=>1,
-				'#required'=>true,
-				'#title_display'=>'invisible',
-				'#size'=>5,
-				'#title'=>'Количество',
-				'#attributes'=>array(
-					'title'=>'Количество',
-				),
-			),
-			'real-cost'=>array(
-				'#markup'=>'',
-				'#prefix'=>'<div class="real-cost">',
-				'#suffix'=>'</div>',
-			),
-		),
-		
-	);
-	///$form['#validate']=array('formaddtocart_form_validate');
-	return $form;
-}
-//=======================================================
-function formaddtocart_form_validate(&$form,&$form_state){
-	///dsm($form,'$formv');
-	$val=$form['qty-wrap']['qty']['#value'];
-	if (!is_numeric($val) || intval($val)<1)
-		form_error($form['qty-wrap']['qty'],'Количество должно быть целым положительным числом');
-
-}
-// ===========================================================
-function formaddtocart_form_jscb($form,$form_state){
-	$cmd=array();
-	if (form_get_errors()){
-
-		// вываливаем сообщение 
-		$cmd[]=array(
-			'command'=>'show_in_popup',
-			'content'=>theme('status_messages'),
-		);
-		// перебиваем форму
-		$cmd[]=ajax_command_replace('.mk-form-add-cart-'.$form_state['fselector'],render($form));
-		// тыкаем клиента носом в ошибку 
-		$cmd[]=array('command'=>'focustoerrorfield');
-	}
-	else{
-		$html=views_embed_view('commerce_cart_block', 'default');
-		$cmd[]=ajax_command_html('.logo_contacts_cart .cart',$html);
-		// показываем уведомлялку 
-		if($form_state['li-id']){
-			$win=views_embed_view('confirm_message_product_display','default',$form_state['li-id']);
-			//$win.='<a href="#" class="commerce-add-to-cart-confirmation-close"><span class="element-invisible">Закрыть</span></a><div class="clearfix"></div>';
-			$win='<div class="messages commerce-add-to-cart-confirmation"><div class="message-inner">'.$win.'</div></div>';
-			//$cmd[]=ajax_command_prepend('#main_content',$win);
-			
-			$cmd[]=array(
-				'command'=>'show_in_popup',
-				'content'=>$win,
-				'wrapCSS'=>'form-in-popup messages-commerce-add-to-cart-confirmation',
-				'padding'=>10,
-				'width'=>'auto',
-				//'type'=>'html',
-				'scrolling'=>'no',
-				'autoSize'=>false,
-				'autoHeight'=>true,
-				'fitToView'=>false,
-
-			);
-
-
-			//dsm($win,'$win');
-		}
-		
-	}
-
-
-	return array('#type'=>'ajax','#commands'=>$cmd);
-}
-// ============================================================
-function formaddtocart_form_submit($form,&$form_state){
-	form_state_values_clean($form_state);
-	global $user;
-	$vals=$form_state['values'];
-	//dfb($vals,'$vals');
-	$dd=$form_state['dd'];
-	//dfb($dd,'$dd');
-	$pid=0;
-	foreach($form_state['dd'] as $p)
-		if ( 
-			(!empty($p['from']) && $vals['qty']>=intval($p['from']) || empty($p['from']) ) &&  
-			(!empty($p['to']) && $vals['qty']<=intval($p['to']) || empty($p['to']) )
-		)
-			$pid=$p['product_id'];
-	if ($pid){
-		$pid=commerce_product_load($pid);
-		$li=commerce_product_line_item_new($pid,$vals['qty']);
-		drupal_alter('commerce_product_calculate_sell_price_line_item', $li);
-		rules_invoke_event('commerce_product_calculate_sell_price', $li);
-
-    // Only attempt an Add to Cart if the line item has a valid unit price.
-		$line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $li);
-
-		if (!is_null($line_item_wrapper->commerce_unit_price->value())) {
-			
-			// 
-			// Add the product to the specified shopping cart.
-			$li=commerce_cart_product_add(
-				$user->uid,
-				$li, 
-				isset($li->data['context']['add_to_cart_combine']) ? $line_item->data['context']['add_to_cart_combine'] : TRUE
-			);
-			$form_state['li-id']=$li->line_item_id;
-			//dfb($li,'li');
-		}
-
-
-	}	
-
-	//dsm($form_state['values'],'values');
-}
 // ==========================================
 function product_finder_form(){
 	$form=array(

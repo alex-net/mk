@@ -1,5 +1,6 @@
 <?php 
-function mkmod_token_info(){
+function mkmod_token_info()
+{
 	return array(
 		'types'=>array(
 			'block'=>array(
@@ -53,6 +54,10 @@ function mkmod_token_info(){
 					'name'=>'Пооле реквизитов',
 					'description'=>'Пооле реквизитов',
 				),
+				'mashinki'=>[
+					'name'=>'Машинки',
+					'description'=>'Список доступного транспорта для доставки',
+				],
 			),
 			'block'=>array(
 				'view-content'=>array(
@@ -114,11 +119,10 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 					$n=node_load($tn[1]);
 					if ($n){
 						$n=node_view($n,$tn[2]);
-						
-						if ($tn[2]=='full'){
+						// выставить  заначение переменной page в true чтобы не отображалась ссылка на страницу ...
+						if ($tn[2]=='full')
 							$n['#setpagetotrue']=true;
-						}
-						nodetokens_replacer($n);
+						$n=nodetokens_replacer($n);
 						$rep[$o]=render($n);
 					}
 				}
@@ -329,8 +333,23 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 					else
 						$rep[$o]='<span class="rekv-token">'.$befhtml.$res.'</span>';
 
-					
-					//dsm($t0);
+				}
+				// показываем машинки .. 
+				if ($t=='mashinki'){
+					$res=db_select('node','n');
+					$res->condition('n.type','delivery_truck');
+					$res->condition('n.status',1);
+					$res->fields('n',['nid']);
+					$res=$res->execute();
+					$res=$res->fetchCol();
+					$rep[$o]='';
+
+					if ($res){
+						$res=node_view_multiple(node_load_multiple($res));
+						$res['#prefix']='<div class="tachki-wrapper">';
+						$res['#suffix']='</div>';
+						$rep[$o]=render($res);
+					}
 				}
 
 
