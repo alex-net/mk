@@ -3181,86 +3181,88 @@ body.maintenance-page {
         border: none;
         margin-bottom: 0.5em; } }
 
-@media screen and (max-width: 84.42857em) {
-  #block-mkmod-akcii-slider-big {
-    display: none; } }
-#block-mkmod-akcii-slider-big .content .slider-el {
-  background: url(../imgs/slider-akcia-bg.jpg) 50% 50%/contain no-repeat;
-  width: 84.43em;
-  height: 28.214em;
-  box-sizing: border-box;
-  padding: 7.5em 49em 5.5em 8.85em;
-  overflow: hidden;
-  position: relative;
-  color: black; }
-  #block-mkmod-akcii-slider-big .content .slider-el h2 {
-    font-size: 2em;
-    font-weight: bold;
-    margin: 0; }
-  #block-mkmod-akcii-slider-big .content .slider-el .body {
-    font-size: 1.1428em; }
-  #block-mkmod-akcii-slider-big .content .slider-el .more-link {
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.1428em;
-    margin-top: 0.5em; }
-    #block-mkmod-akcii-slider-big .content .slider-el .more-link::after {
-      content: '→';
-      padding-left: 0.3em; }
-  #block-mkmod-akcii-slider-big .content .slider-el .prices {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 11em;
-    height: 11em;
-    margin: -5.5em 0 0 -5.5em;
-    border: 5px solid #dd1301;
-    border-radius: 50%;
+#block-mkmod-akcii-slider-big {
+  margin-top: 1.5em; }
+  @media screen and (max-width: 84.42857em) {
+    #block-mkmod-akcii-slider-big {
+      display: none; } }
+  #block-mkmod-akcii-slider-big .content .slick-track .slider-el {
+    height: 28.214em; }
+  #block-mkmod-akcii-slider-big .content .slider-el {
+    background: url(../imgs/slider-akcia-bg.jpg) 50% 50%/contain no-repeat;
+    width: 84.43em;
     box-sizing: border-box;
-    text-align: center;
-    background-color: white;
-    color: #dd1301;
-    font-weight: bold;
-    text-transform: uppercase; }
-    #block-mkmod-akcii-slider-big .content .slider-el .prices .title, #block-mkmod-akcii-slider-big .content .slider-el .prices .new {
-      font-size: 1.4128em;
-      padding-top: 0.7em; }
-    #block-mkmod-akcii-slider-big .content .slider-el .prices .new {
-      padding: 0;
-      font-size: 2.3571em; }
-    #block-mkmod-akcii-slider-big .content .slider-el .prices .v {
-      font-size: 1.1em;
-      color: #dd1301; }
-    #block-mkmod-akcii-slider-big .content .slider-el .prices .old {
-      text-decoration: line-through;
-      color: black;
-      font-size: 1.255em;
-      text-transform: none; }
-  #block-mkmod-akcii-slider-big .content .slider-el .kartinko {
-    position: absolute;
-    width: 23em;
-    height: 18em;
-    right: 2em;
-    bottom: 2em;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-color: white;
-    border: 5px solid #dd1301;
-    border-radius: 6em/3em 0 0 6em;
-    box-shadow: 0.3em 0.3em 2em 0 black; }
-  #block-mkmod-akcii-slider-big .content .slider-el.akcia-1 {
-    background-image: url(../imgs/slider-akcia-bg.jpg); }
-  #block-mkmod-akcii-slider-big .content .slider-el.news-1 {
-    background-image: url(../imgs/slider-news-bg.png);
-    color: white; }
-  #block-mkmod-akcii-slider-big .content .slider-el.news-2 {
-    background-image: url(../imgs/slider-news-bg2.jpg);
-    color: white; }
-  #block-mkmod-akcii-slider-big .content .slider-el.akcia-2 {
-    background-image: url(../imgs/slider-akcia-bg2.jpg);
-    color: white; }
-    #block-mkmod-akcii-slider-big .content .slider-el.akcia-2 .kartinko {
-      box-shadow: 0.3em 0.3em 2em -1em white; }
+    padding: 7.5em 49em 5.5em 8.85em;
+    position: relative;
+    color: black; }
+    #block-mkmod-akcii-slider-big .content .slider-el h2 {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0; }
+    #block-mkmod-akcii-slider-big .content .slider-el .body {
+      font-size: 1.1428em; }
+    #block-mkmod-akcii-slider-big .content .slider-el .more-link {
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.1428em;
+      margin-top: 0.5em; }
+      #block-mkmod-akcii-slider-big .content .slider-el .more-link::after {
+        content: '→';
+        padding-left: 0.3em; }
+    #block-mkmod-akcii-slider-big .content .slider-el .prices {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 11em;
+      height: 11em;
+      margin: -5.5em 0 0 -5.5em;
+      border: 5px solid #dd1301;
+      border-radius: 50%;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: white;
+      color: #dd1301;
+      font-weight: bold;
+      text-transform: uppercase; }
+      #block-mkmod-akcii-slider-big .content .slider-el .prices .title, #block-mkmod-akcii-slider-big .content .slider-el .prices .new {
+        font-size: 1.4128em;
+        padding-top: 0.7em; }
+      #block-mkmod-akcii-slider-big .content .slider-el .prices .new {
+        padding: 0;
+        font-size: 2.3571em; }
+      #block-mkmod-akcii-slider-big .content .slider-el .prices .v {
+        font-size: 1.1em;
+        color: #dd1301; }
+      #block-mkmod-akcii-slider-big .content .slider-el .prices .old {
+        text-decoration: line-through;
+        color: black;
+        font-size: 1.255em;
+        text-transform: none; }
+    #block-mkmod-akcii-slider-big .content .slider-el .kartinko {
+      position: absolute;
+      width: 23em;
+      height: 18em;
+      right: 2em;
+      bottom: 2em;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-color: white;
+      border: 5px solid #dd1301;
+      border-radius: 6em/3em 0 0 6em;
+      box-shadow: 0.3em 0.3em 2em 0 black; }
+    #block-mkmod-akcii-slider-big .content .slider-el.akcia-1 {
+      background-image: url(../imgs/slider-akcia-bg.jpg); }
+    #block-mkmod-akcii-slider-big .content .slider-el.news-1 {
+      background-image: url(../imgs/slider-news-bg.png);
+      color: white; }
+    #block-mkmod-akcii-slider-big .content .slider-el.news-2 {
+      background-image: url(../imgs/slider-news-bg2.jpg);
+      color: white; }
+    #block-mkmod-akcii-slider-big .content .slider-el.akcia-2 {
+      background-image: url(../imgs/slider-akcia-bg2.jpg);
+      color: white; }
+      #block-mkmod-akcii-slider-big .content .slider-el.akcia-2 .kartinko {
+        box-shadow: 0.3em 0.3em 2em -1em white; }
 
 .rating-wrapp {
   display: flex; }

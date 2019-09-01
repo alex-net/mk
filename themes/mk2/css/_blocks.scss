@@ -93,10 +93,11 @@
 }
 
 /// слайдер акций ... 
-#block-mkmod-akcii-slider-big {
+#block-mkmod-akcii-slider-big {margin-top:1.5em;
 	@media screen and (max-width: $maxw){display: none;}
 	.content {@extend %flex-slick-block-content;
-		.slider-el {background:url(../imgs/slider-akcia-bg.jpg) 50% 50% / contain no-repeat;width: 84.43em;height: 28.214em;box-sizing:border-box;padding:7.5em 49em 5.5em 8.85em;overflow: hidden;position:relative;color:black;
+		.slick-track .slider-el {height: 28.214em;}
+		.slider-el {background:url(../imgs/slider-akcia-bg.jpg) 50% 50% / contain no-repeat;width: 84.43em;box-sizing:border-box;padding:7.5em 49em 5.5em 8.85em;position:relative;color:black;
 			h2 {font-size: 2em;font-weight: bold;margin:0;}
 			.body {font-size: 1.1428em;}
 			.more-link {text-decoration: none;@extend %btn1;display: inline-block;font-size: 1.1428em;margin-top: 0.5em;
