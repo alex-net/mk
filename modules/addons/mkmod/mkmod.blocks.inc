@@ -191,7 +191,7 @@ function mkmod_block_view($delta=''){
 			$res->range(0,3);
 			$res->condition('n.type','new');
 			$res->condition('n.status',1);
-			$res->orderby('n.created','sesc');
+			$res->orderby('n.created','desc');
 			$res->fields('n',['nid','title']);
 			$res->leftJoin('field_data_body','b','b.entity_id=n.nid and b.bundle=n.type');
 			$res->fields('b',['body_value']);
