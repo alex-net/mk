@@ -67,7 +67,7 @@ function mk2_form_commerce_checkout_form_checkout_alter(&$form,$form_state)
 		unset($form['buttons'][$x]['#prefix'],$form['buttons'][$x]['#suffix']);
 	$form['buttons']['#weight']=10;
 	$form['buttons']['continue']['#weight']=15;	
-	$form['buttons']['continue']['#value']='Заказа подтверждаю';
+	$form['buttons']['continue']['#value']='Заказ подтверждаю';
 	//dsm($form);
 	$form['addons']=[
 		'#type'=>'fieldset',

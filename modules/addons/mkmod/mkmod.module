@@ -104,7 +104,7 @@ function mkmod_menu()
 	return array(
 		// отображаем страницу каталога 
 		'catalog'=>[
-			'title'=>'Каталог тороров',
+			'title'=>'Каталог товаров',
 			'page callback'=>'catalog_list_cb',
 			'access arguments'=>['access content'],
 			'file'=>'mkmod.callbacks.inc',
