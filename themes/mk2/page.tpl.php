@@ -19,7 +19,7 @@
 	<div class="wrap">
 		<?=render($menuSiteHead);?>
 		<div class="mobile-block catalog-of-produucts-button" title='Каталог товаров'></div>
-		<div class="searchform"><?php $sf=render($sf);echo $sf;?></div>
+		<div class="searchform"><?=render($sfhead);?></div>
 		<div class="mobile-block mobile-menu-open"><i class="fas fa-ellipsis-v"></i></div>
 		<div class="catalog-menu-popup"></div>
 	</div>
@@ -39,11 +39,11 @@
 
 
 <div class="footer">
-	<div class="page-scroller"><span class="fas fa-chevron-up"></div>
+	<div class="page-scroller"><span class="fas fa-chevron-up"></span> </div>
 	<div class="menu-line">
 		<div class="wrap">
 			<div class="item-catalog" title="Каталог товаров"><a href="/">каталог товаров</a></div>
-			<div class="searchform"><?=$sf;?></div>
+			<div class="searchform"><?=render($sffooter);?></div>
 			<div class="catalog-menu-popup"></div>
 		</div>
 	</div>

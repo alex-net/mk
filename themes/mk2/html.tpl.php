@@ -43,7 +43,7 @@
  * @ingroup themeable
  */
 ?><!DOCTYPE html >
-<html >
+<html lang="<?=$language->language;?>">
 
 <head >
   <?php print $head; ?>

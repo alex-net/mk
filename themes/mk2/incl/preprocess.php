@@ -38,7 +38,10 @@ function mk2_preprocess_page(&$vars)
 		//dsm($vars['menuSiteHead']);
 		//
 	// показываем форму поиска ..
-	$vars['sf']=drupal_get_form('search_form');	
+	//$vars['sf']=drupal_get_form('search_form');	
+	$vars['sfhead']=drupal_get_form('sf_1');	
+	// форма поиска в подвале .. 
+	$vars['sffooter']=drupal_get_form('sf_2');	
 
 	// выкатываем первый уровень каталога (ориентировочно в подвал )
 	$vars['catl0']=getOneLevelOfCatalog();//catalog_list_cb();

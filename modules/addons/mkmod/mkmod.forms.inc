@@ -2,9 +2,13 @@
 
 function mkmod_forms($form_id,$args){
 	$forms=[];
+	// форма добавления в корзину .. 
 	if (preg_match('#^mkmodformaddtocart_((?:\d+_)+)form$#i', $form_id,$pids))
 		$forms[$form_id]=['callback'=>'formaddtocart_form',];
-	
+	//форма поиска надо сделать дубль . 
+	if (preg_match('#sf_\d+#', $form_id))
+		$forms[$form_id]=['callback'=>'search_form'];
+
 	return $forms;
 }
 //=================================================================
