@@ -14,7 +14,7 @@ function catalog_list_cb($ptid=0)
 	$terms=[];
 	foreach($res as $v){
 		$img=field_get_items('taxonomy_term',$v,'field_pic_category');
-		$terms[$v->tid]=[
+		$terms['t-'.$v->tid]=[
 			'tid'=>$v->tid,
 			'name'=>$v->name,
 			'img'=>file_create_url($img[0]['uri']),

@@ -51,6 +51,11 @@ function mkmod_theme(){
 			'template'=>'sliderbigel',
 		],
 
+		'subtermsview'=>[
+			'template'=>'subtermsview',
+			'variables'=>['list'=>[]],
+		],
+
 		/*// мелкий слайдер на главной ( по 3 штуки ) сидит под большим и управляет большим . 		
 		'slidersmalel'=>array(
 			'variables'=>array(

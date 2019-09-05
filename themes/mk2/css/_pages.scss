@@ -324,7 +324,7 @@
 		&:hover {@extend %redgrad;color:white;background-origin: border-box;border-color: transparent;}
 	}
 	// подрубрики .. 
-	#block-addmi-catalog-children-terms .content > div {display: flex;flex-wrap: wrap;justify-content: space-between;margin-top:1em;
+	#block-mkmod-sub-terms .content > div {display: flex;flex-wrap: wrap;justify-content: space-between;margin-top:1em;
 		.col {padding: 1em; box-sizing: border-box;@extend %noda-taser;
 			.row {background: white;height: 100%;
 				&:hover {box-shadow: 0 0 2em -1.3em black;}

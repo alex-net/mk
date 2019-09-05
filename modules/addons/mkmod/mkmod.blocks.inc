@@ -60,6 +60,10 @@ function mkmod_block_info(){
 			'info'=>'Статьи',
 		],
 
+		'sub-terms'=>[
+			'info'=>'Подрубрики каталога',
+		],
+
 		'hit-prodag'=>array(
 			'info'=>'Хит продаж',
 		),
@@ -72,6 +76,7 @@ function mkmod_block_info(){
 		'ad-block'=>array(
 			'info'=>'Объявления',		
 		),
+
 	);
 }
 function mkmod_block_configure ($delta=''){
@@ -263,6 +268,38 @@ function mkmod_block_view($delta=''){
 			));
 		break;
 
+		// подуровни каталога .. .
+		case 'sub-terms':
+			$data = array();
+			$term = taxonomy_term_load(arg(2));
+
+			// Выводим только на Каталоге
+		    if(!$term || $term->vocabulary_machine_name !== 'categories')
+				return false;
+
+			// Выводим только на 1-м уровне таксономии
+			/*$query = db_select('taxonomy_term_hierarchy', 't');
+			$query->fields('t', array('parent'));
+			$query->condition('tid', $term->tid);
+			$parent = $query->execute()->fetchField();*/
+			    /*if($parent !== '0'){
+			        return false;
+			    }
+			    */
+			// Формируем array для рендера
+			$children = taxonomy_get_children($term->tid, $term->vid);
+
+    
+			foreach($children as $child){
+				$data[$child->tid] = $child;
+				$data[$child->tid]->children = taxonomy_get_children($child->tid, $child->vid) ;// : false;
+			}
+    //dsm($children);
+
+    //return theme('catalog_children_terms', array('data' => $data));
+
+			$b['content']=theme('subtermsview',['list'=>$data]);
+		break;
 	}
 
 	return $b;

@@ -219,7 +219,7 @@ ul.tabs.primary {white-space: normal;}
 		}
 		// плашка с подразделами 
 		+ .subitems {margin:-0.5em -0.5em 1em;display: none;flex-wrap: wrap;justify-content: center;
-			.s-item {flex-basis:31%;height: 11em;margin: 0.5em;background-size: cover;background-position: 50% 50%;background-repeat: no-repeat;text-decoration: none;
+			.s-item {flex-basis:31%;height: 11em;margin: 0.5em;background-size: contain;background-position: 50% 50%;background-repeat: no-repeat;text-decoration: none;background-color:white;
 				.name {display: inline-block;padding:0.5em 1em;color:$text-color;background: $bg-fone;font-size: .9em;margin-top: -0.3em;box-sizing: border-box;}
 				&:hover .name {background: $rcolor;}
 				@media screen and (max-width: 830px){flex-basis:46%;
