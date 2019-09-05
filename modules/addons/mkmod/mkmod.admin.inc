@@ -204,7 +204,7 @@ function skladconfig_form($form,$form_state){
 				'#type'=>'textfield',
 				'#title'=>'Адрес',
 				'#default_value'=>empty($y['addres'])?'':$y['addres'],
-				'#description'=>'можно указывать координаты точки, например, [55.664545 37.673740]',
+				'#description'=>'можно указывать координаты точки, например, [55.664545; 37.673740]',
 			),
 			'addres-text'=>array(
 				'#type'=>'textfield',
@@ -260,7 +260,7 @@ function skladconfig_form_submit($form,$form_state){
 		if (empty($y['name']))
 			unset($form_state['values']['skladlist'][$x]);
 		else{
-			if (preg_match('#\[(.+?);(.+?)\]#',$y['addres'],$points)){
+			if (preg_match('#\[(.+?);(.+?)\]#isu',$y['addres'],$points)){
 				
 				$form_state['values']['skladlist'][$x]['point']=array(
 					'x'=>floatval($points[2]),
@@ -280,7 +280,6 @@ function skladconfig_form_submit($form,$form_state){
 							'y'=>$res[1],
 						);
 					}
-
 				}
 			}
 			

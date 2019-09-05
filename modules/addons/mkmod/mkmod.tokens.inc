@@ -268,8 +268,8 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 						$skladlist[$x]['content']=theme('skladmapballoon',array(
 							'title'=>$y['name'],
 							'subname'=>$y['subname'],// текст под заголовкам
-							'timepn'=>$graf[0],// время работы понедельник пятница
-							'vihi'=>$graf[1],// выходные 
+							'timepn'=>$graf[0]??'',// время работы понедельник пятница
+							'vihi'=>$graf[1]??'',// выходные 
 							'descr'=>$y['descr'], // доп инфа
 							'addres'=>empty($y['addres-text'])?$y['addres']:$y['addres-text'], // адрес 
 							'tel'=>empty($y['tel'])?'':$y['tel'],
