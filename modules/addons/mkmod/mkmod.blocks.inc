@@ -62,6 +62,7 @@ function mkmod_block_info(){
 
 		'sub-terms'=>[
 			'info'=>'Подрубрики каталога',
+			'cache' => DRUPAL_CACHE_PER_PAGE,
 		],
 
 		'hit-prodag'=>array(
