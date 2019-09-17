@@ -85,15 +85,16 @@ function mk2_preprocess_page(&$vars)
  */
 function mk2_preprocess_block(&$vars)
 {
-
 	//dsm($vars['block']->delta,'bb');
 	switch($vars['block']->delta){
 		// добавим ссылку
 		case 'top-sales':
 			//dsm($vars);
-			drupal_add_library('mklibs','slick');
+			
 			$vars['title_attributes_array']['class'][]='all-link';
 			$vars['block']->subject.=l('Все товары','bestsellers',['attributes'=>['class'=>['all']]]);//'<a class="all" href="/">adasd</a>';
+		case 12:	
+			drupal_add_library('mklibs','slick');
 		break;
 		case 'news-list':
 			//dsm($vars);

@@ -268,7 +268,7 @@ ul.tabs.primary {white-space: normal;}
 }
 
 // подвал  .. 
-.footer {
+.footer { margin-top: 2em;
 	.menu-line {background: linear-gradient(0,#111111,#252525);border-bottom:3px solid $scolor;
 		.wrap {max-width: $maxw;margin:0 auto;display: flex;justify-content: space-between;align-items:center;box-sizing:border-box;position:relative;
 

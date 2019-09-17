@@ -526,3 +526,61 @@ body.maintenance-page {overflow: hidden;background:url(../imgs/maintenance-page.
 		.message {margin:0;width: 100%;}
 	}
 }
+
+
+/* Оптовики ... страница  */
+.page-node-1566 #block-system-main {
+	.mini-titl-1 {color:block;font-size:1.428em;font-style:italic;}
+	.mini-titl-2 {color:#600061;font-size:1.67em;}
+	img { width:100%;height:auto;}
+
+
+	ul.optovik-list-punkts {
+		&::after {display:block;column-count:auto;content:'';}
+		padding:0!important;column-count:2;color:#616161;overflow:hidden;font-size:1.14em;
+		@media screen and (max-width:570px){
+			& {column-count:auto;}
+		}
+		li {margin:0.5%;box-sizing:border-box;padding: 0 0  0.5em 4.125em;vertical-align:top;background-position:0 3px;background-repeat:no-repeat;min-height:3.5em;list-style:none outside none!important;font-weight:bold;
+			&.mt-1 {margin-top:1em;}
+			@media screen and (max-width:570px){
+				& {min-height:5em;padding-left:5em;}
+				&.mt-1 {margin-top:0;}
+			}
+			&.optovik-1 {background-image:url(../imgs/optovik/time-money-ico.png);}
+			&.optovik-2 {background-image:url(../imgs/optovik/percent-sale-ico.png);}
+			&.optovik-3 {background-image:url(../imgs/optovik/gruz-sendor-ico.png);}
+			&.optovik-4 {background-image:url(../imgs/optovik/money-hand-ico.png);}
+			&.optovik-5 {background-image:url(../imgs/optovik/organizacia-ico.png);}
+			&.optovik-6 {background-image:url(../imgs/optovik/regim-obj-ico.png);}
+			&.optovik-7 {background-image:url(../imgs/optovik/podbor-mater-ico.png);}
+			&.optovik-8 {background-image:url(../imgs/optovik/product-infa-ico.png);}
+			&.optovik-9 {background-image:url(../imgs/optovik/buch-info-ico.png);}
+			&.optovik-10 {background-image:url(../imgs/optovik/map-ico.png);}
+			&.optovik-11 {background-image:url(../imgs/optovik/transport-ico.png);}
+			&.optovik-12 {background-image:url(../imgs/optovik/bud-dom-ico.png);}
+			&.breakpoint {break-after:column;}
+		}
+	}
+
+	ul.reg-places {margin:-0.5em;padding:0;
+		li {list-style:none outside none;margin:0.9%;background-color:#e0fbfb;width:48%;float:left;box-sizing:border-box;font-size:1.428em;text-transform:uppercase;vertical-align:middle;padding:0.7em 0 0.7em 4.75em;background-position:0.5em 50%;background-repeat:no-repeat; 
+			@media screen and (max-width:710px){
+				width:100%;
+			}
+			&.reg-on-1 {background-image:url(../imgs/optovik/postavkin-portal.png);}
+			&.reg-on-2 {background-image:url(../imgs/optovik/u-torg-platform.png);}
+			&.reg-on-3 {background-image:url(../imgs/optovik/u-torg-place.png);}
+			&.reg-on-4 {background-image:url(../imgs/optovik/zakupka-portal.png);}
+		}
+	}
+	.jobs-mit-uns {
+		padding:0 3em;
+		img {border:1px solid #e0e0e0;border-radius:0.5em;display:block;margin:0.5em;}
+		.slick-arrow {display:block;width:2em;height:2em;border:2px solid #636262;border-radius:50%;position:absolute;top:50%;margin-top:-1em;cursor:pointer;text-align:center;line-height:2em;color:#de85d3;
+			&.slic-prev-arr {left:0em;}
+			&.slic-next-arr {right:0em;}
+		}
+	}
+	.btn.accept-button  {@extend %btn1;cursor: pointer;}
+}

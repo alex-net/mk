@@ -81,7 +81,7 @@
 			});
 
 			// карусель производителей . 
-			$('.vendors-list > .content p').once(function(){
+			$('.vendors-list > .content p, #block-block-12 .content > p').once(function(){
 				$(this).slick({
 					nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
 					prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',

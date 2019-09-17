@@ -24,6 +24,14 @@ function mk2_form_alter(&$form,&$form_state,$form_id)
 			$form['#theme']='fullproductbuttons';
 		//dsm($form_state['dd']['#settings']['viewotherbuttons'],'form_state');
 	}
+
+	//dfb($form_id,'form_id');
+	if(in_array($form_id,['webform_client_form_1562','webform_client_form_1682'])) {
+		$form['#attached']['library'][]=['mklibs','inputmask'];
+		//dfb(array_keys($form),'fr');
+		$form['submitted']['telefon']['#attributes']['data-inputmask']="'mask':'+7(999)999-99-99'";
+		
+	}
 }
 
 
@@ -89,6 +97,8 @@ function mk2_form_commerce_checkout_form_checkout_alter(&$form,$form_state)
 			'#weight'=>7,
 		]
 	];
-	
+	$form['#attached']['library'][]=['mklibs','inputmask'];
+	$form['customer_profile_billing']['field_user_phone'][LANGUAGE_NONE][0]['value']['#attributes']['data-inputmask']="'mask':'+7(999)999-99-99'";
+	//dsm($form);
 
 }
