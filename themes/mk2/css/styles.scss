@@ -379,9 +379,10 @@ ul.tabs.primary {white-space: normal;}
 	}
 	.page-scroller {position: fixed;bottom:1em;right: 1em;width: 2.5em;height: 2.5em;border-radius: 50%;background-color: $scolor;cursor: pointer;transition: all $animate-length;display: none;justify-content: center;align-items:center;font-size: 2em;color:white;
 		&:hover {background-color: lighten($scolor,15%);}
-		@media screen and (min-width: 1350px){
+		//@media screen and (min-width: 1350px){
 			&.vis{display: flex;}
-		}
+		//}
+		@media screen and (max-width: 1350px){opacity: 0.5;font-size: 1.5em;}
 
 	}  
 }

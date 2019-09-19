@@ -94,7 +94,9 @@
 
 /// слайдер акций ... 
 #block-mkmod-akcii-slider-big {margin-top:1.5em;
-	@media screen and (max-width: $maxw){display: none;}
+	@media screen and (max-width: 799px){display: none;}
+	$propor:395 / 1181  ; 
+	$sizes:(1100px 0.95em,1000px 0.9em, 900px 0.85em,850px,0.80em);
 	.content {@extend %flex-slick-block-content;
 		.slick-track .slider-el {height: 28.214em;}
 		.slider-el {background:url(../imgs/slider-akcia-bg.jpg) 50% 50% / contain no-repeat;width: 84.43em;box-sizing:border-box;padding:7.5em 49em 5.5em 8.85em;position:relative;color:black;
@@ -121,4 +123,23 @@
 			} 
 		}
 	}
+	@media screen and (max-width: 1182px) {font-size: 0.9em;	
+		.slick-list {width: 100%;
+
+			.slick-track .slider-el{background-size: cover;padding-right: 50em;
+				@each $size,$font in $sizes{   
+					@media (max-width: $size){height: $size * $propor;font-size: $font;}
+				}
+			//	@media (max-width: 1000px){height: 1000px*$propor;}
+			//	@media (max-width: 1100px){height: 1100px*$propor;}
+
+			}
+		}
+		
+	}
+}
+
+
+#hitro-links-list-form {
+	.form-actions input {margin-right: 1em;}
 }

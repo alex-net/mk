@@ -1770,9 +1770,12 @@ ol {
     color: white; }
     .footer .page-scroller:hover {
       background-color: #d57dd4; }
-    @media screen and (min-width: 1350px) {
-      .footer .page-scroller.vis {
-        display: flex; } }
+    .footer .page-scroller.vis {
+      display: flex; }
+    @media screen and (max-width: 1350px) {
+      .footer .page-scroller {
+        opacity: 0.5;
+        font-size: 1.5em; } }
 
 .clearfix::after {
   content: '';
@@ -3308,7 +3311,7 @@ body.maintenance-page {
 
 #block-mkmod-akcii-slider-big {
   margin-top: 1.5em; }
-  @media screen and (max-width: 84.42857em) {
+  @media screen and (max-width: 799px) {
     #block-mkmod-akcii-slider-big {
       display: none; } }
   #block-mkmod-akcii-slider-big .content .slick-track .slider-el {
@@ -3388,6 +3391,35 @@ body.maintenance-page {
       color: white; }
       #block-mkmod-akcii-slider-big .content .slider-el.akcia-2 .kartinko {
         box-shadow: 0.3em 0.3em 2em -1em white; }
+  @media screen and (max-width: 1182px) {
+    #block-mkmod-akcii-slider-big {
+      font-size: 0.9em; }
+      #block-mkmod-akcii-slider-big .slick-list {
+        width: 100%; }
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          background-size: cover;
+          padding-right: 50em; } }
+      @media screen and (max-width: 1182px) and (max-width: 1100px) {
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          height: 367.90855px;
+          font-size: 0.95em; } }
+      @media screen and (max-width: 1182px) and (max-width: 1000px) {
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          height: 334.46232px;
+          font-size: 0.9em; } }
+      @media screen and (max-width: 1182px) and (max-width: 900px) {
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          height: 301.01609px;
+          font-size: 0.85em; } }
+      @media screen and (max-width: 1182px) and (max-width: 850px) {
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          height: 284.29297px; } }
+      @media screen and (max-width: 1182px) and (max-width: 0.8em) {
+        #block-mkmod-akcii-slider-big .slick-list .slick-track .slider-el {
+          height: 0.26757em; } }
+
+#hitro-links-list-form .form-actions input {
+  margin-right: 1em; }
 
 .rating-wrapp {
   display: flex; }
