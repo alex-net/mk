@@ -67,6 +67,7 @@
 				});
 			});
 
+			// слайдер акций на главной странице
 			$('#block-mkmod-akcii-slider-big .content').once(function(){
 				$(this).slick({
 					nextArrow:'<span class="next-product"><i class="fas fa-angle-right"></i></span>',
