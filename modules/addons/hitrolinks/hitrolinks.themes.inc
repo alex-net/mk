@@ -34,6 +34,7 @@ function popuplinks_prefunc(&$vars)
 	$res->condition('t.active',1);
 	$res->condition('t.type',$vars['group']);
 	$res->condition('t.pid',$vars['pid']);
+	$res->orderBy('t.weight','asc');
 
 	$groups=[];
 	$res=$res->execute()->fetchAll(PDO::FETCH_ASSOC);

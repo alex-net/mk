@@ -106,7 +106,7 @@ function hitro_list_form($form,$form_state,$type='')
 			'weight'=>'Вес',
 			'del'=>'Удалить'],
 	];
-
+	
 	foreach($data as $x=>$d){
 		if ($type=='link')
 			$link=[
@@ -142,6 +142,7 @@ function hitro_list_form($form,$form_state,$type='')
 			'link'=>$link,
 			'weight'=>[
 				'#type'=>'weight',
+				'#delta'=>60,
 				'#default_value'=>empty($d['weight'])?0:$d['weight'],
 				'#attributes'=>['class'=>['is-weight']],
 			],
