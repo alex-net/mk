@@ -1346,7 +1346,8 @@ ol {
       flex-direction: column;
       flex-direction: column; }
       .node-product-display.node-full .product-blocks .info-blocks > div {
-        margin-top: 0.5em; } }
+        margin-top: 0.5em;
+        flex-basis: auto; } }
 
 .node-product-display.node-full .tabs-of-tovar {
   background-color: white;
@@ -1448,7 +1449,8 @@ ol {
             border: 3px solid #eadfe8;
             background: white !important; }
             .node-product-display.node-full .tabs-of-tovar .tabs-content > div.harackterist table thead tr th {
-              padding: 0; }
+              padding: 0;
+              color: black; }
       .node-product-display.node-full .tabs-of-tovar .tabs-content > div.otsiv .comments-wrap .comment {
         margin-top: 1em;
         padding-top: 0.5em;

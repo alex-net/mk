@@ -216,7 +216,7 @@
 					> div {flex-basis: 33%;margin-top:0;}
 					@media (max-width: 750px){flex-direction: column;
 						flex-direction: column;
-						> div {margin-top:0.5em;}
+						> div {margin-top:0.5em;flex-basis: auto;}
 					}
 				}
 			}
@@ -268,7 +268,7 @@
 								&:nth-child(2n+1) {background:#f1f1f1;line-height: 2em;}
 							}
 							thead  tr {justify-content: space-around;border:3px solid #eadfe8;background:white!important;
-								th {padding: 0;}
+								th {padding: 0;color:black;}
 							}
 
 						}
