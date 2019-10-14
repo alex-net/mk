@@ -30,10 +30,25 @@ function mk2_form_alter(&$form,&$form_state,$form_id)
 		$form['#attached']['library'][]=['mklibs','inputmask'];
 		//dfb(array_keys($form),'fr');
 		$form['submitted']['telefon']['#attributes']['data-inputmask']="'mask':'+7(999)999-99-99'";
-		
 	}
+	if ($form_id=='comment_node_product_display_form'){
+		unset($form['field_rating'][LANGUAGE_NONE]['#options']['_none']);
+		//dsm($form,'form');
+	}
+
+	// ловим капчу .. 
+	if (isset($form['captcha']))
+		$form['captcha']['#after_build'][]='mkcaptchastyler_abcb';
 }
 
+
+function mkcaptchastyler_abcb($el)
+{
+	$el['captcha_widgets']['captcha_response']['#title_display']='invisible';
+	$el['captcha_widgets']['captcha_response']['#description']='';
+	$el['captcha_widgets']['captcha_response']['#attributes']['placeholder']="Введите код *";
+	return $el;
+}
 
 
 /**
@@ -101,4 +116,29 @@ function mk2_form_commerce_checkout_form_checkout_alter(&$form,$form_state)
 	$form['customer_profile_billing']['field_user_phone'][LANGUAGE_NONE][0]['value']['#attributes']['data-inputmask']="'mask':'+7(999)999-99-99'";
 	//dsm($form);
 
+}
+
+
+function mk2_form_comment_node_product_display_form_alter(&$form,&$form_state)
+{
+	global $user;
+	if (empty($form_state['fkey']))
+		$form_state['fkey']=user_password();
+	$form['#attributes']['class'][]='form-selector-'.$form_state['fkey'];
+
+	$form['author']['#weight']=10;
+	// field_trating
+	$form['field_trating'][LANGUAGE_NONE][0]['rating']['#widget']=array('name'=>'basic','css'=>'basic');
+	//dsm($form['field_trating'][LANGUAGE_NONE][0]['rating'],'rating');
+	
+	array_unshift($form['actions'],array(
+		'#markup'=>'Ваш отзыв будет опубликован на сайте после проверки модератором.',
+		'#prefix'=>'<span class="descr">',
+		'#suffix'=>'</span>',
+	));
+	$form['actions']['submit']['#value']='Оставить отзыв';
+	if ($user->uid)
+		foreach($form['author'] as $x=>$y)
+			if (!empty($y['#type']) && $y['#type']=='item')
+				$form['author'][$x]['#access']=false;
 }

@@ -214,11 +214,11 @@
 				}
 				@media screen and (max-width: 1000px) {display: flex;justify-content: space-between;margin-top: 0.5em;
 					> div {flex-basis: 33%;margin-top:0;}
-					@media (max-width: 750px){flex-direction: column;
-						flex-direction: column;
+					@media (max-width: 750px) {flex-direction: column;
 						> div {margin-top:0.5em;flex-basis: auto;}
 					}
 				}
+				
 			}
 		}
 		// блоки с характерисиками .. и т.п. 
@@ -274,15 +274,18 @@
 						}
 					}
 					&.otsiv {
+						.comments-wraper::after {content:'';display: block;clear:both;}
+						#comments {margin:0;}
 						.comments-wrap {
-							.comment {margin-top: 1em;padding-top: 0.5em;border-top: 1px solid gray;
-								&:nth-child(2) {margin:0;padding: 0;border:none;}
+							.comment {margin-top: 1em;padding-top: 0.5em;flex-basis: 49%;
 								.stars-wrap {@extend %star-widget;}
 								.date {font-size: 0.7em;color: gray;}
 								.field-name-comment-body {font-size: 0.8em;margin:0.5em 0;}
+								.field-name-field-tovar-pluss,.field-name-field-tovar-minus {display: flex;}
 								.field-name-field-tovar-pluss .field-label {color:green;}
 								.field-name-field-tovar-minus .field-label {color:$rcolor;}
 							}
+							
 						}
 					}
 				}
@@ -294,6 +297,55 @@
 			> .field-label {font-size: 2.14em;font-weight: normal;color:#333232;}
 			.slick-list {margin: 0 1.5em ;}
 		}
+
+
+		
+
+		.comment-wrapper{
+			.comment-form {
+			}
+
+			.comment{ padding:1em 0;border-bottom:  1px solid #dedede;
+				&:first-child{padding-top:0;}
+				.username {font-size: 1.07em;}
+				.created-date {color:#b2b1b1;font-size: 0.857em;} 
+				.field-name-field-rating {display: inline-block;
+					.form-item {padding-bottom: 0.5em;
+						> *  {vertical-align: middle;}
+						label {padding: 0 1em 0 0;}
+					}
+				}
+				.field-name-comment-body {margin:0.5em 0;}
+				.field-label {font-weight: 800;}
+				.content {font-size:0.9em; }
+			}
+			.new-onsiv {float:right;color:#515050;cursor: pointer;border: 1px solid #c7c7c7;padding:0.4em 1.3em;
+				&:hover{background: #ab31ac;color: white;}
+			}
+		}
+
+/* 
+ предполагаемый пагинатор
+.comment-list-pager .pager-previous, .comment-list-pager .pager-next {display: none;}
+
+.node-type-product-display h1#page-title {padding-bottom: 0.2em;}
+
+.comment-list-pager {text-align: right;padding-top: 0.5em;}
+.comment-list-pager ul {margin:0;padding: 0;}
+.comment-list-pager ul li {display: inline-block;font-size: 1.14em;width:2em;text-align: center;}
+.comment-list-pager ul li a {display: block;background:#f0f0f0;height: 100%;text-decoration: none;}
+.comment-list-pager ul li.pager-current {color: white;background: #515050;font-weight: 800;}
+.comment-list-pager .next-comment-butt  {color:#ab31ac;font-size: 1.2857em;line-height:1.5em;font-weight: 800;padding-left: 2em;background: url(i/more-comment-butt.png) 0 0 no-repeat;cursor: pointer;}
+.comment-list-pager .next-comment-butt:hover {background-position: 0 100%;color:#b11c26;}
+#comments {margin: 0;}
+@media (max-width:768px){
+	.product.teaser {height: auto !important;}
+	.product.teaser .field-name-field-pic-product .field-items .field-item img {height: auto !important;}
+}
+*/
+
+
+
 	}
 }
 

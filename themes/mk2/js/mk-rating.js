@@ -7,8 +7,7 @@
 			select.hide();
 			el=$('<span class="rating-wrapp"/>');
 			select.find('option').each(function(){
-				if ('_none'==$(this).val())
-					return;
+				
 				it=$('<span class="one-star"><span class="star-ico"></span>'+$(this).html()+'</span>');
 				it.data({it:$(this).val(),el:it});
 				el.append(it);
@@ -39,7 +38,6 @@
 					el.find('.one-star').eq(i).addClass('hovered');
 			}).on('click',function(){
 				select.val($(this).data('it')).trigger('change');
-				
 				
 			});
 			select.after(el);

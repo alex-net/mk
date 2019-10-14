@@ -253,6 +253,14 @@ function mk2_preprocess_comment(&$vars)
 	$vars['comment_stars']=0;
 	if (isset($stars[0]['value']))
 		$vars['comment_stars']=intval($stars[0]['value']);	
+
+	if (!empty($vars['content']['field_rating'])){
+		$r=field_get_items('comment',$vars['comment'],'field_rating');
+		$vars['content']['field_rating'][0]=array(
+			'#markup'=>sprintf('<span class="rating-out rating-widget-view"><span class="rating-in" data-rating="%d" style="width:%d%%"></span></span>',$r[0]['value'],$r[0]['value']),
+		);
+	}
+
 }
 
 function mk2_preprocess_html(&$vars)

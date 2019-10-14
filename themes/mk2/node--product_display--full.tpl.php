@@ -47,9 +47,9 @@
 				<div class="instruction"><?=render($content['field_instructions']);?></div>
 			<?php endif;?>
 			<div class="otsiv">
-				<?php if (!empty($content['comments']['comments']) && element_children($content['comments']['comments'])):?>
+				<?php if (!empty($content['comments'])):?>
 					<?php //kprint_r($content);?>
-					<div class="comments-wrap"><?=render($content['comments']['comments']);?></div>
+					<div class="comments-wraper"><?=render($content['comments']);?></div>
 				<?php endif;?>
 				
 			</div>

@@ -3,7 +3,7 @@
 // градиентная заливка .. 
 
 %scolorgrad {background: linear-gradient(180deg,lighten($scolor,10%),darken($scolor,10%));background-origin: border-box;
-	&:hover {@extend %redgrad;}
+	&:hover {@extend %redgrad;color:white;background-clip: border-box;border:none;}
 }
 
 %fontas {font-family: "Font Awesome 5 Free";font-weight: bold;}
@@ -81,7 +81,7 @@ $star-size:1.37em;
 ol {
 	counter-reset: list1;
 	li{list-style: none outside none;position:relative;
-		&::before {counter-increment:list1;content:counter(list1)".";position: absolute;left: -1.5em;width:1.5em;display: block;text-align: left;color:$scolor;font-weight: bold;}
+		&::before {counter-increment:list1;content:counter(list1)".";width:1.5em;display: inline-block;text-align: left;color:$scolor;font-weight: bold;}
 	}
 }
 

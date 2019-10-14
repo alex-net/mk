@@ -428,7 +428,7 @@ ul.tabs.primary {white-space: normal;}
 	&.form-in-popup  {
 		input.form-text {padding: 0.5em;background: white;display: block;width: 100%;box-sizing: border-box;}
 		.form-actions {margin-top:0.5em;display: flex;justify-content: space-between;justify-content: center;
-			input {border:1px solid $scolor; background: white; color:$scolor;padding: 0.5em; }
+			input {border:1px solid $scolor; background: white; color:$scolor;padding: 0.5em; box-sizing: border-box;}
 		}
 		.messages {
 			&.status{border:none;//background-color: white;background-size: 2em;background-position: 0.3em 50%;
@@ -440,6 +440,26 @@ ul.tabs.primary {white-space: normal;}
 		// быстрый заказ
 		&.form-QuickZakaz {
 			.form-actions input {@extend %scolorgrad;color:white;border:none;padding: 0.5em 1em;}
+		}
+		&.form-NewOtziv {//background: #f0f0ee;color:#515050;padding: 1em;margin-top:1em;
+			.field-name-field-rating .form-item label {font-size: 1.5em;}
+			.form-wrapper {padding: 0.5em 0;
+				&:first-child {padding-top: 0;}
+				 .form-item {margin: 0;}
+			}
+				/*.fivestar-user-stars .form-type-fivestar > div {display:inline-block;}
+				.form-text, .form-textarea {background-color: white;border:none;width: 100%;
+					label {display: block;}
+				}
+				.form-actions {margin-top: 0.5em;
+					&::after {content:'';display: block;clear: both;height: 0;}
+					span {line-height: 3em;}
+					.descr {font-size: 0.844em;}
+					.form-submit {float:right;background:#ab31ac;color:white;font-weight: 800;padding: 0.5em 1em;border:none;
+						&:hover {background:#b11c26;}
+					}
+				}*/
+
 		}
 	}
 	&.tpl-in-popup {
@@ -519,7 +539,8 @@ ul.tabs.primary {white-space: normal;}
 @import 'blocks';
 
 // рейтинговый виджет 
-.rating-wrapp {display: flex;
+.rating-wrapp {display: flex;flex-wrap: wrap;
+	@media screen and (max-width: 400px) {justify-content: center;}
 	.one-star {font-size: 0.7em;text-align: center;margin: 0 0.5em;
 		.star-ico {display: block;width: 3em; height: 3em; background:url(../imgs/rating-star-void.png) 50% 50% no-repeat; background-size: contain;margin:0 auto;}
 		&.hovered .star-ico {background-image: url(../imgs/rating-star-full.png);}
@@ -560,15 +581,25 @@ ul.tabs.primary {white-space: normal;}
 /**
  * отрисовка капчи 
  */
-form .captcha{
-	&::after {content:'';display: block;clear: both;}
-	.css-captcha-code {width: 30%;border: 1px solid #ccc;padding: 0.5em;line-height: 2em;float: left;background:#b132b0;color:white;font-weight: 700;font-family: 'Philosopher';text-transform: uppercase;
-		> div {margin:0 auto;font-size: 1.5em;}
-		.form-item {float:right;margin:0;width: 68%;line-height: 2em;}
+form {
+	.captcha{display: flex;
+		//&::after {content:'';display: block;clear: both;}
+		.css-captcha-code {width: 30%;border: 1px solid #ccc;padding: 0.5em;line-height: 2em;background:#b132b0;color:white;font-weight: 700;font-family: 'Philosopher';text-transform: uppercase;font-size: 0.7em;margin-right: 0.5em;
+			> div {margin:0 auto;font-size: 1.5em;}
+		}
+		.form-item {margin:0;width: 68%;line-height: 2em;flex-grow: 1;
+			input {height: 100%;}
+		}
+		@media screen and (max-width: 549px){display: block;
+			.css-captcha-code{width: 100%;float: none;margin-bottom: 1em;}
+	  		.form-item{width: 100%;float: none;}
+		}
 	}
-	@media screen and (max-width: 549px){
-		.css-captcha-code{width: 100%;float: none;margin-bottom: 1em;}
-  		.form-item{width: 100%;float: none;}
+	.form-actions input.form-submit {@extend %btn1;}
+	&.comment-form {
+		.form-actions {display: flex;flex-direction: column;align-items:center;
+			.descr {margin-bottom: 0.5em;text-align: center;}
+		}
 	}
 }
 

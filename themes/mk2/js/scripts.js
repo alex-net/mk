@@ -265,7 +265,7 @@
 			});
 			
 			//  инициализация  звёздочек в форме Оставить отзыв о компании .. 
-			$('.webform-component--reyting').once(function(){
+			$('.webform-component--reyting, .field-name-field-rating').once(function(){
 				$(this).find('select').mkrating();
 			});
 			
