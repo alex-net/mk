@@ -251,6 +251,8 @@
 			$('.tabs-of-tovar').once(function(){
 				var root=$(this);
 				$(this).find('.tabs-line > div').on('click',function(){
+					if ($(this).hasClass('active'))
+						return;
 					$(this).siblings('.active').removeClass('active');
 					root.find('.tabs-content > .active').removeClass('active');
 					root.find('.tabs-content > div.'+$(this).attr('class')).addClass('active');
