@@ -140,6 +140,24 @@ function hitro_list_form($form,$form_state,$type='')
 		$res->addExpression('count(t2.id)','col');
 		$data=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
 	}
+	else 
+	{
+		$ids=[];
+		foreach($data as $y)
+			$ids[]=$y['id'];
+		if ($ids){
+			$res=db_select('hl','t');
+			$res->condition('t.type','link');
+			$res->condition('t.pid',$ids);
+			$res->fields('t',['pid']);
+			$res->groupBy('t.pid');
+			$res->addExpression('count(*)','co');
+			$res=$res->execute()->fetchAllKeyed(0);
+			foreach($data as $x=>$y)
+				$data[$x]['col']=$res[$y['id']]??0;
+			//dfb($res);
+		}
+	}
 
 	$form=[
 		'#attributes'=>['class'=>['tags-edit-form']],
@@ -256,7 +274,7 @@ function hitro_list_form($form,$form_state,$type='')
 				'#value'=>'Копировать',
 				'#ajax'=>[
 					'callback'=>'hl_taggs_add_more_jscb',
-					//'wrapper'=>'tags-wraper',
+					'wrapper'=>'tags-wraper',
 				],
 			],
 			'paste'=>[
