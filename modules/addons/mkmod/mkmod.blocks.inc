@@ -209,8 +209,8 @@ function mkmod_block_view($delta=''){
 					'type'=>'news',
 					'classe'=>'news-'.rand(1,2),
 					'body'=>drupal_strlen($s)>150?drupal_substr($s,0,150).'...':$s,
-					'titletop'=>$y['title'],
-					'titlebottom'=>'',
+					'title'=>$y['title'],
+					//'titlebottom'=>'',
 					'url'=>url('node/'.$y['nid']),
 				];
 			}
