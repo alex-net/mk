@@ -1,6 +1,6 @@
 <?php foreach($data as $v):?>
 	<div class="slider-el <?=$v['classe'];?>">
-		<h2><span><?php echo $v['titletop'];?></span><span><?php echo $v['titlebottom'];?></span></h2>
+		<h2><span><?php echo $v['title'];?></span></h2>
 		<div class="body"><?php echo $v['body'];?></div>
 		<a class="more-link" href="<?php echo $v['url'];?>" >подробнее</a>
 		<?php if ($v['type']=='akcia'):?>

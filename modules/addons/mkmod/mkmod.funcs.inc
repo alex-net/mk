@@ -91,9 +91,10 @@ function getActionProdag(){
 	$res->fields('n',array('nid','title'));
 
 	$ff=array(
-		array('field_title_top','value','titletop'),
-		array('field_title_bot','value','titlebottom'),
 		array('field_pic_product','fid',''),
+		//array('field_title_top','value','titletop'),
+		//array('field_title_bot','value','titlebottom'),
+		
 	);
 	foreach($ff as $i=>$v){
 		$res->leftjoin('field_data_'.$v[0],"t$i","t$i.entity_id=n.nid and t$i.bundle=n.type and t$i.entity_type='node'");
@@ -101,8 +102,9 @@ function getActionProdag(){
 			$res->addField("t$i",$v[0].'_'.$v[1],$v[2]);
 	}
 	// добавляем ссыль на картинку товара 
-	$res->leftjoin('file_managed','fm','fm.fid=t2.field_pic_product_fid');
+	$res->leftjoin('file_managed','fm','fm.fid=t0.field_pic_product_fid');
 	$res->fields('fm',array('uri'));
+	
 	// дергаем старую цену 
 	$res->addField('oldp','field_old_price_amount','oldp');
 	// дёргаем новую цену 
