@@ -304,7 +304,12 @@
 	}
 }
 
-
+// теги . 
+.show-popup-links {border:2px solid #a3a3a3;padding: 0.3em 1.7em;cursor: pointer;font-weight: bold;width: 25em; margin: 0 auto; text-align: center;
+	@media screen and (max-width: 430px) {width: 100%;box-sizing:  border-box;}
+	&:hover {@extend %redgrad;color:white;background-origin: border-box;border-color: transparent;}
+}
+	
 // страница каталога ..
 .page-taxonomy-term .region-content {
 	#block-views-term-description-category-block {
@@ -318,11 +323,7 @@
 			@media screen and (max-width: 610px) {flex-direction: column;}
 		}
 	}
-	// теги . 
-	.show-popup-links {border:2px solid #a3a3a3;padding: 0.3em 1.7em;cursor: pointer;font-weight: bold;width: 25em; margin: 0 auto; text-align: center;
-		@media screen and (max-width: 430px) {width: 100%;box-sizing:  border-box;}
-		&:hover {@extend %redgrad;color:white;background-origin: border-box;border-color: transparent;}
-	}
+	
 	// подрубрики .. 
 	#block-mkmod-sub-terms .content > div {display: flex;flex-wrap: wrap;justify-content: space-between;margin-top:1em;
 		.col {padding: 1em; box-sizing: border-box;@extend %noda-taser;

@@ -143,3 +143,11 @@
 #hitro-links-list-form {
 	.form-actions input {margin-right: 1em;}
 }
+
+form.tags-edit-form {
+	.buttons-ajax {display: flex;
+		input {margin: 0.5em;
+			&:first-child {margin-left: 0;}
+		}
+	}
+}

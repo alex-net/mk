@@ -3,7 +3,7 @@
 // градиентная заливка .. 
 
 %scolorgrad {background: linear-gradient(180deg,lighten($scolor,10%),darken($scolor,10%));background-origin: border-box;
-	&:hover {@extend %redgrad;color:white;background-clip: border-box;border:none;}
+	&:hover {@extend %redgrad;color:white;background-clip: border-box;}
 }
 
 %fontas {font-family: "Font Awesome 5 Free";font-weight: bold;}

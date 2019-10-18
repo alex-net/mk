@@ -15,7 +15,7 @@ body {
   body.adminimal-menu {
     padding-top: 2.21em; }
 
-.page-cart .view-commerce-cart-form .form-actions input:hover, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue:hover, .page-node-1566 #block-system-main .btn.accept-button:hover, #block-mkmod-akcii-slider-big .content .slider-el .more-link:hover, form .form-actions input.form-submit:hover, .site-head .plashko.cart .checkout-button:hover, .site-hmenu .wrap .searchform input.form-submit:hover, .catalog-list .item .btn-controls.close:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order:hover, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input:hover, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title:hover, .hl-win-wrapp ul li a:hover, .page-taxonomy-term .region-content .show-popup-links:hover, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title:hover .title, .load-more-contents input:hover, .contects-block > div.otzivbtn {
+.page-cart .view-commerce-cart-form .form-actions input:hover, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue:hover, .page-node-1566 #block-system-main .btn.accept-button:hover, #block-mkmod-akcii-slider-big .content .slider-el .more-link:hover, form .form-actions input.form-submit:hover, .site-head .plashko.cart .checkout-button:hover, .site-hmenu .wrap .searchform input.form-submit:hover, .catalog-list .item .btn-controls.close:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order:hover, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input:hover, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title:hover, .hl-win-wrapp ul li a:hover, .show-popup-links:hover, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title:hover .title, .load-more-contents input:hover, .contects-block > div.otzivbtn {
   background-image: linear-gradient(180deg, #d26060, #9f2d2d); }
 
 .page-cart .view-commerce-cart-form .form-actions input, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue, .page-node-1566 #block-system-main .btn.accept-button, #block-mkmod-akcii-slider-big .content .slider-el .more-link, form .form-actions input.form-submit, .site-head .plashko.cart .checkout-button, .site-hmenu .wrap .searchform input.form-submit, .catalog-list .item .btn-controls.close, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title, .hl-win-wrapp ul li a {
@@ -23,8 +23,7 @@ body {
   background-origin: border-box; }
   .page-cart .view-commerce-cart-form .form-actions input:hover, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue:hover, .page-node-1566 #block-system-main .btn.accept-button:hover, #block-mkmod-akcii-slider-big .content .slider-el .more-link:hover, form .form-actions input.form-submit:hover, .site-head .plashko.cart .checkout-button:hover, .site-hmenu .wrap .searchform input.form-submit:hover, .catalog-list .item .btn-controls.close:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order:hover, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input:hover, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title:hover, .hl-win-wrapp ul li a:hover {
     color: white;
-    background-clip: border-box;
-    border: none; }
+    background-clip: border-box; }
 
 .fancybox-wrap.form-in-popup .messages.status::before, .page-cart .view-commerce-cart-form .views-table tbody tr td.views-field-edit-delete::before, .page-checkout-complete .checkout_completion_message h2::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title .has-children::before {
   font-family: "Font Awesome 5 Free";
@@ -2530,6 +2529,23 @@ ol {
       content: '\f058';
       margin-right: 0.5em; }
 
+.show-popup-links {
+  border: 2px solid #a3a3a3;
+  padding: 0.3em 1.7em;
+  cursor: pointer;
+  font-weight: bold;
+  width: 25em;
+  margin: 0 auto;
+  text-align: center; }
+  @media screen and (max-width: 430px) {
+    .show-popup-links {
+      width: 100%;
+      box-sizing: border-box; } }
+  .show-popup-links:hover {
+    color: white;
+    background-origin: border-box;
+    border-color: transparent; }
+
 .page-taxonomy-term .region-content #block-views-term-description-category-block .field-name-field-products-links > .field-items {
   display: flex;
   justify-content: space-around;
@@ -2554,22 +2570,6 @@ ol {
   @media screen and (max-width: 610px) {
     .page-taxonomy-term .region-content #block-views-term-description-category-block .field-name-field-products-links > .field-items {
       flex-direction: column; } }
-.page-taxonomy-term .region-content .show-popup-links {
-  border: 2px solid #a3a3a3;
-  padding: 0.3em 1.7em;
-  cursor: pointer;
-  font-weight: bold;
-  width: 25em;
-  margin: 0 auto;
-  text-align: center; }
-  @media screen and (max-width: 430px) {
-    .page-taxonomy-term .region-content .show-popup-links {
-      width: 100%;
-      box-sizing: border-box; } }
-  .page-taxonomy-term .region-content .show-popup-links:hover {
-    color: white;
-    background-origin: border-box;
-    border-color: transparent; }
 .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div {
   display: flex;
   flex-wrap: wrap;
@@ -3502,6 +3502,13 @@ body.maintenance-page {
 
 #hitro-links-list-form .form-actions input {
   margin-right: 1em; }
+
+form.tags-edit-form .buttons-ajax {
+  display: flex; }
+  form.tags-edit-form .buttons-ajax input {
+    margin: 0.5em; }
+    form.tags-edit-form .buttons-ajax input:first-child {
+      margin-left: 0; }
 
 .rating-wrapp {
   display: flex;

@@ -28,18 +28,20 @@ function hitro_list_form($form,$form_state,$type='')
 				break;
 		}
 	$data=[];
+	$needreload=true;
 	//if ($form_state['values'])
 	//dsm($form_state,'fs');
 	if (!empty($form_state['triggering_element'])){
-
+		$needreload=false;
 		$data=$form_state['values'];
 		$type=$data['type'];
 		$pid=$data['pid'];
-		$data=$data['tags'];
+		$data=$data['tags']??[];
 		form_state_values_clean($form_state);
 		$vals=$form_state['values'];
 		$te=$form_state['triggering_element'];
 		$tename=end($te['#parents']);
+		//dfb($tename,'$tename');
 		switch($tename){
 			case 'addmore':
 				$data[]=[];
@@ -47,11 +49,85 @@ function hitro_list_form($form,$form_state,$type='')
 			case 'del':
 				unset($data[$te['#idis']]);
 			break;
+			case 'copy':
+				$_SESSION['mk-tags-list-from']="$type--$pid";
+				break;
+			case 'paste':
+				if (!empty($_SESSION['mk-tags-list-from'])){
+					list($fromtype,$frompid)=explode('--',$_SESSION['mk-tags-list-from']);
+					$res=db_select('hl','t');
+					$res->condition('t.type',$fromtype);
+					$res->condition('t.pid',$frompid);
+					$res->fields('t');
+					$groupslist=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
+					$pids=[];
+					foreach($groupslist as $g)
+						$pids[]=$g['id'];
+					// надо выдрать линки .. 
+					$res=db_select('hl','t');
+					$res->condition('t.type','link');
+					$res->condition('t.pid',$pids);
+					$res->fields('t');
+					$linklist=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
+					//dfb(['g'=>count($groupslist),'l'=>count($linklist)],'lists');
+
+					//dfb([$type,$pid],'insert to');
+					// зачистка текущего расположения .. 
+					// достаём id групп ..
+					$res=db_select('hl','t');
+					$res->condition('t.type',$type);
+					$res->condition('t.pid',$pid);
+					$res->fields('t',['id']);
+					$old=$res->execute()->fetchCol();
+
+					// процесс зачистки .. 
+					if ($old){
+						//dfb($old,'$res');
+						// удаляем группы 
+						$res=db_delete('hl');
+						$res->condition('id',$old);						
+						$res->execute();
+						// удаляем ссылки 
+						$res=db_delete('hl');
+						$res->condition('pid',$old);
+						$res->condition('type','link');
+						$res->execute();
+					}
+					// проходим по группам .. 
+					foreach($groupslist as $g){
+						$gid=$g['id'];
+						unset($g['id']);
+						$g['pid']=$pid;
+						$g['type']=$type;
+						$res=db_insert('hl');
+						$res->fields($g);
+						$g=$res->execute();
+						foreach($linklist as $l){
+							if ($l['pid']!=$gid)
+								continue;
+							unset($l['id']);
+							$l['pid']=$g;
+							$res=db_insert('hl');
+							$res->fields($l);
+							$res->execute();
+						}
+					}
+					$needreload=true;
+
+					//$groupslist=$res->fetchAll(PDO::FETCH_ASSOC);
+					// собрать idы копируемых групп  .. 
+					
+					//dfb($_SESSION['mk-tags-list-from'],'test');
+					//unset($_SESSION['mk-tags-list-from']);
+				}
+				
 		}
 		//dfb($vals,$te);
 		//dfb($form_state['triggering_element'],'te');
 	}
-	else{
+	// загрузка из базы . 
+	if ($needreload){
+	
 		//dsm([$type,$pid]);
 		// читаем данные из базы .. 
 		$res=db_select('hl','t');
@@ -66,6 +142,10 @@ function hitro_list_form($form,$form_state,$type='')
 	}
 
 	$form=[
+		'#attributes'=>['class'=>['tags-edit-form']],
+		/*'from'=>[
+			'#markup'=>$_SESSION['mk-tags-list-from']??'--',
+		],*/
 		'type'=>[
 			'#type'=>'value',
 			'#value'=>$type,
@@ -119,9 +199,9 @@ function hitro_list_form($form,$form_state,$type='')
 		else
 			$link=[
 				'#type'=>'link',
-				'#href'=>current_path().'/'.$d['id'],
-				'#title'=>sprintf('Перейти (%d)',$d['col']),
-				'#access'=>$d['id']>0,
+				'#href'=>current_path().'/'.($d['id']??0),
+				'#title'=>sprintf('Перейти (%d)',$d['col']??0),
+				'#access'=>!empty($d['id']),
 			];
 			
 
@@ -158,6 +238,7 @@ function hitro_list_form($form,$form_state,$type='')
 			],
 		];
 	}
+	$form['buttons']['#markup']='<div class="buttons-ajax">';
 	$form['addmore']=[
 		'#type'=>'button',
 		'#value'=>'Добавить ещё',
@@ -166,6 +247,30 @@ function hitro_list_form($form,$form_state,$type='')
 			'wrapper'=>'tags-wraper',
 		],
 	];
+	// вставить кнопки копипаста списка ...
+	if (strpos($type, 'group')!==false ){
+		$form=array_merge($form,[
+			'copy'=>[
+				'#access'=>count($data),
+				'#type'=>'button',
+				'#value'=>'Копировать',
+				'#ajax'=>[
+					'callback'=>'hl_taggs_add_more_jscb',
+					//'wrapper'=>'tags-wraper',
+				],
+			],
+			'paste'=>[
+				'#type'=>'button',
+				'#access'=>isset($_SESSION['mk-tags-list-from'])&& $_SESSION['mk-tags-list-from']!="$type--$pid" ,
+				'#value'=>'Вставить/Заменить',
+				'#ajax'=>[
+					'callback'=>'hl_taggs_add_more_jscb',
+					'wrapper'=>'tags-wraper',
+				],
+			]
+		]);
+	}
+	$form['buttons1']['#markup']='</div>';
 	return $form;
 }
 
