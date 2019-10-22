@@ -56,10 +56,9 @@ body {
     position: relative;
     padding-right: 2.7em; }
 
-.region-content h1, .region-content h2, .region-content h3, .region-content h4, .region-content h5, .region-content h6 {
-  color: #C243C1;
-  font-weight: bold; }
-
+/*.region-content {
+	h1,h2,h3,h4,h5,h6 {color:$scolor;font-weight: bold;}
+}*/
 .site-hmenu .wrap > ul.menu li.item-catalog, .site-hmenu .wrap .mobile-block.catalog-of-produucts-button, .footer .menu-line .wrap .item-catalog {
   cursor: pointer;
   background: #141414; }
