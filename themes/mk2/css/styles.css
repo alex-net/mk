@@ -865,6 +865,8 @@ ol {
         background-repeat: no-repeat;
         text-decoration: none;
         background-color: white; }
+        .catalog-list .item + .subitems .s-item .menu-wrap {
+          display: block; }
         .catalog-list .item + .subitems .s-item .name {
           display: inline-block;
           padding: 0.5em 1em;
@@ -873,8 +875,24 @@ ol {
           font-size: .9em;
           margin-top: -0.3em;
           box-sizing: border-box; }
-        .catalog-list .item + .subitems .s-item:hover .name {
-          background: #c73838; }
+        .catalog-list .item + .subitems .s-item .subel {
+          display: none; }
+        @media screen and (min-width: 1001px) {
+          .catalog-list .item + .subitems .s-item:hover .menu-wrap {
+            position: relative;
+            z-index: 10;
+            background-color: #272727; }
+          .catalog-list .item + .subitems .s-item:hover .name {
+            background: #c73838;
+            display: block; }
+          .catalog-list .item + .subitems .s-item:hover .subel {
+            display: block;
+            font-size: 0.85em;
+            color: white;
+            padding: 0.5em 1.2em;
+            cursor: pointer; }
+            .catalog-list .item + .subitems .s-item:hover .subel:hover {
+              background-color: #141414; } }
         @media screen and (max-width: 830px) {
           .catalog-list .item + .subitems .s-item {
             flex-basis: 46%; } }

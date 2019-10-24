@@ -220,8 +220,18 @@ ul.tabs.primary {white-space: normal;}
 		// плашка с подразделами 
 		+ .subitems {margin:-0.5em -0.5em 1em;display: none;flex-wrap: wrap;justify-content: center;
 			.s-item {flex-basis:31%;height: 11em;margin: 0.5em;background-size: contain;background-position: 50% 50%;background-repeat: no-repeat;text-decoration: none;background-color:white;
+				.menu-wrap {display: block;}
 				.name {display: inline-block;padding:0.5em 1em;color:$text-color;background: $bg-fone;font-size: .9em;margin-top: -0.3em;box-sizing: border-box;}
-				&:hover .name {background: $rcolor;}
+				.subel {display: none;}
+				@media screen and (min-width: 1001px){
+					&:hover {
+						.menu-wrap {position: relative;z-index: 10;background-color: #272727;}
+						.name {background: $rcolor;display: block;}
+						.subel {display: block;font-size: 0.85em;color:white;padding: 0.5em 1.2em;cursor: pointer;
+							&:hover {background-color: #141414;}
+						}
+					}
+				}
 				@media screen and (max-width: 830px){flex-basis:46%;
 					@media (max-width: 480px){height: auto;background-image: none;
 						.name {display: block;width: 100%;margin-top: 0;text-align: center;}

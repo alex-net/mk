@@ -185,7 +185,8 @@ function getOneLevelOfCatalog(int $ptid=0)
 	$res->leftJoin('taxonomy_term_hierarchy','th2','th2.parent=td.tid');
 	$res->leftJoin('taxonomy_term_data','td2','td2.tid=th2.tid and td2.vis=1');
 
-	$res->addExpression('count(td2.tid)','childs');
+	//$res->addExpression('count(td2.tid)','childs');
+	$res->addExpression('group_concat(td2.tid)','childtids');
 	$res->groupBy('td.tid');
 
 	$res->fields('td',['tid']);
@@ -195,12 +196,43 @@ function getOneLevelOfCatalog(int $ptid=0)
 	//$res=$res->fetchCol();
 	$tids=$res;
 
+
 	if ($res){
+		// собираем все дочерние термины для загрузки ...
+		$childstids=[];
+		foreach($tids as $x=>$v){
+			$tids[$x]['childtids']=empty($v['childtids'])?[]:explode(',',$v['childtids']);
+			$childstids=array_merge($childstids,$tids[$x]['childtids']);
+		}
+		$childstids=array_unique($childstids);
+		if ($childstids){
+			$t=db_select('taxonomy_term_data','t');
+			$t->condition('t.tid',$childstids);
+			$t->fields('t',['tid','name']);
+			$t->orderBy('t.weight','asc');
+			$t=$t->execute();
+			$childstids=$t->fetchAllAssoc('tid',PDO::FETCH_ASSOC);
+			//dfb($t,'t');
+			//dfb($t);
+
+		}
+		//dfb($childstids,'$childstids');
+
 		// загружаем сущности  .
 		$res=entity_load('taxonomy_term',array_keys($res));
 		// проставляем количество потомков .. 
-		foreach($res as $t=>$v)
-			$res[$t]->childs=$tids[$t]['childs'];
+		foreach($res as $t=>$v){
+			$ch=[];
+			foreach($tids[$t]['childtids'] as $x)
+				$ch[]=[
+					'name'=>$childstids[$x]['name'],
+					'url'=>url('taxonomy/term/'.$x),
+				];
+			$res[$t]->childs=count($ch);
+			$res[$t]->childslist=$ch;
+
+			//$res[$t]->childs=$ch;//$tids[$t]['childs'];
+		}
 	}
 	$cat=$res;
 	

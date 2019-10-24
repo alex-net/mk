@@ -20,6 +20,7 @@ function catalog_list_cb($ptid=0)
 			'img'=>file_create_url($img[0]['uri']),
 			'href'=>url('taxonomy/term/'.$v->tid),
 			'childs'=>$v->childs,
+			'childs-list'=>$v->childslist,
 		];
 	}
 
@@ -44,6 +45,7 @@ function catalog_subitem_list_jscb()
 		$items=catalog_list_cb($_POST['id']);
 		$items=empty($items['cat']['terms'])?[]:$items['cat']['terms'];
 	}
+	//dfb($items,'$items');
 	$cmd[]=[
 		'command'=>'put-content-to-front-catalog-page',
 		'items'=>$items,
