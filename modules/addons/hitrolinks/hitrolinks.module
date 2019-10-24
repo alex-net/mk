@@ -125,7 +125,12 @@ function hitrolinks_preprocess_page(&$vars)
 	if (!empty($res['co']))
 		$classes[]='active';
 	//dsm($res);
-	$vars['page']['content']['system_main']['hl']=[
+	$place=&$vars['page']['content'];
+	//kprint_r($group);
+	if ($group=='ngroup')
+		$place=&$vars['page']['content']['system_main'];
+
+	$place['hl']=[ // 
 		'#type'=>'container',
 		'#weight'=>-100,
 		'#attributes'=>['class'=>['hitrolinks-wrapper']],
