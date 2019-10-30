@@ -289,11 +289,16 @@ function mkmod_block_view($delta=''){
 			    */
 			// Формируем array для рендера
 			$children = taxonomy_get_children($term->tid, $term->vid);
-
-    
+			
 			foreach($children as $child){
+				if (!$child->vis)
+					continue;
 				$data[$child->tid] = $child;
-				$data[$child->tid]->children = taxonomy_get_children($child->tid, $child->vid) ;// : false;
+				$che=taxonomy_get_children($child->tid, $child->vid) ;// : false;;
+				foreach($che as $x=>$y)
+					if (!$y->vis)
+						unset($che[$x]);
+				$data[$child->tid]->children = $che;
 			}
     //dsm($children);
 

@@ -25,7 +25,13 @@ function mkmod_entity_info_alter(&$ei)
 		'label'=>'Контент во всплывашке',
 		'custom settings'=>1,
 	];
+	// добавили поле vis в сущность 
+	$ei['taxonomy_term']['schema_fields_sql']['base table'][]='vis';
+	$ei['taxonomy_term']['base table field types']['vis']='int';
+	//dsm($ei,'$ei');
 }
+
+
 
 function mkmod_library()
 {
