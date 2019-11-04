@@ -74,7 +74,7 @@
 							var wrap=$(this).parents('.wrap').eq(0);
 							if (wrap.hasClass('show-catalog')){
 								// закрываем все открытые подуровни ..
-								wrap.find('li.item.opened').removeClass('opened');
+								wrap.find('.opened').removeClass('opened');
 								wrap.removeClass('show-catalog');
 							}
 						});

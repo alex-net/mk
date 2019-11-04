@@ -53,12 +53,39 @@
 	{
 		//console.log(data,'data is ');
 		var list=$();
+		//console.log(data);
 		for(var i in data){
 			var a=$('<a>');
 			a.addClass('mover');
 			a.attr('href',data[i].href);
-			a.text(data[i].name);
-			list=list.add(a);
+			a.html('<span>'+data[i].name+'</span>');
+			// обёртка вокруг ... ссылки ... 
+			var wrap=$('<div>');
+			wrap.addClass('link-wrapper');
+
+			wrap.append(a);
+			wrap.on('click',function(e){
+				e.stopPropagation();
+				if ($(this).hasClass('has-child') && !$(this).hasClass('opened')){
+					$(this).parent().find('.opened').removeClass('opened');
+					$(this).addClass('opened');
+					e.preventDefault();
+				}
+			});
+			if (data[i].childs){
+				wrap.addClass('has-child');
+				var sublevel=$('<div class="sublevel-2"/>');
+				for(var k in data[i]['childs-list']){
+					var link=$('<a>');
+					link.attr('href',data[i]['childs-list'][k].url);
+					link.text(data[i]['childs-list'][k].name);
+					sublevel.append(link);
+				}
+				wrap.append(sublevel);
+			}
+
+			list=list.add(wrap);
+
 		}
 		//console.log(list);
 		return list;

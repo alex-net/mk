@@ -134,8 +134,8 @@
 				});
 				// пробуем обработать клики по корневым .. подгрузить элементы .. 
 				$('.catalog-menu-popup').find('ul li').on({
-					'open-close-sub-els':function(){
-						$(this).parent().children('li.opened').removeClass('opened');
+					'open-close-sub-els':function(e){
+						$(this).parent().find('.opened').removeClass('opened');
 						$(this).addClass('opened');
 					},
 					click(e){
@@ -162,7 +162,7 @@
 						// проверка всплывашек . (закрываем все открыыте) 
 						$('body').trigger('close-all-opened-popup-menu');
 						// проверка каталога на главной ..
-						$('.front .catalog-list').children('.item.opened').removeClass('opened');
+						$('.front .catalog-list').find('.opened').removeClass('opened');
 					}
 
 					// засвечиваем меню ..
@@ -175,7 +175,7 @@
 
 
 					if (!wrap.hasClass('show-catalog')) // меню уже  закрыто  ..= сворачиваем подпункты 
-						wrap.find('li.item.opened').removeClass('opened');
+						wrap.find('.opened').removeClass('opened');
 					
 
 

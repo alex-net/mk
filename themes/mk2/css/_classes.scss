@@ -36,18 +36,51 @@
 	@media screen and (max-width: 1000px){width: 100%;}
 	ul {margin:0;padding: 0;
 		li {list-style: none outside none;padding:1em 1em 1em 0.5em;box-sizing:border-box;cursor: pointer;border-bottom:1px solid #3a3a3a;position:relative;
+			// ссылка элемента меню .. 
+			%mover {text-decoration: none;color: white;display: flex;padding:0.25em 0.5em 0.25em 0.25em ; white-space: nowrap;border-bottom:1px solid #222222;align-items:center;
+				> span {flex-grow: 1;}
+				&::before {@extend %fontas; content:'\f0da';color:$scolor;padding-right: 0.5em;width: 1em;text-align: center;font-size: 2em;}
+				&::after {color:#565655;}
+				//&:first-child {border:none;}
+				@media screen and (max-width: 1000px){white-space: normal;}
+			}
+			%mover-hover{
+				background: linear-gradient(180deg,#cf4f4f, #b42222);
+				&::before, &::after {color:white;}
+						
+			}
 			// подменюшка  второй уровень 
-			.sublevel {position: absolute;top:0;left:100%;background: black;z-index: 5;padding:0.5em 0;display: none;		
-				a.mover {text-decoration: none;color: white;display: block;margin:0 0.5em;padding:0.25em ; white-space: nowrap;border-top:1px solid #222222;
-					&::before {content:'►';color:$scolor;padding-right: 0.5em;}
-					&:first-child {border:none;}
-					&:hover {background: linear-gradient(180deg,#cf4f4f, #b42222);
-						&::before {color:white;}
+			.sublevel {position: absolute;top:0;left:100%;background: black;z-index: 5;padding:0.5em 0;display: none;
+				@media screen and (max-width: 1000px) {position: static;margin:1em -1em -1em -0.5em;}
+				.link-wrapper {position: relative;padding:0 0.5em;
+					//> a.mover {border-bottom:1px solid #3a3a3a;}
+					&:last-child > a.mover {border:none;}
+
+					.sublevel-2 {position:absolute;top:-0.5em;left: 100%;background:black;flex-direction: column;display: none;padding:0.5em 0;box-sizing:border-box;
+						@media screen and (max-width: 1000px) {position: static;padding: 0;background-color: #222;}
+						a {@extend %mover;
+							&::before {content:'\f04e';font-size: 1.4em;/*width: 1.43em;*/}
+							&:hover {@extend %mover-hover;}
+							&:last-child {border: none;}
+						}
+
+						//display: none;
 					}
+					a.mover {@extend %mover;}
+					a.mover:hover {@extend %mover-hover;}
+				
+					&.has-child > a.mover:after {content:'〉';padding-left: 0.5em;}
+					&.opened {
+						.sublevel-2 {display: flex;}
+						> a.mover {@extend %mover-hover;
+							@media screen and (max-width: 1000px){
+								&::before {content:'\f0d7';}
+							}
+						}
+					}
+
 				}
-				@media screen and (max-width: 1000px) {position: static;margin:1em -1em -1em -0.5em;
-					a.mover {white-space: normal;display: flex;align-items: center;}
-				}
+				
 			}
 			&.opened .sublevel {display: block;}
 			a.first-level {text-decoration: none;color:white;display: flex;font-size: 1.14285em;line-height: 1.375em;align-items:center;justify-content: space-between;flex-grow:1;

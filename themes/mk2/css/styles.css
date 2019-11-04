@@ -25,7 +25,7 @@ body {
     color: white;
     background-clip: border-box; }
 
-.fancybox-wrap.form-in-popup .messages.status::before, .page-cart .view-commerce-cart-form .views-table tbody tr td.views-field-edit-delete::before, .page-checkout-complete .checkout_completion_message h2::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title .has-children::before {
+.site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .fancybox-wrap.form-in-popup .messages.status::before, .page-cart .view-commerce-cart-form .views-table tbody tr td.views-field-edit-delete::before, .page-checkout-complete .checkout_completion_message h2::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .row .wrap-title .title .has-children::before {
   font-family: "Font Awesome 5 Free";
   font-weight: bold; }
 
@@ -102,6 +102,32 @@ body {
       cursor: pointer;
       border-bottom: 1px solid #3a3a3a;
       position: relative; }
+      .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        padding: 0.25em 0.5em 0.25em 0.25em;
+        white-space: nowrap;
+        border-bottom: 1px solid #222222;
+        align-items: center; }
+        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a > span, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a > span, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover > span, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover > span {
+          flex-grow: 1; }
+        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before {
+          content: '\f0da';
+          color: #C243C1;
+          padding-right: 0.5em;
+          width: 1em;
+          text-align: center;
+          font-size: 2em; }
+        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::after, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::after {
+          color: #565655; }
+        @media screen and (max-width: 1000px) {
+          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover {
+            white-space: normal; } }
+      .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover {
+        background: linear-gradient(180deg, #cf4f4f, #b42222); }
+        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover::after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:hover::after, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover::after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover:hover::after, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::after {
+          color: white; }
       .site-hmenu .wrap .catalog-menu-popup ul li .sublevel, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel {
         position: absolute;
         top: 0;
@@ -110,32 +136,43 @@ body {
         z-index: 5;
         padding: 0.5em 0;
         display: none; }
-        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover {
-          text-decoration: none;
-          color: white;
-          display: block;
-          margin: 0 0.5em;
-          padding: 0.25em;
-          white-space: nowrap;
-          border-top: 1px solid #222222; }
-          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover::before {
-            content: '►';
-            color: #C243C1;
-            padding-right: 0.5em; }
-          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover:first-child, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover:first-child {
-            border: none; }
-          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover:hover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover:hover {
-            background: linear-gradient(180deg, #cf4f4f, #b42222); }
-            .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover:hover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover:hover::before {
-              color: white; }
         @media screen and (max-width: 1000px) {
           .site-hmenu .wrap .catalog-menu-popup ul li .sublevel, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel {
             position: static;
-            margin: 1em -1em -1em -0.5em; }
-            .site-hmenu .wrap .catalog-menu-popup ul li .sublevel a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel a.mover {
-              white-space: normal;
-              display: flex;
-              align-items: center; } }
+            margin: 1em -1em -1em -0.5em; } }
+        .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper {
+          position: relative;
+          padding: 0 0.5em; }
+          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper:last-child > a.mover, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper:last-child > a.mover {
+            border: none; }
+          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 {
+            position: absolute;
+            top: -0.5em;
+            left: 100%;
+            background: black;
+            flex-direction: column;
+            display: none;
+            padding: 0.5em 0;
+            box-sizing: border-box; }
+            @media screen and (max-width: 1000px) {
+              .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 {
+                position: static;
+                padding: 0;
+                background-color: #222; } }
+            .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before {
+              content: '\f04e';
+              font-size: 1.4em;
+              /*width: 1.43em;*/ }
+            .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:last-child, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a:last-child {
+              border: none; }
+          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.has-child > a.mover:after, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.has-child > a.mover:after {
+            content: '〉';
+            padding-left: 0.5em; }
+          .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened .sublevel-2, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened .sublevel-2 {
+            display: flex; }
+          @media screen and (max-width: 1000px) {
+            .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper.opened > a.mover::before {
+              content: '\f0d7'; } }
       .site-hmenu .wrap .catalog-menu-popup ul li.opened .sublevel, .footer .menu-line .wrap .catalog-menu-popup ul li.opened .sublevel {
         display: block; }
       .site-hmenu .wrap .catalog-menu-popup ul li a.first-level, .footer .menu-line .wrap .catalog-menu-popup ul li a.first-level {
