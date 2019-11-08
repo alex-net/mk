@@ -11,7 +11,7 @@
 	</div>
 	<div class="plashko point-delover">
 		<div class='point'>Москва и МО </div>
-		<div class='deliver'>Доставка по всей россии</div>
+		<div class='deliver'>Доставка по всей России</div>
 	</div>
 	<?=theme('site_cart_head');?>
 </div>
