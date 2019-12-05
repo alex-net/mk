@@ -368,7 +368,28 @@ ol {
       font-weight: bold; }
 
 .elements-list.products > div.node, .field-type-node-reference > .field-items > div.node, .elements-list.products > div.field-item, .field-type-node-reference > .field-items > div.field-item, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
-  flex-basis: 33%; }
+  flex-basis: 33%;
+  position: relative; }
+  .elements-list.products > div.akcia-to-do.node::before, .field-type-node-reference > .field-items > div.akcia-to-do.node::before, .elements-list.products > div.akcia-to-do.field-item::before, .field-type-node-reference > .field-items > div.akcia-to-do.field-item::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .akcia-to-do.col::before {
+    content: '';
+    position: absolute;
+    width: 5em;
+    height: 5em;
+    background: red;
+    top: 1.5em;
+    right: 1.5em;
+    z-index: 5;
+    background: url(../imgs/icons/icon_discount_percent-2.png) 50% 50%/contain no-repeat; }
+  .elements-list.products > div.hit-to-do.node::before, .field-type-node-reference > .field-items > div.hit-to-do.node::before, .elements-list.products > div.hit-to-do.field-item::before, .field-type-node-reference > .field-items > div.hit-to-do.field-item::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .hit-to-do.col::before {
+    content: '';
+    position: absolute;
+    width: 7em;
+    height: 7em;
+    background: red;
+    top: 1em;
+    right: 1.5em;
+    z-index: 5;
+    background: url(../imgs/icons/icon_popular.png) 0 0%/contain no-repeat; }
   @media screen and (max-width: 1100px) {
     .elements-list.products > div.node, .field-type-node-reference > .field-items > div.node, .elements-list.products > div.field-item, .field-type-node-reference > .field-items > div.field-item, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
       flex-basis: 50%; } }
@@ -2060,6 +2081,9 @@ ol {
     padding: 0.5em; }
   .field-type-text-long table tbody {
     border-top: inherit; }
+.field-type-text-long img {
+  max-width: 100%;
+  height: auto; }
 
 .node-page.node-full {
   background: white;

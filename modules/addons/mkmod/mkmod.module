@@ -494,7 +494,7 @@ function _getcomentcontent($mkcc){
 
 
 // ============================================
-function mkmod_form_alter(&$form,&$form_state){
+function mkmod_form_alter(&$form,&$form_state,$form_id){
 	if (empty($form_state['fselector']))
 		$form_state['fselector']='form-hash-'.sha1(rand().REQUEST_TIME.rand());
 	$form['#attributes']['class'][]=$form_state['fselector'];
@@ -505,8 +505,9 @@ function mkmod_form_alter(&$form,&$form_state){
 			$form['#attributes']['class'][]=$fd['csswrap'];
 		}
 	}
-
 }
+
+
 // ====================================================
 // добавляем настроек для webform
 function mkmod_form_webform_configure_form_alter(&$form,$form_state){
@@ -718,6 +719,8 @@ function mkmod_form_taxonomy_form_term_alter(&$form,&$form_state)
 		'#default_value'=>$vis,
 	];
 	//dsm($form['#entity']->tid,'dsad');
+	$form['relations']['parent']['#size']=15;
+	//dsm($form);
 }
 
 /**

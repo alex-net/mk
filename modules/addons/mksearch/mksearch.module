@@ -50,9 +50,17 @@ function _getproductslist(string $ss,int $ce=0)
 	//$res->leftjoin('field_data_field_product_variations','p','p.entity_id=n.nid and p.bundle=n.type');
 	///$res->leftjoin('commerce_product','cp','cp.product_id=p.field_product_variations_product_id');
 	
+	// поиск по артикулу . .
+	$res->leftjoin('field_data_field_product_variations','pv','pv.entity_id=n.nid and pv.bundle=n.type');
+	$res->leftjoin('commerce_product','p','pv.field_product_variations_product_id=p.product_id');
+
 	
-	foreach(array_map('trim',explode(' ',$ss)) as $w)
-		$res->condition('n.title','%'.db_like($w).'%','like');
+	foreach(array_map('trim',explode(' ',$ss)) as $w){
+		$or=db_or();
+		$or->condition('n.title','%'.db_like($w).'%','like');
+		$or->condition('p.sku',$w);
+		$res->condition($or);
+	}
 		//$or->condition('cp.sku','%'.db_like($w).'%','like');
 	//$or->condition($and);
 	

@@ -84,20 +84,20 @@ function nodeweight_query_alter(&$q){
  */
 function nodeweight_addweighttogetproducts($q,$tid)
 {
-
+	//dsm($q->getTables());
 	foreach($q->getTables() as $t)
 			// базовая таблица ... taxonomy_index  .. с сортировкой 
 		if ($t['table']=='taxonomy_index' && !isset($t['join type']) ){
 			$ob=&$q->getOrderBy();
-			//dsm($ob,'$ob');
+			//dsm($t,'$ob');
 			// указываем по чём сортировать надо 
-			$ob=array('nw.weight'=>'asc');
-
+			$ob=array('nw.weight'=>'asc','n.created'=>'asc');
 
 			//dfb('dsad2');
 			
 			// привинчиваем табдицу с весами 
 			$q->leftjoin('nodeweight','nw','nw.tid='.$t['alias'].'.tid and nw.nid='.$t['alias'].'.nid');
+			$q->leftjoin('node','n','n.nid='.$t['alias'].'.nid');
 			// добавляем алиас таблицы к фильтрации 
 			$cond=&$q->conditions();
 			//dfb($cond,'$cond');
