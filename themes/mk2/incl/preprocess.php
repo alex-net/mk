@@ -195,7 +195,8 @@ function mk2_preprocess_node(&$vars)
 					continue;
 				$nids=[];
 				foreach(element_children($vars['content']['field_'.$k]) as $i)
-					$nids[]=$vars['content']['field_'.$k][$i]['#node']->nid;
+					if (isset($vars['content']['field_'.$k][$i]['#node']))
+						$nids[]=$vars['content']['field_'.$k][$i]['#node']->nid;
 				$classe='field-name-field-'.str_replace('_', '-', $k);
 				drupal_add_js(['product-page-'.$k=>['nids'=>$nids,'to'=>'.'.$classe.' .elements-list']],'setting');
 				hide($vars['content']['field_'.$k]);
