@@ -1,15 +1,15 @@
 (function($){
-	Drupal.behaviors['content-uploder']={
+	Drupal.behaviors['content-loder']={
 		attach:function(c,s){
 			// кнопка подгрузки товара 
 			$('.load-more-contents input').once(function(){
 				// вешаем обработчик на кнопку .. 
 				$(this).on('click',function(){
-					var data=Drupal.settings.pageruploader.data;
+					var data=Drupal.settings.pageloader.data;
 					data['exists']=$(this).parents('.load-more-contents').eq(0).siblings('.node-product-display.node-teaser').length;
 					
 					var ajax=new Drupal.ajax(false,false,{
-						url:Drupal.settings.pageruploader.loadfrom,
+						url:Drupal.settings.pageloader.loadfrom,
 						submit:data
 					});
 					ajax.eventResponse(ajax);
@@ -17,9 +17,7 @@
 
 								///вставить подгруженный контент в конец списка .. 
 				Drupal.ajax.prototype.commands['get-next-content-elements']=(a,r,s) => {
-					var data=Drupal.settings.pageruploader.data;
-
-						
+					var data=Drupal.settings.pageloader.data;
 					// если есть ноды ..  надо показать 
 					if (r.nids){
 						$(this).parent().before(r.nids);
@@ -43,19 +41,13 @@
 						
 						Drupal.attachBehaviors($(this).parents('.load-more-contents').eq(0).parent());
 					}
-
 					/// всё закончилось .
 					co=data.perpage*data.curpage+$(this).parents('.load-more-contents').eq(0).siblings('.node-product-display.node-teaser').length;
 
-					if (r.finish || co==data.total*1 )
+					if ( co==data.total*1 )
 						$(this).remove();
-
-
 				};
-
 			});
-
-
 		}
 	};
 	

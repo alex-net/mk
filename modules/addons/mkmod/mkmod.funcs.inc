@@ -304,3 +304,91 @@ function getDataForProductList($pids)
 	$dat=$res;
 	return $res;
 }
+
+
+/**
+ * получить товары для раздела каталога с применением фильтров ..
+ * @param int $tid номер раздела .. 
+ * @param int $forpage номер страницы с которой надо выдрать товары ..(0 = отправляем с пагинатором ...это начальная загрузка ..  ) 
+ */
+function getProductsListForTaxonomy($tid,$forpage=0,$sortby='rating')
+{
+	$pp=variable_get('default_nodes_main',10);
+	$res=db_select('node','n');
+	if (!$forpage){
+		$res=$res->extend('PagerDefault');
+		$res->limit($pp);
+	}
+	else
+		$res->range($forpage*$pp,$pp);
+	$res->condition('n.type','product_display');
+	$res->condition('n.status',1);
+	$res->leftJoin('taxonomy_index','ti','ti.nid=n.nid');
+	$res->condition('ti.tid',$tid);
+	//$res->addExpression('count(*)','c');
+	$res->fields('n',['nid']);
+	$res->groupBy('n.nid');
+
+	// привинчиваем веса нод .. если у нас сортировка по рейтингу .. 
+	if ($sortby=='rating'){
+		$res->leftjoin('nodeweight','nw','nw.nid=n.nid and nw.tid='.intval($tid));
+		$res->orderBy('nw.weight','asc');
+	}
+	
+
+	// привигтить ценники товаров ... по ним будет как сортировка так и фильтрация ... 
+	$res->leftjoin('field_data_field_product_variations','ppref','ppref.entity_id=n.nid and ppref.bundle=n.type ');
+	$res->leftJoin('commerce_product','cp','cp.product_id=ppref.field_product_variations_product_id and cp.status=1');
+	$res->leftjoin('field_data_commerce_price','cpp',"cpp.entity_id=cp.product_id and cpp.entity_type='commerce_product' and cpp.bundle='product'");
+	// фильтр по ценнику .. 
+	$params=drupal_get_query_parameters();
+	if (!empty($params['dprice']) && preg_match('#^\d+-\d+$#',$params['dprice'])){
+		$dp=explode('-',$params['dprice']);
+		
+		$res->having('min(cpp.commerce_price_amount) between :pfrom and :pto',[':pfrom'=>min($dp)*100,':pto'=>max($dp)*100]);
+	}
+
+	
+	//$res->groupBy('cp.product_id');
+	if (preg_match('#^price(up|down)$#',$sortby,$direct)){
+		$direct=end($direct);
+		$sortar=['up'=>'asc','down'=>'desc'];
+		$res->orderBy('min(cpp.commerce_price_amount)',$sortar[$direct]);
+		//dsm($sortby);
+	}
+
+	$res->orderBy('n.created','desc');
+	
+	return $res->execute()->fetchCol();
+}
+
+
+/**
+ * запрос максимальной и минимальной цены по категории ... 
+ */
+function getPriceRange($tid)
+{
+	$range=&drupal_static(__FUNCTION__);
+	if ($range)
+		return $range;
+
+	$res=db_select('node','n');
+	$res->condition('n.type','product_display');
+	$res->condition('n.status',1);
+	$res->leftJoin('taxonomy_index','ti','ti.nid=n.nid');
+	$res->condition('ti.tid',$tid);
+	//$res->addExpression('count(*)','c');
+	//$res->fields('n',['nid']);
+	$res->groupBy('n.nid');
+
+	// привигтить ценники товаров ... по ним будет как сортировка так и фильтрация ... 
+	$res->leftjoin('field_data_field_product_variations','ppref','ppref.entity_id=n.nid and ppref.bundle=n.type ');
+	$res->leftJoin('commerce_product','cp','cp.product_id=ppref.field_product_variations_product_id and cp.status=1');
+	$res->leftjoin('field_data_commerce_price','cpp',"cpp.entity_id=cp.product_id and cpp.entity_type='commerce_product' and cpp.bundle='product'");
+	$res->addExpression('min(cpp.commerce_price_amount)','price');
+
+	$res=$res->execute()->fetchCol();
+	$range=$res?[min($res)/100,max($res)/100]:[null,null];
+
+	return $range;
+}

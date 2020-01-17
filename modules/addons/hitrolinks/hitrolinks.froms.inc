@@ -1,12 +1,12 @@
 <?php
 
 // форма управления категориями ссылок .. 
-function hitro_list_form($form,$form_state,$type='')
+function hitro_list_form($form,$form_state,$type='',$entitytype='')
 {
 	$entityid=0;
 	$pid=0;
-
-	$entitytype=arg(0);
+	
+	//$entitytype=arg(0);
 	if ($type=='group'){
 		$type=$entitytype[0].$type;
 		switch(arg(0)){
@@ -200,29 +200,29 @@ function hitro_list_form($form,$form_state,$type='')
 		'#tblheader'=>[
 			'name'=>$type=='link'?'Теги (2-й уровень)':'Заголовки (1-й уровень)',
 			'active'=>'Активно',
-			'link'=>$type=='link'?'Ссылки':'Управление тегами-ссылками',
+			'link'=>'Ссылки',
+			'tagslinkscontrol'=>'Управление дочерями',//$type=='link'?'Ссылки':'Управление тегами-ссылками',
 			'weight'=>'Вес',
 			'del'=>'Удалить'],
 	];
+	//dsm($type,'$type');
+	switch($type){
+		case 'link':
+			unset($form['tags']['#tblheader']['tagslinkscontrol']);
+			break;
+		case 'tgroup':
+		case 'ngroup':
+			unset($form['tags']['#tblheader']['link']);
+			break;
+		case 'fgroup':
+			$form['tags']['#tblheader']['link'].=' (для связанные категории)';
+			break;
+	}
 	
+		
+	//dsm($data);
 	foreach($data as $x=>$d){
-		if ($type=='link')
-			$link=[
-				'#type'=>'textfield',
-				'#size'=>46,
-				'#default_value'=>empty($d['link'])?'':$d['link'],
-				//'#title'=>'Перейти',
-				//'#access'=>$d['id']>0,
-			];
-		else
-			$link=[
-				'#type'=>'link',
-				'#href'=>current_path().'/'.($d['id']??0),
-				'#title'=>sprintf('Перейти (%d)',$d['col']??0),
-				'#access'=>!empty($d['id']),
-			];
-			
-
+		
 		$form['tags'][$x]=[
 			'id'=>[
 				'#type'=>'value',
@@ -237,11 +237,23 @@ function hitro_list_form($form,$form_state,$type='')
 				'#size'=>46,
 				'#default_value'=>empty($d['name'])?'':$d['name'],
 			],
-			'link'=>$link,
+			'link'=>[
+				'#type'=>'textfield',
+				'#size'=>46,
+				'#default_value'=>empty($d['link'])?'':$d['link'],
+				//'#title'=>'Перейти',
+				'#access'=>!in_array($type, ['tgroup','ngroup']),//$d['id']>0,
+			],
+			'tagslinkscontrol'=>[
+				'#type'=>'link',
+				'#href'=>current_path().'/'.($d['id']??0),
+				'#title'=>sprintf('Перейти (%d)',$d['col']??0),
+				'#access'=>!empty($d['id']) && strpos($type, 'group')!==false,
+			],
 			'weight'=>[
 				'#type'=>'weight',
-				'#delta'=>60,
-				'#default_value'=>empty($d['weight'])?0:$d['weight'],
+				'#delta'=>100,
+				'#default_value'=>empty($d['weight'])?$x*2:$d['weight'],
 				'#attributes'=>['class'=>['is-weight']],
 			],
 			'del'=>[
@@ -255,6 +267,7 @@ function hitro_list_form($form,$form_state,$type='')
 				],
 			],
 		];
+
 	}
 	$form['buttons']['#markup']='<div class="buttons-ajax">';
 	$form['addmore']=[
@@ -318,6 +331,7 @@ function hitro_list_form_submit($form,$form_state)
 	$ids=$res->execute()->fetchCol();
 
 	$ids2=[];
+	//dsm($fs['tags'],'save');
 	//kprint_r($fs);
 	if (!empty($fs['tags']))
 		foreach($fs['tags'] as $t){
@@ -360,4 +374,5 @@ function hitro_list_form_submit($form,$form_state)
 
 	drupal_set_message('Данные сохранены');
 }
+
 

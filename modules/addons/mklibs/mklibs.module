@@ -43,12 +43,30 @@ function mklibs_library()
 				['type'=>'file','data'=>$p.'/node_modules/animate.css/animate.min.css'],
 			],
 		],
-		'contentuploader'=>[
+		'contentloader'=>[
 			'version'=>'1.0.0',
-			'title'=>'Content Uploader',
+			'title'=>'Content Loader',
 			'js'=>[
-				['type'=>'file','data'=>$p.'/pager-uploader.js'],
+				['type'=>'file','data'=>$p.'/page-loader.js'],
 			],
+		],
+		'slider'=>[
+			// https://refreshless.com/nouislider/
+			'version'=>'1',
+			'title'=>'nouislider',
+			'js'=>[
+				['type'=>'file','data'=>$p.'/node_modules/nouislider/distribute/nouislider.min.js'],
+			],
+			'css'=>[
+				['type'=>'file','data'=>$p.'/node_modules/nouislider/distribute/nouislider.min.css'],
+			]
+		],
+		'formstyler'=>[
+			'version'=>'2.1.6',
+			'title'=>'jquery.formstyler-modern',
+			'js'=>[['type'=>'file','data'=>$p.'/node_modules/jquery.formstyler-modern/jquery.formStylerModern.min.js']],
+			'css'=>[['type'=>'file','data'=>$p.'/node_modules/jquery.formstyler-modern/jquery.formStylerModern.min.css']],
+
 		],
 	];
 }

@@ -18,3 +18,15 @@ function mkmod_html_head_alter(&$els)
 		//kprint_r($els);
 	}
 }
+
+
+// альтерим  обработчики ... 
+function mkmod_menu_alter(&$items)
+{
+	
+	$items['taxonomy/term/%taxonomy_term']['page callback']='tovarsList_cb';
+	$items['taxonomy/term/%taxonomy_term']['file']='mkmod.callbacks.inc';
+	$items['taxonomy/term/%taxonomy_term']['module']='mkmod';
+
+	
+}

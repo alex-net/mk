@@ -11,11 +11,16 @@ body {font-size: 0.875em;font-family: 'PT Sans', sans-serif;background:#f2f2f0;
 // основной цвет  фирменный ..
 $scolor:#C243C1;//#9e1899;
 $rcolor:#c73838;
+$gcolor:#b5b5b5; 
 
 $animate-length:0.3s;
 
 // максимальная ширина контента .. 
-$maxw:1182em / 14;
+//$maxw:1182em / 14;
+$mw:1480;
+$maxwem:#{$mw/14}em;
+
+$maxw:#{$mw}px;
 
 $colortemnokrasniy:#b32121;
 
@@ -32,6 +37,13 @@ $hoverfon:#141414;// фон при наведении
 	-o-mask:url($url) 50% 50% no-repeat;
 	-ms-mask:url($url) 50% 50% no-repeat;
 	-moz-mask:url($url) 50% 50% no-repeat;
+}
+
+@mixin multibrowser($tag,$params...){
+	$prefixes:'','-o-','-ms-','-moz-','-webkit-';
+	@each $pref in $prefixes {
+		#{$pref+$tag}:$params;
+	}
 }
 
 @import 'classes';

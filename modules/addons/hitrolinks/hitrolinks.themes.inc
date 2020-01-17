@@ -43,8 +43,7 @@ function popuplinks_prefunc(&$vars)
 	
 	
 	$list=[];
-	// собрать ссылки 
-	$links=[];
+
 	if($groups){
 		$res=db_select('hl','t');
 		$res->fields('t');

@@ -45,64 +45,76 @@
 ?><!DOCTYPE html >
 <html lang="<?=$language->language;?>">
 
-<head >
-  <?php print $head; ?>
-  <title><?php print $head_title; ?></title>
-  <?php if ($isprod):?>
-    <meta name='yandex-verification' content='67bd89c04787fe11' />
-    <meta name='yandex-verification' content='70e0d989fc56d0ab' />
-    <meta name="yandex-verification" content="932398723f71c7a5"/>
-  <?php endif;?>
-  <?php print $styles; ?>
-  <?php print $scripts; ?>
+<head>
+	<?php if ($isprod):?>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156073515-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-156073515-1');
+</script>
+
+	<?php endif;?>
+	<?php print $head; ?>
+	<title><?php print $head_title; ?></title>
+	<?php if ($isprod):?>
+		<meta name='yandex-verification' content='67bd89c04787fe11' />
+		<meta name='yandex-verification' content='70e0d989fc56d0ab' />
+		<meta name="yandex-verification" content="932398723f71c7a5"/>
+	<?php endif;?>
+	<?php print $styles; ?>
+	<?php print $scripts; ?>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
-  <div id="skip-link">
-    <a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
-  </div>
-  <?php print $page_top; ?>
-  <?php print $page; ?>
-  <?php print $page_bottom; ?>
+	<div id="skip-link">
+		<a href="#main-content" class="element-invisible element-focusable"><?php print t('Skip to main content'); ?></a>
+	</div>
+	<?php print $page_top; ?>
+	<?php print $page; ?>
+	<?php print $page_bottom; ?>
 
-  <?php if ($isprod):?>
-    <script type="text/javascript">
-      (function (d, w, c) {
-          (w[c] = w[c] || []).push(function() {
-              try {
-                  w.yaCounter14889307 = new Ya.Metrika({
-                      id:14889307,
-                      clickmap:true,
-                      trackLinks:true,
-                      accurateTrackBounce:true,
-                      webvisor:true,
-                      ut:"noindex"
-                  });
-              } catch(e) { }
-          });
+	<?php if ($isprod):?>
+		<script type="text/javascript">
+			(function (d, w, c) {
+					(w[c] = w[c] || []).push(function() {
+							try {
+									w.yaCounter14889307 = new Ya.Metrika({
+											id:14889307,
+											clickmap:true,
+											trackLinks:true,
+											accurateTrackBounce:true,
+											webvisor:true,
+											ut:"noindex"
+									});
+							} catch(e) { }
+					});
 
-          var n = d.getElementsByTagName("script")[0],
-              s = d.createElement("script"),
-              f = function () { n.parentNode.insertBefore(s, n); };
-          s.type = "text/javascript";
-          s.async = true;
-          s.src = "https://mc.yandex.ru/metrika/watch.js";
+					var n = d.getElementsByTagName("script")[0],
+							s = d.createElement("script"),
+							f = function () { n.parentNode.insertBefore(s, n); };
+					s.type = "text/javascript";
+					s.async = true;
+					s.src = "https://mc.yandex.ru/metrika/watch.js";
 
-          if (w.opera == "[object Opera]") {
-              d.addEventListener("DOMContentLoaded", f, false);
-          } else { f(); }
-      })(document, window, "yandex_metrika_callbacks");
-  </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/14889307?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> 
+					if (w.opera == "[object Opera]") {
+							d.addEventListener("DOMContentLoaded", f, false);
+					} else { f(); }
+			})(document, window, "yandex_metrika_callbacks");
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/14889307?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript> 
 
-  <script>
+	<script>
 (function(w, d, s, h, id) {
-    w.roistatProjectId = id; w.roistatHost = h;
-    var p = d.location.protocol == "https:" ? "https://" : "http://";
-    var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
-    var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
+		w.roistatProjectId = id; w.roistatHost = h;
+		var p = d.location.protocol == "https:" ? "https://" : "http://";
+		var u = /^.*roistat_visit=[^;]+(.*)?$/.test(d.cookie) ? "/dist/module.js" : "/api/site/1.0/"+id+"/init";
+		var js = d.createElement(s); js.charset="UTF-8"; js.async = 1; js.src = p+h+u; var js2 = d.getElementsByTagName(s)[0]; js2.parentNode.insertBefore(js, js2);
 })(window, document, 'script', 'cloud.roistat.com', 'cf2692b173348a39b538879281115252');
 </script>
 
-  <?php endif;?>
+	<?php endif;?>
 </body>
 </html>

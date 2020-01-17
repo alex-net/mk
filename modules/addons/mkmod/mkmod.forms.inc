@@ -458,4 +458,175 @@ function mkrekvisits_form_submit($form,$form_state){
 	variable_set('site-trkvs',$vals);
 	drupal_set_message('Настройки сохранены');
 }
-?>
+
+// ==================================================
+// форма фильтра товара .. в разделах каталога
+function pricefilter_form($form,$firm_state,$tid)
+{
+	list($min,$max)=getPriceRange($tid);
+	$getmin=$min;
+	$getmax=$max;
+	$get=drupal_get_query_parameters();
+	if (!empty($get['dprice']) && preg_match('#(\d+)-(\d+)#', $get['dprice'])){
+		$arr=explode('-',$get['dprice']);
+		$getmin=min($arr);
+		$getmax=max($arr);
+	}
+		
+	$form=[
+		'tid'=>[
+			'#type'=>'value',
+			'#value'=>$tid,
+		],
+		
+		'#attributes'=>['class'=>['form-of-filters']],
+		'actions'=>[
+			'#type'=>'actions',
+			'submit'=>[
+				'#name'=>'apply',
+				'#type'=>'submit',
+				'#value'=>'Применить фильтры',
+			],
+			'clear'=>[
+				'#type'=>'submit',
+				'#name'=>'clear',
+				'#value'=>'Очистить фильтры',
+			],
+			'popup'=>[
+				'#prefix'=>'<div class="popup-apply-button"><span class="close-btn">x</span>',
+				'#suffix'=>'</div>',
+				'#type'=>'submit',
+				'#name'=>'apply',
+				'#value'=>'Применить',
+			],
+		],
+	];
+	
+	$form['prices']=[
+		'#weight'=>0,
+		'#access'=>isset($min),
+		'startrange'=>[
+			'#type'=>'value',
+			'#value'=>[
+				'from'=>$min,
+				'to'=>$max,
+			],
+		],
+		'#weight'=>5,
+		'#attached'=>[
+			'library'=>[['mklibs','slider']],
+			//'library'=>[['system','ui']],
+			'js'=>[
+				drupal_get_path('module','mkmod').'/slider-filter-form.js',
+				['type'=>'setting','data'=>['sliderdata'=>['rangbig'=>[$min,$max],'rangsmal'=>[$getmin,$getmax]]]],
+			],
+		],
+		'#type'=>'fieldset',
+		'#title'=>'Цена',
+		
+		'#attributes'=>['class'=>['delta-price','form-item']],
+		'ranger'=>['#type'=>'container','#attributes'=>['class'=>['ranger-placer']]],
+		'range'=>[
+			'#tree'=>true,
+			'#type'=>'container',
+			'#attributes'=>['class'=>['text-fields-wrap']],
+			'from'=>['#type'=>'textfield','#title'=>'От','#title_display'=>'invisible','#attributes'=>['placeholder'=>'От'],'#default_value'=>$getmin,'#size'=>0],
+			'defis'=>['#markup'=>'<span>-</span>'],
+			'to'=>['#type'=>'textfield','#title'=>'До','#title_display'=>'invisible','#attributes'=>['placeholder'=>'До'],'#default_value'=>$getmax,'#size'=>0],	
+		],
+	];
+
+	$filters=module_invoke('hitrolinks','getotherfilters',$tid);
+	if ($filters)
+		$form['#attached']['library']=[['mklibs','formstyler']];
+	//dsm($filters);
+	$i=0;
+	foreach($filters as $k=>$el){
+		$i++;
+		$opt=[];
+		$attrs=[];
+		foreach($el['items'] as $x=>$y){
+			$opt[$x]=$y['title'];
+			if (preg_match('~^#[0-9a-f]+~is',$y['title'])){
+				$form['#attached']['js'][]=drupal_get_path('module','mkmod').'/color-checkbox.js';
+				$opt[$x]=sprintf('<span data-color="%s">%s</span>',$y['title'],$y['title']);
+				$attrs['class']['cl']='colored-checkboxes';
+			}
+		}
+
+		$form['fg'.$k]=[
+			'#weight'=>10*$i,
+			'#type'=>'checkboxes',
+			'#attributes'=>$attrs,
+			'#options'=>$opt,
+			'#title'=>$el['title'],
+		];
+	}
+
+	$fk=element_children($form);
+	$els=0;
+	for($i=0;$i<count($fk);$i++){
+		if (in_array($fk[$i],['tid','actions']))
+			continue;
+		if (!empty($form[$fk[$i]]['#access']))
+			$els++;
+	}
+	if (!$els)
+		$form['#disabled']=true;
+
+	
+	// http://dev.masterkrowli.ru/bitumnaya-gidroizolyaciya
+	return $form;
+}
+
+
+function pricefilter_form_submit($form,$form_state)
+{
+	form_state_values_clean($form_state);
+	$vals=$form_state['values'];
+	//dsm($vals);
+	//dsm($form_state['triggering_element']);
+	if ('clear'==$form_state['triggering_element']['#name']){
+		drupal_goto(current_path());
+		return ;
+	}
+
+	// устраиваем переход .. .
+	$ids=[];
+	foreach($vals as $x=>$y)
+		if (preg_match('#fg\d+#',$x))
+			foreach($y as $i=>$j)
+				if ($j)
+					$ids[]=$i;
+	switch(count($ids)){
+		case 0:
+			break;
+		case 1:
+			$link=module_invoke('hitrolinks','getLinkById',reset($ids));
+			if ($link)
+				drupal_goto($link);
+			return ;
+		default:
+			$tids=taxonomy_get_parents_all($vals['tid']);
+			if ($tids){
+				$tids=end($tids);
+				drupal_goto('taxonomy/term/'.$tids->tid);
+				return;
+			}
+
+	}
+
+	$rang=$vals['range'];
+
+	$range=$vals['startrange'];
+	foreach(['from','to'] as $k)
+		if (empty($rang[$k]) || !is_numeric($rang[$k]))
+			$rang[$k]=$range[$k];
+
+	$get=drupal_get_query_parameters();
+	if ($rang['from']!=$range['from'] || $rang['to']!=$range['to'])
+		$get['dprice']=implode('-',$rang);
+
+	drupal_goto(current_path(),['query'=>$get]);
+	
+}

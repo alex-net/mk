@@ -95,10 +95,12 @@
 /// слайдер акций ... 
 #block-mkmod-akcii-slider-big {margin-top:1.5em;
 	@media screen and (max-width: 799px){display: none;}
+	font-size: 1.3em;
 	$propor:395 / 1181  ; 
-	$sizes:(1100px 0.95em,1000px 0.9em, 900px 0.85em,850px,0.80em);
+	//height: 1480px * $propor;
+	$sizes:(1480px 1.35em,1320px 1.15em,1230px 1.1em,1100px 0.95em,1000px 0.9em, 900px 0.85em,850px,0.80em);
 	.content {@extend %flex-slick-block-content;
-		.slick-track .slider-el {height: 28.214em;}
+		.slick-track .slider-el {height: 1480px * $propor; /* 28.214em;*/}
 		.slider-el {background:url(../imgs/slider-akcia-bg.jpg) 50% 50% / contain no-repeat;width: 84.43em;box-sizing:border-box;padding:7.5em 49em 5.5em 8.85em;position:relative;color:black;
 			h2 {font-size: 2em;font-weight: bold;margin:0;}
 			.body {font-size: 1.1428em;}
@@ -123,10 +125,10 @@
 			} 
 		}
 	}
-	@media screen and (max-width: 1182px) {font-size: 0.9em;	
+	@media screen and (max-width: 1480px) {font-size: 0.9em;	
 		.slick-list {width: 100%;
 
-			.slick-track .slider-el{background-size: cover;padding-right: 50em;
+			.slick-track .slider-el{background-size: cover;padding-right: 50em;//margin-right: 1em;
 				@each $size,$font in $sizes{   
 					@media (max-width: $size){height: $size * $propor;font-size: $font;}
 				}
@@ -151,3 +153,130 @@ form.tags-edit-form {
 		}
 	}
 }
+
+/**
+ * блок сортировки товара в каталоге ..
+ * @type {[type]}
+ */
+.products-sort-block {background-color: white;margin:0 1em;padding: 1em 2em;display: flex;
+	span.header-block {font-weight: bold;}
+	ul.links {margin:0;display: flex;flex-wrap: wrap;
+		li {list-style: none outside none;padding: 0 1em;
+			a {text-decoration: none;font-weight: normal;}
+			&.current{@extend %fontas;
+				&::before {content:'\f14a';padding-right: 0.3em;color:$scolor;}
+				a {border-bottom: 1px dotted $scolor;font-weight: normal;color:$scolor;}
+			}
+		}
+	}
+	@media screen and (max-width: 430px){flex-direction: column;
+		ul.links {padding: 0.5em 0 0;
+			li {padding: 0;}display: block;
+		}
+	}
+}
+
+
+/**
+ * блок со ссылками .. выше цен ... 
+ */
+#block-hitrolinks-menu-hl-block {margin-bottom: 1em;padding:1.5em;@extend %filter-el-capt;
+	
+	.content {font-size: 1.14em;
+		ul {margin:0 0 0.5em; padding: 0;
+			li {list-style: none outside none;margin:0.7em 0;
+				@media screen and (max-width: $black-style) {margin:0;padding: 0.35em 0;border-bottom:1px solid #2e2e2f;}
+				.wrapper {display: flex;justify-content: space-between;align-items:center;
+					.ptaha {cursor: pointer;display: block;width: 9px;height: 9px;background: url(../imgs/arrows-filter-menu.png) 50% 100% no-repeat;
+						&.opened {background-position: 50% 0;}
+						@media screen and (max-width: $black-style){background: $scolor;@include multibrowser('mask',url(../imgs/arrows-filter-menu.png) 50% 100% no-repeat);
+							&.opened {@include multibrowser('mask',url(../imgs/arrows-filter-menu.png) 50% 0 no-repeat);}
+						}
+					}
+				}
+				a {text-decoration: none;color: #686868;} 
+				&.opened {
+					ul {display: block;}
+				}
+				&:hover > a, &:hover .wrapper a{color:$scolor;}
+				&.el-invis {display: none;}
+			}
+			ul {padding-left: 1em;display: none;}
+		}
+		.show-more-elements {@extend %btn1;border:1px solid $rcolor;color:$rcolor;text-align: center;color:$rcolor;background: none;cursor: pointer;font-size: 1em;width: 70%;margin: 0.5em auto 0;
+			&:hover {border:1px solid $scolor;background: $scolor;color:white;}
+		}
+	}
+}
+
+/**
+ * форма фильтра .. товаров .
+ */
+#block-mkmod-product-filter {box-sizing:border-box; padding:1.5em ;
+
+	@at-root form.form-of-filters {padding:0.5em;position:relative;
+		fieldset {border:none;margin:0 0 1.5em; @extend %filter-el-capt;
+
+			&.delta-price {
+				.text-fields-wrap {display: flex; flex-basis: 100%;justify-content: space-around;align-items:center;
+					div {display: inline-block;border:1px solid #c7c7c7;}
+					span {flex-grow: 1;width: 20%;text-align: center;flex-basis: 20%;flex-shrink: 0;}
+					input { display: block; margin:0 auto;border:none;padding: 0.5em;width: 100%;box-sizing: border-box;}
+				}
+				.noUi-target {
+					&.noUi-horizontal {height: 5px;margin:0.8em 0;}
+					.noUi-connect {background-color: #e0e0e0;}
+					.noUi-handle {border-radius: 50%;width: 2em;height: 2em;top:-1em;//position:relative;top:-12px;right: -7px;
+						@media screen and (max-width: $black-style) {box-shadow: none;background: black;}
+						&::before{display: none;}
+						&::after {content:'';display: block;width: 4px;height: 4px;border-radius: 50%;background: $scolor;position: absolute;top:50%;left: 50%;margin-top:-2px;margin-left:-2px;}
+					}
+				}
+			
+			}
+		}
+		.form-type-checkboxes {margin: 0 0 1.5em; @extend %filter-el-capt;
+			
+			.form-checkboxes {
+				.form-type-checkbox {display: flex;margin:0.5em 0;
+					label {flex-grow: 1;font-size: 1.15em;}
+				}
+				&.colored-checkboxes .form-type-checkbox {margin:0.15em 0;}
+			}
+
+			.jq-checkbox {border:1px solid #d9d9d9;border-radius: 0;width: 1.5em;height: 1.5em;background:transparent;
+				@media screen and (max-width: $black-style) {background: white;}
+				&.checked  {background: url(../imgs/checbox.png) 50% 50% no-repeat, $scolor;box-shadow:none;text-align: center;border:none;
+					//&::before {@extend %fontas;content:'\f00c';font-weight: bold;color:white;font-size: 0.8em;display: block;margin-top: 0.2em;}
+					.jq-checkbox__flag {display: none;}
+				}
+			}
+			.form-checkboxes.colored-checkboxes {display: flex;flex-grow: 1;flex-wrap: wrap;
+				.jq-checkbox {width: 3em;height: 3em;box-shadow:none;
+					&.checked {position: relative;box-shadow:0 0 0.7em -0.3em black;
+						@media screen and (max-width: 850px) {box-shadow:0 0 0.7em -0.3em white;}
+						&.white-color::before {content:'';position: absolute;top:50%;left: 50%;width: 14px; height:  14px;background-color: black;display: block;margin:-7px 0 0 -7px;-webkit-mask:url(../imgs/checbox.png) 50% 50% no-repeat;}
+						/*&::before {content:'';position: absolute;height: 1em;width: 1em;background: red;}*/
+					}
+				}
+			}
+		}
+		.form-actions input{display: block;margin:0.5em auto;width: 100%;background:none;border:1px solid black;background-origin: border-box;font-size: 1em;
+			&[name='apply'] {border-color:$scolor;color:$scolor;
+				&:hover{border-color:transparent; background-clip: padding-box;  background:linear-gradient(180deg, lighten($scolor,10%),darken($scolor,10%));color:white;}
+				@media screen and (max-width: $black-style){color:white;background: $scolor;border-width: 3px}
+			}
+			&[name='clear'] {border-color: $gcolor;color:$gcolor;
+				&:hover {background: #6d6f72;color:white;}
+				@media screen and (max-width: $black-style){color:white;background: #6d6d6d;border:3px solid #424242;}
+			}
+		}
+		.popup-apply-button {position: absolute;top:50%;width:15.5em; right: -15em;z-index: 10;background: white;padding: 1em;box-shadow: 0 0 1em -0.5em black;box-sizing:border-box;display: none;
+			&.vis {display: block;}
+			input {margin:0;line-height: 1.7em;}
+			.close-btn {position: absolute;top:0.2em; right: 0.2em;line-height: 1em;top:0.2em;cursor: pointer;}
+			&::before {content:'';position: absolute;width: 0em;height: 0em;border:0.5em solid white;border-left-color:transparent;border-top-color:transparent;border-bottom-color:transparent;top:50%;margin-top:-0.5em;left:-1em;box-shadow: 0 0 1em -0.5em black;}
+		}
+	}
+}
+

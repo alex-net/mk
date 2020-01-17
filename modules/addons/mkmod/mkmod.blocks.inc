@@ -59,7 +59,7 @@ function mkmod_block_info(){
 		'articles-list'=>[
 			'info'=>'Статьи',
 		],
-
+		
 		'sub-terms'=>[
 			'info'=>'Подрубрики каталога',
 			'cache' => DRUPAL_CACHE_PER_PAGE,
@@ -77,7 +77,9 @@ function mkmod_block_info(){
 		'ad-block'=>array(
 			'info'=>'Объявления',		
 		),
-
+		'product-filter'=>[
+			'info'=>'Фильтр товаров',
+		],
 	);
 }
 function mkmod_block_configure ($delta=''){
@@ -268,7 +270,6 @@ function mkmod_block_view($delta=''){
 				'items'=>$list,
 			));
 		break;
-
 		// подуровни каталога .. .
 		case 'sub-terms':
 			$data = array();
@@ -305,6 +306,16 @@ function mkmod_block_view($delta=''){
     //return theme('catalog_children_terms', array('data' => $data));
 
 			$b['content']=theme('subtermsview',['list'=>$data]);
+		break;
+
+		// фильтр товаров ...
+		case 'product-filter':
+			if (preg_match('#^taxonomy/term/(\d+)$#i', current_path(),$tid)){
+				$form=drupal_get_form('pricefilter_form',end($tid));
+				if (empty($form['#disabled']))
+					$b['content']=$form;
+			}
+				
 		break;
 	}
 

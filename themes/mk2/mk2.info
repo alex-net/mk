@@ -16,4 +16,4 @@ scripts[]=js/scripts.js
 regions[underh1]=Над заголовком страницы 
 regions[content]=содержимое
 regions[footer]=Подвалио
-
+regions[filtrus]=Фильтра

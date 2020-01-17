@@ -11,6 +11,7 @@ function _checkdiscont($n)
 		return false;
 	// список номеров товаров.. 
 	$products=field_get_items('node',$n,'field_product_variations');
+	//kprint_r($products,'n');
 	// грузим товары по номерам .. 
 	foreach($products as $x=>$y)
 		$products[$x]=$y['product_id'];

@@ -1,5 +1,5 @@
 <?php 
-module_load_include('inc','mksearch','mksearch.themes');
+//module_load_include('inc','mksearch','mksearch.themes');
 /// ==================================
 function mksearch_menu(){
 	return array(
@@ -61,20 +61,7 @@ function _getproductslist(string $ss,int $ce=0)
 		$or->condition('p.sku',$w);
 		$res->condition($or);
 	}
-		//$or->condition('cp.sku','%'.db_like($w).'%','like');
-	//$or->condition($and);
 	
-
-	
-	//$res->condition($or);
-	//$res->limit(20);
-	// доставть артикул если надо ... 
-	//dfb(intval($ss),'$ss');
-	//$res->orderBy('cp.product_id='.intval($ss),'desc');
-	// поиск по заголовку витрины должен быть первым 
-	//$res->orderBy('n.title=\''.addslashes($ss).'\'','desc');
-	// обычный приск по части фразы 
-	//$res->orderBy('i.score','desc');
 
 	$res->groupBy('n.nid');
 	// показываем первую страницу с пагинатором .. 
@@ -183,16 +170,14 @@ function mksearch_preprocess_search_results(&$vars)
 {
 	global $pager_total_items,$pager_page_array,$pager_total;
 
-
 	$vars['lotalloaded']=$pager_total_items[0]??0;
 	$vars['perpage']=variable_get('default_nodes_main',10);
 	$pparams=drupal_get_query_parameters();
 	$vars['placebutton']=$pager_total[0]-1>$pager_page_array[0];
-
 	if ($vars['placebutton']){
-		drupal_add_library('mklibs','contentuploader');
+		drupal_add_library('mklibs','contentloader');
 		drupal_add_js([
-			'pageruploader'=>[
+			'pageloader'=>[
 				'loadfrom'=>url('get-next-page-search'),
 				'data'=>[
 					'curpage'=>$pparams['page']??0,

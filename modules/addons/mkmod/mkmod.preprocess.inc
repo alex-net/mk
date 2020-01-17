@@ -45,16 +45,17 @@ function mkmod_preprocess_page(&$p)
 	// не показывать на последней странице ..
 	if (preg_match('#^taxonomy/term/(\d+)$#',current_path(),$tid) &&  $pager_total[0]>0 && $pager_total[0]-1!=$pager_page_array[0] ) {
 		array_shift($tid);
-
+		//dsm($pager_total);
 		$tid=empty($tid)?'search':reset($tid);
-		
-
 			//dsm([$_SERVER['REQUEST_URI'],],'serv');
 		//dsm($p['page']['content']['system_main']['pager']);
 		//dsm(pager_find_page());
 		//$p['page']['content']['system_main']['pager']['#access']=false;
-		$p['page']['content']['system_main']['nodes']['#type']='container';
-		$p['page']['content']['system_main']['nodes']['load-more']=[
+		//dsm($p['page']['content']['system_main']);
+		//$p['page']['content']['system_main']['nodes']['#type']='container';
+		$pparams=drupal_get_query_parameters();
+
+		$p['page']['content']['system_main']['products']['load-more']=[
 			'#type'=>'container',
 			'#attributes'=>['class'=>['load-more-contents']],
 			'button'=>[
@@ -63,26 +64,31 @@ function mkmod_preprocess_page(&$p)
 			],
 			//'#markup'=>'<input type="button" value="Загрузить ещё" />',
 			'#weight'=>1000,
-		];
-		
-		$pparams=drupal_get_query_parameters();
-		
-		//$p['page']['content']['system_main']['nodes']['#attached']['js'][]=drupal_get_path('module','mkmod').'/pager-uploader.js';
-		$p['page']['content']['system_main']['nodes']['#attached']['library'][]=['mklibs','contentuploader',];
-		$p['page']['content']['system_main']['nodes']['#attached']['js'][]=[
-			'type'=>'setting',
-			'data'=>[
-				'pageruploader'=>[
-					'loadfrom'=>url('get-next-content-elements'),
-					'data'=>[
-						'curpage'=>$pparams['page']??0,
-						'curtid'=>$tid,
-						'total'=>$pager_total_items[0],
-						'perpage'=>variable_get('default_nodes_main',10),
+			'#attached'=>[
+				'library'=>[
+					['mklibs','contentloader'],
+				],
+				'js'=>[
+					[
+						'type'=>'setting',
+						'data'=>[
+							'pageloader'=>[
+								'loadfrom'=>url('get-next-content-elements'),
+								'data'=>[
+									'curpage'=>$pparams['page']??0,
+									'curtid'=>$tid,
+									'total'=>$pager_total_items[0],
+									'perpage'=>variable_get('default_nodes_main',10),
+									'sort'=>$pparams['sort']??'rating',
+								],
+							]
+						],
 					],
-				]
+				],
 			],
 		];
+		
+	
 	}
 }
 

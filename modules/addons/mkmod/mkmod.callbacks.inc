@@ -266,62 +266,7 @@ function _get_comments_list_cb(){
 // ===========================================================================
 
 
-function get_next_content_elements_jscb()
-{
-	$cmds=[];
-	// запрашиваем  все витрины .. что есть ..  
-	$pp=variable_get('default_nodes_main',10);
-	$res=db_select('taxonomy_index','ti');
-	$res->condition('ti.tid',$_POST['curtid']);
-	$res->leftJoin('node','n','ti.nid=n.nid');
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	$res->range($_POST['exists']+$pp*$_POST['curpage'],$pp);
-	$res->addTag('node_access');
-	$res->fields('n',['nid']);
-	$res->orderBy('n.created','asc');
-	$res=module_invoke('nodeweight','addweighttogetproducts',$res,$_POST['curtid']);
-	$res=$res->execute()->fetchCol();
 
-	/*dfb([
-		'exists'=>$_POST['exists'],
-		'ppsize'=>$_POST['ppsize'],
-		'curpage'=>$_POST['curpage'],
-		'++from'=>$_POST['exists']+$_POST['ppsize']*$_POST['curpage'],
-		'count'=>$_POST['ppsize'],
-	],'pp');*/
-/*
-	$res=db_select('node','n');
-	$res->fields('n',['nid']);
-	$res->condition('n.status',1);
-	$res->condition('n.type','product_display');
-	$res->leftJoin('taxonomy_index','ti','ti.nid=n.nid');
-	$res->condition('ti.tid',$_POST['curtid']);
-	$res->range($_POST['exists'],$_POST['ppsize']);
-	$res->addTag('node_access');
-	$res=module_invoke('nodeweight','addweighttogetproducts',$res,$_POST['curtid']);
-
-	$res=$res->execute()->fetchCol();
-	*/
-	$fin=true;
-	if ($res){
-		$fin=count($res)<$pp;
-
-		$res= node_view_multiple(node_load_multiple($res));
-		$res=render($res);
-		
-		$res=str_replace('destination='.current_path(), 'destination='.drupal_lookup_path('source',ltrim(parse_url($_SERVER['HTTP_REFERER'],PHP_URL_PATH),'/')), $res);
-	}
-	else
-		$res='';
-	$cmd=[
-		'command'=>'get-next-content-elements',
-		'nids'=>$res,
-		'finish'=>$fin,
-	];
-	$cmds[]=$cmd;
-	return ['#type'=>'ajax','#commands'=>$cmds];
-}
 
 
 /**
@@ -346,4 +291,96 @@ function get_nodes_list_jscb()
 	}
 
 	return ['#type'=>'ajax','#commands'=>$cmd];
+}
+
+/**
+ * подгрузка товара по аяксу ..  по кнопке Ещё ..
+ * @return [type] [description]
+ */
+function get_next_content_elements_jscb()
+{
+	$cmds=[];
+	$post=$_POST;
+	
+	$page=ceil($post['exists']/$post['perpage'])+$post['curpage'];
+
+	$prods=getProductsListForTaxonomy($post['curtid'],$page,$post['sort']);
+	$res='';
+	if ($prods){
+		$res= node_view_multiple(node_load_multiple($prods));
+		$res=render($res);
+		$res=str_replace('destination='.current_path(), 'destination='.drupal_lookup_path('source',ltrim(parse_url($_SERVER['HTTP_REFERER'],PHP_URL_PATH),'/')), $res);
+	}
+	$cmd=[
+		'command'=>'get-next-content-elements',
+		'nids'=>$res,
+		
+	];
+	$cmds[]=$cmd;
+	return ['#type'=>'ajax','#commands'=>$cmds];
+}
+
+
+/**
+ * Просмотр катлога товаров раздел такосномии ..
+ */
+function tovarsList_cb($term)
+{
+	$qp=drupal_get_query_parameters();
+	// делаем сортировку по умолчанию ..
+	$sorttype=$qp['sort']??'rating';
+	unset($qp['sort']);
+	$res=getProductsListForTaxonomy($term->tid,0,$sorttype);
+	
+	if ($res){
+		$res=node_view_multiple(node_load_multiple($res));
+		$res['#type']='container';
+		$res['#attributes']=['class'=>['elements-list','products']];
+	}
+	$textunderproducts=field_get_items('taxonomy_term',$term,'field_text_under_products');
+	//if (!empty($textunderproducts[0]['value']))
+	
+	
+	$st=[
+		'rating'=>'По рейтингу',
+		'priceup'=>'По возрастанию цены ',
+		'pricedown'=>'По убыванию цены',
+	];
+	$sortlinks=[];
+	foreach($st as $k=>$v){
+		$class=$k;
+		if ($k==$sorttype)
+			$class.=' current';
+		
+		$sortar=$k=='rating'?[]:['sort'=>$k];
+
+		$sortlinks['link-'.$class]=['html'=>true,'title'=>$v,'href'=>current_path(),'query'=>array_merge($qp,$sortar) ];
+	}
+	
+	return [
+		'button-show-filter'=>[
+			'#access'=>!empty($res),
+			'#type'=>'container',
+			'#attributes'=>[
+				'class'=>['btn-show-filter'],
+			],
+			'text'=>['#markup'=>'фильтр'],
+			'#weight'=>-100,
+		],
+		'sort'=>[
+			'#access'=>!empty($res),
+			'#type'=>'container',
+			'#attributes'=>['class'=>['products-sort-block']],
+			'links'=>[
+				'#theme'=>'links',
+				'#links'=>$sortlinks,
+				'#heading'=>['text'=>'Сортировать:','level'=>'span' ,'class'=>['header-block']],
+			],
+		],
+		'products'=>$res,
+		'pager'=>['#theme'=>'pager'],
+		'undertest'=>[
+			'#markup'=>$textunderproducts[0]['value']??'',
+		]
+	];
 }

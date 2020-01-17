@@ -69,9 +69,6 @@ function nodeweight_query_alter(&$q){
 		$tid=end($tid);
 		/// применить сортировку . если надо .. 
 		$q=nodeweight_addweighttogetproducts($q,$tid);
-		
-		///$ff=$q->getFields();
-		//dsm($ff);
 	
 	}
 }

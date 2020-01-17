@@ -12,8 +12,10 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "fancybox": "^3.0.1",
-    "inputmask": "^4.0.8",
+    "inputmask": "^4.0.9",
     "jquery": "^3.4.1",
+    "jquery.formstyler-modern": "^2.1.6",
+    "nouislider": "^14.1.1",
     "slick-carousel": "^1.8.1"
   }
 }

@@ -1,12 +1,12 @@
 <div class="top-line"></div>
 <div class='site-head'>
-	<a href="<?=$front_page;?>" class='logo'></a>
+	<a href="<?=$front_page;?>" class='logo' style='background-image: url(<?=$logo;?>)'></a>
 	<div class="plashko time-job">
 		Гипермаркет<br/>строительных&nbsp;материалов
        <div class='interval'><?=token_replace('[mk:rekv:timejob1:plain]');?></div>
 	</div>
 	<div class="plashko contacts">
-		<?=token_replace('[mk:rekv:phone-1:text:plain]<br>[mk:rekv:phone-2:text:plain]');?>
+		<?=token_replace('<a href="tel:[mk:rekv:phone-1:plain]">[mk:rekv:phone-1:text:plain]</a><br><a href="tel:[mk:rekv:phone-2:plain]">[mk:rekv:phone-2:text:plain]</a>');?>
        <?=token_replace("<a class='mail' href='mailto:[mk:rekv:mail-1:plain]'>[mk:rekv:mail-1:plain]</a>");?>
 	</div>
 	<div class="plashko point-delover">
@@ -28,13 +28,18 @@
 <div class="content-wrapper <?=$classes;?>">
 	<?php //kprint_r(get_defined_vars());?>
 	<?=$breadcrumb;?>
-	<?=render($page['underh1']);?>
-	<?php if (!empty($title)):?>
-		<h1><?=$title;?></h1>
-	<?php endif;?>
-	<?=$messages;?>
-	<?=render($tabs);?>
-	<?=render($page['content']);?>
+	<div class="wrapp-panels">
+		<?=render($page['filtrus']);?>
+		<div class="central-panel">
+			<?=render($page['underh1']);?>
+			<?php if (!empty($title)):?>
+				<h1><?=$title;?></h1>
+			<?php endif;?>
+			<?=$messages;?>
+			<?=render($tabs);?>
+			<?=render($page['content']);?>
+		</div>
+	</div>
 </div>
 
 

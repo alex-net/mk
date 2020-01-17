@@ -1,5 +1,7 @@
 <?php
 
+module_load_include('inc','hitrolinks','hitrolinks.blocks');
+
 function hitrolinks_permission()
 {
 	return [
@@ -11,11 +13,12 @@ function hitrolinks_permission()
 
 function hitrolinks_menu()
 {
+	$m=[];
 	$tagsmenu=[
 		'type'=>MENU_LOCAL_TASK,
 		'title'=>'Теги',
 		'page callback'=>'drupal_get_form',
-		'page arguments'=>['hitro_groups_list_form'],
+		'page arguments'=>['hitro_groups_list_form','et'=>''],
 		'access arguments'=>['access to hitrolinks'],
 		'file'=>'hitrolinks.froms.inc',
 	];
@@ -24,20 +27,29 @@ function hitrolinks_menu()
 			//'title callback'=>'hitro_title_links_cb',
 			//'title arguments'=>[3],
 		'page callback'=>'drupal_get_form',
-		'page arguments'=>['hitro_links_list_form'],
+		'page arguments'=>['hitro_links_list_form','et'=>''],
 		'access arguments'=>['access to hitrolinks'],
 		'file'=>'hitrolinks.froms.inc',
 	];
-	return [
-		// настройка групп ссылок ...
-		'node/%/tags'=>$tagsmenu,
-		'node/%/tags/%'=>$taglinksmenu,
-		'taxonomy/term/%/tags'=>$tagsmenu,
-		'taxonomy/term/%/tags/%'=>$taglinksmenu,
-		// настройка самих ссылок по группам ..
-		//'admin/config/content/h-l/%'=>,
-		
-	];
+	// товары 
+	$tagsmenu['page arguments']['et']=$taglinksmenu['page arguments']['et']='node';
+	$m['node/%/tags']=$tagsmenu;
+	$m['node/%/tags/%']=$taglinksmenu;
+	// разделы .. 
+	$tagsmenu['page arguments']['et']=$taglinksmenu['page arguments']['et']='taxonomy';
+	$m['taxonomy/term/%/tags']=$tagsmenu;
+	$m['taxonomy/term/%/tags/%']=$taglinksmenu;
+
+	// фильтры 
+	$tagsmenu['title']='Фильтры';
+	$taglinksmenu['title']='ссылки второй уровень';
+	$tagsmenu['page arguments']['et']=$taglinksmenu['page arguments']['et']='filters';
+	$m['taxonomy/term/%/filters']=$tagsmenu;
+	$m['taxonomy/term/%/filters/%']=$taglinksmenu;
+
+	return $m;
+
+
 }
 
 function hitro_title_links_cb($cat)
@@ -65,6 +77,14 @@ function hitrolinks_theme()
 			'preprocess functions'=>[
 				'popuplinks_prefunc',
 			],
+		],
+		'katblockmenu'=>[
+			'variables'=>[
+				'menu'=>[],
+				'limit'=>5,
+			],
+			//'render element'=>'menu',
+			'template'=>'katblockmenu',
 		],
 	];
 }
@@ -130,7 +150,9 @@ function hitrolinks_preprocess_page(&$vars)
 	if ($group=='ngroup')
 		$place=&$vars['page']['content']['system_main'];
 
+
 	$place['hl']=[ // 
+		
 		'#type'=>'container',
 		'#weight'=>-100,
 		'#attributes'=>['class'=>['hitrolinks-wrapper']],
@@ -138,9 +160,90 @@ function hitrolinks_preprocess_page(&$vars)
 		'#pid'=>$pid,
 		'#group'=>$group,
 	];
+	uasort($place, 'element_sort');
+	
 	//dsm($vars);
 
 }
 
 
 
+
+
+
+function _createMenuFromList($res)
+{
+	$menu=[];
+	for($i=0;$i<count($res); $i++){
+		if (empty($menu[$res[$i]['gid']]))
+			$menu[$res[$i]['gid']]=[
+				'title'=>$res[$i]['gname'],
+				'href'=>url($res[$i]['glink']),
+				'weight'=>$res[$i]['gw']??0,
+				'items'=>[],
+			];
+		if (isset($res[$i]['lid']) && $res[$i]['la'])
+			$menu[$res[$i]['gid']]['items'][$res[$i]['lid']]=[
+				'title'=>$res[$i]['lname'],
+				'href'=>url($res[$i]['llink']),
+				'weight'=>$res[$i]['lw']??0,
+			];
+	}
+	foreach($menu as $x=>$y)
+		uasort($menu[$x], 'drupal_sort_weight');
+	uasort($menu, 'drupal_sort_weight');
+
+	return $menu;
+}
+
+
+
+
+function hitrolinks_getotherfilters($from)
+{
+	// запрашиваем .. данные по ссылкам фильтров ... (формирование меню) 
+		$res=db_select('hl','t1');
+		$res->condition('t1.active',1);
+		$res->condition('t2.active',1);
+		$res->where('length(t1.link)=0');
+		$res->orderBy('t1.weight','asc');
+		$res->orderBy('t2.weight','asc');
+		$res->leftJoin('hl','t2',"t2.pid=t1.id ");
+		//$res->condition('t2.active',1);
+		$res->addField('t1','id','gid');
+		$res->addField('t1','weight','gw');
+		$res->addField('t1','name','gname');
+		$res->addField('t1','link','glink');
+		$res->addField('t2','id','lid');
+		$res->addField('t2','name','lname');
+		$res->addField('t2','link','llink');
+		$res->addField('t2','weight','lw');
+		$res->addField('t2','active','la');
+
+// http://dev.masterkrowli.ru/bitumnaya-gidroizolyaciya
+		
+		$res->condition('t1.type','fgroup');
+		$res->condition('t1.pid',$from);
+		
+		$res=$res->execute()->fetchAll(PDO::FETCH_ASSOC);
+		$menu=_createMenuFromList($res);
+		///dsm($menu,$from);
+
+	return $menu;
+}
+
+/**
+ * вернуть ссылку по id из таблицы 
+ * @param  int $id омер ссылки 
+ * @return string     Ссылка если есть ...
+ */
+function hitrolinks_getLinkById($id)
+{
+	$res=db_select('hl','t');
+	$res->condition('t.active',1);
+	$res->condition('t.id',$id);
+	$res->fields('t',['link']);
+	$res=$res->execute()->fetchField();
+	return $res;
+	
+}

@@ -8,6 +8,7 @@
 	}
 	.logo {flex-basis: 100%;margin: 0 .5em;background: url(../logo.png) 50% 50% no-repeat;background-size: contain;flex-shrink: 1;}
 	.plashko {padding: 0 0.5em 0 3em;color:#1d1d1d;flex-basis: 100%;position: relative;
+		a {color:#1d1d1d;text-decoration: none;}
 		&::before {content:'';display: block;width: 1px;height: 70px;background: #b7b5b5;transform: rotate(-40deg);margin:0 1em;position: absolute;left:0;top:0}
 		&:nth-child(2) {padding-left: 0;
 			&::before {display: none;}
@@ -174,7 +175,7 @@ $search-form-height: 3.28em;
  * обёртка вокруг контента 
  */
 .content-wrapper {max-width: $maxw;margin: 0 auto;
-	@media screen and (max-width: 1024px) {padding: 0 0.5em;}
+	//@media screen and (max-width: 1024px) {padding: 0 0.5em;}
 	h1 {@extend %h-tag;
 	 @at-root .page-catalog & {@extend %h-tag-icon; background-image:url(../imgs/h1-ico-catalog.png); }
 	}
@@ -185,6 +186,85 @@ $search-form-height: 3.28em;
 // табы 
 @media screen and (max-width: 450px){
 ul.tabs.primary {white-space: normal;}
+}
+
+/**
+ * разметка меню с фильтрами .. 
+ */
+
+.wrapp-panels{display: flex;box-sizing:border-box;
+	.btn-show-filter {display: none;position: fixed;top:50%;left: -1.5em;background:#1a1a1a;color:white;transform: rotate(-90deg);padding: 0.5em;text-transform: uppercase;cursor: pointer;box-sizing: border-box;z-index: 5;justify-content: center;
+		&::before {content:'';background:url(../imgs/filter-menu-button.png) 50% 50% no-repeat;display: inline-block;width: 1.5em;height: 1.5em;margin-right: 0.5em;}
+		&:hover {background-color: $scolor;}
+	}
+
+	@media screen and (max-width: 1349px) {
+		@at-root .filter-exists.page &  {padding-left: 3em;
+			@media (max-width: 480px){padding-left: 0;}
+		}
+		.btn-show-filter {display: flex;
+			@media (max-width: 480px) {position: fixed;top:auto;bottom: 2em;left:2em;transform: none;box-sizing: border-box;background:-webkit-linear-gradient( top,  #a1a6a2, #797979);opacity: 0.7;}
+		}
+	}
+	.central-panel {flex-grow: 1;max-width: $maxw;box-sizing:border-box;
+		@media screen and (max-width: $maxw){width: 100%;padding: 0 0.5em;}
+	}
+
+	.region-filtrus {width: 21em;flex-shrink: 0;box-sizing: border-box;padding-right: 2em;
+		@media screen and (max-width: 1349px){display: none;}
+		@at-root .filters-popup {
+			&.fancybox-wrap { 
+				 .fancybox-skin a.fancybox-close {font-size: 1em;width: 1em;height: 1em;top:0.815em;right: -0.95em;padding:0.19em 0.38em;background:$scolor;
+					@media screen and (max-width: 370px){font-size:1.2857em;}
+						&::before {content:'';mask:url(../imgs/fancy-close.png) 50% 50% / 1em no-repeat;-webkit-mask:url(../imgs/fancy-close.png) 50% 50% / 1em no-repeat;-moz-mask:url(../imgs/fancy-close.png) 50% 50% / 1em no-repeat;background:white;display: block;height: 100%;}
+					}
+				.fancybox-skin {background: transparent;box-shadow: none;padding: 0;
+					@media screen and (max-width: 370px){font-size: 1em;}
+				}
+				&::after {position: absolute;top:5.5em;right: -3.8em;content:'Фильтр';transform: rotate(-90deg);background: url(../imgs/filter-menu-button.png) 0.5em 50% no-repeat, $scolor;color:white;padding: 0.5em 0.8em 0.5em 3em;text-transform: uppercase;
+					@media screen and (max-width: 480px){display: none;}
+				}
+			}
+			.region-filtrus {display: flex!important;align-items:flex-start;
+
+				> div {background: white;
+					@media screen and (max-width: $black-style){
+						background:black;
+					}
+				}
+				#block-hitrolinks-menu-hl-block {width: 20em;margin-right: 1px;}
+				#block-mkmod-product-filter {flex-grow: 1;
+					form {padding: 0;
+						> div {display: flex;flex-wrap: wrap;justify-content: space-between;
+							@media screen and (max-width: 1150px){flex-direction: column;}
+							> div, > fieldset {flex-basis: 49%;box-sizing: border-box;} 
+							.form-actions {flex-basis: 100%;text-align: right;margin:0;
+								input {display: inline-block;width: auto;margin-left: 0.5em;
+									@media screen and (max-width: 520px){
+										width:100%;margin: 0 0 0.5em;
+									}
+								}
+							}
+						}
+					}
+				}
+				@media screen and (max-width: 850px){flex-direction: column;
+					#block-hitrolinks-menu-hl-block, #block-mkmod-product-filter {width: 100%;box-sizing: border-box;}
+					#block-hitrolinks-menu-hl-block {margin:0;border-bottom: 1px solid #2e2e2f;}
+					
+					
+					
+				}
+			}
+			@media screen and (max-width: 480px){
+				.fancybox-outer::before {content:'Фильтр';text-transform: uppercase;color:white;background: $scolor;padding: 0.5em;width: 100%;box-sizing: border-box;display: block;text-align: center;font-weight: bold;}
+				&.fancybox-wrap .fancybox-skin > a.fancybox-close {background: none;right: 1em;top:1.3em;}
+			}
+			
+		}
+		
+		.block {background-color: white;}
+	}
 }
 
 /**
@@ -271,6 +351,7 @@ ul.tabs.primary {white-space: normal;}
 
 // крошки  
 .breadcrumb {font-size: 1.0714em;color:#2f2f2f;margin:1em 0;padding: 0;
+	@media screen and (max-width: $maxwem) {margin:1em 0.5em;}
 	a {color:$scolor;text-decoration: none;display: inline-block;margin:0 0.5em;
 		&:first-child {margin-left: 0;}
 	}
@@ -409,6 +490,7 @@ ul.tabs.primary {white-space: normal;}
 			&::before {content:'×';}
 		}
 	}
+	
 	.popup-titl {color:$scolor;font-weight: bold;text-align: center;}
 	// сплывашка после добавления товара в корзину 
 	&.messages-commerce-add-to-cart-confirmation {
