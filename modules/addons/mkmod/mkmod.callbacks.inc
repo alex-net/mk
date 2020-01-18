@@ -326,6 +326,13 @@ function get_next_content_elements_jscb()
  */
 function tovarsList_cb($term)
 {
+	drupal_set_title($term->name);
+	$h1=field_get_items('taxonomy_term',$term,'field_h1');
+	if (empty($h1))
+		drupal_set_title($term->name);
+	else
+		drupal_set_title($h1[0]['value']);
+	
 	$qp=drupal_get_query_parameters();
 	// делаем сортировку по умолчанию ..
 	$sorttype=$qp['sort']??'rating';
@@ -357,6 +364,8 @@ function tovarsList_cb($term)
 		$sortlinks['link-'.$class]=['html'=>true,'title'=>$v,'href'=>current_path(),'query'=>array_merge($qp,$sortar) ];
 	}
 	
+	$textBetweenCatProd=field_get_items('taxonomy_term',$term,'field_text_between_cat_prods');
+	//dsm($term);
 	return [
 		'button-show-filter'=>[
 			'#access'=>!empty($res),
@@ -366,6 +375,14 @@ function tovarsList_cb($term)
 			],
 			'text'=>['#markup'=>'фильтр'],
 			'#weight'=>-100,
+		],
+		'text'=>[
+			'#access'=>!empty($textBetweenCatProd),
+			'#type'=>'container',
+			'#attributes'=>['class'=>['text-between-cat-prods']],
+			'val'=>[
+				'#markup'=>empty($textBetweenCatProd)?'':$textBetweenCatProd[0]['value'],
+			],
 		],
 		'sort'=>[
 			'#access'=>!empty($res),
