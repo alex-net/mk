@@ -326,12 +326,21 @@ function get_next_content_elements_jscb()
  */
 function tovarsList_cb($term)
 {
-	drupal_set_title($term->name);
-	$h1=field_get_items('taxonomy_term',$term,'field_h1');
-	if (empty($h1))
-		drupal_set_title($term->name);
-	else
-		drupal_set_title($h1[0]['value']);
+
+	taxonomy_term_view($term);
+
+	$uri = entity_uri('taxonomy_term', $term);
+	drupal_add_html_head_link([
+		'rel' => 'canonical',
+		'href' => url($uri['path'], $uri['options']),
+	], TRUE);
+
+	// Set the non-aliased path as a default shortlink.
+	drupal_add_html_head_link([
+		'rel' => 'shortlink',
+		'href' => url($uri['path'], array_merge($uri['options'], ['alias' => TRUE,])),
+	], TRUE);
+
 	
 	$qp=drupal_get_query_parameters();
 	// делаем сортировку по умолчанию ..
@@ -365,6 +374,9 @@ function tovarsList_cb($term)
 	}
 	
 	$textBetweenCatProd=field_get_items('taxonomy_term',$term,'field_text_between_cat_prods');
+	//dsm($term->description,'$term');
+	$text=$term->description.($textBetweenCatProd[0]['value']??'');
+
 	//dsm($term);
 	return [
 		'button-show-filter'=>[
@@ -377,11 +389,11 @@ function tovarsList_cb($term)
 			'#weight'=>-100,
 		],
 		'text'=>[
-			'#access'=>!empty($textBetweenCatProd),
+			'#access'=>!empty($text),
 			'#type'=>'container',
 			'#attributes'=>['class'=>['text-between-cat-prods']],
 			'val'=>[
-				'#markup'=>empty($textBetweenCatProd)?'':$textBetweenCatProd[0]['value'],
+				'#markup'=>$text,
 			],
 		],
 		'sort'=>[
