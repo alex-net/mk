@@ -90,6 +90,11 @@ function mkmod_theme(){
 				'list'=>array(),
 			),
 		),
+		'cat_txt_links_pics'=>[
+			'template'=>'cat-txt-links-pics',
+			'variables'=>['els'=>[]],
+			//'render element'=>'ctlp',
+		],
 	);
 }
 // =====================================================

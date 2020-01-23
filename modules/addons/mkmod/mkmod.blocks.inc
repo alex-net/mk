@@ -65,6 +65,11 @@ function mkmod_block_info(){
 			'cache' => DRUPAL_CACHE_PER_PAGE,
 		],
 
+		'term-products-and-links'=>[
+			'info'=>'Тексты и ссылки в раделе каталога',
+			'cache' => DRUPAL_CACHE_PER_PAGE,
+		],
+
 		'hit-prodag'=>array(
 			'info'=>'Хит продаж',
 		),
@@ -317,7 +322,60 @@ function mkmod_block_view($delta=''){
 			}
 				
 		break;
+		// блок текстов ссылок и картинок .. из  хитрого поля в термине таксономии .каталога ..
+		case 'term-products-and-links':
+			if(!preg_match('#^taxonomy/term/(\d+)$#i',current_path(),$id))
+				break;
+			$term=taxonomy_term_load(end($id));
+			$tal=field_get_items('taxonomy_term',$term,'field_block_pic_text_prod');
+			if (empty($tal))
+				break;
+			$list=[];
+			foreach($tal as $el)
+				$list[]=$el['value'];
+			if (empty($list))
+				break;
+
+			$list=entity_load('field_collection_item',$list);
+			foreach($list as $x=>$el){
+				$text=field_get_items('field_collection_item',$el,'field_text');
+				$pics=field_get_items('field_collection_item',$el,'field_products_links');
+				if (empty($pics))
+					$pics=[];
+				foreach($pics as $a=>$p)
+					$pics[$a]=$p['value'];
+				if ($pics){
+					$pics=entity_load('field_collection_item',$pics);
+					foreach($pics as $k=>$v){
+						$link=field_get_items('field_collection_item',$v,'field_h3_link');
+						$img=field_get_items('field_collection_item',$v,'field_pic_product_link');
+						$pics[$k]=[
+							'link'=>$link[0]['url'],
+							'title'=>$link[0]['title'],
+							'pic'=>$img[0]['uri'],
+						];
+					}
+
+				}
+				// если везде пусто - удаляем элемент..
+				if (empty($pics) && empty($text)){
+					unset($list[$x]);
+					continue;
+				}
+				$list[$x]=[
+					'text'=>$text[0]['value']??'',
+					'pics'=>$pics,
+				];
+			}
+			//dsm($list);
+			if (!$list)
+				break;
+
+			$b['content']=theme('cat_txt_links_pics',['els'=>$list]);
+		break;
 	}
+
+
 
 	return $b;
 }

@@ -342,6 +342,10 @@ function tovarsList_cb($term)
 	], TRUE);
 
 	
+	$h1=field_get_items('taxonomy_term',$term,'field_h1');
+	if ($h1)
+		drupal_set_title($h1[0]['value']);
+	///dsm();
 	$qp=drupal_get_query_parameters();
 	// делаем сортировку по умолчанию ..
 	$sorttype=$qp['sort']??'rating';

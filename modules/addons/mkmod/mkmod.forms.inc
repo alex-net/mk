@@ -481,6 +481,7 @@ function pricefilter_form($form,$firm_state,$tid)
 		
 		'#attributes'=>['class'=>['form-of-filters']],
 		'actions'=>[
+			'#weight'=>10000,
 			'#type'=>'actions',
 			'submit'=>[
 				'#name'=>'apply',

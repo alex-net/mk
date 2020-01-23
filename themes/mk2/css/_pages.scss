@@ -325,7 +325,7 @@
 	}
 	
 	// подрубрики .. 
-	#block-mkmod-sub-terms .content > div {display: flex;flex-wrap: wrap;margin-top:1em;
+	#block-mkmod-sub-terms .content > div, #block-mkmod-term-products-and-links .content .list-imgs {display: flex;flex-wrap: wrap;margin-top:1em;
 		.col {flex-basis: 25%;flex-shrink:0;position:relative;padding: 0.5em;box-sizing:border-box;
 			@media screen and (max-width:  1100px){flex-basis: 33%;
 				@media (max-width: 900px){flex-basis: 50%;
@@ -398,6 +398,7 @@
 			}
 		}*/
 	}
+	#block-mkmod-term-products-and-links .content .list-imgs {justify-content: center;}
 
 }
 // хитрые ссылки в рубрике ..

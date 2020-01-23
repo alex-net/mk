@@ -25,7 +25,7 @@ body {
     color: white;
     background-clip: border-box; }
 
-.site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .fancybox-wrap.form-in-popup .messages.status::before, .page-cart .view-commerce-cart-form .views-table tbody tr td.views-field-edit-delete::before, .page-checkout-complete .checkout_completion_message h2::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col.has-children .title a::after, .products-sort-block ul.links li.current {
+.site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper .sublevel-2 a::before, .site-hmenu .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .footer .menu-line .wrap .catalog-menu-popup ul li .sublevel .link-wrapper a.mover::before, .fancybox-wrap.form-in-popup .messages.status::before, .page-cart .view-commerce-cart-form .views-table tbody tr td.views-field-edit-delete::before, .page-checkout-complete .checkout_completion_message h2::before, .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col.has-children .title a::after, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col.has-children .title a::after, .products-sort-block ul.links li.current {
   font-family: "Font Awesome 5 Free";
   font-weight: bold; }
 
@@ -2869,7 +2869,7 @@ ol {
   @media screen and (max-width: 610px) {
     .page-taxonomy-term .region-content #block-views-term-description-category-block .field-name-field-products-links > .field-items {
       flex-direction: column; } }
-.page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div {
+.page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs {
   display: flex;
   flex-wrap: wrap;
   margin-top: 1em;
@@ -2906,24 +2906,24 @@ ol {
   				}
   			}
   		}*/ }
-  .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
+  .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col {
     flex-basis: 25%;
     flex-shrink: 0;
     position: relative;
     padding: 0.5em;
     box-sizing: border-box; }
     @media screen and (max-width: 1100px) {
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col {
         flex-basis: 33%; } }
   @media screen and (max-width: 1100px) and (max-width: 900px) {
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col {
       flex-basis: 50%; } }
 
   @media screen and (max-width: 1100px) and (max-width: 900px) and (max-width: 550px) {
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col {
       flex-basis: 100%; } }
 
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col a.image-link {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col a.image-link, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col a.image-link {
       height: 14.25em;
       display: block;
       background-size: contain;
@@ -2933,13 +2933,13 @@ ol {
       border: 5px solid #e9e9e8;
       box-sizing: border-box;
       border-bottom: none; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .title {
       border: 5px solid #c3c3c3;
       background: #3e3c3c;
       color: white;
       position: relative;
       font-size: 0.85em; }
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title a {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title a, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .title a {
         color: white;
         text-decoration: none;
         height: 4.3em;
@@ -2951,14 +2951,14 @@ ol {
         text-align: center;
         text-transform: uppercase;
         position: relative; }
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title::before {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .title::before, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .title::before {
         content: '';
         position: absolute;
         top: -5px;
         height: 5px;
         width: 100%;
         background: white; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children {
       display: none;
       position: absolute;
       top: 100%;
@@ -2968,41 +2968,43 @@ ol {
       margin-top: -0.5em;
       padding: 0 0.5em;
       box-sizing: border-box; }
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children ul {
         margin: 0;
         padding: 0.5em;
         background: #2d2c2c; }
-        .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li {
+        .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children ul li {
           list-style: none outside none;
           border-top: 1px solid #474646; }
-          .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li:first-child {
+          .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li:first-child, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children ul li:first-child {
             border-top: none; }
-          .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li a {
+          .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li a, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children ul li a {
             color: white;
             text-decoration: none;
             display: block;
             padding: 0.5em; }
-            .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li a:hover {
+            .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col .wrap-children ul li a:hover, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col .wrap-children ul li a:hover {
               color: #C243C1; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col.has-children .title a::after {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col.has-children .title a::after, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col.has-children .title a::after {
       content: '\f078';
       position: absolute;
       top: 50%;
       margin-top: -0.5em;
       right: 1em;
       opacity: 0; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover a.image-link {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover a.image-link, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover a.image-link {
       border-color: #c73838; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover .title {
       border-color: #c73838; }
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title a {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title a, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover .title a {
         background-color: #c73838; }
-        .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title a::after {
+        .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title a::after, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover .title a::after {
           opacity: 1; }
-      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title::before {
+      .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .title::before, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover .title::before {
         display: none; }
-    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .wrap-children {
+    .page-taxonomy-term .region-content #block-mkmod-sub-terms .content > div .col:hover .wrap-children, .page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs .col:hover .wrap-children {
       display: block; }
+.page-taxonomy-term .region-content #block-mkmod-term-products-and-links .content .list-imgs {
+  justify-content: center; }
 
 .hl-win-wrapp {
   background: #f4fbfe;
