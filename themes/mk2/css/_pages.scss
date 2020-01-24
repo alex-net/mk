@@ -334,7 +334,9 @@
 			}
 			a.image-link {height: 14.25em;display: block;background-size: contain;background-repeat: no-repeat;background-position: 50% 50%;background-color: white;border:5px solid #e9e9e8;box-sizing: border-box;border-bottom: none;}
 			.title {border: 5px solid #c3c3c3;background: #3e3c3c;color:white;position:relative;font-size: 0.85em;
-				a {color:white;text-decoration: none;height: 4.3em;display: flex;justify-content: center;align-items: center;padding: 0.5em;box-sizing: border-box;text-align: center;text-transform: uppercase;position: relative;}
+				a {color:white;text-decoration: none;height: 4.3em;display: flex;justify-content: center;align-items: center;padding: 0.5em;box-sizing: border-box;text-align: center;text-transform: uppercase;position: relative;
+					span.text {flex-grow: 1;display: block;text-align: center;}
+				}
 				
 				&::before {content:'';position: absolute;top:-5px;height: 5px;width: 100%;background: white;}
 			}
@@ -350,7 +352,7 @@
 			}
 			&.has-children {
 				.title a {
-					&::after  {@extend %fontas;content:'\f078';position: absolute;top:50%;margin-top: -0.5em;right: 1em;opacity:0;}
+					&::after  {@extend %fontas;content:'\f078';opacity:0;margin-left: 0.5em;}
 				}
 			}
 			&:hover {

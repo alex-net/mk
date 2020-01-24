@@ -108,9 +108,8 @@
 
 	// полный просмотр товара .. 
 	&.node-full{
-		
-		@at-root .page-node.node-type-product-display h1 > span.p-rating {@extend %star-widget;width: 100px; font-size: 0.49em;}
 		@at-root .page-node.node-type-product-display h1 {position:relative;padding-right:4em;
+			> span.p-rating {@extend %star-widget;width: 100px; font-size: 0.49em;}
 			span.prod-sku {position: absolute;right: 0;top:25%; font-size: .55em;}
 			@media screen and (max-width: 1000px){padding-right:0; 
 				span.title {display: block;}

@@ -161,6 +161,8 @@ ol {
 }
 
 %btn2-hover {color:white;background-color: #595959;}
+// шапка у таблиц
+%tbl-header{color:white;background-color: #595959;}
 
 // кнопка .. розовая на красную .. 
 %btn1 {@extend %scolorgrad;padding: 0.5em;color:white;border:none;font-size: 1.5em;}
@@ -178,6 +180,9 @@ $black-style:850px;
 		&::after {content:'';display: block;height: 9px; width: 9px; background: url(../imgs/arrows-filter-menu.png) 50% 0% no-repeat;margin-left: 0.5em;
 			@media screen and (max-width: $black-style){background: $scolor;@include multibrowser('mask',url(../imgs/arrows-filter-menu.png) 50% 0% no-repeat);}
 		}
+	}
+	> legend {display: block;
+		&::after {float: right;margin:0.5em 0 0 0.5em;}
 	}
 	&.closed {
 		> .content, > .fieldset-wrapper , > .form-checkboxes  {display: none;}

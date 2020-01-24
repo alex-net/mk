@@ -574,10 +574,10 @@ ul.tabs.primary {white-space: normal;}
 }
 
 // формление таблиц  в контенте ...  
-.field-type-text-long {
+.field-type-text-long, .text-undertext {
 	table {width: 100%;background-color:white;box-sizing:border-box;padding:0.5em;
 		//tbody {border:none;
-		thead {@extend %btn2-hover;
+		thead {@extend %tbl-header;
 			th {border:none;padding: 0.5em;}
 		}
 		tbody {border-top:inherit;}

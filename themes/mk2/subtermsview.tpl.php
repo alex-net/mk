@@ -23,7 +23,7 @@
 					//echo render($img);
 				?>
 				<div class="title">
-					<?php echo l($term->name,'taxonomy/term/'.$term->tid);  ?>
+					<?php echo l('<span class="text">'.$term->name.'<span>','taxonomy/term/'.$term->tid,['html'=>true]);  ?>
 				</div>
 							
 				<?php if ($term->children): ?>

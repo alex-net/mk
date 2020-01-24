@@ -412,8 +412,13 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
-		'undertest'=>[
-			'#markup'=>$textunderproducts[0]['value']??'',
+		'undertext'=>[
+			'#type'=>'container',
+			'#attributes'=>['class'=>['text-undertext']],
+			'text'=>[
+				'#markup'=>$textunderproducts[0]['value']??'',
+			],
+			
 		]
 	];
 }

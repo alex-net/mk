@@ -505,7 +505,7 @@ function pricefilter_form($form,$firm_state,$tid)
 	
 	$form['prices']=[
 		'#weight'=>0,
-		'#access'=>isset($min),
+		'#access'=>isset($min)&& $min<$max ,
 		'startrange'=>[
 			'#type'=>'value',
 			'#value'=>[
@@ -540,7 +540,7 @@ function pricefilter_form($form,$firm_state,$tid)
 	$filters=module_invoke('hitrolinks','getotherfilters',$tid);
 	if ($filters)
 		$form['#attached']['library']=[['mklibs','formstyler']];
-	//dsm($filters);
+	
 	$i=0;
 	foreach($filters as $k=>$el){
 		$i++;
@@ -557,6 +557,7 @@ function pricefilter_form($form,$firm_state,$tid)
 
 		$form['fg'.$k]=[
 			'#weight'=>10*$i,
+			'#access'=>true,
 			'#type'=>'checkboxes',
 			'#attributes'=>$attrs,
 			'#options'=>$opt,

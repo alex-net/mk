@@ -184,10 +184,10 @@
 
 				// добавляем звёзды на заголоовк товара . .+ артикул (если есть ..) 
 				if ($('body.page-node.node-type-product-display').length){
-					$('.content-wrapper > h1').wrapInner('<span class="title"/>');
-					$('.content-wrapper > h1').append('<span class="p-rating" ><span style="width:'+Drupal.settings.productstars+'%"></span></span>');
+					$('.content-wrapper  h1').wrapInner('<span class="title"/>');
+					$('.content-wrapper  h1').append('<span class="p-rating" ><span style="width:'+Drupal.settings.productstars+'%"></span></span>');
 					if (typeof Drupal.settings.productsku != 'undefined')
-						$('.content-wrapper > h1').append('<span class="prod-sku">Артикул: '+Drupal.settings.productsku+'</span>');
+						$('.content-wrapper  h1').append('<span class="prod-sku">Артикул: '+Drupal.settings.productsku+'</span>');
 				}
 
 				// работаем с кнопками всплывашек ...  
