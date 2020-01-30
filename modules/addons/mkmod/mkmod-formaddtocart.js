@@ -33,7 +33,8 @@
 					val=parseInt(val);
 					var data=$(this).parents('form').find('input[name="form_id"]').val();
 					data=Drupal.settings.qtdata[data];
-					//console.log(data);
+
+					var valset=false;// была ли пересчитана   новое значение цены в поле ...
 					for(i=0;i<data.length;i++)
 						if ((typeof data[i]['from'] !='undefined' && parseInt(data[i]['from'])<=val || typeof data[i]['from'] =='undefined' ) && 
 							(typeof data[i]['to'] !='undefined' && parseInt(data[i]['to'])>=val || typeof data[i]['to'] =='undefined' ) 
@@ -41,10 +42,14 @@
 								t=Math.round(parseFloat(data[i]['commerce_price'])*val*100)/100;
 								if (t-Math.round(t)==0)
 									t+='.0';
-								put.html('Цена: <span>'+(t)+' руб</span>');
+								t+=' руб';
+								if (typeof data[i].unit!='undefined')
+									t+='/'+data[i].unit;
+								put.html('Цена: <span>'+(t)+'</span>');
+								valset=true;
 						}
 							//console.log(data[i]);
-					if (isNaN(val))
+					if (isNaN(val)|| !valset)
 						put.html('Ошибка!');
 					//console.log(val);
 

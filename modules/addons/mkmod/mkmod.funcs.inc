@@ -296,8 +296,6 @@ function getDataForProductList($pids)
 			if ($k=='unit')
 				$res[$x][$k]=drupal_strtolower($res[$x][$k]);
 			//unset($res[$x]['product_id']);
-			if (count($res)==1)
-				unset($res[$x]['from'],$res[$x]['to']);
 		}
 	}
 

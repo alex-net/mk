@@ -24,7 +24,14 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 	$ddasarray=$dd;
 	unset($ddasarray['#settings']);
 	$form_state['fselector']=$form_state['fselector']??user_password();
+	// поиск минимального количества товару .. 
+	$co=0;
+	foreach($ddasarray as $el)
+		if (isset($el['from']) && (!$co || $el['from']<$co))
+			$co=$el['from'];
 
+	if (!$co)
+		$co=1;
 	//dsm($dd,'$dd');
 	$form=[
 		'#attributes'=>[
@@ -62,7 +69,7 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 			],
 			'qty'=>[
 				'#type'=>'textfield',
-				'#default_value'=>1,
+				'#default_value'=>$co,
 				'#required'=>true,
 				'#title_display'=>'invisible',
 				'#size'=>5,
