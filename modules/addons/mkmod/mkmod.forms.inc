@@ -26,9 +26,14 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 	$form_state['fselector']=$form_state['fselector']??user_password();
 	// поиск минимального количества товару .. 
 	$co=0;
-	foreach($ddasarray as $el)
+	foreach($ddasarray as $el){
 		if (isset($el['from']) && (!$co || $el['from']<$co))
 			$co=$el['from'];
+		if(isset($el['to']) && !isset($el['from'])){
+			$co=1;break;
+		}
+	}
+
 
 	if (!$co)
 		$co=1;
