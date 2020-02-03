@@ -413,6 +413,7 @@ function tovarsList_cb($term)
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
 		'undertext'=>[
+			'#access'=>$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',
 			'#attributes'=>['class'=>['text-undertext']],
 			'text'=>[
