@@ -137,7 +137,12 @@ function mk2_preprocess_node(&$vars)
 		$hits=getTopSalesNids(40);
 		if ($hits && in_array($vars['node']->nid, $hits))
 			$vars['classes_array'][]='hit-to-do';	
-
+		// получить  метки товара .. 
+		$merks=field_get_items('node',$vars['node'],'field_marks_products');
+		// 224 новинка ..
+		for($i=0;$i<count($merks);$i++)
+			$vars['classes_array'][]='marks-tid-'.$merks[$i]['tid'];
+		
 	}
 
 

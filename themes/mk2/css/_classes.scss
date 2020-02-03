@@ -122,9 +122,12 @@ ol {
 
 // размер и адаптив товара в тизере 
 %noda-taser {flex-basis: 33%;//position:relative;
+	%marker {content:'';position:absolute;width:7em;height: 7em; right: 1.5em;z-index: 5;background: url(../imgs/icons/akcia.png) 50% 50% / contain no-repeat;}
 	.n-wrap {position: relative;}
-	&.akcia-to-do .n-wrap::before {content:'';position:absolute;width:7em;height: 7em; background: red;top:1.5em;right: 1.5em;z-index: 5;background: url(../imgs/icons/akcia.png) 50% 50% / contain no-repeat;}
-	&.hit-to-do .n-wrap::before {content:'';position:absolute;width:7em;height: 7em; background: red;top:1em;right: 1.5em;z-index: 5;background: url(../imgs/icons/top-sel.png) 0 0% / contain no-repeat;}
+	&.akcia-to-do .n-wrap::before {@extend %marker;top:1.5em;}
+	&.hit-to-do .n-wrap::before {@extend %marker;background-image: url(../imgs/icons/top-sel.png); top:1em;}
+	// новинка 
+	&.marks-tid-224 .n-wrap::before {@extend %marker;background-image: url(../imgs/icons/novinka.png); top:1em;right: auto;left: 1.5em;width: 10em;}
 	@media screen and (max-width: 1100px) {flex-basis: 50%;}
 	@media screen and (max-width: 750px) {flex-basis: 100%;padding-left: 0!important;padding-right: 0!important;}
 }
