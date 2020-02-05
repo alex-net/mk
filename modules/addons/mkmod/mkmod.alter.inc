@@ -9,7 +9,7 @@ function mkmod_html_head_alter(&$els)
 	$params=drupal_get_query_parameters();
 	
 	if (isset($isprod) && !isset($params['_escaped_fragment_'])){
-		$els['metatag_canonical']['#access']=false;
+		//$els['metatag_canonical']['#access']=false;
 		$els['isajaxfragment']=[
 			'#type'=>'html_tag',
 			'#tag'=>'meta',
