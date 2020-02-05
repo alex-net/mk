@@ -4087,7 +4087,8 @@ form.tags-edit-form .buttons-ajax {
         border-radius: 0;
         width: 1.5em;
         height: 1.5em;
-        background: transparent; }
+        background: transparent;
+        flex-shrink: 0; }
         @media screen and (max-width: 850px) {
           form.form-of-filters .form-type-checkboxes .jq-checkbox {
             background: white; } }

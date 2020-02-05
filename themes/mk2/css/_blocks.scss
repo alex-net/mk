@@ -244,7 +244,7 @@ form.tags-edit-form {
 				&.colored-checkboxes .form-type-checkbox {margin:0.15em 0;}
 			}
 
-			.jq-checkbox {border:1px solid #d9d9d9;border-radius: 0;width: 1.5em;height: 1.5em;background:transparent;
+			.jq-checkbox {border:1px solid #d9d9d9;border-radius: 0;width: 1.5em;height: 1.5em;background:transparent;flex-shrink: 0;
 				@media screen and (max-width: $black-style) {background: white;}
 				&.checked  {background: url(../imgs/checbox.png) 50% 50% no-repeat, $scolor;box-shadow:none;text-align: center;border:none;
 					//&::before {@extend %fontas;content:'\f00c';font-weight: bold;color:white;font-size: 0.8em;display: block;margin-top: 0.2em;}
