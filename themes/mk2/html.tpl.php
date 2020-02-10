@@ -60,6 +60,7 @@
 	<?php endif;?>
 	<?php print $head; ?>
 	<title><?php print $head_title; ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php if ($isprod):?>
 		<meta name='yandex-verification' content='67bd89c04787fe11' />
 		<meta name='yandex-verification' content='70e0d989fc56d0ab' />
