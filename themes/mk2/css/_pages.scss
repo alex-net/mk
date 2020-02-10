@@ -326,12 +326,15 @@
 	
 	// подрубрики .. 
 	#block-mkmod-sub-terms .content > div, #block-mkmod-term-products-and-links .content .list-imgs {display: flex;flex-wrap: wrap;margin-top:1em;
-		.col {flex-basis: 25%;flex-shrink:0;position:relative;padding: 0.5em;box-sizing:border-box;
-			@media screen and (max-width:  1100px){flex-basis: 33%;
-				@media (max-width: 900px){flex-basis: 50%;
-					@media (max-width: 550px){flex-basis: 100%;}
+		.col {flex-basis: 20%;flex-shrink:0;position:relative;padding: 0.5em;box-sizing:border-box;
+			@media screen and (max-width: 1199px) {flex-basis: 25%;
+				@media screen and (max-width: 999px) {flex-basis: 33%;
+					@media screen and (max-width: 719px) {flex-basis: 50%;
+						@media screen and (max-width: 430px) {flex-basis: 100%;}
+					}
 				}
 			}
+
 			a.image-link {height: 14.25em;display: block;background-size: contain;background-repeat: no-repeat;background-position: 50% 50%;background-color: white;border:5px solid #e9e9e8;box-sizing: border-box;border-bottom: none;}
 			.title {border: 5px solid #c3c3c3;background: #3e3c3c;color:white;position:relative;font-size: 0.85em;
 				a {color:white;text-decoration: none;height: 4.3em;display: flex;justify-content: center;align-items: center;padding: 0.5em;box-sizing: border-box;text-align: center;text-transform: uppercase;position: relative;
