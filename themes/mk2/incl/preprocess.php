@@ -171,7 +171,7 @@ function mk2_preprocess_node(&$vars)
 
 		
 		// инфрмация о скидках .. и акциях 
-		if ($disconttime){
+		if ($disconttime>0){
 			// подгружаем стили и скрипты для счётчика .. 
 			drupal_add_js(drupal_get_path('theme','mk2').'/js/timer/jquery.countdown.js');
 			drupal_add_css(drupal_get_path('theme','mk2').'/js/timer/jquery.countdown.css');

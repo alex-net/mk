@@ -29,6 +29,10 @@ function _checkdiscont($n)
 		// определяем наибольшую дату 
 		if ($dates && $oldprice && $dates['from']<REQUEST_TIME && $dates['to']>REQUEST_TIME && $date_discount<$dates['to'])
 			$date_discount=$dates['to'];
+		else
+			if ($oldprice)
+				$date_discount=-1;
+
 	}
 
 	return $date_discount;
