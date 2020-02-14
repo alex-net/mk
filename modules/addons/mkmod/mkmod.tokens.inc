@@ -51,8 +51,8 @@ function mkmod_token_info()
 					'description'=>'формат даты как у функции date()',
 				),
 				'rekv'=>array(
-					'name'=>'Пооле реквизитов',
-					'description'=>'Пооле реквизитов',
+					'name'=>'Поле реквизитов',
+					'description'=>'Поле реквизитов',
 				),
 				'mashinki'=>[
 					'name'=>'Машинки',
