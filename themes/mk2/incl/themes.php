@@ -50,13 +50,17 @@ function mk2_breadcrumb($vars)
 				$b[]=l('Новости','news');
 			break;
 		}
+		$termid=&drupal_static('prev-term-id');
+		
 		if (!empty($n['tid'])){
 			$tids=array();
 			$maxtid=array();
 			foreach(explode(',',$n['tid']) as $t){
+				if ($termid && $t!=$termid)
+					continue;
 				$t=taxonomy_get_parents_all($t);
-				if (count($t)>count($tids))
-					$tids=$t;
+				$tids=$t;
+				break;
 			}
 
 			foreach(array_reverse($tids) as $y)

@@ -10,6 +10,17 @@ function mk2_preprocess_page(&$vars)
 	drupal_add_library('mkmod','myajaxcommands');
 	drupal_add_library('mklibs','animate');
 
+	$prevpath=drupal_lookup_path('source',trim(parse_url($_SERVER['HTTP_REFERER'],PHP_URL_PATH),'/') );
+	if ($prevpath && preg_match('#taxonomy/term/(\d+)#',$prevpath,$tid)){
+		$t=&drupal_static('prev-term-id');
+		$t=end($tid);
+
+		//dsm($tid);
+	}
+
+
+
+
 	// меню в шапка .. 
 	$vars['menuSiteHead']=menu_tree('menu-main');
 	array_unshift($vars['menuSiteHead'],[
