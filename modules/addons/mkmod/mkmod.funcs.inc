@@ -9,8 +9,10 @@
 function getTopSalesNids(int $count){
 	$cid=__FUNCTION__.$count;
 	$result=&drupal_static($cid);
+
 	if ($result)
 		return $result;
+
 	$data=cache_get($cid);
 	if (!empty($data->data) && $data->expire>=REQUEST_TIME){
 		$result=$data->data;
@@ -23,7 +25,7 @@ function getTopSalesNids(int $count){
 		if ($y['cart'])
 			unset($st[$x]);
 	unset($st['canceled']);
-	
+
 
 	$res=db_select('node','n');
 	$res->condition('n.status',1);
@@ -34,8 +36,8 @@ function getTopSalesNids(int $count){
 	// надо исключить акции  (так чтобы сегодняшняя дата попала между датами старта и стопа акции ))
 	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
 	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
-	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2 ');
+	//$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
+	//$res->where(' not now() between adate.field_discount_from_date_value and adate.field_discount_from_date_value2 ');
 	// надо взять все товары которые купили .. .
 	$res->leftjoin('field_data_commerce_product','cp','cp.commerce_product_product_id=p.product_id');
 	$res->leftjoin('commerce_line_item','li','li.line_item_id=cp.entity_id');
@@ -66,10 +68,11 @@ function getTopSalesNids(int $count){
 // =========================================================
 /**
  * собрать акции 
+ * @param int $mitcounteronly Отобразить акции только со счётчиком 
  */
-function getActionProdag(){
+function getActionProdag($mitcounteronly=0){
 	// пробуем читать из кеша 
-	$data=cache_get(__FUNCTION__);
+	$data=cache_get(__FUNCTION__.'_'.$mitcounteronly);
 	if (!empty($data->data) && $data->expire>REQUEST_TIME && 0)
 		return $data->data;
 
@@ -79,11 +82,13 @@ function getActionProdag(){
 	// винтим товар //  и проверяем чтобы он был акционным
 	$res->leftjoin('field_data_field_product_variations','pe','pe.entity_id=n.nid and pe.bundle=n.type');
 	$res->leftjoin('commerce_product,','p','p.product_id=pe.field_product_variations_product_id and p.status=1');
-	$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
-	$res->where(' now() between adate.field_discount_from_date_value and (adate.field_discount_from_date_value2 +  interval 1 day)');
-	// выкатываем интервал акции (с по)
-	$res->addfield('adate','field_discount_from_date_value','afrom');
-	$res->addfield('adate','field_discount_from_date_value2','ato');
+	if ($mitcounteronly){
+		$res->leftjoin('field_data_field_discount_from_date','adate','adate.entity_id=p.product_id and adate.bundle=\'product\'');
+		$res->where(' now() between adate.field_discount_from_date_value and (adate.field_discount_from_date_value2 +  interval 1 day)');
+		// выкатываем интервал акции (с по)
+		$res->addfield('adate','field_discount_from_date_value','afrom');
+		$res->addfield('adate','field_discount_from_date_value2','ato');
+	}
 	// проверяем чтобы была старая цена
 	$res->leftjoin('field_data_field_old_price','oldp','oldp.entity_id=p.product_id and oldp.bundle=\'product\'');
 	$res->condition('oldp.field_old_price_amount',0,'>');
@@ -110,6 +115,8 @@ function getActionProdag(){
 	// дёргаем новую цену 
 	$res->leftjoin('field_data_commerce_price','cp','cp.entity_id=p.product_id and cp.bundle=\'product\'');
 	$res->addField('cp','commerce_price_amount','cp');
+	$res->where('cp.commerce_price_amount<oldp.field_old_price_amount');
+
 	// дёрнуть размерность 
 	$res->leftjoin('field_data_field_unit_measure','m','m.entity_id=p.product_id and m.bundle=\'product\'');
 	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
@@ -118,6 +125,7 @@ function getActionProdag(){
 	$res->leftjoin('field_data_field_text','ft','ft.entity_id=n.nid and ft.bundle=n.type');
 	$res->addField('ft','field_text_value','body');
 	$res->range(0,100);
+	$res->orderBy('rand()','asc');
 	$res=$res->execute()->fetchAllAssoc('nid',PDO::FETCH_ASSOC);
 	//dsm($res,'$res');
 	cache_set(__FUNCTION__,$res,'cache',REQUEST_TIME+3600*24);

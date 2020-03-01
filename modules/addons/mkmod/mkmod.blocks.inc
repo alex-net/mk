@@ -183,7 +183,7 @@ function mkmod_block_view($delta=''){
 		// блок слайдеров 
 		case 'akcii-slider-big':
 			// Достать акционные товары
-			$els=getActionProdag();
+			$els=getActionProdag(1);
 			//dsm($els);
 			
 			if ($els){

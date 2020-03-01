@@ -140,14 +140,18 @@ function mk2_preprocess_node(&$vars)
 			if(preg_match('#'.$x.'#ius', $vars['content']['field_parameters_product'][$i]['#item']['first'])){
 				$vars['content']['field_parameters_product'][$i]['#item']['second']='<span class="'.$y.'">'.$vars['content']['field_parameters_product'][$i]['#item']['second'].'</span>';
 			}
+		
 		// определить акционные товары ... 
-		$disconttime=_checkdiscont($vars['node']);
-		if ($disconttime)
-			$vars['classes_array'][]='akcia-to-do';	
-
-		$hits=getTopSalesNids(40);
-		if ($hits && in_array($vars['node']->nid, $hits))
-			$vars['classes_array'][]='hit-to-do';	
+		if (current_path()!='discounts'){
+			$disconttime=_checkdiscont($vars['node']);
+			if ($disconttime)
+				$vars['classes_array'][]='akcia-to-do';	
+		}
+		if (current_path()!='bestsellers'){
+			$hits=getTopSalesNids(40);
+			if ($hits && in_array($vars['node']->nid, $hits))
+				$vars['classes_array'][]='hit-to-do';	
+		}
 		// получить  метки товара .. 
 		$merks=field_get_items('node',$vars['node'],'field_marks_products');
 		// 224 новинка ..

@@ -67,6 +67,23 @@
 				});
 			});
 
+
+			// каруселька в каталоге ...акции 
+			$('.akcii-in-catalog-wrapper .elements-list').once(function(){
+				$(this).slick({
+					nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
+					prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',
+					dots:true,//parseInt($(this).data('dots'))>0,
+					slidesToShow:3,
+					slidesToScroll:3,
+					responsive:[
+						{breakpoint:1100,settings:{slidesToShow:2,slidesToScroll:2}},
+						{breakpoint:760,settings:{slidesToShow:1,slidesToScroll:1}}
+					],
+				});
+			});
+
+
 			// слайдер акций на главной странице
 			$('#block-mkmod-akcii-slider-big .content').once(function(){
 				$(this).slick({

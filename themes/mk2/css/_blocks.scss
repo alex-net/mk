@@ -280,3 +280,18 @@ form.tags-edit-form {
 	}
 }
 
+// товары по акции в каталоге .. 
+.akcii-in-catalog-wrapper {margin-bottom:3em;
+	h2 {@extend %h-tag;@extend %h-tag-icon;background: url(../imgs/akcia-in-catalog.png) 0 50% no-repeat;background-size: 1.2em auto;}
+	.product-akcions-list {
+		ul.slick-dots {padding: 0.5em 3.5em;box-sizing: border-box;display: flex;bottom:-1.5em;
+			li {flex-basis: 100%;height: 5px;margin: 0;
+				&.slick-active {background-color: $scolor;}
+				> * {display: none;}
+			}
+		}
+		.slick-arrow {bottom: -1.7em;top:auto;opacity: 1;font-size: 1.5em;background: none;border:none;color:$gscolor;box-shadow: none;border:1px solid transparent;
+			&:hover {background:none;border-color:  $scolor;color: $scolor;border-radius: 100%;}
+		}
+	}
+}

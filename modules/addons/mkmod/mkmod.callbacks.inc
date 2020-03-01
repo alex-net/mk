@@ -381,6 +381,30 @@ function tovarsList_cb($term)
 	//dsm($term->description,'$term');
 	$text=$term->description.($textBetweenCatProd[0]['value']??'');
 
+
+	// блок акций ...
+	$prodyctsAtAkcia=array_pad(array_keys(getActionProdag()),50,0);
+	foreach($prodyctsAtAkcia as $x=>$y)
+		if (!$y)
+			unset($prodyctsAtAkcia[$x]);
+	
+	if ($prodyctsAtAkcia){
+		$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
+		$prodyctsAtAkcia['#type']='container';
+		$prodyctsAtAkcia['#attributes']=['class'=>['product-akcions-list','elements-list','products']];
+		$prodyctsAtAkcia=[
+			'#type'=>'container',
+			'#attached'=>[
+				'library'=>[['mklibs','slick']],
+			],
+			'header'=>[
+				'#markup'=>'<h2>Товары по акции</h2>',
+			],
+			'#attributes'=>['class'=>['akcii-in-catalog-wrapper']],
+			'list'=>$prodyctsAtAkcia,	
+		];
+	}
+
 	//dsm($term);
 	return [
 		'button-show-filter'=>[
@@ -412,6 +436,7 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
+		'products-at-akca'=>$prodyctsAtAkcia,
 		'undertext'=>[
 			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',

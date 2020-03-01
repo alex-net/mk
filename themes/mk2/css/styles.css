@@ -18,6 +18,10 @@ body {
 .page-cart .view-commerce-cart-form .form-actions input:hover, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue:hover, .page-node-1566 #block-system-main .btn.accept-button:hover, #block-mkmod-akcii-slider-big .content .slider-el .more-link:hover, #block-hitrolinks-menu-hl-block .content .show-more-elements:hover, form .form-actions input.form-submit:hover, .site-head .plashko.cart .checkout-button:hover, .site-hmenu .wrap .searchform input.form-submit:hover, .catalog-list .item .btn-controls.close:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order:hover, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input:hover, .hl-win-wrapp ul li a:hover, .show-popup-links:hover, .load-more-contents input:hover, .contects-block > div.otzivbtn {
   background-image: linear-gradient(180deg, #d26060, #9f2d2d); }
 
+* {
+  min-width: 0;
+  min-height: 0; }
+
 .page-cart .view-commerce-cart-form .form-actions input, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue, .page-node-1566 #block-system-main .btn.accept-button, #block-mkmod-akcii-slider-big .content .slider-el .more-link, #block-hitrolinks-menu-hl-block .content .show-more-elements, form .form-actions input.form-submit, .site-head .plashko.cart .checkout-button, .site-hmenu .wrap .searchform input.form-submit, .catalog-list .item .btn-controls.close, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input, .hl-win-wrapp ul li a {
   background: linear-gradient(180deg, #ce6ace, #9f339e);
   background-origin: border-box; }
@@ -29,16 +33,16 @@ body {
   font-family: "Font Awesome 5 Free";
   font-weight: bold; }
 
-.page-catalog .content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2 {
+.page-catalog .content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .akcii-in-catalog-wrapper h2 {
   background-position: 0% 50%;
   background-repeat: no-repeat;
   padding-left: 1.5em; }
 
-.content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2 {
+.content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .akcii-in-catalog-wrapper h2 {
   font-weight: normal;
   font-size: 2.14em;
   color: #333232; }
-  .content-wrapper h1 .all, #block-mkmod-top-sales > h2 .all, #block-mkmod-news-list > h2 .all, #block-mkmod-articles-list > h2 .all, .vendors-list > h2 .all, #block-block-12 > h2 .all {
+  .content-wrapper h1 .all, #block-mkmod-top-sales > h2 .all, #block-mkmod-news-list > h2 .all, #block-mkmod-articles-list > h2 .all, .vendors-list > h2 .all, #block-block-12 > h2 .all, .akcii-in-catalog-wrapper h2 .all {
     position: absolute;
     right: 0;
     top: 50%;
@@ -49,10 +53,10 @@ body {
     text-decoration: none;
     margin-top: -1em;
     transition: all 0.3s linear; }
-    .content-wrapper h1 .all:hover, #block-mkmod-top-sales > h2 .all:hover, #block-mkmod-news-list > h2 .all:hover, #block-mkmod-articles-list > h2 .all:hover, .vendors-list > h2 .all:hover, #block-block-12 > h2 .all:hover {
+    .content-wrapper h1 .all:hover, #block-mkmod-top-sales > h2 .all:hover, #block-mkmod-news-list > h2 .all:hover, #block-mkmod-articles-list > h2 .all:hover, .vendors-list > h2 .all:hover, #block-block-12 > h2 .all:hover, .akcii-in-catalog-wrapper h2 .all:hover {
       background: #be2d2d;
       color: white; }
-  .content-wrapper h1.all-link, #block-mkmod-top-sales > h2.all-link, #block-mkmod-news-list > h2.all-link, #block-mkmod-articles-list > h2.all-link, .vendors-list > h2.all-link, #block-block-12 > h2.all-link {
+  .content-wrapper h1.all-link, #block-mkmod-top-sales > h2.all-link, #block-mkmod-news-list > h2.all-link, #block-mkmod-articles-list > h2.all-link, .vendors-list > h2.all-link, #block-block-12 > h2.all-link, .akcii-in-catalog-wrapper h2.all-link {
     position: relative;
     padding-right: 2.7em; }
 
@@ -4197,6 +4201,40 @@ form.tags-edit-form .buttons-ajax {
         margin-top: -0.5em;
         left: -1em;
         box-shadow: 0 0 1em -0.5em black; }
+
+.akcii-in-catalog-wrapper {
+  margin-bottom: 3em; }
+  .akcii-in-catalog-wrapper h2 {
+    background: url(../imgs/akcia-in-catalog.png) 0 50% no-repeat;
+    background-size: 1.2em auto; }
+  .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots {
+    padding: 0.5em 3.5em;
+    box-sizing: border-box;
+    display: flex;
+    bottom: -1.5em; }
+    .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li {
+      flex-basis: 100%;
+      height: 5px;
+      margin: 0; }
+      .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li.slick-active {
+        background-color: #C243C1; }
+      .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li > * {
+        display: none; }
+  .akcii-in-catalog-wrapper .product-akcions-list .slick-arrow {
+    bottom: -1.7em;
+    top: auto;
+    opacity: 1;
+    font-size: 1.5em;
+    background: none;
+    border: none;
+    color: #6d6f72;
+    box-shadow: none;
+    border: 1px solid transparent; }
+    .akcii-in-catalog-wrapper .product-akcions-list .slick-arrow:hover {
+      background: none;
+      border-color: #C243C1;
+      color: #C243C1;
+      border-radius: 100%; }
 
 .rating-wrapp {
   display: flex;
