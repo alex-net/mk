@@ -358,7 +358,7 @@
 						autoSize:false,
 						wrapCSS:'filters-popup',
 						afterShow:function(){
-							console.log(this,arguments,'ss');
+							//console.log(this,arguments,'ss');
 						},
 					});
 				});

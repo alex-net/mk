@@ -1018,7 +1018,8 @@ ol {
             background: black; } }
       .filters-popup .region-filtrus #block-hitrolinks-menu-hl-block {
         width: 20em;
-        margin-right: 1px; }
+        margin-right: 1px;
+        flex-shrink: 0; }
       .filters-popup .region-filtrus #block-mkmod-product-filter {
         flex-grow: 1; }
         .filters-popup .region-filtrus #block-mkmod-product-filter form {

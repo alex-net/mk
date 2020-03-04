@@ -232,7 +232,7 @@ ul.tabs.primary {white-space: normal;}
 						background:black;
 					}
 				}
-				#block-hitrolinks-menu-hl-block {width: 20em;margin-right: 1px;}
+				#block-hitrolinks-menu-hl-block {width: 20em;margin-right: 1px;flex-shrink: 0;}
 				#block-mkmod-product-filter {flex-grow: 1;
 					form {padding: 0;
 						> div {display: flex;flex-wrap: wrap;justify-content: space-between;
