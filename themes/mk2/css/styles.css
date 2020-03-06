@@ -4208,6 +4208,8 @@ form.tags-edit-form .buttons-ajax {
   .akcii-in-catalog-wrapper h2 {
     background: url(../imgs/akcia-in-catalog.png) 0 50% no-repeat;
     background-size: 1.2em auto; }
+  .akcii-in-catalog-wrapper .product-akcions-list .slick-track > div {
+    padding: 0.5em; }
   .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots {
     padding: 0.5em 3.5em;
     box-sizing: border-box;

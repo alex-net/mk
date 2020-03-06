@@ -69,7 +69,7 @@
 
 
 			// каруселька в каталоге ...акции 
-			$('.akcii-in-catalog-wrapper .elements-list').once(function(){
+			/*$('.akcii-in-catalog-wrapper .elements-list').once(function(){
 				$(this).slick({
 					nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
 					prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',
@@ -81,7 +81,7 @@
 						{breakpoint:760,settings:{slidesToShow:1,slidesToScroll:1}}
 					],
 				});
-			});
+			});*/
 
 
 			// слайдер акций на главной странице
@@ -214,7 +214,7 @@
 				});
 
 				// подгружаем .. контент в списки товаров в карточке .. 
-				$('.node-product-display.node-full .ajax-loadable').each(function(){
+				$('.ajax-loadable').each(function(){
 					var key=$(this).data('key');
 					var data=Drupal.settings[key];
 					var ajax=new Drupal.ajax(false,false,{

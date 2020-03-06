@@ -85,8 +85,25 @@
 					 */
 					'place-nodes-list':function(e,apply,placeto){
 						// sliked-carousel
-						if (apply && placeto.match(/tovar-analogs|mit-tovar-buy|old-viewed-products/))
-							$(placeto).addClass('sliked-carousel');
+						if (apply){
+							if (placeto.match(/tovar-analogs|mit-tovar-buy|old-viewed-products/))
+								$(placeto).addClass('sliked-carousel');
+							// блок акций . в каталоге .. 
+							if (placeto=='.product-akcions-list.elements-list.products')
+								$(placeto).slick({
+									nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
+									prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',
+									dots:true,//parseInt($(this).data('dots'))>0,
+									slidesToShow:4,
+									slidesToScroll:4,
+									responsive:[
+										{breakpoint:1200,settings:{slidesToShow:3,slidesToScroll:3}},
+										{breakpoint:1100,settings:{slidesToShow:2,slidesToScroll:2}},
+										{breakpoint:760,settings:{slidesToShow:1,slidesToScroll:1}}
+									],
+								});
+						}
+							
 					},
 
 				});

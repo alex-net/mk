@@ -389,20 +389,39 @@ function tovarsList_cb($term)
 			unset($prodyctsAtAkcia[$x]);
 	
 	if ($prodyctsAtAkcia){
-		$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
-		$prodyctsAtAkcia['#type']='container';
-		$prodyctsAtAkcia['#attributes']=['class'=>['product-akcions-list','elements-list','products']];
 		$prodyctsAtAkcia=[
 			'#type'=>'container',
 			'#attached'=>[
 				'library'=>[['mklibs','slick']],
+				'js'=>[
+					[
+						'type'=>'setting',
+						'data'=>[
+							'products-at-akca'=>[
+								'to'=>'.product-akcions-list.elements-list.products',
+								'nids'=>$prodyctsAtAkcia,
+							],
+						],
+					],
+				],
 			],
 			'header'=>[
 				'#markup'=>'<h2>Товары по акции</h2>',
 			],
 			'#attributes'=>['class'=>['akcii-in-catalog-wrapper']],
-			'list'=>$prodyctsAtAkcia,	
-		];
+			'list'=>[
+				'#type'=>'container',
+				'#attributes'=>[
+					'class'=>['product-akcions-list','elements-list','products','ajax-loadable'],
+					'data-key'=>'products-at-akca',
+				],
+			],	
+		];	
+		
+		//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
+		
+		
+		//$prodyctsAtAkcia=;
 	}
 
 	//dsm($term);
