@@ -94,10 +94,10 @@
 									nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
 									prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',
 									dots:true,//parseInt($(this).data('dots'))>0,
-									slidesToShow:4,
-									slidesToScroll:4,
+									slidesToShow:3,
+									slidesToScroll:3,
 									responsive:[
-										{breakpoint:1200,settings:{slidesToShow:3,slidesToScroll:3}},
+										//{breakpoint:1200,settings:{slidesToShow:3,slidesToScroll:3}},
 										{breakpoint:1100,settings:{slidesToShow:2,slidesToScroll:2}},
 										{breakpoint:760,settings:{slidesToShow:1,slidesToScroll:1}}
 									],

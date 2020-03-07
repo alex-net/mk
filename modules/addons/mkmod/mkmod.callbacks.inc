@@ -383,7 +383,8 @@ function tovarsList_cb($term)
 
 
 	// блок акций ...
-	$prodyctsAtAkcia=array_pad(array_keys(getActionProdag()),50,0);
+	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag()), 36);
+	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
 	foreach($prodyctsAtAkcia as $x=>$y)
 		if (!$y)
 			unset($prodyctsAtAkcia[$x]);
