@@ -398,3 +398,56 @@ function getPriceRange($tid)
 
 	return $range;
 }
+
+
+/**
+ * список товаров по аукциям ... 
+ * @return [type] [description]
+ */
+function getMarkupsOfAkciiProducts()
+{
+	// блок акций ...
+	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag()), 36);
+	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
+	foreach($prodyctsAtAkcia as $x=>$y)
+		if (!$y)
+			unset($prodyctsAtAkcia[$x]);
+	
+	if (!$prodyctsAtAkcia)
+		return [];
+
+	return [
+		'#type'=>'container',
+		'#attached'=>[
+			'library'=>[['mklibs','slick']],
+			'js'=>[
+				[
+					'type'=>'setting',
+					'data'=>[
+						'products-at-akca'=>[
+							'to'=>'.product-akcions-list.elements-list.products',
+							'nids'=>$prodyctsAtAkcia,
+						],
+					],
+				],
+			],
+		],
+		'header'=>[
+			'#markup'=>'<h2>Товары по акции</h2>',
+		],
+		'#attributes'=>['class'=>['akcii-in-catalog-wrapper']],
+		'list'=>[
+			'#type'=>'container',
+			'#attributes'=>[
+				'class'=>['product-akcions-list','elements-list','products','ajax-loadable'],
+				'data-key'=>'products-at-akca',
+			],
+		],	
+	];	
+	
+	//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
+		
+		
+		//$prodyctsAtAkcia=;
+	
+}

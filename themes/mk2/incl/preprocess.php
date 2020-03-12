@@ -265,6 +265,15 @@ function mk2_preprocess_node(&$vars)
 				];
 			}
 
+			// акционные товары ..
+			$vars['content']['prodycts-at-akcia']=getMarkupsOfAkciiProducts();
+				
+				//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
+				
+				
+				//$prodyctsAtAkcia=;
+			
+
 		}
 	}
 }

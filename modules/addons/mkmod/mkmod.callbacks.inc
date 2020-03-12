@@ -382,48 +382,7 @@ function tovarsList_cb($term)
 	$text=$term->description.($textBetweenCatProd[0]['value']??'');
 
 
-	// блок акций ...
-	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag()), 36);
-	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
-	foreach($prodyctsAtAkcia as $x=>$y)
-		if (!$y)
-			unset($prodyctsAtAkcia[$x]);
 	
-	if ($prodyctsAtAkcia){
-		$prodyctsAtAkcia=[
-			'#type'=>'container',
-			'#attached'=>[
-				'library'=>[['mklibs','slick']],
-				'js'=>[
-					[
-						'type'=>'setting',
-						'data'=>[
-							'products-at-akca'=>[
-								'to'=>'.product-akcions-list.elements-list.products',
-								'nids'=>$prodyctsAtAkcia,
-							],
-						],
-					],
-				],
-			],
-			'header'=>[
-				'#markup'=>'<h2>Товары по акции</h2>',
-			],
-			'#attributes'=>['class'=>['akcii-in-catalog-wrapper']],
-			'list'=>[
-				'#type'=>'container',
-				'#attributes'=>[
-					'class'=>['product-akcions-list','elements-list','products','ajax-loadable'],
-					'data-key'=>'products-at-akca',
-				],
-			],	
-		];	
-		
-		//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
-		
-		
-		//$prodyctsAtAkcia=;
-	}
 
 	//dsm($term);
 	return [
@@ -456,7 +415,7 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
-		'products-at-akca'=>$prodyctsAtAkcia,
+		'products-at-akca'=>getMarkupsOfAkciiProducts(),
 		'undertext'=>[
 			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',
