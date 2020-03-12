@@ -245,6 +245,77 @@
 				});
 				
 
+
+				//  открыть закрыть меню  .. фильтров .. и вообще фильтры ..
+				$('#block-hitrolinks-menu-hl-block h2, form.form-of-filters .form-type-checkboxes > label, form.form-of-filters fieldset > legend').on('click',function(){
+					$(this).parent().toggleClass('closed');
+				});
+
+				$('#block-hitrolinks-menu-hl-block .content > ul > li ').on('click', function(){
+					if (!$(this).find('ul').length)
+						return true;
+					var op=$(this).hasClass('opened');
+					$(this).toggleClass('opened');
+					$(this).find('.ptaha').toggleClass('opened');
+					return op;
+				});
+				/// показать ещё  скрытые элементы списка ...
+				$('#block-hitrolinks-menu-hl-block .show-more-elements').on('click',function(){
+					$(this).prev().find('.el-invis').removeClass('el-invis');
+					$(this).remove();
+
+				});
+				if (typeof $.fn.styler!='undefined')
+					$('form.form-of-filters .form-type-checkboxes input').styler({
+						onFormStyled:function(){
+							$(this).trigger('form-styler-applyed');
+							
+						},
+					});
+
+				// пробуем поймать клики по form-item у формы ... фильтра ..  и порулить всплывашкой .. 
+				$('form.form-of-filters').on('change','.form-item input',function(){
+					$(this).parents().filter('.form-item').last().trigger('apply-popup-show');
+				});
+				// кнопка применить от формы фильтр .. 
+				var btn=$('form.form-of-filters .popup-apply-button');
+				// закрываем окно ...с кнопкой применить  
+				btn.find('.close-btn').on('click',function(){
+					btn.removeClass('vis');
+				});
+
+				$('form.form-of-filters > div > *').on('apply-popup-show',function(e){
+					
+					var newtop=$(this).position().top+$(this).height()/2;
+					if (newtop,btn.position().top!=newtop){
+						btn.removeClass('vis');
+						btn.css('top',newtop);
+					}
+					if (!$(e.target).parents().find('.fancybox-opened').length)
+						setTimeout(function(){
+							btn.addClass('vis');
+						},1000);
+					
+					//console.log(,btn);
+				});
+
+				// проставляем хитрый класс  если нашли форму фильтра ... на странице
+				if ($('.region-filtrus').length){
+					$('.content-wrapper.page').addClass('filter-exists');
+					$('.btn-show-filter').on('click',function(){
+						$.fancybox.open({
+							content:$('.region-filtrus'),//$('.region-filtrus'),
+							type:'inline',
+							width:'100%',
+							autoSize:false,
+							wrapCSS:'filters-popup',
+							afterShow:function(){
+								//console.log(this,arguments,'ss');
+							},
+						});
+					});
+				}
+
 			});
 
 			// управляем анимацией появлением скроллера
@@ -294,75 +365,6 @@
 				$(this).find('select').mkrating();
 			});
 			
-
-			//  открыть закрыть меню  .. фильтров .. и вообще фильтры ..
-			$('#block-hitrolinks-menu-hl-block h2, form.form-of-filters .form-type-checkboxes > label, form.form-of-filters fieldset > legend').on('click',function(){
-				$(this).parent().toggleClass('closed');
-			});
-			$('#block-hitrolinks-menu-hl-block .content > ul > li ').on('click', function(){
-				if (!$(this).find('ul').length)
-					return true;
-				var op=$(this).hasClass('opened');
-				$(this).toggleClass('opened');
-				$(this).find('.ptaha').toggleClass('opened');
-				return op;
-			});
-			/// показать ещё  скрытые элементы списка ...
-			$('#block-hitrolinks-menu-hl-block .show-more-elements').on('click',function(){
-				$(this).prev().find('.el-invis').removeClass('el-invis');
-				$(this).remove();
-
-			});
-			if (typeof $.fn.styler!='undefined')
-				$('form.form-of-filters .form-type-checkboxes input').styler({
-					onFormStyled:function(){
-						$(this).trigger('form-styler-applyed');
-						
-					},
-				});
-
-			// пробуем поймать клики по form-item у формы ... фильтра ..  и порулить всплывашкой .. 
-			$('form.form-of-filters').on('change','.form-item input',function(){
-				$(this).parents().filter('.form-item').last().trigger('apply-popup-show');
-			});
-			// кнопка применить от формы фильтр .. 
-			var btn=$('form.form-of-filters .popup-apply-button');
-			// закрываем окно ...с кнопкой применить  
-			btn.find('.close-btn').on('click',function(){
-				btn.removeClass('vis');
-			});
-
-			$('form.form-of-filters > div > *').on('apply-popup-show',function(e){
-				
-				var newtop=$(this).position().top+$(this).height()/2;
-				if (newtop,btn.position().top!=newtop){
-					btn.removeClass('vis');
-					btn.css('top',newtop);
-				}
-				if (!$(e.target).parents().find('.fancybox-opened').length)
-					setTimeout(function(){
-						btn.addClass('vis');
-					},1000);
-				
-				//console.log(,btn);
-			});
-
-			// проставляем хитрый класс  если нашли форму фильтра ... на странице
-			if ($('.region-filtrus').length){
-				$('.content-wrapper.page').addClass('filter-exists');
-				$('.btn-show-filter').on('click',function(){
-					$.fancybox.open({
-						content:$('.region-filtrus'),//$('.region-filtrus'),
-						type:'inline',
-						width:'100%',
-						autoSize:false,
-						wrapCSS:'filters-popup',
-						afterShow:function(){
-							//console.log(this,arguments,'ss');
-						},
-					});
-				});
-			}
 
 		}
 	};
