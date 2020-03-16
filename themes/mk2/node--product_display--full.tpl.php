@@ -27,15 +27,15 @@
 
 	<div class="tabs-of-tovar">
 		<div class="tabs-line">
-			<div class="info active">Информация</div>
+			<div class="info active"><span>Информация</span></div>
 			<?php if (!empty($content['field_harakteristic'])):?>
-				<div class="harackterist">Характеристики</div>
+				<div class="harackterist"><span>Характеристики</span></div>
 			<?php endif;?>
-			<div class="opis">Описание</div>
+			<div class="opis"><span>Описание</span></div>
 			<?php if (!empty($content['field_instructions'])):?>
-				<div class="instruction">Инструкция по применению</div>
+				<div class="instruction"><span>Инструкция по применению</span></div>
 			<?php endif;?>
-			<div class="otsiv">Отзывы о товаре</div>
+			<div class="otsiv"><span>Отзывы о товаре</span></div>
 		</div>
 		<div class="tabs-content">
 			<div class="info active"><?=render($content['field_parameters_product']);?></div>

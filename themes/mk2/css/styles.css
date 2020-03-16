@@ -1683,11 +1683,8 @@ ol {
     @media screen and (max-width: 800px) {
       .node-product-display.node-full .tabs-of-tovar {
         display: flex;
-        padding: 0.5em; } }
-  @media screen and (max-width: 800px) and (max-width: 440px) {
-    .node-product-display.node-full .tabs-of-tovar {
-      flex-direction: column; } }
-
+        padding: 0.5em;
+        flex-direction: column; } }
     .node-product-display.node-full .tabs-of-tovar .tabs-line {
       display: flex;
       justify-content: space-between;
@@ -1700,10 +1697,12 @@ ol {
         border: 3px solid #e1e1e1;
         text-align: center;
         font-size: 1.125em;
-        white-space: nowrap;
         color: #333232;
         padding: 0.3em;
-        cursor: pointer; }
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
         .node-product-display.node-full .tabs-of-tovar .tabs-line > div::after {
           content: '→';
           display: inline-block;
@@ -1723,20 +1722,23 @@ ol {
           color: white; }
           .node-product-display.node-full .tabs-of-tovar .tabs-line > div.active::after {
             content: '↓'; }
-            @media screen and (max-width: 800px) {
-              .node-product-display.node-full .tabs-of-tovar .tabs-line > div.active::after {
-                content: '→'; } }
-  @media screen and (max-width: 800px) and (max-width: 440px) {
-    .node-product-display.node-full .tabs-of-tovar .tabs-line > div.active::after {
-      content: '↓';
-      display: inline-block; } }
+@media screen and (max-width: 800px) and (max-width: 440px) {
+  .node-product-display.node-full .tabs-of-tovar .tabs-line > div.active::after {
+    content: '↓';
+    display: inline-block; } }
+
+        @media screen and (max-width: 1217px) {
+          .node-product-display.node-full .tabs-of-tovar .tabs-line > div.instruction span {
+            width: 7em; } }
+  @media screen and (max-width: 1217px) and (max-width: 800px) {
+    .node-product-display.node-full .tabs-of-tovar .tabs-line > div.instruction span {
+      width: auto; } }
 
       @media screen and (max-width: 800px) {
         .node-product-display.node-full .tabs-of-tovar .tabs-line {
           flex-direction: column;
           justify-content: flex-start;
-          margin: 0;
-          padding-right: 0.5em; }
+          margin: 0 0 0.5em; }
           .node-product-display.node-full .tabs-of-tovar .tabs-line > div {
             margin: 0 0 0.5em;
             flex-basis: auto; } }

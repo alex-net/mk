@@ -266,8 +266,8 @@ function mk2_preprocess_node(&$vars)
 			}
 
 			// акционные товары ..
-			$vars['content']['prodycts-at-akcia']=getMarkupsOfAkciiProducts();
-				
+			$vars['content']['prodycts-at-akcia']=getMarkupsOfAkciiProducts(drupal_static('prev-term-id'));
+			$vars['content']['prodycts-at-akcia']['#weight']=1005;
 				//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
 				
 				

@@ -222,12 +222,12 @@
 		}
 		// блоки с характерисиками .. и т.п. 
 		.tabs-of-tovar {background-color: white;padding:0.5em 1em;color:#403e3e;margin-bottom: 1em;
-			@media screen and (max-width: 800px){display: flex;padding: 0.5em;
-				@media (max-width: 440px) {flex-direction: column;}
+			@media screen and (max-width: 800px){display: flex;padding: 0.5em;flex-direction: column;
+				//@media (max-width: 440px) {flex-direction: column;}
 			}
 			.tabs-line {display: flex;justify-content: space-between;margin:0 -0.5em;
 				
-				> div {flex-basis: 100%;margin:0 0.5em;background: #f4f4f2;box-sizing: border-box;border:3px solid #e1e1e1;text-align: center;font-size: 1.125em;white-space: nowrap;color:#333232;padding:0.3em;cursor: pointer;
+				> div {flex-basis: 100%;margin:0 0.5em;background: #f4f4f2;box-sizing: border-box;border:3px solid #e1e1e1;text-align: center;font-size: 1.125em;color:#333232;padding:0.3em;cursor: pointer;display: flex;align-items:center;justify-content: center; 
 					&::after {content: '→';display: inline-block;padding-left: 0.3em;
 						@media screen and (max-width: 800px) {content: '↓';
 							@media (max-width: 440px) {display: none;}
@@ -235,15 +235,21 @@
 					}
 					&.active{font-weight: bold;background-image:linear-gradient(180deg,lighten($rcolor,10%),darken($rcolor,10%));border-color:transparent;background-origin: border-box;color: white;
 						&::after {content: '↓';
-							@media screen  and (max-width: 800px) {content:'→';
+							@media screen  and (max-width: 800px) {//content:'→';
 								@media (max-width: 440px) {content: '↓';display: inline-block;}
 							}
+						}
+					}
+					&.instruction span {
+						@media screen and (max-width: 1217px){width: 7em;
+							@media (max-width: 800px){width: auto;}
+
 						}
 					}
 					
 					//↓
 				}
-				@media screen and (max-width: 800px) {flex-direction: column;justify-content: flex-start;margin: 0;padding-right: 0.5em;
+				@media screen and (max-width: 800px) {flex-direction: column;justify-content: flex-start;margin:0 0 0.5em;
 					> div  {margin:0 0 0.5em;flex-basis: auto;}
 				}
 			}

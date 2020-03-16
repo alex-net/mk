@@ -404,11 +404,13 @@ function getPriceRange($tid)
  * список товаров по аукциям ... 
  * @return [type] [description]
  */
-function getMarkupsOfAkciiProducts()
+function getMarkupsOfAkciiProducts($tid)
 {
 	// блок акций ...
 	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag()), 36);
 	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
+	//dsm($prodyctsAtAkcia,'$prodyctsAtAkcia '.$tid);
+
 	foreach($prodyctsAtAkcia as $x=>$y)
 		if (!$y)
 			unset($prodyctsAtAkcia[$x]);

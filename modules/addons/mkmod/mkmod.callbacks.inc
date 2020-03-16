@@ -415,7 +415,7 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
-		'products-at-akca'=>getMarkupsOfAkciiProducts(),
+		'products-at-akca'=>getMarkupsOfAkciiProducts($term->tid),
 		'undertext'=>[
 			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',
