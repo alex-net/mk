@@ -69,14 +69,23 @@ function getTopSalesNids(int $count){
 /**
  * собрать акции 
  * @param int $mitcounteronly Отобразить акции только со счётчиком 
+ * @param int $tid Текущий каталог
+ * @param int $nid Текущая нода ..
  */
-function getActionProdag($mitcounteronly=0){
+function getActionProdag($mitcounteronly=0,$tid=0,$nid=0){
 	// пробуем читать из кеша 
-	$data=cache_get(__FUNCTION__.'_'.$mitcounteronly);
+	$data=cache_get(__FUNCTION__.'_'.$mitcounteronly.'tid'.$tid);
 	if (!empty($data->data) && $data->expire>REQUEST_TIME && 0)
 		return $data->data;
 
+	$tids=[];
+	if ($tid){
+		foreach (taxonomy_get_parents_all($tid) as $t)
+			$tids[]=$t->tid;
+	}
 	$res=db_select('node','n');
+	if ($nid)
+		$res->condition('n.nid',$nid,'!=');
 	$res->condition('n.status',1);
 	$res->condition('n.type','product_display');
 	// винтим товар //  и проверяем чтобы он был акционным
@@ -121,6 +130,12 @@ function getActionProdag($mitcounteronly=0){
 	$res->leftjoin('field_data_field_unit_measure','m','m.entity_id=p.product_id and m.bundle=\'product\'');
 	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
 	$res->addField('td','name','measure');
+	// дёрнуть разделы .. .категория .. 
+	if ($tids){
+		$res->leftjoin('field_data_field_product_category','cat','cat.entity_id=n.nid and cat.bundle=n.type');
+		$res->condition('cat.field_product_category_tid',$tids);
+	}
+	$res->groupBy('n.nid');
 	/// достать содержимое ... 
 	$res->leftjoin('field_data_field_text','ft','ft.entity_id=n.nid and ft.bundle=n.type');
 	$res->addField('ft','field_text_value','body');
@@ -401,13 +416,13 @@ function getPriceRange($tid)
 
 
 /**
- * список товаров по аукциям ... 
+ * список товаров по акциям ... 
  * @return [type] [description]
  */
-function getMarkupsOfAkciiProducts($tid)
+function getMarkupsOfAkciiProducts($tid,$nid=0)
 {
 	// блок акций ...
-	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag()), 36);
+	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag(0,$tid,$nid)), 36);
 	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
 	//dsm($prodyctsAtAkcia,'$prodyctsAtAkcia '.$tid);
 
