@@ -59,6 +59,9 @@ function mk2_breadcrumb($vars)
 				if ($termid && $t!=$termid)
 					continue;
 				$t=taxonomy_get_parents_all($t);
+				if (empty($termid) && $t)
+					$termid=$t[0]->tid;
+				//dsm($t,'$t');
 				$tids=$t;
 				break;
 			}
