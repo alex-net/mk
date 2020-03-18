@@ -408,7 +408,8 @@ ol {
   box-shadow: 0 0 0.5em -3px black; }
 
 .elements-list.products .slick-list, .field-type-node-reference > .field-items .slick-list, #block-mkmod-top-sales .content .slick-list, #block-mkmod-articles-list .content .slick-list, .vendors-list .content p .slick-list, #block-block-12 .content p .slick-list, #block-mkmod-akcii-slider-big .content .slick-list {
-  width: 100%; }
+  width: 98%;
+  margin: 0 auto; }
 .elements-list.products .slick-track, .field-type-node-reference > .field-items .slick-track, #block-mkmod-top-sales .content .slick-track, #block-mkmod-articles-list .content .slick-track, .vendors-list .content p .slick-track, #block-block-12 .content p .slick-track, #block-mkmod-akcii-slider-big .content .slick-track {
   display: flex; }
   .elements-list.products .slick-track > div, .field-type-node-reference > .field-items .slick-track > div, #block-mkmod-top-sales .content .slick-track > div, #block-mkmod-articles-list .content .slick-track > div, .vendors-list .content p .slick-track > div, #block-block-12 .content p .slick-track > div, #block-mkmod-akcii-slider-big .content .slick-track > div {
@@ -1808,7 +1809,8 @@ ol {
       font-weight: normal;
       color: #333232; }
     .node-product-display.node-full .field-name-field-mit-tovar-buy .slick-list, .node-product-display.node-full .field-name-field-tovar-analogs .slick-list, .node-product-display.node-full .field-name-field-old-viewed-products .slick-list {
-      margin: 0 1.5em; }
+      margin: 0 auto;
+      box-sizing: border-box; }
   .node-product-display.node-full .comment-wrapper .comment {
     padding: 1em 0;
     border-bottom: 1px solid #dedede; }
