@@ -422,7 +422,10 @@ function getPriceRange($tid)
 function getMarkupsOfAkciiProducts($tid,$nid=0)
 {
 	// блок акций ...
-	$prodyctsAtAkcia=array_chunk(array_keys(getActionProdag(0,$tid,$nid)), 36);
+	$prodyctsAtAkcia=getActionProdag(0,$tid,$nid);
+	if (!$prodyctsAtAkcia)
+		return [];
+	$prodyctsAtAkcia=array_chunk(array_keys($prodyctsAtAkcia), 36);
 	$prodyctsAtAkcia=reset($prodyctsAtAkcia);
 	//dsm($prodyctsAtAkcia,'$prodyctsAtAkcia '.$tid);
 
