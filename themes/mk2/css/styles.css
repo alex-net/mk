@@ -18,6 +18,10 @@ body {
 .page-cart .view-commerce-cart-form .form-actions input:hover, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue:hover, .page-node-1566 #block-system-main .btn.accept-button:hover, #block-mkmod-akcii-slider-big .content .slider-el .more-link:hover, #block-hitrolinks-menu-hl-block .content .show-more-elements:hover, form .form-actions input.form-submit:hover, .site-head .plashko.cart .checkout-button:hover, .site-hmenu .wrap .searchform input.form-submit:hover, .catalog-list .item .btn-controls.close:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order:hover, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order:hover, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input:hover, .hl-win-wrapp ul li a:hover, .show-popup-links:hover, .load-more-contents input:hover, .contects-block > div.otzivbtn {
   background-image: linear-gradient(180deg, #d26060, #9f2d2d); }
 
+* {
+  min-width: 0;
+  min-height: 0; }
+
 .page-cart .view-commerce-cart-form .form-actions input, .page-checkout .block-system form fieldset.checkout-buttons div .checkout-continue, .page-node-1566 #block-system-main .btn.accept-button, #block-mkmod-akcii-slider-big .content .slider-el .more-link, #block-hitrolinks-menu-hl-block .content .show-more-elements, form .form-actions input.form-submit, .site-head .plashko.cart .checkout-button, .site-hmenu .wrap .searchform input.form-submit, .catalog-list .item .btn-controls.close, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div.quick-order, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span.quick-order, .fancybox-wrap.form-in-popup.form-QuickZakaz .form-actions input, .hl-win-wrapp ul li a {
   background: linear-gradient(180deg, #ce6ace, #9f339e);
   background-origin: border-box; }
