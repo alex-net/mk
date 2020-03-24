@@ -131,7 +131,7 @@ function getActionProdag($mitcounteronly=0,$tid=0,$nid=0){
 	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
 	$res->addField('td','name','measure');
 	// дёрнуть разделы .. .категория .. 
-	if ($tids){
+	if (0 && $tids){
 		$res->leftjoin('field_data_field_product_category','cat','cat.entity_id=n.nid and cat.bundle=n.type');
 		$res->condition('cat.field_product_category_tid',$tids);
 	}
@@ -436,6 +436,7 @@ function getMarkupsOfAkciiProducts($tid,$nid=0)
 	if (!$prodyctsAtAkcia)
 		return [];
 
+	return carouselMarkupGen($prodyctsAtAkcia,'product-akcions-list','Товары по акции');
 	return [
 		'#type'=>'container',
 		'#attached'=>[
@@ -469,5 +470,55 @@ function getMarkupsOfAkciiProducts($tid,$nid=0)
 		
 		
 		//$prodyctsAtAkcia=;
+}
+
+/**
+ * Карусель  внутри категории ...  генерация обёртки вокруг 
+ */
+function carouselMarkupGen($nids,$key,$title){
+	return [	
+		'#type'=>'container',
+		'#attached'=>[
+			'library'=>[['mklibs','slick']],
+			'js'=>[
+				[
+					'type'=>'setting',
+					'data'=>[
+						$key=>[
+							'to'=>'.'.$key.'.elements-list.products',
+							'nids'=>$nids,
+						],
+					],
+				],
+			],
+		],
+		'header'=>[
+			'#markup'=>'<h2>'.$title.'</h2>',
+		],
+		'#attributes'=>['class'=>[$key.'-wrapper']],
+		'list'=>[
+			'#type'=>'container',
+			'#attributes'=>[
+				'class'=>[$key,'elements-list','products','ajax-loadable'],
+				'data-key'=>$key,
+			],
+		],	
 	
+	];
+}
+
+/**
+ * собрать nid товаров которые прикреплены к разделу 
+ * @param int $tid Номер раздела ... для отображения .. .
+ */
+function GetProductsByTerm($tid)
+{
+	$res=db_select('node','n');
+	$res->fields('n',['nid']);
+	$res->condition('n.status',1);
+	$res->condition('n.type','product_display');
+	$res->leftJoin('field_data_field_product_category','cat','cat.entity_id=n.nid and cat.bundle=n.type');
+	$res->condition('cat.field_product_category_tid',$tid);
+	
+	return $res->execute()->fetchCol();
 }

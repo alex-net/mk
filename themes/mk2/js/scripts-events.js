@@ -89,7 +89,9 @@
 							if (placeto.match(/tovar-analogs|mit-tovar-buy|old-viewed-products/))
 								$(placeto).addClass('sliked-carousel');
 							// блок акций . в каталоге .. 
-							if (placeto=='.product-akcions-list.elements-list.products' /*&& $(placeto).children().length>3*/)
+							var slikedCarousel=['.product-akcions-list.elements-list.products','.hits-prods-list.elements-list.products','.zakaz-prods-list.elements-list.products'];
+							if (slikedCarousel.indexOf(placeto)!=-1)
+							//if (placeto=='.product-akcions-list.elements-list.products' /*&& $(placeto).children().length>3*/)
 								$(placeto).slick({
 									nextArrow:'<span class="next-product"><i class="fas fa-chevron-right"></i></span>',
 									prevArrow:'<span class="prev-product"><i class="fas fa-chevron-left"></i></span>',

@@ -281,7 +281,7 @@ form.tags-edit-form {
 }
 
 // товары по акции в каталоге .. 
-.akcii-in-catalog-wrapper {margin-bottom:3em;
+.product-akcions-list-wrapper {margin-bottom:3em;
 	h2 {@extend %h-tag;@extend %h-tag-icon;background: url(../imgs/akcia-in-catalog.png) 0 50% no-repeat;background-size: 1.2em auto;}
 	.product-akcions-list {
 		.slick-track > div {padding: 0.5em;}
@@ -294,5 +294,30 @@ form.tags-edit-form {
 		.slick-arrow {bottom: -1.7em;top:auto;opacity: 1;font-size: 1.5em;background: none;border:none;color:$gscolor;box-shadow: none;border:1px solid transparent;
 			&:hover {background:none;border-color:  $scolor;color: $scolor;border-radius: 100%;}
 		}
+		.n-wrap::before {content:'';width: 5.5em;height: 5.5em;position: absolute;top:0.5em;right: 0.5em;background: url(../imgs/icons/akcia.png) 50% 50% no-repeat;}
 	}
 }
+
+.hits-prods-list-wrapper {margin-bottom: 3em;
+	h2 {@extend %h-tag;@extend %h-tag-icon;background: url(../imgs/hits-in-catalog.png) 0 50% no-repeat;background-size: 1.2em auto;}
+	.hits-prods-list{
+		ul.slick-dots li{border:3px solid #c5c6c8;border-radius: 50%;background:white;width: 17px;height: 17px;background:white;
+			&:hover {}
+			button::before {line-height: 19px;width: 17px;opacity: 1;color: #c5c6c8;}
+			&.slick-active {border-color: $scolor;opacity: 1;
+				button::before {color:$rcolor;}
+
+			}
+			
+		}
+	}
+	.n-wrap::before {content:'';width: 5.5em;height: 5.5em;position: absolute;top:0.5em;right: 0.5em;background: url(../imgs/icons/hit.png) 50% 50% no-repeat;}
+}
+.zakaz-prods-list-wrapper {margin-bottom: 3em;
+	h2 {@extend %h-tag;@extend %h-tag-icon;background: url(../imgs/under-zakaz-in-catalog.png) 0 50% no-repeat;background-size: 1.2em auto;}
+	.slick-dots li{display: none;}
+	.n-wrap::before {content:'';width: 6.14em;height: 5em;position: absolute;top:0.5em;right: 0.5em;background: url(../imgs/icons/under-zakaz.png) 50% 50% no-repeat;}
+	
+}
+
+//.elements-list.products ul.slick-dots li.slick-active button:before

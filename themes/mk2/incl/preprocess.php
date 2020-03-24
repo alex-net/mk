@@ -252,7 +252,7 @@ function mk2_preprocess_node(&$vars)
 						],
 					],
 					'#type'=>'container',
-					'#weight'=>1000,
+					'#weight'=>1010,
 					'#attributes'=>[
 						'class'=>['ajax-loadable',$classe], 
 						'data-key'=>'product-page-'.$k,

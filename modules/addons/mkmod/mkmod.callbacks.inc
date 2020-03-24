@@ -381,7 +381,15 @@ function tovarsList_cb($term)
 	//dsm($term->description,'$term');
 	$text=$term->description.($textBetweenCatProd[0]['value']??'');
 
-
+	
+	// хиты продаж
+	foreach(['hits'=>'field_mit_tovar_buy','zakaz'=>'field_tovar_analogs'] as $v=>$f){
+		$$v=field_get_items('taxonomy_term',$term,$f);
+		if ($$v)
+			foreach($$v as $x=>$y)
+				if ($y)
+					$$v[$x]=$y['nid'];
+	}
 	
 
 	//dsm($term);
@@ -415,7 +423,10 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
+		'hits-pro-list'=>$hits?carouselMarkupGen($hits,'hits-prods-list','Хиты продаж'):[],
 		'products-at-akca'=>getMarkupsOfAkciiProducts($term->tid),
+		'zakaz-pro-list'=>$zakaz?carouselMarkupGen($hits,'zakaz-prods-list','Товары под заказ'):[],
+		//'hits-pro-list'=>$hits?getMarkupsOfAkciiProducts($hits,'hits-prods-list','Хиты продаж'),
 		'undertext'=>[
 			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',

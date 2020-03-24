@@ -505,6 +505,21 @@ function mkmod_form_alter(&$form,&$form_state,$form_id){
 			$form['#attributes']['class'][]=$fd['csswrap'];
 		}
 	}
+	if ($form_id=='taxonomy_form_term' && !empty($form['#term'])){
+		$nids=GetProductsByTerm($form['#term']['tid']);
+
+		foreach(['field_tovar_analogs','field_mit_tovar_buy'] as $k){
+			$diff=array_values(array_diff(array_keys($form[$k][LANGUAGE_NONE]['#options']), $nids));
+
+			for($i=0;$i<count($diff);$i++)
+				if (isset($form[$k][LANGUAGE_NONE]['#options'][$diff[$i]]))
+					unset($form[$k][LANGUAGE_NONE]['#options'][$diff[$i]]);
+				
+			
+			// $diff=array_diff(array1, $nids)
+		}
+	}
+		
 }
 
 

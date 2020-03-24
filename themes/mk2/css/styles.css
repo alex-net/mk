@@ -33,16 +33,16 @@ body {
   font-family: "Font Awesome 5 Free";
   font-weight: bold; }
 
-.page-catalog .content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .akcii-in-catalog-wrapper h2 {
+.page-catalog .content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .product-akcions-list-wrapper h2, .hits-prods-list-wrapper h2, .zakaz-prods-list-wrapper h2 {
   background-position: 0% 50%;
   background-repeat: no-repeat;
   padding-left: 1.5em; }
 
-.content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .akcii-in-catalog-wrapper h2 {
+.content-wrapper h1, #block-mkmod-top-sales > h2, #block-mkmod-news-list > h2, #block-mkmod-articles-list > h2, .vendors-list > h2, #block-block-12 > h2, .product-akcions-list-wrapper h2, .hits-prods-list-wrapper h2, .zakaz-prods-list-wrapper h2 {
   font-weight: normal;
   font-size: 2.14em;
   color: #333232; }
-  .content-wrapper h1 .all, #block-mkmod-top-sales > h2 .all, #block-mkmod-news-list > h2 .all, #block-mkmod-articles-list > h2 .all, .vendors-list > h2 .all, #block-block-12 > h2 .all, .akcii-in-catalog-wrapper h2 .all {
+  .content-wrapper h1 .all, #block-mkmod-top-sales > h2 .all, #block-mkmod-news-list > h2 .all, #block-mkmod-articles-list > h2 .all, .vendors-list > h2 .all, #block-block-12 > h2 .all, .product-akcions-list-wrapper h2 .all, .hits-prods-list-wrapper h2 .all, .zakaz-prods-list-wrapper h2 .all {
     position: absolute;
     right: 0;
     top: 50%;
@@ -53,10 +53,10 @@ body {
     text-decoration: none;
     margin-top: -1em;
     transition: all 0.3s linear; }
-    .content-wrapper h1 .all:hover, #block-mkmod-top-sales > h2 .all:hover, #block-mkmod-news-list > h2 .all:hover, #block-mkmod-articles-list > h2 .all:hover, .vendors-list > h2 .all:hover, #block-block-12 > h2 .all:hover, .akcii-in-catalog-wrapper h2 .all:hover {
+    .content-wrapper h1 .all:hover, #block-mkmod-top-sales > h2 .all:hover, #block-mkmod-news-list > h2 .all:hover, #block-mkmod-articles-list > h2 .all:hover, .vendors-list > h2 .all:hover, #block-block-12 > h2 .all:hover, .product-akcions-list-wrapper h2 .all:hover, .hits-prods-list-wrapper h2 .all:hover, .zakaz-prods-list-wrapper h2 .all:hover {
       background: #be2d2d;
       color: white; }
-  .content-wrapper h1.all-link, #block-mkmod-top-sales > h2.all-link, #block-mkmod-news-list > h2.all-link, #block-mkmod-articles-list > h2.all-link, .vendors-list > h2.all-link, #block-block-12 > h2.all-link, .akcii-in-catalog-wrapper h2.all-link {
+  .content-wrapper h1.all-link, #block-mkmod-top-sales > h2.all-link, #block-mkmod-news-list > h2.all-link, #block-mkmod-articles-list > h2.all-link, .vendors-list > h2.all-link, #block-block-12 > h2.all-link, .product-akcions-list-wrapper h2.all-link, .hits-prods-list-wrapper h2.all-link, .zakaz-prods-list-wrapper h2.all-link {
     position: relative;
     padding-right: 2.7em; }
 
@@ -1366,7 +1366,8 @@ ol {
     transition: box-shadow 0.3s linear;
     height: 100%;
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    position: relative; }
     @media screen and (max-width: 755px) and (min-width: 550px), (max-width: 1088px) and (min-width: 1000px) {
       .node-product-display.node-teaser .n-wrap {
         width: 70%;
@@ -1397,7 +1398,7 @@ ol {
       .node-product-display.node-teaser .n-wrap .more-block .field-name-field-parameters-product {
         font-weight: normal;
         position: absolute;
-        z-index: 1;
+        z-index: 10;
         background-color: white;
         width: 100%;
         margin-top: 1em;
@@ -4211,27 +4212,27 @@ form.tags-edit-form .buttons-ajax {
         left: -1em;
         box-shadow: 0 0 1em -0.5em black; }
 
-.akcii-in-catalog-wrapper {
+.product-akcions-list-wrapper {
   margin-bottom: 3em; }
-  .akcii-in-catalog-wrapper h2 {
+  .product-akcions-list-wrapper h2 {
     background: url(../imgs/akcia-in-catalog.png) 0 50% no-repeat;
     background-size: 1.2em auto; }
-  .akcii-in-catalog-wrapper .product-akcions-list .slick-track > div {
+  .product-akcions-list-wrapper .product-akcions-list .slick-track > div {
     padding: 0.5em; }
-  .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots {
+  .product-akcions-list-wrapper .product-akcions-list ul.slick-dots {
     padding: 0.5em 3.5em;
     box-sizing: border-box;
     display: flex;
     bottom: -1.5em; }
-    .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li {
+    .product-akcions-list-wrapper .product-akcions-list ul.slick-dots li {
       flex-basis: 100%;
       height: 5px;
       margin: 0; }
-      .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li.slick-active {
+      .product-akcions-list-wrapper .product-akcions-list ul.slick-dots li.slick-active {
         background-color: #C243C1; }
-      .akcii-in-catalog-wrapper .product-akcions-list ul.slick-dots li > * {
+      .product-akcions-list-wrapper .product-akcions-list ul.slick-dots li > * {
         display: none; }
-  .akcii-in-catalog-wrapper .product-akcions-list .slick-arrow {
+  .product-akcions-list-wrapper .product-akcions-list .slick-arrow {
     bottom: -1.7em;
     top: auto;
     opacity: 1;
@@ -4241,11 +4242,66 @@ form.tags-edit-form .buttons-ajax {
     color: #6d6f72;
     box-shadow: none;
     border: 1px solid transparent; }
-    .akcii-in-catalog-wrapper .product-akcions-list .slick-arrow:hover {
+    .product-akcions-list-wrapper .product-akcions-list .slick-arrow:hover {
       background: none;
       border-color: #C243C1;
       color: #C243C1;
       border-radius: 100%; }
+  .product-akcions-list-wrapper .product-akcions-list .n-wrap::before {
+    content: '';
+    width: 5.5em;
+    height: 5.5em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background: url(../imgs/icons/akcia.png) 50% 50% no-repeat; }
+
+.hits-prods-list-wrapper {
+  margin-bottom: 3em; }
+  .hits-prods-list-wrapper h2 {
+    background: url(../imgs/hits-in-catalog.png) 0 50% no-repeat;
+    background-size: 1.2em auto; }
+  .hits-prods-list-wrapper .hits-prods-list ul.slick-dots li {
+    border: 3px solid #c5c6c8;
+    border-radius: 50%;
+    background: white;
+    width: 17px;
+    height: 17px;
+    background: white; }
+    .hits-prods-list-wrapper .hits-prods-list ul.slick-dots li button::before {
+      line-height: 19px;
+      width: 17px;
+      opacity: 1;
+      color: #c5c6c8; }
+    .hits-prods-list-wrapper .hits-prods-list ul.slick-dots li.slick-active {
+      border-color: #C243C1;
+      opacity: 1; }
+      .hits-prods-list-wrapper .hits-prods-list ul.slick-dots li.slick-active button::before {
+        color: #c73838; }
+  .hits-prods-list-wrapper .n-wrap::before {
+    content: '';
+    width: 5.5em;
+    height: 5.5em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background: url(../imgs/icons/hit.png) 50% 50% no-repeat; }
+
+.zakaz-prods-list-wrapper {
+  margin-bottom: 3em; }
+  .zakaz-prods-list-wrapper h2 {
+    background: url(../imgs/under-zakaz-in-catalog.png) 0 50% no-repeat;
+    background-size: 1.2em auto; }
+  .zakaz-prods-list-wrapper .slick-dots li {
+    display: none; }
+  .zakaz-prods-list-wrapper .n-wrap::before {
+    content: '';
+    width: 6.14em;
+    height: 5em;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    background: url(../imgs/icons/under-zakaz.png) 50% 50% no-repeat; }
 
 .rating-wrapp {
   display: flex;
