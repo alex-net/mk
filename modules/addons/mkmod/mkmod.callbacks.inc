@@ -423,8 +423,8 @@ function tovarsList_cb($term)
 		],
 		'products'=>$res,
 		'pager'=>['#theme'=>'pager'],
-		'hits-pro-list'=>$hits?carouselMarkupGen($hits,'hits-prods-list','Хиты продаж'):[],
 		'products-at-akca'=>getMarkupsOfAkciiProducts($term->tid),
+		'hits-pro-list'=>$hits?carouselMarkupGen($hits,'hits-prods-list','Хиты продаж'):[],
 		'zakaz-pro-list'=>$zakaz?carouselMarkupGen($hits,'zakaz-prods-list','Товары под заказ'):[],
 		//'hits-pro-list'=>$hits?getMarkupsOfAkciiProducts($hits,'hits-prods-list','Хиты продаж'),
 		'undertext'=>[
