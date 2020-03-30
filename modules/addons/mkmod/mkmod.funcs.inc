@@ -131,7 +131,7 @@ function getActionProdag($mitcounteronly=0,$tid=0,$nid=0){
 	$res->leftjoin('taxonomy_term_data','td','td.tid=m.field_unit_measure_tid');
 	$res->addField('td','name','measure');
 	// дёрнуть разделы .. .категория .. 
-	if (0 && $tids){
+	if ($tids){
 		$res->leftjoin('field_data_field_product_category','cat','cat.entity_id=n.nid and cat.bundle=n.type');
 		$res->condition('cat.field_product_category_tid',$tids);
 	}
