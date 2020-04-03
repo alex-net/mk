@@ -506,7 +506,19 @@ function mkmod_form_alter(&$form,&$form_state,$form_id){
 		}
 	}
 	if ($form_id=='taxonomy_form_term' && !empty($form['#term'])){
+		// взять номер рубрики  на верхнем уровне . (жтажоим выше ). . и собрать в ней товары .. 
+		$ptids=taxonomy_get_parents($form['#term']['tid']);
+		if ($ptids){
+			$ptids=array_keys($ptids);
+			$ptids=reset($ptids);
+			$ptids=GetProductsByTerm($ptids);
+		}
+
 		$nids=GetProductsByTerm($form['#term']['tid']);
+		// привинтить к товарам текщей рубрики ..товары  верхней рубрики .. 
+		if ($ptids)
+			$nids=array_merge($ptids,$nids);
+		//dsm($nids);
 
 		foreach(['field_tovar_analogs','field_mit_tovar_buy'] as $k){
 			$diff=array_values(array_diff(array_keys($form[$k][LANGUAGE_NONE]['#options']), $nids));
