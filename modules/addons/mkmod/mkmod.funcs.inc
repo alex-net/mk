@@ -79,10 +79,9 @@ function getActionProdag($mitcounteronly=0,$tid=0,$nid=0){
 		return $data->data;
 
 	$tids=[];
-	if ($tid){
-		foreach (taxonomy_get_parents_all($tid) as $t)
-			$tids[]=$t->tid;
-	}
+	if ($tid)
+		$tids[]=$tid;
+
 	$res=db_select('node','n');
 	if ($nid)
 		$res->condition('n.nid',$nid,'!=');
