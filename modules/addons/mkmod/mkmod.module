@@ -505,7 +505,8 @@ function mkmod_form_alter(&$form,&$form_state,$form_id){
 			$form['#attributes']['class'][]=$fd['csswrap'];
 		}
 	}
-	if ($form_id=='taxonomy_form_term' && !empty($form['#term'])){
+	
+	if ($form_id=='taxonomy_form_term' && !empty($form['#term']) && is_array($form['#term']) ){
 		// взять номер рубрики  на верхнем уровне . (жтажоим выше ). . и собрать в ней товары .. 
 		$ptids=taxonomy_get_parents($form['#term']['tid']);
 		if ($ptids){
@@ -729,7 +730,7 @@ function mkmod_form_taxonomy_form_term_alter(&$form,&$form_state)
 	//];
 	$vis=0;
 	// делаем запрос на получение значения 
-	if ($form['#entity']->tid){
+	if (!empty($form['#entity']) && $form['#entity']->tid){
 		$res=db_select('taxonomy_term_data','t');
 		$res->condition('t.tid',$form['#entity']->tid);
 		$res->fields('t',['vis']);
