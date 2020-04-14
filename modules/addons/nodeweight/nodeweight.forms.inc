@@ -55,7 +55,7 @@ function nodesetweight_form($form,$form_state,$term){
 			),
 			'weight'=>array(
 				'#type'=>'weight',
-				'#delta'=>100,
+				'#delta'=>1000,
 				'#default_value'=>$v['weight'],
 				'#is-weight'=>true,
 			),
