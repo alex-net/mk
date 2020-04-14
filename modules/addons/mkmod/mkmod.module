@@ -512,6 +512,7 @@ function mkmod_form_alter(&$form,&$form_state,$form_id){
 		$nids=[];
 		for($i=0;$i<count($ptids);$i++){
 			$nids=array_merge($nids,GetProductsByTerm($ptids[$i]->tid));
+			$nids=array_unique($nids);
 			if (count($nids)>10)
 				break;
 		}		
