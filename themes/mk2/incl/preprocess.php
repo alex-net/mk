@@ -252,7 +252,7 @@ function mk2_preprocess_node(&$vars)
 						],
 					],
 					'#type'=>'container',
-					'#weight'=>1010,
+					'#weight'=>1040,
 					'#attributes'=>[
 						'class'=>['ajax-loadable',$classe], 
 						'data-key'=>'product-page-'.$k,
@@ -266,8 +266,28 @@ function mk2_preprocess_node(&$vars)
 			}
 
 			// акционные товары ..
-			$vars['content']['prodycts-at-akcia']=getMarkupsOfAkciiProducts(drupal_static('prev-term-id'),$vars['node']->nid);
+			$tid=drupal_static('prev-term-id');
+			$vars['content']['prodycts-at-akcia']=getMarkupsOfAkciiProducts($tid,$vars['node']->nid);
 			$vars['content']['prodycts-at-akcia']['#weight']=1005;
+
+			// хиты продаж
+			$term=taxonomy_term_load($tid);
+			foreach(['hits'=>'field_mit_tovar_buy','zakaz'=>'field_tovar_analogs'] as $v=>$f){
+				$$v=field_get_items('taxonomy_term',$term,$f);
+				if ($$v)
+					foreach($$v as $x=>$y)
+						if ($y)
+							$$v[$x]=$y['nid'];
+			}
+			if (!empty($hits)){
+				$vars['content']['hits-pro-list']=carouselMarkupGen($hits,'hits-prods-list','Хиты продаж');
+				$vars['content']['hits-pro-list']['#weight']=1020;
+			}
+			if (!empty($zakaz)){
+				$vars['content']['zakaz-pro-list']=carouselMarkupGen($zakaz,'zakaz-prods-list','Товары под заказ');
+				$vars['content']['zakaz-pro-list']['#weight']=1030;
+			}
+			
 				//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
 				
 				
@@ -309,6 +329,9 @@ function mk2_preprocess_html(&$vars)
 {
 	$fd=theme_get_setting('magaz-data');
 	$vars['isprod']=!empty($fd['is-prod']);
+
+	//kprint_r($vars);
+	///$vars['page']['content']['metatags']['taxonomy_term:categories']['robots']=''
 }
 
 

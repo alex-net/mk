@@ -432,38 +432,12 @@ function getMarkupsOfAkciiProducts($tid,$nid=0)
 		if (!$y)
 			unset($prodyctsAtAkcia[$x]);
 	
+	//dsm($prodyctsAtAkcia);
 	if (!$prodyctsAtAkcia)
 		return [];
 
 	return carouselMarkupGen($prodyctsAtAkcia,'product-akcions-list','Товары по акции');
-	return [
-		'#type'=>'container',
-		'#attached'=>[
-			'library'=>[['mklibs','slick']],
-			'js'=>[
-				[
-					'type'=>'setting',
-					'data'=>[
-						'products-at-akca'=>[
-							'to'=>'.product-akcions-list.elements-list.products',
-							'nids'=>$prodyctsAtAkcia,
-						],
-					],
-				],
-			],
-		],
-		'header'=>[
-			'#markup'=>'<h2>Товары по акции</h2>',
-		],
-		'#attributes'=>['class'=>['akcii-in-catalog-wrapper']],
-		'list'=>[
-			'#type'=>'container',
-			'#attributes'=>[
-				'class'=>['product-akcions-list','elements-list','products','ajax-loadable'],
-				'data-key'=>'products-at-akca',
-			],
-		],	
-	];	
+
 	
 	//$prodyctsAtAkcia=node_view_multiple(node_load_multiple($prodyctsAtAkcia));
 		
@@ -475,6 +449,11 @@ function getMarkupsOfAkciiProducts($tid,$nid=0)
  * Карусель  внутри категории ...  генерация обёртки вокруг 
  */
 function carouselMarkupGen($nids,$key,$title){
+	// бахнули товар в котором находимся ..
+	if (preg_match('#^node/(\d+)$#i',current_path(),$cnid) &&  in_array(end($cnid), $nids)) 
+		unset($nids[array_search(end($cnid), $nids)]);
+
+	//dsm($nids,current_path());
 	return [	
 		'#type'=>'container',
 		'#attached'=>[
@@ -508,10 +487,11 @@ function carouselMarkupGen($nids,$key,$title){
 
 /**
  * собрать nid товаров которые прикреплены к разделу 
- * @param int $tid Номер раздела ... для отображения .. .
+ * @param int|array $tid Номер раздела ... для отображения .. .
  */
 function GetProductsByTerm($tid)
 {
+
 	$res=db_select('node','n');
 	$res->fields('n',['nid']);
 	$res->condition('n.status',1);
