@@ -341,6 +341,21 @@ body {
         -o-mask: url("../imgs/cat-ico/631.png") 50% 50% no-repeat;
         -ms-mask: url("../imgs/cat-ico/631.png") 50% 50% no-repeat;
         -moz-mask: url("../imgs/cat-ico/631.png") 50% 50% no-repeat; }
+      .site-hmenu .wrap .catalog-menu-popup ul li.for-3 a.first-level::before, .footer .menu-line .wrap .catalog-menu-popup ul li.for-3 a.first-level::before {
+        -webkit-mask: url("../imgs/cat-ico/3.png") 50% 50% no-repeat;
+        -o-mask: url("../imgs/cat-ico/3.png") 50% 50% no-repeat;
+        -ms-mask: url("../imgs/cat-ico/3.png") 50% 50% no-repeat;
+        -moz-mask: url("../imgs/cat-ico/3.png") 50% 50% no-repeat; }
+      .site-hmenu .wrap .catalog-menu-popup ul li.for-133 a.first-level::before, .footer .menu-line .wrap .catalog-menu-popup ul li.for-133 a.first-level::before {
+        -webkit-mask: url("../imgs/cat-ico/133.png") 50% 50% no-repeat;
+        -o-mask: url("../imgs/cat-ico/133.png") 50% 50% no-repeat;
+        -ms-mask: url("../imgs/cat-ico/133.png") 50% 50% no-repeat;
+        -moz-mask: url("../imgs/cat-ico/133.png") 50% 50% no-repeat; }
+      .site-hmenu .wrap .catalog-menu-popup ul li.for-1073 a.first-level::before, .footer .menu-line .wrap .catalog-menu-popup ul li.for-1073 a.first-level::before {
+        -webkit-mask: url("../imgs/cat-ico/1073.png") 50% 50% no-repeat;
+        -o-mask: url("../imgs/cat-ico/1073.png") 50% 50% no-repeat;
+        -ms-mask: url("../imgs/cat-ico/1073.png") 50% 50% no-repeat;
+        -moz-mask: url("../imgs/cat-ico/1073.png") 50% 50% no-repeat; }
 
 .node-product-display.node-full .tabs-of-tovar .tabs-content > div.otsiv .comments-wrap .comment .stars-wrap, .page-node.node-type-product-display h1 > span.p-rating, .node-product-display.node-full .tabs-of-tovar .tabs-content > div.otsiv .comments-wrap .comment .stars-wrap > span, .page-node.node-type-product-display h1 > span.p-rating > span {
   display: inline-block;
