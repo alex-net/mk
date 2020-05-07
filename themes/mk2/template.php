@@ -19,7 +19,10 @@ function mk2_theme_registry_alter(&$r)
 	//dsm($r['page']);
 }
 
-function mk2_html_head_alter(&$hels)
+/**
+ * запрет индексации 
+ */
+/*function mk2_html_head_alter(&$hels)
 {
 	$params=drupal_get_query_parameters();
 	if ('taxonomy/term/93'==current_path( ) &&  !empty($params))
@@ -32,4 +35,4 @@ function mk2_html_head_alter(&$hels)
 				'content'=>"noindex",
 			],
 		];
-}
+}*/
