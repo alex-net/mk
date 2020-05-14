@@ -19,13 +19,13 @@ function mk2_theme_registry_alter(&$r)
 	//dsm($r['page']);
 }
 
-/**
- * запрет индексации 
- */
-/*function mk2_html_head_alter(&$hels)
+
+function mk2_html_head_alter(&$hels)
 {
 	$params=drupal_get_query_parameters();
-	if ('taxonomy/term/93'==current_path( ) &&  !empty($params))
+	if (isset($hels['metatag_canonical']) && !$params &&  'taxonomy/term/93'==current_path())
+		unset($hels['metatag_canonical']);
+	/*if ( &&  !empty($params))
 		$hels['dis']=[
 			// <meta name="robots" content="noindex">
 			'#type'=>'html_tag',
@@ -34,5 +34,5 @@ function mk2_theme_registry_alter(&$r)
 				'name'=>"robots",
 				'content'=>"noindex",
 			],
-		];
-}*/
+		];*/
+}
