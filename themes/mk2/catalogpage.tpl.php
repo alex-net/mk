@@ -1,6 +1,6 @@
 <div class="catalog-list">
 	<?php foreach($terms['terms'] as $term):?>
-		<div class="item<?=empty($term['childs'])?' empty':''?>" data-id='<?=$term['tid'];?>' data-href='<?=$term['href'];?>'>
+		<div class="for-<?=$term['tid'];?> item<?=empty($term['childs'])?' empty':''?>" data-id='<?=$term['tid'];?>' data-href='<?=$term['href'];?>'>
 			<div class="cat-image" style='background-image:url(<?=$term['img'];?>);'></div>
 			<div class='tax-title'><a href="<?=$term['href'];?>"><?=$term['name'];?></a></div>
 			<?php if (!empty($term['childs'])):?>

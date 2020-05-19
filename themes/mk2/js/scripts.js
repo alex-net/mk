@@ -316,6 +316,22 @@
 					});
 				}
 
+				$('.plashko.point-deliver .point > span, .plashko.point-deliver .sklad-selector > span').once(function(){
+					var el=$(this).parent();
+					if (!el.find('.sklad-popup').length && Drupal.settings.skladsList){
+						el.append(Drupal.theme('sklads-addres-poput-in-head',Drupal.settings.skladsList,el.hasClass('point')?'Адреса складов':'Выбрать склад'));
+					}
+					el.children('span').on('click',function(e){
+						$(this).parents('.plashko').eq(0).trigger('hidde-popups');
+						$(this).parent().find('.sklad-popup').addClass('vis');
+					});
+				});
+				$('.plashko.point-deliver').on('hidde-popups',function(){
+					$(this).find('.sklad-popup').removeClass('vis');
+				});
+				// всплыть складами из шапки . в виде подсказки .. 
+				
+				
 			});
 
 			// управляем анимацией появлением скроллера

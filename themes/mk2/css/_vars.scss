@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
-html,body {margin:0;padding: 0;min-height: 100%;}
-html {height: 100%;} 
-body {font-size: 0.875em;font-family: 'PT Sans', sans-serif;background:#f2f2f0;
-	&.adminimal-menu {padding-top: 2.21em;}
-}
 
-
-
+$pagebg:#f2f2f0;
 
 // основной цвет  фирменный ..
 $scolor:#C243C1;//#9e1899;
@@ -30,7 +24,8 @@ $colortemnokrasniy:#b32121;
 
 $hoverfon:#141414;// фон при наведении 
 
-
+// разделы для которых есть картинка иконка .. 
+$ico-cats:5,620,327,407,324,22,622,623,624,104,101,625,337,107,106,110,116,150,125,232,201,459,517,121,411,631,3,133,1073;
 
 
 @mixin maskimage($url){
@@ -46,5 +41,7 @@ $hoverfon:#141414;// фон при наведении
 		#{$pref+$tag}:$params;
 	}
 }
+
+
 
 @import 'classes';

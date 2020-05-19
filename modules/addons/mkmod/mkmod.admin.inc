@@ -228,6 +228,11 @@ function skladconfig_form($form,$form_state){
 				'#title'=>'Примечание',
 				'#default_value'=>empty($y['descr'])?'':$y['descr'],
 			),
+			'link'=>array(
+				'#type'=>'textfield',
+				'#title'=>'ссылка',
+				'#default_value'=>empty($y['link'])?'':$y['link'],
+			),
 		);
 
 	}

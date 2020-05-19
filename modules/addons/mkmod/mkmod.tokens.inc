@@ -258,31 +258,22 @@ function mkmod_tokens($type,$tokens,$data=array(),$opt=array()){
 							$rep[$o]='<div class="nacenka-action-popup warn-block">'.$nacenka['text'].'</div>';
 					}
 				}
+				// карта складов ..
 				if ('map-sclad'==$t){
-					$fd=variable_get('sklad-config',array());// список складов 
-					$skladlist=empty($fd['skladlist'])?array():$fd['skladlist'];
-					//dsm($skladlist,'$skladlist');
-					foreach($skladlist as $x=>$y){
-						$graf=explode("\n",$y['regim']);
-						//dsm($y);
-						$skladlist[$x]['content']=theme('skladmapballoon',array(
-							'title'=>$y['name'],
-							'subname'=>$y['subname'],// текст под заголовкам
-							'timepn'=>$graf[0]??'',// время работы понедельник пятница
-							'vihi'=>$graf[1]??'',// выходные 
-							'descr'=>$y['descr'], // доп инфа
-							'addres'=>empty($y['addres-text'])?$y['addres']:$y['addres-text'], // адрес 
-							'tel'=>empty($y['tel'])?'':$y['tel'],
-						));
+					$SkladList=getSkladList();
+					$rep[$o]='';
+					if ($SkladList){
+						drupal_add_js(array(
+							'sklads'=>$SkladList,
+						),'setting');
+						drupal_add_js('https://api-maps.yandex.ru/2.1/?lang=ru_RU','external');
+						drupal_add_js(drupal_get_path('module','mkmod').'/map-sklad.js','file');
+						// 55.755814, 37.617635
+						$rep[$o]='<div class="map-sklad"></div>';	
 					}
+
 					
-					drupal_add_js('https://api-maps.yandex.ru/2.1/?lang=ru_RU','external');
-					drupal_add_js(drupal_get_path('module','mkmod').'/map-sklad.js','file');
-					// 55.755814, 37.617635
-					$rep[$o]='<div class="map-sklad"></div>';
-					drupal_add_js(array(
-						'sklads'=>$skladlist,
-					),'setting');
+
 				}
 				// отображение текущей даты ...
 				if (preg_match('#^curdate\:(.*)#i',$t,$dat)) 

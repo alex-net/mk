@@ -24,7 +24,7 @@
 // внешний вид кнопки каталог . 
 %catalog-menu-button {cursor: pointer;background: $hoverfon;
 	&::after {content:attr(title);padding: 0.5em 1em;display: inline-block;color:#fefcfc}
-	&::before {content:'';display: inline-block;width: 27px; height:24px;background: url(../imgs/cat-menu-list.png) 50% 0 no-repeat;vertical-align: middle;margin: 0.5em 0;}
+	&::before {content:'';display: inline-block;width: 27px; height:24px;background: url(../imgs/cat-menu-list.png) 50% 0 no-repeat;vertical-align: middle;margin: 0.5em 0;flex-shrink:0; }
 	a {display: none;}
 	&:hover::after, &.hovered::after {color:$scolor;}
 	&:hover::before, &.hovered::before {background-position: 50% 100%;}
@@ -34,9 +34,11 @@
 
 // каталог всплывающее окно  .. 
 %catalog-menu-popup {position: absolute;background: #222222;z-index: 10;padding:1em;box-sizing: border-box;display: none;
+	$frontcolor:#3a3a3a;
 	@media screen and (max-width: 1000px){width: 100%;}
 	ul {margin:0;padding: 0;
-		li {list-style: none outside none;padding:1em 1em 1em 0.5em;box-sizing:border-box;cursor: pointer;border-bottom:1px solid #3a3a3a;position:relative;
+		li {list-style: none outside none;padding:1em 1em 1em 0.5em;box-sizing:border-box;cursor: pointer;border-bottom:1px solid $frontcolor;position:relative;
+
 			// ссылка элемента меню .. 
 			%mover {text-decoration: none;color: white;display: flex;padding:0.25em 0.5em 0.25em 0.25em ; white-space: nowrap;border-bottom:1px solid #222222;align-items:center;
 				> span {flex-grow: 1;}
@@ -87,7 +89,7 @@
 			a.first-level {text-decoration: none;color:white;display: flex;font-size: 1.14285em;line-height: 1.375em;align-items:center;justify-content: space-between;flex-grow:1;
 				span {flex-grow: 1;padding-right: 0.5em;}
 				&::before {content:'';width: /*1.375em*/1.9em;height: /*1.375em*/1.6em;background:$scolor; display: inline-block;margin-right: 0.5em;}
-				&::after {content:'〉';float: right;font-size: 1em;color:#565655;}
+				&::after {content:'〉';font-size: 1em;color:#565655;}
 			}
 			&:hover, &.opened {background: linear-gradient(180deg,#cf4f4f, #b42222);
 				> a {
@@ -96,10 +98,23 @@
 				}
 			}
 			&.empty a.first-level:after{display: none;}
-			$cats:5,620,327,407,324,22,622,623,624,104,101,625,337,107,106,110,116,150,125,232,201,459,517,121,411,631,3,133,1073;
-			@each $cat in $cats { 
+			
+			@each $cat in $ico-cats { 
 				&.for-#{$cat} a.first-level::before {@include maskimage('../imgs/cat-ico/#{$cat}.png');}
 			}
+
+			/*@media screen and (max-width: 480px) {border:2px solid $scolor;margin-top: 0.7em;
+				&:first-child {margin:0;}
+				a.first-level {color:$frontcolor;
+					span {font-weight: bold; font-size: 1.25em;}
+					&::after {content:'';width: 16px;height: 9px;background: url(../imgs/bottom-angel.png) 50% 50% no-repeat;}
+				}
+				&.opened {border:none;
+					 a.first-level {margin:-1em -1em -1em -0.5em;padding:1em 1em 1em 0.5em;color: white;background: linear-gradient(180deg,lighten($rcolor,10%),darken($rcolor,10%));background-origin: border-box;font-size: 1em;
+					 	&::after {background: white; @include multibrowser('mask',url(../imgs/bottom-angel.png) 50% 50% no-repeat);}
+					 }
+				}
+			}*/
 		}
 
 	}
@@ -200,3 +215,44 @@ $black-style:850px;
 		}
 	}
 }
+
+
+// всплывашка со сладами . в шапке 
+%sklad-popup {position: absolute;background: white;border: 2px solid $scolor;padding:2.5em; font-size: 1.1429em; color:#212127;z-index: 25;width: 46em;cursor: default;box-shadow:0 0 2em -0.1em black;white-space:normal;font-weight: 400;left:-20em;box-sizing: border-box; display: none;text-align: left;margin-top: 0.3em;
+	&.vis {display: block;}
+	&::before {content:'';border:0.7em solid transparent;border-bottom-color: $scolor;position: absolute;top:-1.4em;left:50%;margin-left: -0.35em;}
+	&::after {content:'';border:0.7em solid transparent;border-bottom-color: white;position: absolute;top:-1.2em;left:50%;margin-left: -0.35em;}
+
+	.block-title {font-size: 1.875em;color:#333232;font-weight: normal;
+		&::before {content:'';float: left;width:1.25em;height: 1.25em;background: url(../imgs/sklads.png) 50% 50% no-repeat;}
+	}
+	.close-btn {position: absolute;top:0.5em;right: 0.5em;background: url(../imgs/popup-close.png) 50% 50% no-repeat;width:1.875em;height: 1.875em; cursor:pointer;}
+	.sklad-list {height: 18em;overflow-y:scroll;margin-top:1.5em;
+		.skl-item {padding:1em 1em 1em 2.5em;background: url(../imgs/sklad-popup-item.png) 0 50% no-repeat; border-top:1px solid #dedede;display: flex;justify-content: space-between;align-items:center;
+			&:first-child {border:none;}
+			.name {font-weight: bold;font-size: 1.125em;}
+			a > span {display: block;
+				&.sub-name {color:#6d6d6d;}
+			}
+			.phone {flex-shrink: 0;font-style: 1.125em;font-weight: bold;padding-left: 2em; background:url(../imgs/why-we/phone.png) 0 50%  no-repeat;background-size: contain;}
+		}
+	}
+	@media screen and (max-width: 700px) {position:fixed;width: 96%;left: 2%;top:3em;
+		&::before, &::after {display: none;}
+		@media (max-width: 600px) {
+		.sklad-list	.skl-item {flex-direction: column;align-items:flex-start;
+				.phone {margin-top: 1em;}
+			}
+		}
+	}
+
+	
+}
+
+
+
+// ссылки на весь контент под боками новостей и статей в левой колонке .. 
+%all-content {display: block;margin:0 auto;background: white;padding: 0.3em 0.5em;border:1px solid #c3c3c2;text-decoration: none;color:#4e4e4e;}
+
+
+

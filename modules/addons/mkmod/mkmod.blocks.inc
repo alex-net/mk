@@ -59,6 +59,12 @@ function mkmod_block_info(){
 		'articles-list'=>[
 			'info'=>'Статьи',
 		],
+		'left-articles-list'=>[
+			'info'=>'Статьи сдева 3',
+		],
+		'left-news-list'=>[
+			'info'=>'Новости слева 3',
+		],
 		
 		'sub-terms'=>[
 			'info'=>'Подрубрики каталога',
@@ -130,6 +136,7 @@ function mkmod_block_view($delta=''){
 			break;
 		// список новостей ..
 		case 'news-list':
+		case 'left-news-list':
 			$res=db_select('node','n');
 			$res->range(0,3);
 			$res->condition('n.type','new');
@@ -140,11 +147,23 @@ function mkmod_block_view($delta=''){
 			if (!$res)
 				break;
 			$b['content']=node_view_multiple(node_load_multiple($res),'inpopup');
+			if ($delta=='left-news-list')
+				$b['content']['all']=[
+					'#type'=>'link',
+					'#title'=>'Все новости',
+					'#href'=>'/news',
+					'#attributes'=>['class'=>['all-content']],
+					//'#options'=>['class'=>['all-content']],
+				];
 			break;
 		// статьи .. на главной .. 	
 		case 'articles-list':
+		case 'left-articles-list':
 			$res=db_select('node','n');
-			$res->range(0,20);
+			if ($delta=='articles-list')
+				$res->range(0,20);
+			else
+				$res->range(0,3);
 			$res->condition('n.type','article');
 			$res->condition('n.status',1);
 			$res->fields('n',['nid']);
@@ -153,7 +172,17 @@ function mkmod_block_view($delta=''){
 			if (!$res)
 				break;
 			$b['content']=node_view_multiple(node_load_multiple($res),'inpopup');
+			if ($delta=='left-articles-list')
+				$b['content']['all']=[
+					'#type'=>'link',
+					'#title'=>'Все статьи',
+					'#href'=>'/articles',
+					'#attributes'=>['class'=>['all-content']],
+					//'#options'=>['class'=>['all-content']],
+				];
+
 			break;
+
 
 		case 'hit-prodag':
 			$nids=getTopSalesNids(4);

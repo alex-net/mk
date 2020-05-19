@@ -501,3 +501,27 @@ function GetProductsByTerm($tid)
 	
 	return $res->execute()->fetchCol();
 }
+
+/**
+ * Запрос списка складов ..
+ */
+function getSkladList()
+{
+	$fd=variable_get('sklad-config',array());// список складов 
+	$skladlist=empty($fd['skladlist'])?array():$fd['skladlist'];
+	//dsm($skladlist,'$skladlist');
+	foreach($skladlist as $x=>$y){
+		$graf=explode("\n",$y['regim']);
+		//dsm($y);
+		$skladlist[$x]['content']=theme('skladmapballoon',array(
+			'title'=>$y['name'],
+			'subname'=>$y['subname'],// текст под заголовкам
+			'timepn'=>$graf[0]??'',// время работы понедельник пятница
+			'vihi'=>$graf[1]??'',// выходные 
+			'descr'=>$y['descr'], // доп инфа
+			'addres'=>empty($y['addres-text'])?$y['addres']:$y['addres-text'], // адрес 
+			'tel'=>empty($y['tel'])?'':$y['tel'],
+		));
+	}
+	return $skladlist;
+}

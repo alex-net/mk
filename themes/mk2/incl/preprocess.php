@@ -89,6 +89,15 @@ function mk2_preprocess_page(&$vars)
 		if (!empty($q['page']) )
 			drupal_add_js(['calaog-scroller'=>true],'setting');
 	}
+
+
+	// загрузить   данные по складам в jS
+	$SkladList=getSkladList();
+	if ($SkladList)
+		drupal_add_js(array(
+			'skladsList'=>$SkladList,
+		),'setting');
+
 }
 
 /**

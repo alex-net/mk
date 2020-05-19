@@ -90,4 +90,50 @@
 		//console.log(list);
 		return list;
 	}
+
+
+	/**
+	 * рисуем окно всплывашки ... 
+	 */
+	Drupal.theme.prototype['sklads-addres-poput-in-head']=function(sklads,title)
+	{
+		var wrap=$('<div>');
+		wrap.addClass('sklad-popup');
+		// заголовок 
+		var el=$('<div>');
+		el.addClass('block-title');
+		el.html(title);
+		wrap.append(el);
+		// кнопка закрытия .. 
+		el=$('<span>');
+		el.addClass('close-btn');
+		el.on('click',function(){
+			wrap.toggleClass('vis');
+		});
+		wrap.prepend(el);
+		// список элементов .. 
+		var els=$('<div>');
+		els.addClass('sklad-list');
+		for(var sk in sklads){
+			el=$('<div>');
+			el.addClass('skl-item');
+			var link=$('<a>');
+			if (sklads[sk].link)
+				link.attr('href',sklads[sk].link);
+			link.append('<span class="name">'+sklads[sk].name+'</span>');
+			link.append('<span class="sub-name">'+sklads[sk].subname+'</span>');
+			link.append('<span class="addres">'+sklads[sk]['addres-text']+'</span>');
+			el.append(link);
+
+			var phone=$('<div class="phone">');
+			phone.html(sklads[sk].tel);
+			el.append(phone);
+			els.append(el);
+
+			//console.log(sklads[sk]);
+		}
+		wrap.append(els);
+		return wrap;
+		//return '<div class="sklad-popup">test</div>';
+	} 
 })(jQuery);
