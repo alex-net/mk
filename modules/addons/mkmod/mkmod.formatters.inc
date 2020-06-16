@@ -18,6 +18,11 @@ function mkmod_field_formatter_info(){
 			'description'=>'Каринка в качесве фона',
 			'field types'=>array('image'),
 		),
+		'text-witch-seporator'=>[
+			'label'=>'С разделителями',
+			'description'=>'перевод строки и выделение цветом ..',
+			'field types'=>['text'],
+		],
 	);
 }
 
@@ -90,6 +95,18 @@ function mkmod_field_formatter_view($enttype,$ent,$field,$instance,$language,$it
 						'#markup'=>sprintf('<span %s ></span>',drupal_attributes($attrs)),
 					);
 					//dsm('s');
+			}
+		break;
+
+		case 'text-witch-seporator':
+			for($i=0;$i<count($items);$i++){
+				// замена выделения 
+				$val=preg_replace('#\[([^]]+)\]#','<span class="colored">$1</span>',$items[$i]['value']);
+				// замена разделителей . 
+				$val=array_map('trim', explode('||',$val));
+				$el[$i]=[
+					'#markup'=>implode('<br/>',$val),
+				];
 			}
 		break;
 	}

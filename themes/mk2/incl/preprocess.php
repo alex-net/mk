@@ -93,10 +93,12 @@ function mk2_preprocess_page(&$vars)
 
 	// загрузить   данные по складам в jS
 	$SkladList=getSkladList();
-	if ($SkladList)
+	if ($SkladList){
+		
 		drupal_add_js(array(
 			'skladsList'=>$SkladList,
 		),'setting');
+	}
 
 }
 

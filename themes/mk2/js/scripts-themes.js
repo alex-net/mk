@@ -124,10 +124,12 @@
 			link.append('<span class="sub-name">'+sklads[sk].subname+'</span>');
 			link.append('<span class="addres">'+sklads[sk]['addres-text']+'</span>');
 			el.append(link);
-
-			var phone=$('<div class="phone">');
-			phone.html(sklads[sk].tel);
-			el.append(phone);
+			if (!wrap.find('.block-title .phone').length){
+				var phone=$('<div class="phone">');
+				phone.html(sklads[sk].tel[0]);
+				wrap.find('.block-title').append(phone);
+			}
+			//el.append(phone);
 			els.append(el);
 
 			//console.log(sklads[sk]);

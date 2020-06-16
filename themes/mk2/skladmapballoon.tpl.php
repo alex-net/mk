@@ -10,9 +10,9 @@
 			<div class="tel"><?php echo $tel;?></div>
 		<?php endif; ?>
 		<div class="graphik">
-			Пн-Пт: <?php echo $timepn;?>
+			<?php echo $timepn;?>
 			<div class='vihi'><?php echo $vihi?></div>
 		</div>
-		
+		<div class="descr-primechanie"><?=$descr;?></div>
 	</div>
 </div>

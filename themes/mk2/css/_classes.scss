@@ -223,8 +223,12 @@ $black-style:850px;
 	&::before {content:'';border:0.7em solid transparent;border-bottom-color: $scolor;position: absolute;top:-1.4em;left:50%;margin-left: -0.35em;}
 	&::after {content:'';border:0.7em solid transparent;border-bottom-color: white;position: absolute;top:-1.2em;left:50%;margin-left: -0.35em;}
 
-	.block-title {font-size: 1.875em;color:#333232;font-weight: normal;
-		&::before {content:'';float: left;width:1.25em;height: 1.25em;background: url(../imgs/sklads.png) 50% 50% no-repeat;}
+	.block-title {font-size: 1.875em;color:#333232;font-weight: normal;display: flex;align-items:center;
+		.phone {margin-left: auto;flex-shrink: 0;font-size: 0.7em;font-weight: bold;padding-left: 1.5em; background:url(../imgs/why-we/phone.png) 0 50%  no-repeat;background-size: 1.5em;line-height: 1.5em;}
+		&::before {content:'';float: left;width:1.25em;height: 1.25em;background:$scolor; @include multibrowser('mask', url(../imgs/sklads.png) 50% 50% /contain no-repeat);}
+		@media screen and (max-width: 450px) {flex-wrap: wrap;
+			.phone {margin:0.5em auto;flex-basis: 100%;}
+		}
 	}
 	.close-btn {position: absolute;top:0.5em;right: 0.5em;background: url(../imgs/popup-close.png) 50% 50% no-repeat;width:1.875em;height: 1.875em; cursor:pointer;}
 	.sklad-list {height: 18em;overflow-y:scroll;margin-top:1.5em;
@@ -234,7 +238,7 @@ $black-style:850px;
 			a > span {display: block;
 				&.sub-name {color:#6d6d6d;}
 			}
-			.phone {flex-shrink: 0;font-style: 1.125em;font-weight: bold;padding-left: 2em; background:url(../imgs/why-we/phone.png) 0 50%  no-repeat;background-size: contain;}
+			
 		}
 	}
 	@media screen and (max-width: 700px) {position:fixed;width: 96%;left: 2%;top:3em;

@@ -40,10 +40,12 @@ body {font-size: 0.875em;font-family: 'PT Sans', sans-serif;background:$pagebg;
 				&::before {background: url(../imgs/h-deliver.png) 0.5em 50% no-repeat;}
 			}
 			.point{cursor: pointer;position:relative;
-				&::before {background: url(../imgs/sklads.png) 0.45em 50% no-repeat;background-size: 1.3em;}
+				&::before {@include multibrowser('mask',url(../imgs/sklads.png) 0.45em 50% no-repeat);background: $scolor; @include multibrowser('mask-size', 1.3em);}
 				> span {border-bottom: 1px dashed black;}
 				.sklad-popup {@extend %sklad-popup;
-					.block-title::before {background-image: url(../imgs/sklads.png);}
+					.block-title{
+						//&::before {background-image: url(../imgs/sklads.png);}
+					}
 					.phone {display: none;}
 					@media screen and (max-width: 1024px ){left:-35em;
 						&::before, &::after {left:85%;}

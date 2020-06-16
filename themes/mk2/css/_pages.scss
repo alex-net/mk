@@ -539,13 +539,14 @@
 		}
 		.balloon-content {padding:0.5em;box-sizing:border-box;;
 			.ball-titl{ color:#4d4d4d;font-size: 1.231em;border-bottom: 1px solid #d9d9d9;padding: 0 0 0.3em;
-				span {font-size: 1.5em;color:$scolor;font-weight: bold;display: block;}
+				span {font-size: 1.5em;color:$scolor;font-weight: bold;display: block;margin-bottom: 0.5em;}
 			}
 			.ball-body {font-size: 1.2307em;padding-top:1em;
 				.tel {background:url(../imgs/why-we/phone.png) 0 50% / 1.5em no-repeat;padding: 0.5em 0.5em 0.5em 3em;font-weight: bold;}
 				.graphik {background:url(../imgs/job-time.png) 0 50% / 2em no-repeat; padding: 0.5em 0.5em 0.5em 3em;font-weight: bold;
 					.vihi {color:$rcolor;}
 				}
+				.descr-primechanie {font-size: 0.95em;color:#6d6d6d;}
 			}
 		}
 	}
@@ -628,4 +629,112 @@ body.maintenance-page {overflow: hidden;background:url(../imgs/maintenance-page.
 		}
 	}
 	.btn.accept-button  {@extend %btn1;cursor: pointer;}
+}
+
+
+
+// Страница склада .. 
+.node-sklad.node-full {
+	.colored {color: $scolor;}
+	// полоса данныъх склада 
+	.sklad-coordinates {display: flex;background:white;color:$text-color;font-weight: bold;font-size: 1.2857em;box-shadow: 0 1px 1em -0.5em gray;
+		> div {flex-basis: 100%;padding: 1em 3em;box-sizing: border-box;margin:0.3em 0;border-left:1px solid #d9d9d9;
+
+			&:first-child {border:none;}
+			> div {margin-bottom: 1.5em;
+				&:last-child {margin-bottom: 0;}
+			}
+			// адрес .. 
+			&.address{text-align: center;
+				&::before {content: '';margin:0 auto 0.5em;width: 3em;height:3em;@include multibrowser('mask', url(../imgs/sklads.png) 50% 0 no-repeat );text-align: center;display: block;background: $rcolor;}
+			}
+
+		}
+		.field-name-field-sklphone {padding-left: 2em;background: url(../imgs/why-we/phone.png) 0 50% no-repeat;}
+		.field-name-field-sklmail {padding-left: 2em;background: url(../imgs/why-we/mail.png) 0 50% no-repeat;}
+		.field-name-field-skltimeofjob {padding-left: 2em;background: url(../imgs/why-we/time.png) 0 50% no-repeat;}
+		.field-name-field-sklplusstext{padding-left: 2em; font-weight: 400;}
+		@media screen and (max-width: 1024px) {flex-wrap: wrap;
+			> div {flex-basis: 50%;
+				&.time-job {flex-basis: 100%;display: flex;border-left: none;margin:0 0.3em;border-top:1px solid #d9d9d9;align-items:center;
+					.field-name-field-skltimeofjob {flex-basis: 12em;flex-shrink: 0;}
+					> div {margin:0;align-items: center;
+						&.field-name-field-sklplusstext {padding: 0;}
+					}
+					
+				}
+			}
+			@media (max-width: 666px) {display: block;
+				>div {border-top:1px solid #d9d9d9;border-left: none;margin:0 0.3em;
+					&.mail-phone {display: flex;justify-content: space-between;align-items: center;
+						> div {margin:0;}
+					}
+					@media (max-width: 600px) {padding:1em;flex-direction: column;
+						> div {margin:0 0 1em 0!important;flex-basis:auto!important;
+							&:last-child {margin:0!important;}
+						}
+					}
+				}
+			}
+		}
+
+	}
+	.field-name-body {font-size:1.2857em;border:0.5em solid lighten($scolor,30%);padding:1em 1em 1em 7em;margin-top: 2em;background:url(../imgs/thumb.png) 1.5em 50% no-repeat white;
+		p {margin:1em 0;}
+		@media screen and (max-width: 550px) {padding: 7em 1em 1em 1em;background-position: 50% 1.5em ; }
+	}
+	.field-name-field-skltitleproductions {margin:1.5em 0 0.7em;font-size: 2em;color:$scolor;font-weight: bold;}
+	.field-name-field-sklproduction {overflow: hidden;
+		.field-items {display: flex;flex-wrap: wrap;margin:0 -0.5em;
+			> div {flex-basis: 50%;padding:0.5em;box-sizing:border-box;
+				a {display: block;background: white;font-size: 1.428em;color:#3e3c3c;vertical-align: middle;text-decoration: none;padding:0.5em 0.5em 0.5em 2em;text-indent: -2.35em;
+					&::before {content:'';background:$rcolor;display: inline-block;margin: 0 1em;width: 0.3em;height: 0.3em; vertical-align: middle;}
+					&:hover {color:$rcolor;box-shadow: 0 0 1.5em -0.7em gray;}
+				}
+			}
+			@media screen and (max-width: 950px) {flex-wrap: nowrap;flex-direction: column;}
+		}
+	}
+	.info-for-users {font-size: 1.71em;color:black;margin:0.5em 0;}
+	.rekvisits {margin:1.5em 0;
+		.title {font-size: 1.714em;color:$scolor;font-weight: bold;margin-bottom: 0.5em;}
+		.nalog-data {display: flex;border:0.64em solid #dadad9;background: #2c2c2c;
+			&::before {content:'';background: url(../imgs/woman.jpg) 50% 50% / cover no-repeat;flex-basis: 100%;}
+			.wrap {padding:1.5em;color:white;font-size: 1.14em;flex-basis: 100%;box-sizing:border-box;
+				span {color: #afafaf;}
+			}
+			@media screen and (max-width: 1240px) {
+				&::before {flex-basis: auto;flex-grow: 1;}
+				.wrap {flex-basis: 37em;flex-shrink: 0;
+					@media (max-width: 37em) {flex-basis: 100%;}
+				}
+				@media (max-width: 879px){
+					.wrap {margin:0 auto;}
+					&::before {display: none;}
+				}
+			}
+		}
+	}
+	.free-pogruska {border:0.64em solid #e4c8e3;background:$scolor;color:white;
+		ul {margin:0; padding: 1em 1em 1em 10em;display: flex;flex-wrap:wrap;background:url(../imgs/achtung.png) 2em 50% no-repeat;
+			@media screen and (max-width: 830px) {display: block;
+				@media (max-width: 550px) {padding: 10em 1em 1em; background-position: 50% 2em ;}
+			}
+			li {flex-basis: 50%;padding: 1em;font-weight: bold;list-style: none outside none;box-sizing: border-box;font-size: 1.1428em;display: flex;align-items:flex-start;
+				&::before {content:'';width: 0.7em;height: 0.7em;background: white;margin:0.3em 0.5em 0 0 ;flex-shrink: 0;}
+			}
+		}
+		.fee-text {background: #7e2f74;font-size: 2.14em;text-align: center;text-transform: uppercase;padding: 0.6em 3.7em;position:relative;
+			&::after {content: ''; position: absolute;bottom: 0;right: 1em;margin: 0.2em;display: block; @include multibrowser ('mask',url('../imgs/telegka.png') 50% 50% no-repeat);background: white;height: 2.65em;width:2.65em; }
+			@media screen and (max-width: 480px) {padding: 0.6em;
+				&::after {display: none;}
+			}
+		}
+	}
+	.write-us {text-align: center;margin-top: 4em;
+		.mailed-to-uns {display: inline-block;position: relative;background: $rcolor;color:white;padding: 1em 1em 1em 6em;font-size: 1.4285em;text-transform: uppercase;cursor: pointer;font-weight: bold;
+			&::before {content:'';width:3.7em; height: 3.7em;display: inline-block;background: url(../imgs/mail-writer.png) 50% 50% no-repeat;background-size: contain;position: absolute;bottom: 1em;left: 1em;}
+			&:hover {background:black; }
+		}
+	}
 }

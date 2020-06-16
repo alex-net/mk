@@ -507,21 +507,77 @@ function GetProductsByTerm($tid)
  */
 function getSkladList()
 {
-	$fd=variable_get('sklad-config',array());// список складов 
-	$skladlist=empty($fd['skladlist'])?array():$fd['skladlist'];
+	$res=db_select('node','n');
+	$res->condition('n.type','sklad');
+	$res->condition('n.status',1);
+	$res->fields('n',['nid']);
+	$res=$res->execute()->fetchCol();
+	if (!$res)
+		return [];
+	
+	$skladlist=[];
+	$fields=[
+		'subname'=>'skltovarstype',
+		'addres'=>'skladdrespoint',
+		'addres-text'=>'skladdresinmap',
+		'tel'=>'sklphone',
+		'regim'=>'skltimeofjob',
+		'descr'=>'sklplusstext',
+		'#weight'=>'sklweight',
+	];
+	
+	foreach(node_load_multiple($res) as $x=>$y){
+		$skl=[
+			'name'=>$y->title,
+			'link'=>url('node/'.$x),
+		];
+		
+		foreach($fields as $t=>$f){
+			$field=field_get_items('node',$y,'field_'.$f);
+			$skl[$t]=$field[0]['value']??'';
+		}
+		if (!empty($skl['addres']) && preg_match('#\[([^]]+);([^]]+)\]#', $skl['addres'],$coords))
+			$skl['point']=['x'=>$coords[2],'y'=>$coords[1]];
+
+		$skladlist[]=$skl;
+	}
+
+	usort($skladlist, 'element_sort');
+
+	/*
+	key (String, 10 characters ) KznksKvyH6
+name (String, 42 characters ) Склад №1 Геоматериалов
+subname (String, 24 characters ) Геоматериалы
+addres (String, 21 characters ) [55.837287;37.447917]
+addres-text (String, 61 characters ) Москва, ул. Лодочная дом 5, корпус 1...
+tel (String, 18 characters ) +8 (495) 664-44-21
+regim (String, 59 characters ) с 9-00 до 17-00 часов. Сб-Вс: выходной...
+descr (String, 0 characters )
+link (String, 39 characters ) http://dev.masterkrowli.ru/geomaterialy
+point (Array, 2 elements)
+content 
+	 */
+
+	//$fd=variable_get('sklad-config',array());// список складов 
+	//$skladlist=empty($fd['skladlist'])?array():$fd['skladlist'];
 	//dsm($skladlist,'$skladlist');
 	foreach($skladlist as $x=>$y){
-		$graf=explode("\n",$y['regim']);
+		$graf=explode("||",$y['regim']);
 		//dsm($y);
+		$skladlist[$x]['tel']=$y['tel']=array_map('trim',explode('||',$y['tel']??''));
 		$skladlist[$x]['content']=theme('skladmapballoon',array(
 			'title'=>$y['name'],
 			'subname'=>$y['subname'],// текст под заголовкам
 			'timepn'=>$graf[0]??'',// время работы понедельник пятница
-			'vihi'=>$graf[1]??'',// выходные 
-			'descr'=>$y['descr'], // доп инфа
+			'vihi'=>str_replace(['[',']'], '', $graf[1]??''),// выходные 
+			'descr'=>str_replace('||', '<br/>', $y['descr']), // доп инфа
 			'addres'=>empty($y['addres-text'])?$y['addres']:$y['addres-text'], // адрес 
-			'tel'=>empty($y['tel'])?'':$y['tel'],
+			'tel'=>implode('<br/>',$y['tel']),
 		));
+
+
 	}
+
+	//sm($skladlist);
 	return $skladlist;
 }
