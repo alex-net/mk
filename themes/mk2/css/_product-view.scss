@@ -82,11 +82,16 @@
 			// подробнее 
 			.more-block {position: relative;padding:0 1.3571em;margin:0 -1.3571em;
 				.morebtn {@extend %btn2;font-size: 1.2857em;font-weight: bold;}
-				.field-name-field-parameters-product {@extend %information;font-weight: normal;position: absolute;z-index: 10;background-color:white;width: 100%;margin-top: 1em;left: 0;box-sizing: border-box;padding: 0 0.7em 0.7em;top:100%;display: none;}
 			}
 		}
-		&.morebtn .n-wrap .more-block {
-			.morebtn {@extend %btn2-hover;}
+
+		.field-name-field-parameters-product {@extend %information;font-weight: normal;position: absolute;z-index: 10;width: 100%;margin-top: -1em;left: 0;box-sizing: border-box;padding: 0 1em ;top:100%;display: none;
+			.field-items {padding: 0 0.7em 0.7em;background-color: white;}
+		}
+		&.morebtn {
+			.n-wrap .more-block {
+				.morebtn {@extend %btn2-hover;}
+			}
 			.field-name-field-parameters-product {display: block;}
 		}
 	}
@@ -298,10 +303,14 @@
 
 		}
 		// списки .. 
-		.field-name-field-mit-tovar-buy, .field-name-field-tovar-analogs, .field-name-field-old-viewed-products {margin-bottom: 4em;
+		.field-name-field-mit-tovar-buy, .field-name-field-tovar-analogs, .field-name-field-old-viewed-products {margin-bottom: 4em;position: relative;
 			> .field-label {font-size: 2.14em;font-weight: normal;color:#333232;}
 			.slick-list {margin: 0 auto; box-sizing: border-box;}
 		}
+		.field-name-field-mit-tovar-buy {z-index: 6;}
+		.field-name-field-tovar-analogs {z-index: 5;}
+		.hits-prods-list-wrapper {z-index: 4;}
+		.field-name-field-old-viewed-products{z-index: 2;}
 
 
 		

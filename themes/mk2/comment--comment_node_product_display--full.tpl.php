@@ -1,6 +1,13 @@
+<?php
+$comUser=user_load($comment->uid);
+$isAdmin=array_search('administrator',$comUser->roles)!==false;
+
+ if ($comment->pid):
+	$classes.=' indented';
+endif ?>
 <div class="<?=$classes;?>">
-	<div class="author"><?=$comment_author;?>
-		<span class="stars-wrap" ><span style='width:<?=$comment_stars;?>%'></span></span>
+	<div class="author"><?=$isAdmin?'Админ':$comment_author;?>
+		<?php if (!$isAdmin):?><span class="stars-wrap" ><span style='width:<?=$comment_stars;?>%'></span></span><?php endif;?>
 	</div>
 	<div class="date"><?=$comment_created;?></div>
 	<?=render($content['comment_body']);?>

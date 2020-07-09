@@ -6,10 +6,20 @@
 			select.wrapAll('<div class="mk-rating-widget"/>');
 			select.hide();
 			el=$('<span class="rating-wrapp"/>');
-			select.find('option').each(function(){
-				
+			var selectedDeteced=select.find('option[selected]').length;
+			console.log(selectedDeteced);
+			select.find('option').each(function(ind){
 				it=$('<span class="one-star"><span class="star-ico"></span>'+$(this).html()+'</span>');
 				it.data({it:$(this).val(),el:it});
+
+				if (selectedDeteced )
+					it.addClass('hovered');
+				if (typeof $(this).attr('selected')!='undefined'){
+					selectedDeteced=0;
+					select.data('changed-val',ind);
+				}
+				//	it.addClass()
+				
 				el.append(it);
 			});
 			select.on('change',function(){

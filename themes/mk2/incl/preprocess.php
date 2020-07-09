@@ -147,7 +147,7 @@ function mk2_preprocess_node(&$vars)
 	// раскраска таблицы информация .. 
 	if ($vars['node']->type=='product_display'){
 		foreach(element_children($vars['content']['field_parameters_product']) as $i)
-			foreach(['статус товара'=>'green','Получение товара'=>'colored'] as $x=>$y)
+			foreach(['статус'=>'green','Получение'=>'colored'] as $x=>$y)
 			if(preg_match('#'.$x.'#ius', $vars['content']['field_parameters_product'][$i]['#item']['first'])){
 				$vars['content']['field_parameters_product'][$i]['#item']['second']='<span class="'.$y.'">'.$vars['content']['field_parameters_product'][$i]['#item']['second'].'</span>';
 			}

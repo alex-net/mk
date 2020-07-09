@@ -16,7 +16,7 @@ function mk2_js_alter(&$js)
 
 function mk2_theme_registry_alter(&$r)
 {
-	//dsm($r['page']);
+	//dsm($r);
 }
 
 

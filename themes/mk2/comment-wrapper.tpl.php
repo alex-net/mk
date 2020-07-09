@@ -43,6 +43,7 @@
   <?php endif; ?>
 
   	<?php echo token_replace('[mk:show-comments:'.$node->nid.':'.$cc.']');?>
+    <?php //kprint_r($content['comments']);?>
   <?php //print render($content['comments']); ?>
   <?php //echo render($content['pager']);?>
 

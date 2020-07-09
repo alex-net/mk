@@ -458,7 +458,7 @@ function _getcomentcontent($mkcc){
 	$res->condition('c.nid',$n->nid);
 	if (!user_access('administer comments'))
 		$res->condition('c.status',1);
-	$cids=$res->execute()->fetchCol();
+	$cids=$res->execute()->fetchCol('cid',PDO::FETCH_ASSOC);
 	
 	if (count($cids)>$pp && count($cps)*$pp<count($cids)){
 		pager_default_initialize(count($cids),$pp);

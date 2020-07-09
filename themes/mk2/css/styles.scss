@@ -257,12 +257,12 @@ $search-form-height: 3.28em;
 /**
  * обёртка вокруг контента 
  */
-.content-wrapper {max-width: $maxw;margin: 0 auto;
+.content-wrapper {max-width: $maxw;margin: 0 auto;overflow: hidden;padding-bottom:15em;
 	//@media screen and (max-width: 1024px) {padding: 0 0.5em;}
 	h1 {@extend %h-tag;
 		@at-root .page-catalog & {@extend %h-tag-icon; background-image:url(../imgs/h1-ico-catalog.png); }
 	}
-	@media screen and (max-width: $maxw) {width: 100%;box-sizing: border-box;padding: 0 0.5em;}
+	@media screen and (max-width: $maxw) {width: 100%;box-sizing: border-box;padding: 0 0.5em 15em ;}
 }
 
 // табы 
@@ -451,7 +451,17 @@ ul.tabs.primary {white-space: normal;}
 
 // списки  товаров .. (отдельная страница или список  ) 
 .elements-list.products, .field-type-node-reference > .field-items {@extend %product-list;@extend %flex-slick-block-content;
-	&.sliked-carousel {display: block;}
+	&.sliked-carousel, &.slick-slider {display: block;
+		.slick-arrow {z-index: 20;}
+		.slick-list {overflow:visible;z-index: 10;
+			.slick-slide {opacity: 0;transition: all linear 0.3s;
+				&::before {content:'';position: absolute;width: 100%;height: 100%;z-index: 100;}
+				&.slick-active {opacity: 1;
+					&::before {display: none;}
+				}
+			}
+		}
+	}
 	> .field-item, > .node {height: auto;
 		> .node {height: 100%;}
 	}
@@ -468,7 +478,7 @@ ul.tabs.primary {white-space: normal;}
 }
 
 // подвал  .. 
-.footer { margin-top: 2em;
+.footer { margin-top: -13em;
 	.menu-line {background: linear-gradient(0,#111111,#252525);border-bottom:3px solid $scolor;
 		.wrap {max-width: $maxw;margin:0 auto;display: flex;justify-content: space-between;align-items:center;box-sizing:border-box;position:relative;
 
@@ -577,7 +587,7 @@ ul.tabs.primary {white-space: normal;}
 			
 		}
 	}
-	.page-scroller {position: fixed;bottom:1em;right: 1em;width: 2.5em;height: 2.5em;border-radius: 50%;background-color: $scolor;cursor: pointer;transition: all $animate-length;display: none;justify-content: center;align-items:center;font-size: 2em;color:white;
+	.page-scroller {position: fixed;bottom:1em;right: 1em;width: 2.5em;height: 2.5em;border-radius: 50%;background-color: $scolor;cursor: pointer;transition: all $animate-length;display: none;justify-content: center;align-items:center;font-size: 2em;color:white;z-index: 100;
 		&:hover {background-color: lighten($scolor,15%);}
 		//@media screen and (min-width: 1350px){
 			&.vis{display: flex;}
@@ -632,6 +642,7 @@ ul.tabs.primary {white-space: normal;}
 			input {border:1px solid $scolor; background: white; color:$scolor;padding: 0.5em; box-sizing: border-box;}
 		}
 		.messages {
+			.messageclose {display: none;}
 			&.status{border:none;//background-color: white;background-size: 2em;background-position: 0.3em 50%;
 				background:none;position:relative;font-size: 1.5em;padding:0.5em;text-align: center;
 				h2 {display: none;}
@@ -744,6 +755,7 @@ ul.tabs.primary {white-space: normal;}
 .rating-wrapp {display: flex;flex-wrap: wrap;
 	@media screen and (max-width: 400px) {justify-content: center;}
 	.one-star {font-size: 0.7em;text-align: center;margin: 0 0.5em;
+		@at-root .form-item &:first-child {display: none;}
 		.star-ico {display: block;width: 3em; height: 3em; background:url(../imgs/rating-star-void.png) 50% 50% no-repeat; background-size: contain;margin:0 auto;}
 		&.hovered .star-ico {background-image: url(../imgs/rating-star-full.png);}
 	}
@@ -809,7 +821,6 @@ form {
 
 /*.webform-client-form-1552 h2::before {content:'';width: 100px;height: 100px;display: block;margin:0 auto;background:url(i/pogruzchik.png) 50% 50% no-repeat;background-size:cover;}*/
 /*form .captcha  > div {display: inline-block;vertical-align: top;}*/
-
 
 
   

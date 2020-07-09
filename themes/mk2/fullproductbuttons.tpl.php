@@ -2,7 +2,7 @@
 <div class="buttons-block qty-wrapp">
 	<div class="left-tail">
 		<?=render($form['qty-wrap']['qty']);?>
-		<div class="tovar-back" data-show-node-in-popup="1549">Воврат товара</div>
+		<div class="tovar-back" data-show-node-in-popup="1549">Возврат товара</div>
 		<div class="tovar-change" data-show-node-in-popup="1550">Обмен товара</div>
 	</div>
 	<div class="right-tail">
