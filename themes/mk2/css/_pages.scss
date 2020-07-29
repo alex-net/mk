@@ -194,6 +194,7 @@
 				&:nth-child(2n) {background: lightgray;}
 				td {padding: 0.5em;vertical-align: middle;
 					&.pic_title_attr { flex-grow: 1;flex-basis: 100%;
+						div {min-width: auto;;}
 						a {display: flex;color:#222;text-decoration: none;align-items:center;position: relative;
 
 							.title_info {flex-grow: 1;padding-left:1em;

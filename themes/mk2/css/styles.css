@@ -3307,6 +3307,8 @@ body {
           .page-cart .view-commerce-cart-form .views-table tbody tr td.pic_title_attr {
             flex-grow: 1;
             flex-basis: 100%; }
+            .page-cart .view-commerce-cart-form .views-table tbody tr td.pic_title_attr div {
+              min-width: auto; }
             .page-cart .view-commerce-cart-form .views-table tbody tr td.pic_title_attr a {
               display: flex;
               color: #222;
