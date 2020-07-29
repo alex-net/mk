@@ -1,6 +1,6 @@
 <?php 
 
-
+/*
 function mkordermailer_menu()
 {
 	return [
@@ -14,7 +14,7 @@ function mkordermailer_menu()
 		],
 	];
 }
-
+*/
 
 function mkordermailer_theme()
 {
