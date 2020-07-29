@@ -1,0 +1,132 @@
+<?php 
+
+
+function mkordermailer_menu()
+{
+	return [
+		'mail-test/%'=>[
+			'title'=>'asdad',
+			//'type'=>MENU_CALLBACK,
+			'page callback'=>'mail_test_commerce_cb',
+			'page arguments'=>[1],
+			'access arguments'=>['access content'],
+			'file'=>'mkordermailer.callbacks.inc',
+		],
+	];
+}
+
+
+function mkordermailer_theme()
+{
+	return [
+		'mkordermailer_mail_to'=>[
+			'template'=>'mkordermailer-mail-to',
+			'variables'=>[
+				'forManager'=>false,
+				'width'=>650,
+				'scolor'=>'#C243C1',
+				'rcolor'=>'#c73838',
+				'gcolor'=>'#b5b5b5', 
+				'gscolor'=>'#6d6f72',
+				'text_color'=>'#272727',
+				'orderId'=>0,
+			],
+			'preprocess functions'=>[
+				'mkordermailer_mail_to_customer_prefunc',
+			],
+			'pattern'=>'mkordermailer_mail_to__',
+			'file'=>'mkordermailer.theme.inc'
+		],
+	];
+}
+
+
+
+function mkordermailer_rules_action_info()
+{
+	return [
+		'a_mkordermailer_tomanager_action'=>[
+			'label'=>'Письмо менеджеру',
+			'group'=>'MKMod',
+			'parameter'=>[
+				'commerce_order'=>[
+					'type'=>'commerce_order',
+					'label'=>'Commerce Order ))',
+				],
+			],
+		],
+		'a_mkordermailer_tocustomer_action'=>[
+			'label'=>'Письмо Клиенту',
+			'group'=>'MKMod',
+			'parameter'=>[
+				'commerce_order'=>[
+					'type'=>'commerce_order',
+					'label'=>'Commerce Order ))',
+				],
+			],
+		],
+	];
+}
+
+function a_mkordermailer_tomanager_action($order)
+{	
+	$ur=user_roles();
+	//dsm($ur);
+	$res=db_select('users','u');// 
+	$res->condition('u.status',1);
+	$res->fields('u',['mail']);
+	$res->leftJoin(' users_roles','ur','ur.uid=u.uid');
+	$res->condition('ur.rid',[4,5]);
+	$res=$res->execute()->fetchCol();
+	if ($res){
+		$mess=token_replace( theme('mkordermailer_mail_to__customer',['orderId'=>$order->order_id,'forManager'=>true]),['commerce_order'=>$order]);
+		$title=token_replace('Заказ #'.$order->order_id.' ([commerce-order:field-form-ordering:field-user-name])',['commerce_order'=>$order]);
+		for($i=0;$i<count($res);$i++)
+			drupal_mail('system','mail',$res[$i],language_default(),[
+				'context'=>[
+					'subject'=> $title,
+					'message'=>$mess,
+					//'sada<b>das<br/>d</b>',
+				],
+			]);
+	}
+}
+
+function a_mkordermailer_tocustomer_action($order)
+{	
+	$o=entity_metadata_wrapper('commerce_order',$order);
+	drupal_mail('system','mail',$o->field_form_ordering->field_email->value(),language_default(),[
+		'context'=>[
+			'subject'=>'Заказ #'.$order->order_id,
+			'message'=>token_replace( theme('mkordermailer_mail_to__customer',['orderId'=>$order->order_id,'forManager'=>false]),['commerce_order'=>$order])
+			//'sada<b>das<br/>d</b>',
+		],
+	]);
+}
+	//dsm(mail('alexnet2004@gmail.com','asdsada','di<b>88</b>iii'));
+	//dsm($order,'$a');
+	///print_r($c);	
+	//dsm($b->variables['commerce_order'],'b ');
+	//dsm($b->variables['commerce_order']->order_id->value(),'b id');
+	/*
+	
+| commerce_autosku_patterns                     |
+| commerce_calculated_price                     |
+| commerce_checkout_pane                        |
+| commerce_customer_profile                     |
+| commerce_customer_profile_revision            |
+| commerce_line_item                            |
+| commerce_order                                |
+| commerce_order_revision                       |
+| commerce_payment_transaction                  |
+| commerce_payment_transaction_revision         |
+| commerce_product                              |
+| commerce_product_revision                     |
+| commerce_product_type
+
+	 */
+	//dsm($c,'c');
+	//drupal_set_message('test');
+	//$tt=entity_metadata_wrapper('node',3090);
+	//dsm($tt);
+//}
