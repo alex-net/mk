@@ -60,7 +60,7 @@ function mkmod_block_info(){
 			'info'=>'Статьи',
 		],
 		'left-articles-list'=>[
-			'info'=>'Статьи сдева 3',
+			'info'=>'Статьи слева 3',
 		],
 		'left-news-list'=>[
 			'info'=>'Новости слева 3',
