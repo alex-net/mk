@@ -7,7 +7,7 @@
 	</div>
 	<div class="sepor"></div>
 	<div class="plashko contacts">
-		<?=token_replace('<a href="tel:[mk:rekv:phone-1:plain]">[mk:rekv:phone-1:text:plain]</a><br><a href="tel:[mk:rekv:phone-2:plain]">[mk:rekv:phone-2:text:plain]</a>');?>
+		<?=token_replace('<a href="tel:[mk:rekv:phone-1:plain]">[mk:rekv:phone-1:text:plain]</a>'); /* <br><a href="tel:[mk:rekv:phone-2:plain]">[mk:rekv:phone-2:text:plain]</a> */?>
        <?=token_replace("<a class='mail' href='mailto:[mk:rekv:mail-1:plain]'>[mk:rekv:mail-1:plain]</a>");?>
 	</div>
 	<div class="sepor"></div>
