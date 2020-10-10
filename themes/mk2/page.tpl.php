@@ -63,7 +63,8 @@
 		</div>
 	</div>
 	<div class="blocks-in-footer">
-		<div class="catalog-tail row">
+		<noindex>
+		<div class="catalog-tail row" style='display: none;'>
 			<div class="titel">Каталог</div>
 			<ul>
 				<?php foreach($catl0 as $t):?>
@@ -73,6 +74,7 @@
 				<?php endforeach;?>
 			</ul>
 		</div>
+		</noindex>
 		<div class="otcher-block row">
 			<?=render($page['footer']);?>
 		</div>

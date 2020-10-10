@@ -137,7 +137,7 @@ ol {
 }
 
 // размер и адаптив товара в тизере 
-%noda-taser {flex-basis: 33%;//position:relative;
+%noda-taser {flex-basis: 33%;position:relative;
 	%marker {content:'';position:absolute;width:7em;height: 7em; right: 1.5em;z-index: 5;background: url(../imgs/icons/akcia.png) 50% 50% / contain no-repeat;}
 	.n-wrap {position: relative;}
 	&.akcia-to-do .n-wrap::before {@extend %marker;top:1.5em;}
@@ -160,7 +160,7 @@ ol {
 %flex-slick-block-content{
 	.slick-list {width: 98%;margin:0 auto;}
 	.slick-track {display: flex;
-		> div {height: auto;flex-shrink: 0;flex-grow: 0;}
+		> div {height: auto;flex-shrink: 0;flex-grow: 0;position: relative;outline: none;}
 	}
 	// стрелки 
 	.slick-arrow {position:absolute;width: 2em;display: inline-block;top:50%;margin-top:-1em;font-size: 2em;z-index: 5;border-radius: 50%;cursor: pointer;text-align: center;line-height: 2em;transition: all $animate-length linear;

@@ -18,8 +18,7 @@
 			.wrap {margin-top:0.5em;display: flex;justify-content: space-between;
 				.date {opacity: 0.48;}
 				.more {color:$rcolor;text-decoration: none;
-					span {border-bottom: 1px solid $rcolor;}
-					&::after {content:'→';}
+					span {border-bottom: 1px solid $rcolor;font-size: 1.2em;}
 				}
 			}
 		}
@@ -45,7 +44,8 @@
 			.wrap {display: flex;justify-content: space-between;margin-top:1em;padding-top: 1em;border-top:1px solid #e0e0e0;
 				.views {font-size: 0.857em;padding-left: 2em;background:url(../imgs/views-oko.png) 0 50% no-repeat;background-size: 1.5em;}
 				.more {text-decoration: none;color:$scolor;
-					&::after {content:'→';}
+					span {font-size: 1.2em;}
+					//&::after {content:'\1F812';display: inline-block;font-size: 1.5em;}
 				}
 			}
 			.title {text-align: center;flex-grow: 1;
