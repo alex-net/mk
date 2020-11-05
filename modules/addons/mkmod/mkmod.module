@@ -765,3 +765,26 @@ function vis_taxa_submit_cb($form,$form_state)
 }
 
 
+/**
+ *  сохраняем данные по fromid при обновлении корзины .. 
+ */
+function mkmod_commerce_cart_line_item_refresh($line_item,$orderWrapper)
+{
+	if (empty($_SESSION['MK-mod-card-items-to-nid']))
+		$_SESSION['MK-mod-card-items-to-nid']=[];
+
+	foreach($orderWrapper->commerce_line_items as $it){
+		//dsm($it->value(),'it');
+		if (!empty($it->value()->line_item_label)){
+			if (!empty($it->value()->data['fromnid'])){
+				$nid=$it->value()->data['fromnid'];
+				foreach(entity_metadata_wrapper('node',$nid)->field_product_variations->value() as $p)
+					$_SESSION['MK-mod-card-items-to-nid'][$p->product_id]=$nid;
+			}
+			if (empty($it->value()->data['fromnid']) && !empty($_SESSION['MK-mod-card-items-to-nid'][$it->value()->line_item_label])){
+				$it->value()->data['fromnid']=$_SESSION['MK-mod-card-items-to-nid'][$it->value()->line_item_label];
+				$it->save();
+			}
+		}
+	}
+}
