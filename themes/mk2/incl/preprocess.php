@@ -146,11 +146,12 @@ function mk2_preprocess_node(&$vars)
 
 	// раскраска таблицы информация .. 
 	if ($vars['node']->type=='product_display'){
-		foreach(element_children($vars['content']['field_parameters_product']) as $i)
-			foreach(['статус'=>'green','Получение'=>'colored'] as $x=>$y)
-			if(preg_match('#'.$x.'#ius', $vars['content']['field_parameters_product'][$i]['#item']['first'])){
-				$vars['content']['field_parameters_product'][$i]['#item']['second']='<span class="'.$y.'">'.$vars['content']['field_parameters_product'][$i]['#item']['second'].'</span>';
-			}
+		if (!empty($vars['content']['field_parameters_product']))
+			foreach(element_children($vars['content']['field_parameters_product']) as $i)
+				foreach(['статус'=>'green','Получение'=>'colored'] as $x=>$y)
+				if(preg_match('#'.$x.'#ius', $vars['content']['field_parameters_product'][$i]['#item']['first'])){
+					$vars['content']['field_parameters_product'][$i]['#item']['second']='<span class="'.$y.'">'.$vars['content']['field_parameters_product'][$i]['#item']['second'].'</span>';
+				}
 		
 		// определить акционные товары ... 
 		if (current_path()!='discounts'){
@@ -174,7 +175,6 @@ function mk2_preprocess_node(&$vars)
 
 	
 	
-		
 	if ($vars['node']->type=='product_display' && $vars['view_mode']=='full' ){
 		
 		// подсчёт звёзд по коментариям .. 
