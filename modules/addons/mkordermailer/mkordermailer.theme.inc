@@ -14,8 +14,7 @@ function mkordermailer_mail_to_customer_prefunc(&$vars)
 		
 		foreach($o->commerce_line_items as $it){
 			$pod=entity_metadata_wrapper('commerce_product',$it->line_item_label->value());
-			
-			$node=entity_metadata_wrapper('node',$it->value()->data['fronnid']);
+			$node=entity_metadata_wrapper('node',$it->value()->data['fromnid']);
 			// 
 			$price=$pod->commerce_price->value();
 			$priceT=$it->commerce_total->value();

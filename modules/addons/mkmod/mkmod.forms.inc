@@ -214,8 +214,8 @@ function formaddtocart_form_submit($form,&$form_state)
 		return ;
 	// грузим товар ..
 	$pid=commerce_product_load($pid);
-	// создаём запись в корзине ... 
-	$li=commerce_product_line_item_new($pid,$vals['qty'],0,['fronnid'=>$vals['fromnid']]);
+	// создаём запись в корзине ...
+	$li=commerce_product_line_item_new($pid,$vals['qty'],0,['fromnid'=>$vals['fromnid']]);
 	drupal_alter('commerce_product_calculate_sell_price_line_item', $li);
 	rules_invoke_event('commerce_product_calculate_sell_price', $li);
 

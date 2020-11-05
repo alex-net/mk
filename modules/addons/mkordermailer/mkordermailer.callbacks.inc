@@ -17,7 +17,7 @@ function mail_test_commerce_cb($oid)
 
 		dsm($pod->getPropertyInfo());
 		
-		$node=entity_metadata_wrapper('node',$it->value()->data['fronnid']);
+		$node=entity_metadata_wrapper('node',$it->value()->data['fromnid']);
 		dsm($node->getPropertyInfo());
 
 
