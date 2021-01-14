@@ -2193,16 +2193,16 @@ body {
                     background-size: contain;
                     margin-right: 0.3em;
                     background-position: 50% 50%; }
-                  .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail > div.qty-wrapp2 {
-                    padding: 0;
-                    font-size: 1.5em;
-                    margin-bottom: 1em; }
-                    .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail > div.qty-wrapp2::before {
-                      display: none; }
                   .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail > div.tovar-back::before {
                     background-image: url(../imgs/tovar-back.png); }
                   .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail > div.tovar-change::before {
                     background-image: url(../imgs/tovar-change.png); }
+                .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail div.qty-wrapp2 {
+                  padding: 0;
+                  font-size: 1.5em;
+                  margin-bottom: 1em; }
+                  .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.left-tail div.qty-wrapp2::before {
+                    display: none; }
               .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail {
                 padding: 0 0 0 0.5em; }
                 .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > div, .node-product-display.node-full .product-blocks .form-and-buttons form.mk-form-add-to-cart > div .buttons-block > div.right-tail > span {

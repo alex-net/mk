@@ -167,11 +167,11 @@
 								&.left-tail {padding-right: 0.5em;
 									> div {border:1px solid #888787;margin-bottom: 0.5em;text-transform: uppercase; color:#888787;display: flex;justify-content: center;align-items:center;padding:0.9em 0.3em;cursor: pointer;
 										&::before {content:'';display: block;height: 2em;width: 2em;background-repeat:no-repeat;background-size: contain;margin-right: 0.3em;background-position: 50% 50%;}
-										&.qty-wrapp2{padding:0;font-size: 1.5em;margin-bottom: 1em;
-											&::before {display: none;}
-										}
 										&.tovar-back::before {background-image: url(../imgs/tovar-back.png);}
 										&.tovar-change::before {background-image: url(../imgs/tovar-change.png);}
+									}
+									div.qty-wrapp2{padding:0;font-size: 1.5em;margin-bottom: 1em;
+										&::before {display: none;}
 									}
 								}
 								&.right-tail {padding: 0 0 0 0.5em;

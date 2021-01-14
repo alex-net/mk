@@ -5,7 +5,7 @@
 		<a href='<?=$node_url?>' class='title'><?=$title;?></a>
 		<?=render($content['field_product_variations']);?>
 		<div class="more-block">
-			<div class="morebtn">Подробнее</div>
+			<div class="morebtn"><noindex>Подробнее</noindex></div>
 			
 		</div>
 		

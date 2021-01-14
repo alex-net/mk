@@ -6,7 +6,7 @@
 				<?php if (!empty($p['from']) && !empty($p['to'])):?>
 					<span class="range-count"><?=$p['from'];?> — <?=$p['to'];?> <?php if (!$i):?><?=$p['unit'];?><?php endif;?></span>
 				<?php else:?>
-					<span class="range-count"><?=!empty($p['from'])?'от '.$p['from']:''?> <?=!empty($p['to'])?'до '.$p['to']:''?> <?php if (!$i):?><?=$p['unit'];?><?php endif;?></span>
+					<span class="range-count"><?=!empty($p['from'])?'<noindex>от</noindex> '.$p['from']:''?> <?=!empty($p['to'])?'<noindex>до</noindex> '.$p['to']:''?> <?php if (!$i):?><?=$p['unit'];?><?php endif;?></span>
 				<?php endif;?>
 				<span class="price-tail">
 					<?php if (!empty($p['field_old_price'])):?>
