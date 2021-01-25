@@ -270,6 +270,7 @@
 				&:nth-child(2n) {background: none;}
 				td {padding: 0.2em;vertical-align: middle;
 					 &.price, &.views-field-quantity {text-align: right;}
+					 .wrap {display: flex;}
 					 
 				}
 				

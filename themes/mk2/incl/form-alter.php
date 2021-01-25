@@ -114,6 +114,8 @@ function mk2_form_commerce_checkout_form_checkout_alter(&$form,$form_state)
 	];
 	$form['#attached']['library'][]=['mklibs','inputmask'];
 	$form['customer_profile_billing']['field_user_phone'][LANGUAGE_NONE][0]['value']['#attributes']['data-inputmask']="'mask':'+7(999)999-99-99'";
+	$form['customer_profile_billing']['field_comments_to_order'][LANGUAGE_NONE][0]['value']['#default_value']='';
+
 	//dsm($form);
 
 }

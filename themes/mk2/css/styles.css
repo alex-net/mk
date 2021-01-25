@@ -3452,6 +3452,8 @@ body {
         vertical-align: middle; }
         .page-checkout .block-system form fieldset table tbody tr td.price, .page-checkout .block-system form fieldset table tbody tr td.views-field-quantity {
           text-align: right; }
+        .page-checkout .block-system form fieldset table tbody tr td .wrap {
+          display: flex; }
   .page-checkout .block-system form fieldset .commerce-order-handler-area-order-total table tr {
     background: white; }
   .page-checkout .block-system form fieldset.customer_profile_billing .form-text {
