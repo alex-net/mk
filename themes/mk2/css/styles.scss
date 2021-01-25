@@ -492,8 +492,8 @@ ul.tabs.primary {white-space: normal;}
 					@media screen and (max-width: 550px) {display: none;}
 				}
 			}
-			.searchform {
-				form.search-form {margin:0;
+			.searchform {margin:0 auto; flex-basis: 65%;
+				form.search-form {margin:0;line-height: 3.57em;
 					.form-wrapper {position:relative;
 						.close-btn {display: none;}
 						input.form-text {font-size: 1em;border:1px solid #4e4e4e; background: none;padding:0.2em 1.5em 0.2em 0.2em;box-sizing: border-box;width: 100%;}

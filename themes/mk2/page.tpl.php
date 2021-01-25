@@ -57,7 +57,7 @@
 	<div class="page-scroller"><span class="fas fa-chevron-up"></span> </div>
 	<div class="menu-line">
 		<div class="wrap">
-			<div class="item-catalog" title="Каталог товаров"><a href="/">каталог товаров</a></div>
+			<!--<div class="item-catalog" title="Каталог товаров"><a href="/">каталог товаров</a></div>-->
 			<div class="searchform"><?=render($sffooter);?></div>
 			<div class="catalog-menu-popup"></div>
 		</div>
