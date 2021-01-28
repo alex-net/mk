@@ -2559,7 +2559,8 @@ body {
               background: none;
               padding: 0.2em 1.5em 0.2em 0.2em;
               box-sizing: border-box;
-              width: 100%; }
+              width: 100%;
+              color: white; }
             .footer .menu-line .wrap .searchform form.search-form .form-wrapper .form-submit {
               border: none;
               background: url(../imgs/search-ico.png) 50% 50% no-repeat;
