@@ -22,7 +22,7 @@
 <div class="site-hmenu">
 	<div class="wrap">
 		<?=render($menuSiteHead);?>
-		<div class="mobile-block catalog-of-produucts-button" title='Каталог товаров'></div>
+		<div class="mobile-block catalog-of-produucts-button" title='Каталог'></div>
 		<div class="searchform"><?=render($sfhead);?></div>
 		<div class="mobile-block mobile-menu-open"><i class="fas fa-ellipsis-v"></i></div>
 		<div class="catalog-menu-popup"></div>

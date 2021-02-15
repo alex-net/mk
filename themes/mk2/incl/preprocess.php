@@ -25,11 +25,11 @@ function mk2_preprocess_page(&$vars)
 	$vars['menuSiteHead']=menu_tree('menu-main');
 	array_unshift($vars['menuSiteHead'],[
 		'#theme'=>'menu_link__menu_main',
-		'#title'=>'каталог товаров',
+		'#title'=>'каталог',
 		'#href'=>'',
 		'#attributes'=>[
 			'class'=>['item-catalog'],
-			'title'=>'Каталог товаров',
+			'title'=>'Каталог',
 		],
 		'#below'=>[],
 		'#localized_options'=>[],
