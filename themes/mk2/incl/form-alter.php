@@ -12,7 +12,7 @@ function mk2_form_alter(&$form,&$form_state,$form_id)
 	if (preg_match('#mkmodformaddtocart_.*?_form#', $form_id)){
 		// оборачиваем кнопку .. 
 		$form['actions']['submit']=array_merge($form['actions']['submit'],[
-			'#prefix'=>'<span class="btn-submit">купить',// <i class="fas fa-shopping-cart"></i>
+			'#prefix'=>'<span class="btn-submit">в корзину',// <i class="fas fa-shopping-cart"></i>
 			'#suffix'=>'</span>',
 		]);
 		// оборачиваем input количества .. для стрелок ..
