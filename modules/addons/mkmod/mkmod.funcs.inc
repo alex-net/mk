@@ -230,7 +230,7 @@ function getOneLevelOfCatalog(int $ptid=0)
 		if ($childstids){
 			$t=db_select('taxonomy_term_data','t');
 			$t->condition('t.tid',$childstids);
-			$t->fields('t',['tid','name']);
+			$t->fields('t',['tid','name','weight']);
 			$t->orderBy('t.weight','asc');
 			$t=$t->execute();
 			$childstids=$t->fetchAllAssoc('tid',PDO::FETCH_ASSOC);
@@ -249,7 +249,9 @@ function getOneLevelOfCatalog(int $ptid=0)
 				$ch[]=[
 					'name'=>$childstids[$x]['name'],
 					'url'=>url('taxonomy/term/'.$x),
+					'weight'=>intval($childstids[$x]['weight']),
 				];
+			//dsm($ch,'$ch');
 			$res[$t]->childs=count($ch);
 			$res[$t]->childslist=$ch;
 

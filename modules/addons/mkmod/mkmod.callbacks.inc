@@ -21,6 +21,7 @@ function catalog_list_cb($ptid=0)
 			'href'=>url('taxonomy/term/'.$v->tid),
 			'childs'=>$v->childs,
 			'childs-list'=>$v->childslist,
+			'weight'=>$v->weight,
 		];
 	}
 

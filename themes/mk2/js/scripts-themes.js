@@ -53,7 +53,7 @@
 	{
 		//console.log(data,'data is ');
 		var list=$();
-		//console.log(data);
+
 		for(var i in data){
 			var a=$('<a>');
 			a.addClass('mover');
@@ -75,6 +75,13 @@
 			if (data[i].childs){
 				wrap.addClass('has-child');
 				var sublevel=$('<div class="sublevel-2"/>');
+				data[i]['childs-list'].sort((a,b)=>{
+					if (a.weight<b.weight)
+						return -1;
+					if (a.weight>b.weight)
+						return 1;
+					return 0;
+				});
 				for(var k in data[i]['childs-list']){
 					var link=$('<a>');
 					link.attr('href',data[i]['childs-list'][k].url);
