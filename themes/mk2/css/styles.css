@@ -1376,7 +1376,8 @@ body {
         background-position: 50% 50%;
         background-repeat: no-repeat;
         text-decoration: none;
-        background-color: white; }
+        background-color: white;
+        cursor: pointer; }
         .catalog-list .item + .subitems .s-item .menu-wrap {
           display: block; }
         .catalog-list .item + .subitems .s-item .name {
@@ -1386,9 +1387,11 @@ body {
           background: #3f3d3d;
           font-size: .9em;
           margin-top: -0.3em;
-          box-sizing: border-box; }
+          box-sizing: border-box;
+          text-decoration: none; }
         .catalog-list .item + .subitems .s-item .subel {
-          display: none; }
+          display: none;
+          text-decoration: none; }
         @media screen and (min-width: 1001px) {
           .catalog-list .item + .subitems .s-item:hover .menu-wrap {
             position: relative;

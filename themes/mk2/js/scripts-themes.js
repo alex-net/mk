@@ -7,24 +7,28 @@
 	{
 		var container=$();
 		for(var k in items){
-			var el=$('<a>');
-			el.attr('href',items[k].href);
+			var el=$('<div>');
 			el.addClass('s-item');
-			el.append('<span class="name">'+items[k].name+'</span>');
-			if (items[k].childs){
-				el.find('span.name').wrap('<span class="menu-wrap"/>');
-				for(var i in items[k]['childs-list']){
-					var subel=$('<span class="subel" />');
-					subel.data('link',items[k]['childs-list'][i].url);
-					subel.append(items[k]['childs-list'][i].name);
-					subel.on('click',function(e){
-						e.preventDefault();
-						location.href=$(this).data('link');
-						//console.log();
-						
-						//return false;
+			// 
+			var hel=$('<a>');
+			hel.addClass('name');
+			hel.attr('href',items[k].href);
+			hel.text(items[k].name);
+			el.append(hel);
+			el.on('click',(e)=>{
+				var href=$(e.target).find('a.name');
+				if (href.length)
+					location.href=href[0].href;
+			});
 
-					});
+			//el.append('<span class="name">'+items[k].name+'</span>');
+			if (items[k].childs){
+				el.find('a.name').wrap('<span class="menu-wrap"/>');
+				for(var i in items[k]['childs-list']){
+					var subel=$('<a>');
+					subel.addClass('subel');
+					subel.attr('href',items[k]['childs-list'][i].url);
+					subel.text(items[k]['childs-list'][i].name);
 					el.find('span.menu-wrap').append(subel);
 				}
 			}
