@@ -2035,6 +2035,8 @@ body {
     .node-product-display.node-inpopup .content-wrap .field-name-field-pic-product img {
       width: 5em;
       height: auto; }
+  .node-product-display.node-inpopup .content-wrap .other-fields .commerce-product-field-commerce-price {
+    display: none; }
   .node-product-display.node-inpopup .content-wrap .total-current-added {
     color: #C243C1; }
   @media screen and (max-width: 500px) {

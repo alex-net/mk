@@ -103,6 +103,7 @@
 			.field-name-field-pic-product {margin-right: 0.5em;
 				img {width: 5em; height: auto;}
 			}
+			.other-fields .commerce-product-field-commerce-price {display: none;}
 			.total-current-added {color:$scolor;}
 			@media screen and (max-width: 500px) {display: block;
 				.field-name-field-pic-product {margin: 0 0 0.5em;text-align: center;}
