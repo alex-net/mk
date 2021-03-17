@@ -295,7 +295,7 @@ function mk2_preprocess_node(&$vars)
 				$vars['content']['hits-pro-list']['#weight']=1020;
 			}
 			if (!empty($zakaz)){
-				$vars['content']['zakaz-pro-list']=carouselMarkupGen($zakaz,'zakaz-prods-list','Товары под заказ');
+				$vars['content']['zakaz-pro-list']=carouselMarkupGen($zakaz,'zakaz-prods-list','Рекомендованные товары');
 				$vars['content']['zakaz-pro-list']['#weight']=1030;
 			}
 			

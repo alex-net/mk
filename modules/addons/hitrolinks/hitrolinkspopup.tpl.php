@@ -1,6 +1,6 @@
 <?php if($list):?>
 <div class='popup-lisks'>
-	<div class='show-popup-links'>Все запросы</div>
+	<div class='show-popup-links'>Часто ищут</div>
 
 	<div class="hl-win-wrapp">
 		

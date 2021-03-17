@@ -14,7 +14,7 @@
 	<div class="plashko point-deliver">
 		<div class='point'><span>Адреса складов</span></div>
 		<div class='sklad-selector'><span>Выбрать склад</span></div>
-		<div class='deliver'>Доставка по всей России</div>
+		<div class='deliver'>Поставка по России</div>
 	</div>
 	<div class="sepor"></div>
 	<?=theme('site_cart_head');?>

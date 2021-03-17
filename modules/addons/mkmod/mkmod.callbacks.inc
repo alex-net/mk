@@ -426,7 +426,7 @@ function tovarsList_cb($term)
 		'pager'=>['#theme'=>'pager'],
 		'products-at-akca'=>getMarkupsOfAkciiProducts($term->tid),
 		'hits-pro-list'=>$hits?carouselMarkupGen($hits,'hits-prods-list','Хиты продаж'):[],
-		'zakaz-pro-list'=>$zakaz?carouselMarkupGen($zakaz,'zakaz-prods-list','Товары под заказ'):[],
+		'zakaz-pro-list'=>$zakaz?carouselMarkupGen($zakaz,'zakaz-prods-list','Рекомендованные товары'):[],
 		//'hits-pro-list'=>$hits?getMarkupsOfAkciiProducts($hits,'hits-prods-list','Хиты продаж'),
 		'undertext'=>[
 			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
