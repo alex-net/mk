@@ -38,6 +38,7 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 	if (!$co)
 		$co=1;
 	//dsm($dd,'$dd');
+	$idFields=$nid.'-'.rand();
 	$form=[
 		'#attributes'=>[
 			'class'=>['mk-form-add-to-cart','mk-form-add-cart-'.$form_state['fselector']],
@@ -56,11 +57,13 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 			'#type'=>'value',
 			'#value'=>$nid,
 		],
+		'#id'=>'addtocart-'.$idFields,
 		'actions'=>[
 			'#type'=>'actions',
 			'submit'=>[
 				'#type'=>'submit',
 				'#value'=>'Купить',
+				'#id'=>'submit-f'.$idFields,
 				'#ajax'=>[
 					'callback'=>'formaddtocart_form_jscb',
 					'progress'=>[],
@@ -78,6 +81,7 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 				'#type'=>'textfield',
 				'#default_value'=>$co,
 				'#required'=>true,
+				'#id'=>'qty-'.$idFields,
 				'#title_display'=>'invisible',
 				'#size'=>5,
 				'#title'=>'Количество',
