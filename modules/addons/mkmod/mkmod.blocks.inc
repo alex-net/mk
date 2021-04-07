@@ -155,6 +155,8 @@ function mkmod_block_view($delta=''){
 					'#attributes'=>['class'=>['all-content']],
 					//'#options'=>['class'=>['all-content']],
 				];
+				$b['content']['#prefix']='<noindex>';
+				$b['content']['#suffix']='</noindex>';
 			break;
 		// статьи .. на главной .. 	
 		case 'articles-list':
