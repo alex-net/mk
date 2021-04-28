@@ -347,7 +347,7 @@ function tovarsList_cb($term)
 	if ($h1)
 		drupal_set_title($h1[0]['value']);
 	///dsm();
-	$qp=drupal_get_query_parameters();
+	$qpOrigin=$qp=drupal_get_query_parameters();
 	// делаем сортировку по умолчанию ..
 	$sorttype=$qp['sort']??'rating';
 	unset($qp['sort']);
@@ -429,7 +429,7 @@ function tovarsList_cb($term)
 		'zakaz-pro-list'=>$zakaz?carouselMarkupGen($zakaz,'zakaz-prods-list','Рекомендованные товары'):[],
 		//'hits-pro-list'=>$hits?getMarkupsOfAkciiProducts($hits,'hits-prods-list','Хиты продаж'),
 		'undertext'=>[
-			'#access'=>empty($qp['page']),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
+			'#access'=>empty($qpOrigin),//$term->tid==75 && empty($qp['page']) || $term->tid!=75,
 			'#type'=>'container',
 			'#attributes'=>['class'=>['text-undertext']],
 			'text'=>[
