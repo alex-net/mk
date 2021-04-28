@@ -72,8 +72,8 @@ function formaddtocart_form($form,&$form_state,$dd,int $nid){
 		],
 		'qty-wrap'=>[
 			'#type'=>'container',
-			'#prefix'=>'<noindex>',
-			'#suffix'=>'</noindex>',
+			'#prefix'=>'<!--noindex-->',
+			'#suffix'=>'<!--/noindex-->',
 			'#attributes'=>[
 				'class'=>['qty-wrapp','container-inline'],
 			],

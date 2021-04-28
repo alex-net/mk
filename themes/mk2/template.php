@@ -10,7 +10,6 @@ function mk2_js_alter(&$js)
 	$js['misc/jquery.js']['data']=drupal_get_path('theme','mk2').'/node_modules/jquery/dist/jquery.min.js';
 	unset($js['misc/form.js']);
 	//'//code.jquery.com/jquery-3.4.1.min.js';
-	//kprint_r($js);
 }
 
 
@@ -35,4 +34,13 @@ function mk2_html_head_alter(&$hels)
 				'content'=>"noindex",
 			],
 		];*/
+}
+
+
+function mk2_html_tag($vars)
+{
+	// удаляем атрибут  type  из тега link и script
+	if (!empty($vars['element']['#tag']) && in_array($vars['element']['#tag'], ['style','script']) )
+		unset($vars['element']['#attributes']['type']);
+	return theme_html_tag($vars);
 }
