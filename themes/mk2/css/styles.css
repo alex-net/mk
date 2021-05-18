@@ -3274,12 +3274,22 @@ body {
   .page-news .block-system .node-teaser .node-body-wrap img, .page-articles .block-system .node-teaser .node-body-wrap img {
     display: none; }
 
-.page-node.node-type-new .block-system .node-full .field-name-field-news-pic {
-  float: left;
-  margin: 0 0.5em 0.5em 0; }
-  .page-node.node-type-new .block-system .node-full .field-name-field-news-pic img {
-    max-width: 20em;
-    height: auto; }
+.page-node.node-type-new .block-system .node-full .content {
+  display: flex;
+  width: 100%; }
+  .page-node.node-type-new .block-system .node-full .content .field-name-body {
+    flex-grow: 1; }
+  .page-node.node-type-new .block-system .node-full .content .field-name-field-news-pic {
+    float: left;
+    margin: 0 0.5em 0.5em 0;
+    flex-shrink: 0; }
+    .page-node.node-type-new .block-system .node-full .content .field-name-field-news-pic img {
+      max-width: 20em;
+      height: auto; }
+  @media screen and (max-width: 520px) {
+    .page-node.node-type-new .block-system .node-full .content {
+      flex-direction: column;
+      align-items: center; } }
 .page-node.node-type-new .block-system .node-full::after {
   content: '';
   display: block;

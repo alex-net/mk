@@ -173,9 +173,14 @@
 
 // полная страница новости 
 .page-node.node-type-new .block-system .node-full {
-	.field-name-field-news-pic {float:left;margin:0 0.5em 0.5em 0;
-		img {max-width: 20em;height: auto;}
+	.content {display: flex;width: 100%;
+		.field-name-body {flex-grow: 1;}
+		.field-name-field-news-pic {float:left;margin:0 0.5em 0.5em 0;flex-shrink: 0;
+			img {max-width: 20em;height: auto;}
+		}
+		@media screen and (max-width: 520px) {flex-direction: column;align-items: center;}
 	}
+	
 	&::after {content:'';display: block;clear: both;}
 }
 
